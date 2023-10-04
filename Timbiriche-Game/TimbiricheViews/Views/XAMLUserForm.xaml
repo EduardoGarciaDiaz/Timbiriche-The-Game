@@ -1,0 +1,60 @@
+﻿<Window x:Class="TimbiricheViews.Views.XAMLUserForm"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimbiricheViews.Views"
+        xmlns:p = "clr-namespace:TimbiricheViews.Properties"
+        mc:Ignorable="d"
+        Title="XAMLUserForm" Height="770" Width="1250">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        
+        <Grid.Background>
+            <ImageBrush ImageSource="/Resources/backgroundFormUser.png"/>
+        </Grid.Background>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.2*"/>
+                <RowDefinition Height="0.35*"/>
+                <RowDefinition Height="0.1*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height=".1*"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name = "lbCreateAccount" Content="{x:Static p:Resources.lbCreateAccount}" Foreground="White" FontSize="35"  FontWeight="Bold" Margin="16,25,0,24" Grid.RowSpan="2"/>
+            <Label x:Name = "lbWelcome" Content="{x:Static p:Resources.lbWelcome}" Grid.Row="1" Foreground="White" FontSize="8" Margin="18,31,-18,31"/>
+            <Image HorizontalAlignment="Left" Height="228" Margin="16,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="226" Source="/Resources/videogameControls.png"/>
+
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Label x:Name = "lbPersonalInformation" Content="{x:Static p:Resources.lbPersonalInformation}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="48,73,0,0" RenderTransformOrigin="0.757,0.98"/>
+            <Label x:Name = "lbName" Content="{x:Static p:Resources.lbName}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="52,99,0,0"/>
+            <TextBox x:Name = "tbxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,125,0,0"/>
+            <Label x:Name = "lbLastName" Content="{x:Static p:Resources.lbLastName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="52,141,0,0"/>
+            <TextBox x:Name = "tbxLastName" HorizontalAlignment="Left" Margin="57,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+            <Label x:Name = "lbBirthDate" Content="{x:Static p:Resources.lbBirthdate}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="52,186,0,0"/>
+            <TextBox x:Name = "tbxBirthdate" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,212,0,0"/>
+            <Label x:Name ="lbAccessData" Content="{x:Static p:Resources.lbAccessData}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="49,242,0,0"/>
+            <Label x:Name = "lbEmail" Content="{x:Static p:Resources.lbEmail}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="53,260,0,0"/>
+            <TextBox x:Name ="tbxEmail" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,286,0,0"/>
+            <Label x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="52,308,0,0"/>
+            <PasswordBox x:Name= "pwBxPassword" HorizontalAlignment="Left" Margin="58,334,0,0" VerticalAlignment="Top" Width="120"/>
+        </Grid>
+
+        <Grid Grid.Column="2">
+            <Label x:Name = "lbUserName" Content="{x:Static p:Resources.lbUsername}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="0,264,0,0"/>
+            <TextBox x:Name = "tbxUsername" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="10,290,0,0" />
+            <Label x:Name ="lbSurname" Content="{x:Static p:Resources.lbSurname}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="10,135,0,0"/>
+            <TextBox x:Name="tbxSurname" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="13,161,0,0"/>
+            <Button x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Background="#FF7F92F6" FontFamily="Arial Black" Foreground="White" BorderBrush="#00707070" FontSize="14" BorderThickness="0,1,1,1" Margin="88,388,0,0" Click="btnCreateAccount_Click"/>
+        </Grid>
+
+
+    </Grid>
+</Window>
