@@ -97,16 +97,20 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ¿Tienes un código?.
-        /// </summary>
-        public static string lbAnyCode {
-            get {
-                return ResourceManager.GetString("lbAnyCode", resourceCulture);
         ///   Busca una cadena traducida similar a Datos de acceso.
         /// </summary>
         public static string lbAccessData {
             get {
                 return ResourceManager.GetString("lbAccessData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¿Tienes un código?.
+        /// </summary>
+        public static string lbAnyCode {
+            get {
+                return ResourceManager.GetString("lbAnyCode", resourceCulture);
             }
         }
         
@@ -140,12 +144,18 @@ namespace TimbiricheViews.Properties {
         /// <summary>
         ///   Busca una cadena traducida similar a Olvidé mi contraseña.
         /// </summary>
-        public static string lbForottenPassword {
-            get {
-                return ResourceManager.GetString("lbForottenPassword", resourceCulture);
         public static string lbForgottenPassword {
             get {
                 return ResourceManager.GetString("lbForgottenPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Olvidé mi contraseña.
+        /// </summary>
+        public static string lbForottenPassword {
+            get {
+                return ResourceManager.GetString("lbForottenPassword", resourceCulture);
             }
         }
         
@@ -204,6 +214,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ¡Bienvenido a Timbiriche!.
+        /// </summary>
+        public static string lbWelcome {
+            get {
+                return ResourceManager.GetString("lbWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ej. YF789A.
         /// </summary>
         public static string tbxExampleCode {
@@ -218,11 +237,6 @@ namespace TimbiricheViews.Properties {
         public static string tbxUserName {
             get {
                 return ResourceManager.GetString("tbxUserName", resourceCulture);
-        ///   Busca una cadena traducida similar a ¡Bienvenido a Timbiriche!.
-        /// </summary>
-        public static string lbWelcome {
-            get {
-                return ResourceManager.GetString("lbWelcome", resourceCulture);
             }
         }
     }
