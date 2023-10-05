@@ -19,13 +19,15 @@ C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\es\TimbiricheViews.resources.dll
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\en\TimbiricheViews.resources.dll
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.AssemblyReference.cache
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\MainWindow.g.cs
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLobby.g.cs
-C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\XAMLLogin.g.cs
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLogin.g.cs
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\App.g.cs
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.cache
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.lref
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\MainWindow.baml
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLobby.baml
-C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\XAMLLogin.baml
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLogin.baml
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.g.resources
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.resources
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.es.resources

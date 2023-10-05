@@ -10,11 +10,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace TimbiricheViews
+namespace TimbiricheViews.Views
 {
-    public partial class XAMLLogin : Window
+
+    public partial class XAMLLogin : Page
     {
         public XAMLLogin()
         {
@@ -30,12 +32,23 @@ namespace TimbiricheViews
             }
 
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
-            XAMLLogin newWindow = new XAMLLogin();
+            MainWindow newWindow = new MainWindow();
             if (language.Equals("en"))
             {
-                newWindow.lbLanguage.Content = "English";
+                Frame mainWindowFrame = newWindow.frameNavigation;
+                Page loginPage = mainWindowFrame.Content as Page;
+
+                if(loginPage != null)
+                {
+                    Label lbLanguage = loginPage.FindName("lbLanguage") as Label;
+                    if(lbLanguage != null)
+                    {
+                        lbLanguage.Content = "English";
+                    }
+                }
+
             }
-            this.Close();
+            Application.Current.MainWindow.Close();
             newWindow.Show();
         }
 
@@ -43,5 +56,11 @@ namespace TimbiricheViews
         {
             changeLanguage();
         }
+
+        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLLobby());
+        }
+
     }
 }

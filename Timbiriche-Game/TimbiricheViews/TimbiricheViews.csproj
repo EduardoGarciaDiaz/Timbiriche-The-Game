@@ -55,9 +55,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="XAMLLogin.xaml.cs">
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\XAMLLobby.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -79,7 +86,7 @@
     <Compile Include="Views\XAMLLobby.xaml.cs">
       <DependentUpon>XAMLLobby.xaml</DependentUpon>
     </Compile>
-    <Page Include="XAMLLogin.xaml">
+    <Page Include="Views\XAMLLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -129,6 +136,21 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\loginCodeBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\friends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
