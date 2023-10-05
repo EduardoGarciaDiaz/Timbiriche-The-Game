@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TimbiricheViews.Servidor;
+//using TimbiricheViews.Servidor;
 
 namespace TimbiricheViews.Views
 {
@@ -29,7 +29,7 @@ namespace TimbiricheViews.Views
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            DateTime birthdate;
+            /*DateTime birthdate;
             DateTime.TryParse(tbxBirthdate.Text, out birthdate);
             Account newAccount = new Account()
             {
@@ -49,7 +49,7 @@ namespace TimbiricheViews.Views
             };
 
             Servidor.UserManagerClient cliente = new Servidor.UserManagerClient();
-            _ = cliente.AddUser(newAccount, newPlayer);
+            _ = cliente.AddUser(newAccount, newPlayer);*/
         }
 
     }

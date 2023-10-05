@@ -361,3 +361,11 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignorar archivos y directorios relacionados con Conflicting files 
+Timbiriche-Game/TimbiricheViews/TimbiricheViews.csproj 
+Timbiriche-Game/TimbiricheViews/bin/Debug 
+Timbiriche-Game/TimbiricheViews/obj/Debug 
+Timbiriche-Service/TimbiricheDataAccess/obj/Debug 
+Timbiriche-Service/TimbiricheHost/obj/Debug 
+Timbiriche-Service/TimbiricheService/obj/Debug 

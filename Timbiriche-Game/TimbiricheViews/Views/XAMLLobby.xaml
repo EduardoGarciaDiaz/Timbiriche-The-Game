@@ -8,21 +8,35 @@
       d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
       Title="XAMLLobby">
 
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="25" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Page.Resources>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="170*"/>
+            <ColumnDefinition Width="1031*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="1.2*"/>
         </Grid.RowDefinitions>
 
-        <Image Source="../Resources/lobyBackground.png" Stretch="Fill" Grid.Row="0"/>
-        <Image Source="../resources/lobyFloor.png" Stretch="Fill" Grid.Row="1" />
+        <Image Source="../Resources/lobyBackground.png" Stretch="Fill" Grid.Row="0" Grid.ColumnSpan="2"/>
+        <Image Source="../resources/lobyFloor.png" Stretch="Fill" Grid.Row="1" Grid.ColumnSpan="2" />
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="0.8*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
@@ -32,7 +46,7 @@
             <Grid Grid.Column="0" Grid.Row="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="0.1*" />
-                    <ColumnDefinition Width="0.3*" />
+                    <ColumnDefinition Width="0.4*" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
@@ -42,6 +56,238 @@
                 </Grid.RowDefinitions>
 
                 <Image Source="../Resources/friends.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+
+            </Grid>
+
+            <Grid Grid.Column="3" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.4*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Image Source="../Resources/profile.png" Stretch="Fill" Grid.Column="1" Grid.Row="1"/>
+
+            </Grid>
+
+            <Grid Grid.Column="1" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.1*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.9*" />
+                    <RowDefinition Height="1.3*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="1" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+                        BorderBrush="Transparent" FontSize="20">Sala</Button>
+            </Grid>
+
+            <Grid Grid.Column="2" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.1*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.9*" />
+                    <RowDefinition Height="1.3*" />
+                    <RowDefinition Height="3*" />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Row="1" Grid.Column="1" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+            BorderBrush="Transparent" FontSize="20">Tienda</Button>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.8*" />
+                <ColumnDefinition Width="1.3*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.6*" />
+                        <ColumnDefinition Width="1.3*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="3*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.6*" />
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="1" Grid.Row="1" Source="../Resources/coins.png" Stretch="Fill" />
+
+                    <Grid Grid.Column="2" Grid.Row="1">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.6*" />
+                            <ColumnDefinition Width="1.5*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0" FontFamily="Inter" Foreground="White" FontSize="24"
+                               HorizontalAlignment="Right" VerticalAlignment="Center">x</Label>
+                        <Label Grid.Column="1" FontFamily="Inter" Foreground="White" FontSize="24"
+                               HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold">50</Label>
+                    </Grid>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Column="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.005*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1.7*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.13*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*" />
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.2*" />
+                    </Grid.RowDefinitions>
+
+                    <Button Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36">Unirse con código</Button>
+                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold">Crear partida</Button>
+
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="1.5*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="0.3*" />
+                    <RowDefinition Height="0.6*" />
+                </Grid.RowDefinitions>
+
+                <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Fill="#920808" RadiusX="25" RadiusY="25" />
+                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
+                       FontSize="20" >Gokuvegueta777</Label>
+
+                <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.1*" />
+                        <RowDefinition Height="0.8*" />
+                        <RowDefinition Height="0.4*" />
+                    </Grid.RowDefinitions>
+
+                    <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="4" Source="../Resources/shadow.png" Stretch="Fill" />
+                    
+
+                    <Grid Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="0" Grid.RowSpan="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="0.1*" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="0.1*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="0.1*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="0.3*" />
+                        </Grid.RowDefinitions>
+
+                        <Rectangle Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Fill="#E46161" RadiusX="25" RadiusY="25" />
+                        <Label Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
+                            FontSize="72" >L</Label>
+
+                    </Grid>
+
+                </Grid>
+
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.ColumnSpan="2">
+
+
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.RowSpan="2" Grid.Column="0" Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.025*" />
+                <ColumnDefinition Width="0.35*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.032*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="0.04*" />
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.Column="1" Grid.Row="1" Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25"/>
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="0.2*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="0.2*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.25*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Button Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="1" Background="#063343" Foreground="White" 
+                        FontFamily="Titan One" BorderBrush="Transparent">flecha</Button>
+                <Button Grid.Column="1" Grid.Row="2" Background="#063343" Foreground="White" 
+                        FontFamily="Titan One" BorderBrush="Transparent">Amigos</Button>
+                <Button Grid.Column="2" Grid.Row="2" Background="#063343" Foreground="White" 
+                        FontFamily="Titan One" BorderBrush="Transparent">Solicitudes</Button>
+                <Line Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="3" Fill="#00FFD1"/>
+
+                <Label Grid.Column="1" Grid.ColumnSpan="2" Grid.Row="5" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Bottom" >ENVIAR SOLICITUD</Label>
 
             </Grid>
 
