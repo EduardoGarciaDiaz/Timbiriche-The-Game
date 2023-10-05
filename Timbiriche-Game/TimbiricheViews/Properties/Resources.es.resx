@@ -118,74 +118,30 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="btnCreateAccount" xml:space="preserve">
-    <value>Create account</value>
+    <value>Crear cuenta</value>
   </data>
   <data name="btnJoin" xml:space="preserve">
-    <value>Join</value>
+    <value>Unirse</value>
   </data>
   <data name="btnLogin" xml:space="preserve">
-    <value>Log in</value>
+    <value>Iniciar Sesión</value>
   </data>
   <data name="lbAnyCode" xml:space="preserve">
-    <value>Do you have any code?</value>
+    <value>¿Tienes un código?</value>
   </data>
   <data name="lbForottenPassword" xml:space="preserve">
-    <value>I forgot my password</value>
+    <value>Olvidé mi contraseña</value>
   </data>
   <data name="lbPassword" xml:space="preserve">
-    <value>Password</value>
+    <value>Contraseña</value>
   </data>
   <data name="lbUsername" xml:space="preserve">
-    <value>Username</value>
+    <value>Usuario</value>
   </data>
   <data name="tbxExampleCode" xml:space="preserve">
-    <value>e.g. YF89A</value>
+    <value>Ej. YF789A</value>
   </data>
   <data name="tbxUserName" xml:space="preserve">
-    <value>Player1</value>
-  <data name="btnChangeLanguage" xml:space="preserve">
-    <value>Change language</value>
-  </data>
-  <data name="btnCreateAccount" xml:space="preserve">
-    <value>Create account</value>
-  </data>
-  <data name="btnLogin" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="lbAccessData" xml:space="preserve">
-    <value>Access data</value>
-  </data>
-  <data name="lbBirthdate" xml:space="preserve">
-    <value>Birthdate</value>
-  </data>
-  <data name="lbCreateAccount" xml:space="preserve">
-    <value>CreateAccount</value>
-  </data>
-  <data name="lbEmail" xml:space="preserve">
-    <value>Email</value>
-  </data>
-  <data name="lbForgottenPassword" xml:space="preserve">
-    <value>I forgot my password</value>
-  </data>
-  <data name="lbLastName" xml:space="preserve">
-    <value>Last name</value>
-  </data>
-  <data name="lbName" xml:space="preserve">
-    <value>Name</value>
-  </data>
-  <data name="lbPassword" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="lbPersonalInformation" xml:space="preserve">
-    <value>Personal Information</value>
-  </data>
-  <data name="lbSurname" xml:space="preserve">
-    <value>Surname</value>
-  </data>
-  <data name="lbUsername" xml:space="preserve">
-    <value>Username</value>
-  </data>
-  <data name="lbWelcome" xml:space="preserve">
-    <value>¡Welcome to Timbiriche!</value>
+    <value>Jugador1</value>
   </data>
 </root>

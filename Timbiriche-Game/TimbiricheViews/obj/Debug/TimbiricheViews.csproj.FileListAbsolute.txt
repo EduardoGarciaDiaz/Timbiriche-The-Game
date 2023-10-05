@@ -13,26 +13,28 @@ C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoF
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\TimbiricheTheGame\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.CoreCompileInputs.cache
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\TimbiricheTheGame\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.exe
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\TimbiricheTheGame\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.pdb
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.exe.config
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.exe
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.pdb
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\bin\Debug\en\TimbiricheViews.resources.dll
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\bin\Debug\es-MX\TimbiricheViews.resources.dll
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.AssemblyReference.cache
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLMainWindow.g.cs
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLUserForm.g.cs
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\App.g.cs
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.cache
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.lref
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLMainWindow.baml
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLUserForm.baml
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.g.resources
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.resources
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.en.resources
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.es-MX.resources
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.GenerateResource.cache
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.CoreCompileInputs.cache
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\en\TimbiricheViews.resources.dll
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\es-MX\TimbiricheViews.resources.dll
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.exe
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.pdb
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.exe.config
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.exe
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\TimbiricheViews.pdb
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\es\TimbiricheViews.resources.dll
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\bin\Debug\en\TimbiricheViews.resources.dll
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.AssemblyReference.cache
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\MainWindow.g.cs
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLobby.g.cs
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLogin.g.cs
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\App.g.cs
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.cache
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews_MarkupCompile.lref
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\MainWindow.baml
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLobby.baml
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLLogin.baml
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.g.resources
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.resources
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.es.resources
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.Properties.Resources.en.resources
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.GenerateResource.cache
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.CoreCompileInputs.cache
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\es\TimbiricheViews.resources.dll
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\en\TimbiricheViews.resources.dll
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.exe
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.pdb

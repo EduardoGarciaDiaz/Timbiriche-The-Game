@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\
 TimbiricheViews
 none
 false
 DEBUG;TRACE
-C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
-2-419637418
+C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\App.xaml
+3-2138627938
 
-8964918299
+9154081823
 13-38814620
-Views\XAMLMainWindow.xaml;Views\XAMLUserForm.xaml;
+MainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;
 
 False
 

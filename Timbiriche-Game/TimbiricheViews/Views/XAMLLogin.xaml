@@ -1,0 +1,198 @@
+﻿<Page x:Class="TimbiricheViews.Views.XAMLLogin"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:p="clr-namespace:TimbiricheViews.Properties"
+      xmlns:local="clr-namespace:TimbiricheViews.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
+      Title="XAMLLogin">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type Rectangle}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="1.6*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image Source="../Resources/loginBackground.png" Stretch="Fill" Grid.Column="0" Grid.ColumnSpan="3"/>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.4*"/>
+                <RowDefinition Height="3.0*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Image Source="../Resources/loginBox.png" HorizontalAlignment="Center" VerticalAlignment="Top"  Stretch="Fill" Grid.Row="1"/>
+            <Image Source="../Resources/loginCodeBox.png" HorizontalAlignment="Center" VerticalAlignment="Top" Grid.Row="2" Margin="0,8,0,0"/>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="1.3*" />
+                    <RowDefinition Height="1.3*" />
+                    <RowDefinition Height="1.4*" />
+                </Grid.RowDefinitions>
+                <Label FontFamily="Titan One" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="72" Foreground="White" 
+             Grid.Row="0">Timbiriche</Label>
+                <Grid Grid.Row="1" Grid.RowSpan="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.18*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.16*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.2*" />
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="1.2*" />
+                        <RowDefinition Height="1.5*" />
+                        <RowDefinition Height="1*" />
+                    </Grid.RowDefinitions>
+                    <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
+                 Grid.Column="1" Grid.Row="0" Content="{x:Static p:Resources.lbUsername}"></Label>
+                    <TextBox Text="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+                      Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
+                    <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
+                 Grid.Column="1" Grid.Row="2" Content="{x:Static p:Resources.lbPassword}"></Label>
+                    <TextBox Text="********" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+                 Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Center"/>
+                    <Label Grid.Column="1" Grid.Row="4" FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
+                    Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForottenPassword}"></Label>
+                </Grid>
+
+                <Grid Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.18*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.16*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition Height="1*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.3*" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="1" Grid.Row="1" Background="#7F92F6" Foreground="White" BorderThickness="0"
+                     FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="btnLogin_Click"></Button>
+                    <Button Grid.Column="1" Grid.Row="2" Background="Transparent" Foreground="#1CDBD4" BorderThickness="0"
+                     FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}"></Button>
+                </Grid>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.6*" />
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.15*"/>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Column="0" Grid.Row="1" FontFamily="Inter" Foreground="White" HorizontalAlignment="Right" 
+            VerticalAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbAnyCode}"></Label>
+
+                <Grid Grid.Row="1" Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.1*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.3*" />
+                    </Grid.RowDefinitions>
+                    <TextBox Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+                     Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" VerticalContentAlignment="Center"/>
+                </Grid>
+
+                <Grid Grid.Row="1" Grid.Column="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="0.1*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="0.2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.3*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="0.3*" />
+                    </Grid.RowDefinitions>
+                    <Button Grid.Column="1" Grid.Row="1" Background="#7F92F6" Foreground="White" BorderThickness="0"
+             FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}"></Button>
+                </Grid>
+
+
+
+            </Grid>
+
+        </Grid>
+
+
+
+        <Grid Grid.Column="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.5*" />
+                <ColumnDefinition Width="1*" />
+                <ColumnDefinition Width="0.3*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="9*"/>
+                <RowDefinition Height="2*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Rectangle Grid.Column="1" Grid.Row="1" Fill="#359EFF" RadiusX="10" RadiusY="10" />
+
+            <Grid Grid.Column="1" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0.5*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" Cursor="Hand" />
+                    <RowDefinition Height="1.5*" />
+                </Grid.RowDefinitions>
+                <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Source="../Resources/mexicoFlag.png" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"/>
+                <Label Name="lbLanguage" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18">Español</Label>
+            </Grid>
+
+            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="onClickChangeLanguage" />
+
+        </Grid>
+    </Grid>
+
+</Page>

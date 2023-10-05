@@ -117,6 +117,32 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="btnCreateAccount" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="btnJoin" xml:space="preserve">
+    <value>Unirse</value>
+  </data>
+  <data name="btnLogin" xml:space="preserve">
+    <value>Iniciar Sesión</value>
+  </data>
+  <data name="lbAnyCode" xml:space="preserve">
+    <value>¿Tienes un código?</value>
+  </data>
+  <data name="lbForottenPassword" xml:space="preserve">
+    <value>Olvidé mi contraseña</value>
+  </data>
+  <data name="lbPassword" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="lbUsername" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="tbxExampleCode" xml:space="preserve">
+    <value>Ej. YF789A</value>
+  </data>
+  <data name="tbxUserName" xml:space="preserve">
+    <value>Jugador1</value>
   <data name="btnChangeLanguage" xml:space="preserve">
     <value>Cambiar idioma</value>
   </data>

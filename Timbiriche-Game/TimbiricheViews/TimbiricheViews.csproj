@@ -55,32 +55,38 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\XAMLUserForm.xaml.cs">
-      <DependentUpon>XAMLUserForm.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\XAMLMainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Compile Include="Views\XAMLLogin.xaml.cs">
+      <DependentUpon>XAMLLogin.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLLobby.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.es.Designer.cs">
+      <DependentUpon>Resources.es.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Properties\Resources.en.Designer.cs">
       <DependentUpon>Resources.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resources.es-MX.Designer.cs">
-      <DependentUpon>Resources.es-MX.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Views\XAMLLobby.xaml.cs">
+      <DependentUpon>XAMLLobby.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLMainWindow.xaml.cs">
-      <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\XAMLUserForm.xaml">
+    <Page Include="Views\XAMLLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -99,13 +105,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Properties\Resources.es.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.es.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.en.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Properties\Resources.es-MX.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.es-MX.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
@@ -123,12 +129,31 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Resources\backgroundFormUser.png" />
-    <Resource Include="Resources\backgroundGame.png" />
-    <Resource Include="Resources\loginBox.png" />
-    <Resource Include="Resources\loginCodeBox.png" />
     <Resource Include="Resources\mexicoFlag.png" />
-    <Resource Include="Resources\videogameControls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginCodeBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\friends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\profile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
