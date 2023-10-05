@@ -143,5 +143,49 @@
   </data>
   <data name="tbxUserName" xml:space="preserve">
     <value>Jugador1</value>
+  <data name="btnChangeLanguage" xml:space="preserve">
+    <value>Cambiar idioma</value>
+  </data>
+  <data name="btnCreateAccount" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="btnLogin" xml:space="preserve">
+    <value>Iniciar Sesión</value>
+  </data>
+  <data name="lbAccessData" xml:space="preserve">
+    <value>Datos de acceso</value>
+  </data>
+  <data name="lbBirthdate" xml:space="preserve">
+    <value>Fecha de Nacimiento</value>
+  </data>
+  <data name="lbCreateAccount" xml:space="preserve">
+    <value>Crear cuenta</value>
+  </data>
+  <data name="lbEmail" xml:space="preserve">
+    <value>Correo</value>
+  </data>
+  <data name="lbForgottenPassword" xml:space="preserve">
+    <value>Olvidé mi contraseña</value>
+  </data>
+  <data name="lbLastName" xml:space="preserve">
+    <value>Primer Apellido</value>
+  </data>
+  <data name="lbName" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="lbPassword" xml:space="preserve">
+    <value>Contraseña</value>
+  </data>
+  <data name="lbPersonalInformation" xml:space="preserve">
+    <value>Datos personales</value>
+  </data>
+  <data name="lbSurname" xml:space="preserve">
+    <value>Segundo Apellido</value>
+  </data>
+  <data name="lbUsername" xml:space="preserve">
+    <value>Usuario</value>
+  </data>
+  <data name="lbWelcome" xml:space="preserve">
+    <value>¡Bienvenido a Timbiriche!</value>
   </data>
 </root>

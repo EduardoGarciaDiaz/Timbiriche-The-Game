@@ -61,6 +61,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cambiar idioma.
+        /// </summary>
+        public static string btnChangeLanguage {
+            get {
+                return ResourceManager.GetString("btnChangeLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Crear cuenta.
         /// </summary>
         public static string btnCreateAccount {
@@ -93,6 +102,38 @@ namespace TimbiricheViews.Properties {
         public static string lbAnyCode {
             get {
                 return ResourceManager.GetString("lbAnyCode", resourceCulture);
+        ///   Busca una cadena traducida similar a Datos de acceso.
+        /// </summary>
+        public static string lbAccessData {
+            get {
+                return ResourceManager.GetString("lbAccessData", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Fecha de Nacimiento.
+        /// </summary>
+        public static string lbBirthdate {
+            get {
+                return ResourceManager.GetString("lbBirthdate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Crear cuenta.
+        /// </summary>
+        public static string lbCreateAccount {
+            get {
+                return ResourceManager.GetString("lbCreateAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Correo.
+        /// </summary>
+        public static string lbEmail {
+            get {
+                return ResourceManager.GetString("lbEmail", resourceCulture);
             }
         }
         
@@ -102,6 +143,27 @@ namespace TimbiricheViews.Properties {
         public static string lbForottenPassword {
             get {
                 return ResourceManager.GetString("lbForottenPassword", resourceCulture);
+        public static string lbForgottenPassword {
+            get {
+                return ResourceManager.GetString("lbForgottenPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Primer Apellido.
+        /// </summary>
+        public static string lbLastName {
+            get {
+                return ResourceManager.GetString("lbLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Nombre.
+        /// </summary>
+        public static string lbName {
+            get {
+                return ResourceManager.GetString("lbName", resourceCulture);
             }
         }
         
@@ -111,6 +173,24 @@ namespace TimbiricheViews.Properties {
         public static string lbPassword {
             get {
                 return ResourceManager.GetString("lbPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Datos personales.
+        /// </summary>
+        public static string lbPersonalInformation {
+            get {
+                return ResourceManager.GetString("lbPersonalInformation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Segundo Apellido.
+        /// </summary>
+        public static string lbSurname {
+            get {
+                return ResourceManager.GetString("lbSurname", resourceCulture);
             }
         }
         
@@ -138,6 +218,11 @@ namespace TimbiricheViews.Properties {
         public static string tbxUserName {
             get {
                 return ResourceManager.GetString("tbxUserName", resourceCulture);
+        ///   Busca una cadena traducida similar a ¡Bienvenido a Timbiriche!.
+        /// </summary>
+        public static string lbWelcome {
+            get {
+                return ResourceManager.GetString("lbWelcome", resourceCulture);
             }
         }
     }
