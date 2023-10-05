@@ -83,7 +83,7 @@
                     <TextBox Text="********" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
                  Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Center"/>
                     <Label Grid.Column="1" Grid.Row="4" FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
-                    Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForottenPassword}"></Label>
+                    Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}"></Label>
                 </Grid>
 
                 <Grid Grid.Row="3">
