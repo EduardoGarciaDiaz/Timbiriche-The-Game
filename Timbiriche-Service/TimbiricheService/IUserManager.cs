@@ -13,10 +13,10 @@ namespace TimbiricheService
     public interface IUserManager
     {
         [OperationContract]
-        int addUser(Account account, Player player);
+        int AddUser(Account account, Player player);
 
         [OperationContract]
-        bool validateCredentials(String username, String password);
+        bool ValidateLoginCredentials(String username, String password);
         [OperationContract]
         bool ValidateUniqueIdentifierUser(String identifier);
     }

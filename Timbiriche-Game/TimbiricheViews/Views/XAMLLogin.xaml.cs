@@ -23,7 +23,7 @@ namespace TimbiricheViews.Views
             InitializeComponent();
         }
 
-        private void changeLanguage()
+        private void ChangeLanguage()
         {
             String language = "es";
             if (lbLanguage.Content.Equals("Español"))
@@ -52,16 +52,16 @@ namespace TimbiricheViews.Views
             newWindow.Show();
         }
 
-        private void onClickChangeLanguage(object sender, MouseButtonEventArgs e)
+        private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
         {
-            changeLanguage();
+            ChangeLanguage();
         }
 
-        private void btnLogin_Click(object sender, RoutedEventArgs e)
+        private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
             Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
             //TODo: Excepcion
-            bool isUserValid = userManagerClient.validateCredentials(tbxUsername.Text, tbxPassword.Text);
+            bool isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, tbxPassword.Text);
             if (isUserValid)
             {
                 NavigationService.Navigate(new XAMLLobby());
@@ -78,7 +78,7 @@ namespace TimbiricheViews.Views
 
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLUserForm());
 

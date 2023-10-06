@@ -267,17 +267,17 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/addUser", ReplyAction="http://tempuri.org/IUserManager/addUserResponse")]
-        int addUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
+        int AddUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/addUser", ReplyAction="http://tempuri.org/IUserManager/addUserResponse")]
-        System.Threading.Tasks.Task<int> addUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
+        System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/validateCredentials", ReplyAction="http://tempuri.org/IUserManager/validateCredentialsResponse")]
-        bool validateCredentials(string username, string password);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
+        bool ValidateLoginCredentials(string username, string password);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/validateCredentials", ReplyAction="http://tempuri.org/IUserManager/validateCredentialsResponse")]
-        System.Threading.Tasks.Task<bool> validateCredentialsAsync(string username, string password);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
+        System.Threading.Tasks.Task<bool> ValidateLoginCredentialsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
         bool ValidateUniqueIdentifierUser(string identifier);
@@ -313,20 +313,20 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public int addUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
-            return base.Channel.addUser(account, player);
+        public int AddUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
+            return base.Channel.AddUser(account, player);
         }
         
-        public System.Threading.Tasks.Task<int> addUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
-            return base.Channel.addUserAsync(account, player);
+        public System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
+            return base.Channel.AddUserAsync(account, player);
         }
         
-        public bool validateCredentials(string username, string password) {
-            return base.Channel.validateCredentials(username, password);
+        public bool ValidateLoginCredentials(string username, string password) {
+            return base.Channel.ValidateLoginCredentials(username, password);
         }
         
-        public System.Threading.Tasks.Task<bool> validateCredentialsAsync(string username, string password) {
-            return base.Channel.validateCredentialsAsync(username, password);
+        public System.Threading.Tasks.Task<bool> ValidateLoginCredentialsAsync(string username, string password) {
+            return base.Channel.ValidateLoginCredentialsAsync(username, password);
         }
         
         public bool ValidateUniqueIdentifierUser(string identifier) {

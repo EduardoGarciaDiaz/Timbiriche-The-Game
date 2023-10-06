@@ -54,6 +54,12 @@
             <Setter Property="Background" Value="#FFE57E7E"/>
         </Style>
 
+        <Style TargetType="{x:Type PasswordBox}" x:Key="NormalPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
     </Page.Resources>
 
     <Viewbox Stretch="Fill">

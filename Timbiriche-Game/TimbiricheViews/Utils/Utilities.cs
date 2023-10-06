@@ -14,7 +14,7 @@ namespace TimbiricheViews.Utils
 
         private const string VALID_PERSONAL_INFORMATION = "^[A-Za-zÀ-ÖØ-öø-ÿ' ]{2,50}$";
         private const string VALID_EMAIL = "^(?=.{5,100}$)[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        private const string VALID_PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[$@$!%*?&+\\-*_.,])[A-Za-z\\d$@$!%*?&+\\-*_.,]{12,32}$";
+        private const string VALID_PASSWORD = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[\\W_])[A-Za-z\\d\\W_]{12,32}$";
 
         public static bool IsEmptyField(TextBox textBox)
         {
@@ -24,7 +24,6 @@ namespace TimbiricheViews.Utils
                 isEmpty = true;
             }
                 return isEmpty;
-            
         }
 
         public static bool IsValidPersonalInformation(TextBox textBox)

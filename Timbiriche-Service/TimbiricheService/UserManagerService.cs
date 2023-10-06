@@ -9,7 +9,7 @@ namespace TimbiricheService
 {
     public class UserManagerService : IUserManager
     {
-        public int addUser(Account account, Player player)
+        public int AddUser(Account account, Player player)
         {
             Accounts newAccount = new Accounts();
             newAccount.name = account.name;
@@ -24,23 +24,23 @@ namespace TimbiricheService
             newPlayer.email = player.email;
             newPlayer.password = player.password;
 
-            UserManagement DAO = new UserManagement();
-            return DAO.addUser(newAccount, newPlayer);
+            UserManagement dataAccess = new UserManagement();
+            return dataAccess.AddUser(newAccount, newPlayer);
         }
 
-        public bool validateCredentials(String username, String password)
+        public bool ValidateLoginCredentials(String username, String password)
         {
             //TODO: Pasword hash
-            UserManagement DAO = new UserManagement();
-            return DAO.validateCredentials(username, password);
+            UserManagement dataAccess = new UserManagement();
+            return dataAccess.ValidateLoginCredentials(username, password);
         }
 
 
         //TODO: Validate unique email and username
         public bool ValidateUniqueIdentifierUser(String identifier)
         {
-            UserManagement DAO = new UserManagement();
-            return DAO.ExistUserIdenitifier(identifier);
+            UserManagement dataAccess = new UserManagement();
+            return dataAccess.ExistUserIdenitifier(identifier);
         }
     }
 

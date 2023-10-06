@@ -36,17 +36,17 @@
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IUserManager_addUser_InputMessage">
-    <wsdl:part name="parameters" element="tns:addUser" />
+  <wsdl:message name="IUserManager_AddUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUser" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_addUser_OutputMessage">
-    <wsdl:part name="parameters" element="tns:addUserResponse" />
+  <wsdl:message name="IUserManager_AddUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_validateCredentials_InputMessage">
-    <wsdl:part name="parameters" element="tns:validateCredentials" />
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateLoginCredentials" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_validateCredentials_OutputMessage">
-    <wsdl:part name="parameters" element="tns:validateCredentialsResponse" />
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateLoginCredentialsResponse" />
   </wsdl:message>
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUser" />
@@ -55,13 +55,13 @@
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUserResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
-    <wsdl:operation name="addUser">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/addUser" message="tns:IUserManager_addUser_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/addUserResponse" message="tns:IUserManager_addUser_OutputMessage" />
+    <wsdl:operation name="AddUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/AddUserResponse" message="tns:IUserManager_AddUser_OutputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="validateCredentials">
-      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/validateCredentials" message="tns:IUserManager_validateCredentials_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/validateCredentialsResponse" message="tns:IUserManager_validateCredentials_OutputMessage" />
+    <wsdl:operation name="ValidateLoginCredentials">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentials" message="tns:IUserManager_ValidateLoginCredentials_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse" message="tns:IUserManager_ValidateLoginCredentials_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" message="tns:IUserManager_ValidateUniqueIdentifierUser_InputMessage" />
@@ -71,8 +71,8 @@
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IUserManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="addUser">
-      <soap12:operation soapAction="http://tempuri.org/IUserManager/addUser" style="document" />
+    <wsdl:operation name="AddUser">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/AddUser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -80,8 +80,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="validateCredentials">
-      <soap12:operation soapAction="http://tempuri.org/IUserManager/validateCredentials" style="document" />
+    <wsdl:operation name="ValidateLoginCredentials">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateLoginCredentials" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -68,7 +68,7 @@ namespace TimbiricheViews.Views
                 if (!ValidateUniqueIdentifier(newPlayer))
                 {
                     Server.UserManagerClient cliente = new Server.UserManagerClient();
-                    int rowsAffected = cliente.addUser(newAccount, newPlayer);
+                    int rowsAffected = cliente.AddUser(newAccount, newPlayer);
                     Console.WriteLine("rows " + rowsAffected);
                     if (rowsAffected > 0)
                     {
@@ -113,8 +113,6 @@ namespace TimbiricheViews.Views
             if (!Utilities.IsValidPersonalInformation(tbxName))
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
-                lbNameError.Content = "UPPSS ERROR";
-
                 isValid = false;
             }
             if (!Utilities.IsValidPersonalInformation(tbxLastName))
@@ -147,6 +145,7 @@ namespace TimbiricheViews.Views
             tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
+            pwBxPassword.Style = (Style)FindResource("NormalPasswordBoxStyle");
             lbNameError.Content = "";
             lbLastNameError.Content = "";
             lbBirthdateError.Content = "";

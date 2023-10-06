@@ -8,7 +8,7 @@ namespace TimbiricheDataAccess
 {
     public class UserManagement
     {
-        public int addUser(Accounts account, Players player)
+        public int AddUser(Accounts account, Players player)
         {
             using (var context = new TimbiricheDBEntities())
             {
@@ -18,7 +18,7 @@ namespace TimbiricheDataAccess
             }
         }
 
-        public bool validateCredentials(String username, String password)
+        public bool ValidateLoginCredentials(String username, String password)
         {
             using(var context = new TimbiricheDBEntities())
             {

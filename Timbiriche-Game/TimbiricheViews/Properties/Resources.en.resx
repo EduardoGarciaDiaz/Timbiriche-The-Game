@@ -207,6 +207,9 @@
   <data name="btnStartMatch" xml:space="preserve">
     <value>Start</value>
   </data>
+  <data name="imgCountryFlag" xml:space="preserve">
+    <value>../Resources/usaFlag.png</value>
+  </data>
   <data name="lbAccessData" xml:space="preserve">
     <value>Acesss Data</value>
   </data>
@@ -234,6 +237,9 @@
   <data name="lbCodeMatch" xml:space="preserve">
     <value>Code</value>
   </data>
+  <data name="lbCodeNotFound" xml:space="preserve">
+    <value>Invalid code</value>
+  </data>
   <data name="lbCoins" xml:space="preserve">
     <value>Coins</value>
   </data>
@@ -242,6 +248,12 @@
   </data>
   <data name="lbColorsInstruction" xml:space="preserve">
     <value>This color will only be for the initial lobby, during the match you must select another</value>
+  </data>
+  <data name="lbConnectionFailed" xml:space="preserve">
+    <value>Connection Failed</value>
+  </data>
+  <data name="lbConnectionFailedDetails" xml:space="preserve">
+    <value>Could not connect to the server. Try again later</value>
   </data>
   <data name="lbCreateAccount" xml:space="preserve">
     <value>Create account</value>
@@ -258,11 +270,20 @@
   <data name="lbEmail" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="lbEmailError" xml:space="preserve">
+    <value>Enter a valid email</value>
+  </data>
   <data name="lbEmptyCode" xml:space="preserve">
     <value>You need to enter a code to join a match</value>
   </data>
   <data name="lbEnterEmail" xml:space="preserve">
     <value>Enter your friend's email</value>
+  </data>
+  <data name="lbExistentEmail" xml:space="preserve">
+    <value>This email is already in use. Try another one</value>
+  </data>
+  <data name="lbExistentUsername" xml:space="preserve">
+    <value>This username is already in use. Try another one</value>
   </data>
   <data name="lbForgottenPassword" xml:space="preserve">
     <value>I forgot my password</value>
@@ -275,6 +296,9 @@
   </data>
   <data name="lbFriends" xml:space="preserve">
     <value>Friends</value>
+  </data>
+  <data name="lbIncorrectCredentials" xml:space="preserve">
+    <value>Incorrect username or password</value>
   </data>
   <data name="lbInsufficientCoins" xml:space="preserve">
     <value>Insufficient Coins</value>
@@ -290,6 +314,9 @@
   </data>
   <data name="lbKeepPlayingMessage" xml:space="preserve">
     <value>Keep playing to get more!</value>
+  </data>
+  <data name="lbLanguage" xml:space="preserve">
+    <value>English</value>
   </data>
   <data name="lbLastName" xml:space="preserve">
     <value>Last Name</value>
@@ -308,6 +335,24 @@
   </data>
   <data name="lbPassword" xml:space="preserve">
     <value>Password</value>
+  </data>
+  <data name="lbPasswordCapitalLetterInstruction" xml:space="preserve">
+    <value>At least 1 uppercase letter</value>
+  </data>
+  <data name="lbPasswordInstructions" xml:space="preserve">
+    <value>The password must have:</value>
+  </data>
+  <data name="lbPasswordLengthInstruction" xml:space="preserve">
+    <value>At least 12 characters</value>
+  </data>
+  <data name="lbPasswordLowerLetterInstruction" xml:space="preserve">
+    <value>At least 1 lowercase letter</value>
+  </data>
+  <data name="lbPasswordNumberInstruction" xml:space="preserve">
+    <value>At least 1 number</value>
+  </data>
+  <data name="lbPasswordSymbolInstruction" xml:space="preserve">
+    <value>At least 1 symbol</value>
   </data>
   <data name="lbPersonalInformation" xml:space="preserve">
     <value>Personal information</value>

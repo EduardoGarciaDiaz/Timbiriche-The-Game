@@ -331,6 +331,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a ../Resources/mexicoFlag.png.
+        /// </summary>
+        public static string imgCountryFlag {
+            get {
+                return ResourceManager.GetString("imgCountryFlag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Datos de acceso.
         /// </summary>
         public static string lbAccessData {
@@ -412,6 +421,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Código no válido.
+        /// </summary>
+        public static string lbCodeNotFound {
+            get {
+                return ResourceManager.GetString("lbCodeNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Monedas.
         /// </summary>
         public static string lbCoins {
@@ -435,6 +453,24 @@ namespace TimbiricheViews.Properties {
         public static string lbColorsInstruction {
             get {
                 return ResourceManager.GetString("lbColorsInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Conexión Fallida.
+        /// </summary>
+        public static string lbConnectionFailed {
+            get {
+                return ResourceManager.GetString("lbConnectionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se pudo conectar con el servidor. Inténtelo más tarde..
+        /// </summary>
+        public static string lbConnectionFailedDetails {
+            get {
+                return ResourceManager.GetString("lbConnectionFailedDetails", resourceCulture);
             }
         }
         
@@ -484,6 +520,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ingresa un correo válido.
+        /// </summary>
+        public static string lbEmailError {
+            get {
+                return ResourceManager.GetString("lbEmailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Necesitas ingresar un código para unirte a una partida.
         /// </summary>
         public static string lbEmptyCode {
@@ -498,6 +543,24 @@ namespace TimbiricheViews.Properties {
         public static string lbEnterEmail {
             get {
                 return ResourceManager.GetString("lbEnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Este correo ya está en uso. Intenta con otro.
+        /// </summary>
+        public static string lbExistentEmail {
+            get {
+                return ResourceManager.GetString("lbExistentEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Este nombre de usuario ya está en uso. Intenta con otro.
+        /// </summary>
+        public static string lbExistentUsername {
+            get {
+                return ResourceManager.GetString("lbExistentUsername", resourceCulture);
             }
         }
         
@@ -534,6 +597,15 @@ namespace TimbiricheViews.Properties {
         public static string lbFriends {
             get {
                 return ResourceManager.GetString("lbFriends", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Usuario o contraseña incorrectos.
+        /// </summary>
+        public static string lbIncorrectCredentials {
+            get {
+                return ResourceManager.GetString("lbIncorrectCredentials", resourceCulture);
             }
         }
         
@@ -579,6 +651,15 @@ namespace TimbiricheViews.Properties {
         public static string lbKeepPlayingMessage {
             get {
                 return ResourceManager.GetString("lbKeepPlayingMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Español.
+        /// </summary>
+        public static string lbLanguage {
+            get {
+                return ResourceManager.GetString("lbLanguage", resourceCulture);
             }
         }
         
@@ -633,6 +714,60 @@ namespace TimbiricheViews.Properties {
         public static string lbPassword {
             get {
                 return ResourceManager.GetString("lbPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Al menos una letra en mayúscula.
+        /// </summary>
+        public static string lbPasswordCapitalLetterInstruction {
+            get {
+                return ResourceManager.GetString("lbPasswordCapitalLetterInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña debe contar con:.
+        /// </summary>
+        public static string lbPasswordInstructions {
+            get {
+                return ResourceManager.GetString("lbPasswordInstructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Al menos 12 caracteres.
+        /// </summary>
+        public static string lbPasswordLengthInstruction {
+            get {
+                return ResourceManager.GetString("lbPasswordLengthInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Al menos una letra en minúscula.
+        /// </summary>
+        public static string lbPasswordLowerLetterInstruction {
+            get {
+                return ResourceManager.GetString("lbPasswordLowerLetterInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Al menos un número.
+        /// </summary>
+        public static string lbPasswordNumberInstruction {
+            get {
+                return ResourceManager.GetString("lbPasswordNumberInstruction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Al menos un símbolo.
+        /// </summary>
+        public static string lbPasswordSymbolInstruction {
+            get {
+                return ResourceManager.GetString("lbPasswordSymbolInstruction", resourceCulture);
             }
         }
         

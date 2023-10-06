@@ -99,9 +99,9 @@
                         <RowDefinition Height="0.3*" />
                     </Grid.RowDefinitions>
                     <Button Grid.Column="1" Grid.Row="1" Background="#7F92F6" Foreground="White" BorderThickness="0"
-                     FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="btnLogin_Click"></Button>
+                     FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click"></Button>
                     <Button Grid.Column="1" Grid.Row="2" Background="Transparent" Foreground="#1CDBD4" BorderThickness="0"
-                     FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="Button_Click"></Button>
+                     FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="BtnCreateAccount_Click"></Button>
                 </Grid>
 
             </Grid>
@@ -190,7 +190,7 @@
                 <Label Name="lbLanguage" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18">Español</Label>
             </Grid>
 
-            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="onClickChangeLanguage" />
+            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" />
 
         </Grid>
     </Grid>
