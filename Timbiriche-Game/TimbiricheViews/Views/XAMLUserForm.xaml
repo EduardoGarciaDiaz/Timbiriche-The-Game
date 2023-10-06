@@ -6,55 +6,97 @@
         xmlns:local="clr-namespace:TimbiricheViews.Views"
         xmlns:p = "clr-namespace:TimbiricheViews.Properties"
         mc:Ignorable="d"
-        Title="XAMLUserForm" Height="770" Width="1250">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
-        </Grid.ColumnDefinitions>
-        
-        <Grid.Background>
-            <ImageBrush ImageSource="/Resources/backgroundFormUser.png"/>
-        </Grid.Background>
-        <Grid Grid.Column="0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="0.2*"/>
-                <RowDefinition Height="0.35*"/>
-                <RowDefinition Height="0.1*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height=".1*"/>
-            </Grid.RowDefinitions>
+        Title="XAMLUserForm" Height="770" Width="1200">
+    <Window.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="6" />
+                </Style>
+            </Style.Resources>
+        </Style>
 
-            <Label x:Name = "lbCreateAccount" Content="{x:Static p:Resources.lbCreateAccount}" Foreground="White" FontSize="35"  FontWeight="Bold" Margin="16,25,0,24" Grid.RowSpan="2"/>
-            <Label x:Name = "lbWelcome" Content="{x:Static p:Resources.lbWelcome}" Grid.Row="1" Foreground="White" FontSize="8" Margin="18,31,-18,31"/>
-            <Image HorizontalAlignment="Left" Height="228" Margin="16,0,0,0" Grid.Row="3" VerticalAlignment="Center" Width="226" Source="/Resources/videogameControls.png"/>
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="NormalTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+    </Window.Resources>
+
+    <Viewbox Stretch="Fill">
+
+        <Grid Height="770" Width="1200">
+
+            <Grid.Background>
+                <ImageBrush ImageSource="/Resources/backgroundFormUser.png"/>
+            </Grid.Background>
+
+            <Label   x:Name = "lbCreateAccount" Content="{x:Static p:Resources.lbCreateAccount}" Foreground="White" FontSize="62"  FontWeight="Bold"  FontFamily="Titan One" HorizontalAlignment="Left"  Width="464" Margin="22,49,0,644"/>
+            <Label   x:Name = "lbWelcome" Content="{x:Static p:Resources.lbWelcome}" Foreground="White" FontSize="16" RenderTransformOrigin="0.651,0.603" Margin="40,131,948,594" FontFamily="Inter"/>
+            <Image   Source="/Resources/videogameControls.png" Margin="40,210,732,174"/>
+
+            <Label   x:Name = "lbPersonalInformation" Content="{x:Static p:Resources.lbPersonalInformation}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.757,0.98" FontFamily="Inter" FontSize="16" Margin="491,131,0,0"/>
+            <Label   x:Name = "lbName" Content="{x:Static p:Resources.lbName}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="503,160,0,0" />
+            <TextBox   x:Name = "tbxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="508,200,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Text="Eduardo"/>
+            <Label   x:Name = "lbLastName" Content="{x:Static p:Resources.lbLastName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="508,259,0,0"  />
+            <TextBox   x:Name = "tbxLastName" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="508,299,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Text="García"/>
+            <Label   x:Name ="lbSurname" Content="{x:Static p:Resources.lbSurname}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="856,259,0,0"/>
+            <TextBox   x:Name="tbxSurname" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32"  Margin="856,299,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Text="Díaz"/>
+            <Label   x:Name = "lbBirthdate" Content="{x:Static p:Resources.lbBirthdate}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="508,351,0,0" />
+            <DatePicker   x:Name ="dpBirthdate" BorderBrush="{x:Null}" FontFamily="Inter" HorizontalAlignment="Left" Width="298" Height="32"  Margin="508,393,0,345" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
+
+            <Label x:Name ="lbAccessData" Content="{x:Static p:Resources.lbAccessData}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontFamily="Inter" FontSize="16" Margin="491,449,0,0" />
+            <Label   x:Name = "lbEmail" Content="{x:Static p:Resources.lbEmail}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="510,483,0,0" />
+            <TextBox   x:Name ="tbxEmail" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32"  Margin="508,528,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Text="eduardo@gmail.com"/>
+            <Label x:Name = "lbUsername" Content="{x:Static p:Resources.lbUsername}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="26" FontFamily="Titan One" Margin="856,488,0,0" />
+            <TextBox x:Name = "tbxUsername" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="856,528,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Text="Eduar"/>
+            <Label   x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="0,596,0,0" />
+            <PasswordBox   x:Name= "pwBxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="510,641,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Password="Tecn0_C*nstr8"/>
+
+            <Button  x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Click="BtnCreateAccount_Click" Height="59" Margin="904,669,28,0"/>
+
+            <Label x:Name="lbNameError" Content="" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="26" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label x:Name="lbLastNameError" Content="" HorizontalAlignment="Left" Margin="509,327,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="26" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label x:Name="lbBirthdateError" Content="" HorizontalAlignment="Left" Margin="510,422,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="26" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label x:Name="lbEmailError" Content="" HorizontalAlignment="Left" Margin="510,560,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="56" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label x:Name="lbUsernameError" Content="" HorizontalAlignment="Left" Margin="856,560,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="56" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label x:Name="lbPasswordError" Content="" HorizontalAlignment="Left" Margin="513,678,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="56" RenderTransformOrigin="0.426,0.32" Width="300"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="493,162,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="493,261,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="493,353,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="493,485,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="493,598,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label Content="*" HorizontalAlignment="Left" Margin="839,491,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
+            <Label x:Name="lbRequiredFieldsInstructions" Content="*Debes llenar todos los campos obligatorios para crear una cuenta" HorizontalAlignment="Left" Margin="813,733,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="366"/>
 
         </Grid>
+    </Viewbox>
 
-        <Grid Grid.Column="1">
-            <Label x:Name = "lbPersonalInformation" Content="{x:Static p:Resources.lbPersonalInformation}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="48,73,0,0" RenderTransformOrigin="0.757,0.98"/>
-            <Label x:Name = "lbName" Content="{x:Static p:Resources.lbName}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="52,99,0,0"/>
-            <TextBox x:Name = "tbxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,125,0,0"/>
-            <Label x:Name = "lbLastName" Content="{x:Static p:Resources.lbLastName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="52,141,0,0"/>
-            <TextBox x:Name = "tbxLastName" HorizontalAlignment="Left" Margin="57,163,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-            <Label x:Name = "lbBirthDate" Content="{x:Static p:Resources.lbBirthdate}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="52,186,0,0"/>
-            <TextBox x:Name = "tbxBirthdate" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,212,0,0"/>
-            <Label x:Name ="lbAccessData" Content="{x:Static p:Resources.lbAccessData}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" Margin="49,242,0,0"/>
-            <Label x:Name = "lbEmail" Content="{x:Static p:Resources.lbEmail}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="53,260,0,0"/>
-            <TextBox x:Name ="tbxEmail" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="57,286,0,0"/>
-            <Label x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="52,308,0,0"/>
-            <PasswordBox x:Name= "pwBxPassword" HorizontalAlignment="Left" Margin="58,334,0,0" VerticalAlignment="Top" Width="120"/>
-        </Grid>
-
-        <Grid Grid.Column="2">
-            <Label x:Name = "lbUserName" Content="{x:Static p:Resources.lbUsername}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" Margin="0,264,0,0"/>
-            <TextBox x:Name = "tbxUsername" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="10,290,0,0" />
-            <Label x:Name ="lbSurname" Content="{x:Static p:Resources.lbSurname}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" Margin="10,135,0,0"/>
-            <TextBox x:Name="tbxSurname" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Margin="13,161,0,0"/>
-            <Button x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" HorizontalAlignment="Left" VerticalAlignment="Top" Width="125" Background="#FF7F92F6" FontFamily="Arial Black" Foreground="White" BorderBrush="#00707070" FontSize="14" BorderThickness="0,1,1,1" Margin="88,388,0,0" Click="btnCreateAccount_Click"/>
-        </Grid>
-
-
-    </Grid>
 </Window>

@@ -12,7 +12,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-//using TimbiricheViews.Servidor;
+using TimbiricheViews.Servidor;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -23,33 +24,97 @@ namespace TimbiricheViews.Views
     {
         public XAMLUserForm(String language)
         {
-            System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
+            System.Threading.Thread.CurrentThread.CurrentUICulture =
+                new System.Globalization.CultureInfo(language);
+            InitializeComponent();
+        }
+
+
+        public XAMLUserForm()
+        {
             InitializeComponent();
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
-            /*DateTime birthdate;
-            DateTime.TryParse(tbxBirthdate.Text, out birthdate);
-            Account newAccount = new Account()
+            if (ValidateFields())
             {
-                Name = tbxName.Text,
-                LastName = tbxLastName.Text,
-                Surname = tbxSurname.Text,
-                Birthdate = birthdate
-            };
+                DateTime birthdate;
+                DateTime.TryParse(dpBirthdate.Text, out birthdate);
 
-            Player newPlayer = new Player()
+                Account newAccount = new Account()
+                {
+                    Name = tbxName.Text.Trim(),
+                    LastName = tbxLastName.Text.Trim(),
+                    Surname = tbxSurname.Text.Trim(),
+                    Birthdate = birthdate
+                };
+
+                Player newPlayer = new Player()
+                {
+                    Username = tbxUsername.Text.Trim(),
+                    Email = tbxEmail.Text.Trim(),
+                    Password = pwBxPassword.Password.Trim(),
+                    AccountFK = newAccount
+                };
+
+                Servidor.UserManagerClient cliente = new Servidor.UserManagerClient();
+                _ = cliente.AddUser(newAccount, newPlayer);
+            }
+
+
+
+        }
+
+
+        private bool ValidateFields()
+        {
+            setDefaultStyles();
+            bool isValid = true;
+
+            if (!Utilities.IsValidPersonalInformation(tbxName))
             {
-                Username = tbxUsername.Text,
-                Email = tbxEmail.Text,
-                Password = pwBxPassword.Password.ToString(),
-                AccountFK = newAccount
+                tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                lbNameError.Content = "UPPSS ERROR";
 
-            };
+                isValid = false;
+            }
+            if (!Utilities.IsValidPersonalInformation(tbxLastName))
+            {
+                tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+            if (!Utilities.IsValidEmail(tbxEmail))
+            {
+                tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+            if (!Utilities.IsValidPersonalInformation(tbxUsername))
+            {
+                tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+            if (!Utilities.IsValidPassword(pwBxPassword))
+            {
+                tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+            return isValid;
+        }
 
-            Servidor.UserManagerClient cliente = new Servidor.UserManagerClient();
-            _ = cliente.AddUser(newAccount, newPlayer);*/
+        private void setDefaultStyles()
+        {
+            tbxName.Style = (Style)FindResource("NormalTextBoxStyle");
+            tbxLastName.Style = (Style)FindResource("NormalTextBoxStyle");
+            tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
+            tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
+            tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
+            lbNameError.Content = "";
+            lbLastNameError.Content = "";
+            lbBirthdateError.Content = "";
+            lbEmailError.Content = "";
+            lbUsernameError.Content = "";
+            lbPasswordError.Content = "";
         }
 
     }
