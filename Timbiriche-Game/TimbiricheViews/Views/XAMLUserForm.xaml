@@ -1,4 +1,4 @@
-﻿<Window x:Class="TimbiricheViews.Views.XAMLUserForm"
+﻿<Page x:Class="TimbiricheViews.Views.XAMLUserForm"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -7,7 +7,7 @@
         xmlns:p = "clr-namespace:TimbiricheViews.Properties"
         mc:Ignorable="d"
         Title="XAMLUserForm" Height="770" Width="1200">
-    <Window.Resources>
+    <Page.Resources>
         <Style TargetType="{x:Type TextBox}">
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -48,7 +48,7 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
-    </Window.Resources>
+    </Page.Resources>
 
     <Viewbox Stretch="Fill">
 
@@ -80,7 +80,7 @@
             <Label   x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Center" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="0,596,0,0" />
             <PasswordBox   x:Name= "pwBxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="510,641,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Password="Tecn0_C*nstr8"/>
 
-            <Button  x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Click="BtnCreateAccount_Click" Height="59" Margin="904,669,28,0"/>
+            <Button  x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="904,669,28,0" Click="BtnCreateAccount_Click"/>
 
             <Label x:Name="lbNameError" Content="" HorizontalAlignment="Left" Margin="508,233,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="26" RenderTransformOrigin="0.426,0.32" Width="300"/>
             <Label x:Name="lbLastNameError" Content="" HorizontalAlignment="Left" Margin="509,327,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="26" RenderTransformOrigin="0.426,0.32" Width="300"/>
@@ -95,8 +95,9 @@
             <Label Content="*" HorizontalAlignment="Left" Margin="493,598,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
             <Label Content="*" HorizontalAlignment="Left" Margin="839,491,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="17"/>
             <Label x:Name="lbRequiredFieldsInstructions" Content="*Debes llenar todos los campos obligatorios para crear una cuenta" HorizontalAlignment="Left" Margin="813,733,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="366"/>
+            <Image Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png"/>
 
         </Grid>
     </Viewbox>
 
-</Window>
+</Page>

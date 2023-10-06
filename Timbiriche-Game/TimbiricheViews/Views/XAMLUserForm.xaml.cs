@@ -12,7 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using TimbiricheViews.Servidor;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
@@ -20,19 +20,26 @@ namespace TimbiricheViews.Views
     /// <summary>
     /// Lógica de interacción para XAMLUserForm.xaml
     /// </summary>
-    public partial class XAMLUserForm : Window
+    public partial class XAMLUserForm : Page
     {
         public XAMLUserForm(String language)
         {
             System.Threading.Thread.CurrentThread.CurrentUICulture =
                 new System.Globalization.CultureInfo(language);
             InitializeComponent();
+            ImgBack.MouseLeftButtonDown += ImgBack_Click;
+
         }
-
-
         public XAMLUserForm()
         {
             InitializeComponent();
+            ImgBack.MouseLeftButtonDown += ImgBack_Click;
+
+        }
+
+        private void ImgBack_Click(object sender, MouseButtonEventArgs e)
+        {
+            NavigationService.GoBack();
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
@@ -44,32 +51,38 @@ namespace TimbiricheViews.Views
 
                 Account newAccount = new Account()
                 {
-                    Name = tbxName.Text.Trim(),
-                    LastName = tbxLastName.Text.Trim(),
-                    Surname = tbxSurname.Text.Trim(),
-                    Birthdate = birthdate
+                    name = tbxName.Text.Trim(),
+                    lastName = tbxLastName.Text.Trim(),
+                    surname = tbxSurname.Text.Trim(),
+                    birthdate = birthdate
                 };
 
                 Player newPlayer = new Player()
                 {
-                    Username = tbxUsername.Text.Trim(),
-                    Email = tbxEmail.Text.Trim(),
-                    Password = pwBxPassword.Password.Trim(),
-                    AccountFK = newAccount
+                    username = tbxUsername.Text.Trim(),
+                    email = tbxEmail.Text.Trim(),
+                    password = pwBxPassword.Password.Trim(),
+                    accountFK = newAccount
                 };
 
-                Servidor.UserManagerClient cliente = new Servidor.UserManagerClient();
-                _ = cliente.AddUser(newAccount, newPlayer);
+                Server.UserManagerClient cliente = new Server.UserManagerClient();
+                int rowsAffected = cliente.addUser(newAccount, newPlayer);
+                Console.WriteLine("rows " + rowsAffected);
+                if (rowsAffected > 0)
+                {
+                    NavigationService.GoBack();
+                } 
+                else
+                {
+                    Console.WriteLine("Error al crear una cuenta de usuario");
+                }
             }
-
-
 
         }
 
-
         private bool ValidateFields()
         {
-            setDefaultStyles();
+            SetDefaultStyles();
             bool isValid = true;
 
             if (!Utilities.IsValidPersonalInformation(tbxName))
@@ -102,7 +115,7 @@ namespace TimbiricheViews.Views
             return isValid;
         }
 
-        private void setDefaultStyles()
+        private void SetDefaultStyles()
         {
             tbxName.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxLastName.Style = (Style)FindResource("NormalTextBoxStyle");
@@ -118,5 +131,6 @@ namespace TimbiricheViews.Views
         }
 
     }
-
 }
+
+

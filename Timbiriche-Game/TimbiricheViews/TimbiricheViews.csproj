@@ -62,13 +62,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="Connected Services\Servidor\Reference.cs" />
-    <Compile Include="Connected Services\Servidor\Reference1.cs" />
-    <Compile Include="Connected Services\Servidor\Reference2.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
     </Compile>
@@ -109,6 +102,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Compile Include="Views\XAMLUserForm.xaml.cs">
+      <DependentUpon>XAMLUserForm.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -151,16 +147,6 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Server\UserManagerService.wsdl" />
-    <None Include="Connected Services\Servidor\item.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Servidor\item1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Servidor\item2.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\Servidor\UserManagerService.wsdl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -216,13 +202,6 @@
     <None Include="Connected Services\Server\configuration.svcinfo" />
     <None Include="Connected Services\Server\configuration91.svcinfo" />
     <None Include="Connected Services\Server\item.disco" />
-    <Content Include="Connected Services\Servidor\configuration.svcinfo" />
-    <Content Include="Connected Services\Servidor\configuration91.svcinfo" />
-    <Content Include="Connected Services\Servidor\item.disco" />
-    <Content Include="Connected Services\Servidor\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference2.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
@@ -232,22 +211,7 @@
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Servidor\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Servidor\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Servidor\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Servidor\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Servidor\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
+    <Resource Include="Resources\back.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
