@@ -57,7 +57,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Connected Services\Servidor\Reference.cs">
+    <Compile Include="Connected Services\Server\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\Servidor\Reference.cs" />
+    <Compile Include="Connected Services\Servidor\Reference1.cs" />
+    <Compile Include="Connected Services\Servidor\Reference2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -73,9 +80,6 @@
     <Compile Include="Utils\Utilities.cs" />
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\XAMLUserForm.xaml.cs">
-      <DependentUpon>XAMLUserForm.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
@@ -137,6 +141,16 @@
     </EmbeddedResource>
     <Resource Include="Fonts\Inter-Regular.ttf" />
     <Resource Include="Fonts\TitanOne.ttf" />
+    <None Include="Connected Services\Server\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\UserManagerService.wsdl" />
     <None Include="Connected Services\Servidor\item.xsd">
       <SubType>Designer</SubType>
     </None>
@@ -195,6 +209,26 @@
     <Resource Include="Resources\backgroundFormUser.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\Server\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Connected Services\Server\configuration.svcinfo" />
+    <None Include="Connected Services\Server\configuration91.svcinfo" />
+    <None Include="Connected Services\Server\item.disco" />
+    <Content Include="Connected Services\Servidor\configuration.svcinfo" />
+    <Content Include="Connected Services\Servidor\configuration91.svcinfo" />
+    <Content Include="Connected Services\Servidor\item.disco" />
+    <Content Include="Connected Services\Servidor\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference2.cs</LastGenOutput>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Server\" />
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>

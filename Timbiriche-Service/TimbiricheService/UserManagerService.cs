@@ -9,25 +9,35 @@ namespace TimbiricheService
 {
     public class UserManagerService : IUserManager
     {
-        public int AddUser(Account account, Player player)
+        public int addUser(Account account, Player player)
         {
 
             Accounts newAccount = new Accounts();
-            newAccount.name = account.Name;
-            newAccount.lastName = account.LastName;
-            newAccount.surname = account.Surname;
-            newAccount.birthdate = account.Birthdate;
+            newAccount.name = account.name;
+            newAccount.lastName = account.lastName;
+            newAccount.surname = account.surname;
+            newAccount.birthdate = account.birthdate;
+
+            //TODO: Password hash
 
             Players newPlayer = new Players();
-            newPlayer.username = player.Username;
-            newPlayer.email = player.Email;
-            newPlayer.password = player.Password;
+            newPlayer.username = player.username;
+            newPlayer.email = player.email;
+            newPlayer.password = player.password;
 
-            TimbiricheDataAccess.UserManagement DAO = new TimbiricheDataAccess.UserManagement();
-            DAO.AddUser(newAccount, newPlayer);
+            UserManagement DAO = new UserManagement();
+            DAO.addUser(newAccount, newPlayer);
 
             return 0;
         }
+
+        public bool validateCredentials(String username, String password)
+        {
+            //TODO: Pasword hash
+            UserManagement DAO = new UserManagement();
+            return DAO.validateCredentials(username, password);
+        }
+
     }
 
 }

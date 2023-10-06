@@ -59,8 +59,23 @@ namespace TimbiricheViews.Views
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new XAMLLobby());
+            Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+            //TODo: Excepcion
+            bool isUserValid = userManagerClient.validateCredentials(tbxUsername.Text, tbxPassword.Text);
+            if (isUserValid)
+            {
+                NavigationService.Navigate(new XAMLLobby());
+            }
         }
 
+        private void MouseEnter_tbxUsername(object sender, MouseEventArgs e)
+        {
+            
+        }
+
+        private void MouseLeave_tbxUsername(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }

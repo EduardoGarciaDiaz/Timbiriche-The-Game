@@ -76,11 +76,11 @@
                     </Grid.RowDefinitions>
                     <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
                  Grid.Column="1" Grid.Row="0" Content="{x:Static p:Resources.lbUsername}"></Label>
-                    <TextBox Text="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-                      Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center"/>
+                    <TextBox x:Name="tbxUsername" Text="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+                      Grid.Column="1" Grid.Row="1" VerticalContentAlignment="Center" MouseEnter="MouseEnter_tbxUsername" MouseLeave="MouseLeave_tbxUsername"/>
                     <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
                  Grid.Column="1" Grid.Row="2" Content="{x:Static p:Resources.lbPassword}"></Label>
-                    <TextBox Text="********" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+                    <TextBox x:Name="tbxPassword" Text="********" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
                  Grid.Column="1" Grid.Row="3" VerticalContentAlignment="Center"/>
                     <Label Grid.Column="1" Grid.Row="4" FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
                     Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}"></Label>
