@@ -56,7 +56,6 @@
     <Compile Include="Accounts.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Class1.cs" />
     <Compile Include="Players.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
