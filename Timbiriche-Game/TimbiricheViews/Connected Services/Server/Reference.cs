@@ -278,6 +278,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/validateCredentials", ReplyAction="http://tempuri.org/IUserManager/validateCredentialsResponse")]
         System.Threading.Tasks.Task<bool> validateCredentialsAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
+        bool ValidateUniqueIdentifierUser(string identifier);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
+        System.Threading.Tasks.Task<bool> ValidateUniqueIdentifierUserAsync(string identifier);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -321,6 +327,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> validateCredentialsAsync(string username, string password) {
             return base.Channel.validateCredentialsAsync(username, password);
+        }
+        
+        public bool ValidateUniqueIdentifierUser(string identifier) {
+            return base.Channel.ValidateUniqueIdentifierUser(identifier);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidateUniqueIdentifierUserAsync(string identifier) {
+            return base.Channel.ValidateUniqueIdentifierUserAsync(identifier);
         }
     }
 }

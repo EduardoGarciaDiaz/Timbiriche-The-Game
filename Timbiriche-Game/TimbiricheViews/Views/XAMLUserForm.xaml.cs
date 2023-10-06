@@ -65,19 +65,44 @@ namespace TimbiricheViews.Views
                     accountFK = newAccount
                 };
 
-                Server.UserManagerClient cliente = new Server.UserManagerClient();
-                int rowsAffected = cliente.addUser(newAccount, newPlayer);
-                Console.WriteLine("rows " + rowsAffected);
-                if (rowsAffected > 0)
+                if (!ValidateUniqueIdentifier(newPlayer))
                 {
-                    NavigationService.GoBack();
-                } 
-                else
-                {
-                    Console.WriteLine("Error al crear una cuenta de usuario");
+                    Server.UserManagerClient cliente = new Server.UserManagerClient();
+                    int rowsAffected = cliente.addUser(newAccount, newPlayer);
+                    Console.WriteLine("rows " + rowsAffected);
+                    if (rowsAffected > 0)
+                    {
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        Console.WriteLine("Error al crear una cuenta de usuario");
+                    }
                 }
+                
             }
 
+        }
+
+        private bool ValidateUniqueIdentifier(Player newPlayer)
+        {
+            bool existUserIdentifier = false;
+            Server.UserManagerClient cliente = new Server.UserManagerClient();
+            if (cliente.ValidateUniqueIdentifierUser(newPlayer.email))
+            {
+                existUserIdentifier = true;
+                Console.WriteLine("Este EMAIL ya existe");
+                lbEmailError.Content = "Este correo ya está registrado, intenta con otro";
+            }
+            Console.WriteLine(cliente.ValidateUniqueIdentifierUser(newPlayer.username));
+            if (cliente.ValidateUniqueIdentifierUser(newPlayer.username))
+            {
+                existUserIdentifier = true;
+                Console.WriteLine("Este USERNAME ya existe");
+                lbUsernameError.Content = "Este username ya está registrado, intenta con otro";
+
+            }
+            return existUserIdentifier;
         }
 
         private bool ValidateFields()
@@ -109,7 +134,7 @@ namespace TimbiricheViews.Views
             }
             if (!Utilities.IsValidPassword(pwBxPassword))
             {
-                tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 isValid = false;
             }
             return isValid;

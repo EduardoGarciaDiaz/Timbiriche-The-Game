@@ -48,6 +48,12 @@
             <Setter Property="Height" Value="32"/>
         </Style>
 
+        <Style TargetType="{x:Type PasswordBox}" x:Key="ErrorPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+        </Style>
+
     </Page.Resources>
 
     <Viewbox Stretch="Fill">

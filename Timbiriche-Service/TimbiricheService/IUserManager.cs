@@ -17,6 +17,8 @@ namespace TimbiricheService
 
         [OperationContract]
         bool validateCredentials(String username, String password);
+        [OperationContract]
+        bool ValidateUniqueIdentifierUser(String identifier);
     }
 
     [DataContract]

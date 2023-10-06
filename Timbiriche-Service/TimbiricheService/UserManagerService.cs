@@ -11,7 +11,6 @@ namespace TimbiricheService
     {
         public int addUser(Account account, Player player)
         {
-
             Accounts newAccount = new Accounts();
             newAccount.name = account.name;
             newAccount.lastName = account.lastName;
@@ -26,9 +25,7 @@ namespace TimbiricheService
             newPlayer.password = player.password;
 
             UserManagement DAO = new UserManagement();
-            DAO.addUser(newAccount, newPlayer);
-
-            return 0;
+            return DAO.addUser(newAccount, newPlayer);
         }
 
         public bool validateCredentials(String username, String password)
@@ -38,6 +35,13 @@ namespace TimbiricheService
             return DAO.validateCredentials(username, password);
         }
 
+
+        //TODO: Validate unique email and username
+        public bool ValidateUniqueIdentifierUser(String identifier)
+        {
+            UserManagement DAO = new UserManagement();
+            return DAO.ExistUserIdenitifier(identifier);
+        }
     }
 
 }

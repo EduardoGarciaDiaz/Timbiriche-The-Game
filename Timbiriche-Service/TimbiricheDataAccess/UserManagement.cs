@@ -8,13 +8,13 @@ namespace TimbiricheDataAccess
 {
     public class UserManagement
     {
-        public void addUser(Accounts account, Players player)
+        public int addUser(Accounts account, Players player)
         {
             using (var context = new TimbiricheDBEntities())
             {
                 var newAccount = context.Accounts.Add(account);
                 var newPlayer = context.Players.Add(player);
-                context.SaveChanges();
+                return context.SaveChanges();
             }
         }
 
@@ -30,5 +30,20 @@ namespace TimbiricheDataAccess
                 return userExists;
             }
         }
+
+        public bool ExistUserIdenitifier(String identifier)
+        {
+            bool identifierExist = false;
+            using(var context = new TimbiricheDBEntities())
+            {
+                var players = (from p in context.Players
+                               where p.email == identifier || p.username == identifier
+                               select p).ToList();
+                identifierExist = players.Any();
+
+            }
+            return identifierExist;
+        }
+
     }
 }
