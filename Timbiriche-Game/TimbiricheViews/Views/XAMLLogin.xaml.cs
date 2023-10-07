@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Resources;
 
 namespace TimbiricheViews.Views
 {
@@ -23,33 +24,37 @@ namespace TimbiricheViews.Views
             InitializeComponent();
         }
 
+
         private void ChangeLanguage()
         {
-            String language = "es";
+            String language = ""; 
             if (lbLanguage.Content.Equals("Español"))
             {
                 language = "en";
             }
 
+            if(lbLanguage.Content.Equals("English"))
+            {
+                language = "es";
+            }
+            
+
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
-            MainWindow newWindow = new MainWindow();
+            XAMLLogin newLoginPage = new XAMLLogin();
+
             if (language.Equals("en"))
             {
-                Frame mainWindowFrame = newWindow.frameNavigation;
-                Page loginPage = mainWindowFrame.Content as Page;
-
-                if(loginPage != null)
-                {
-                    Label lbLanguage = loginPage.FindName("lbLanguage") as Label;
-                    if(lbLanguage != null)
-                    {
-                        lbLanguage.Content = "English";
-                    }
-                }
-
+                newLoginPage.imgUsaFlag.Visibility = Visibility.Visible;
+                newLoginPage.imgMexicoFlag.Visibility = Visibility.Hidden;
             }
-            Application.Current.MainWindow.Close();
-            newWindow.Show();
+
+            if (language.Equals("es"))
+            {
+                newLoginPage.imgMexicoFlag.Visibility = Visibility.Visible;
+                newLoginPage.imgUsaFlag.Visibility = Visibility.Hidden;
+            }
+
+            NavigationService.Navigate(newLoginPage);
         }
 
         private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)

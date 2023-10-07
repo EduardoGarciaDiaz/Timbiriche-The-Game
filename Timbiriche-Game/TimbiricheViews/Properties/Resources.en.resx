@@ -207,9 +207,6 @@
   <data name="btnStartMatch" xml:space="preserve">
     <value>Start</value>
   </data>
-  <data name="imgCountryFlag" xml:space="preserve">
-    <value>../Resources/usaFlag.png</value>
-  </data>
   <data name="lbAccessData" xml:space="preserve">
     <value>Acesss Data</value>
   </data>

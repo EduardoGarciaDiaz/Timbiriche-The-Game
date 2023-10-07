@@ -186,11 +186,12 @@
                     <RowDefinition Height="*" Cursor="Hand" />
                     <RowDefinition Height="1.5*" />
                 </Grid.RowDefinitions>
-                <Image Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Source="../Resources/mexicoFlag.png" HorizontalAlignment="Center" VerticalAlignment="Center" Cursor="Hand"/>
-                <Label Name="lbLanguage" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18">Español</Label>
+                <Image Name="imgUsaFlag" Visibility="Hidden" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Source="../Resources/usaFlag.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Image Name="imgMexicoFlag" Visibility="Visible" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="2" Source="../Resources/mexicoFlag.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label Name="lbLanguage" Grid.Column="0" Grid.ColumnSpan="3" Grid.Row="3" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbLanguage}"></Label>
             </Grid>
 
-            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" />
+            <Rectangle Grid.Column="1" Grid.Row="1" Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" Cursor="Hand" />
 
         </Grid>
     </Grid>
