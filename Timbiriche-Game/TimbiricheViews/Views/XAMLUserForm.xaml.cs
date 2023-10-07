@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -30,11 +31,11 @@ namespace TimbiricheViews.Views
             ImgBack.MouseLeftButtonDown += ImgBack_Click;
 
         }
+
         public XAMLUserForm()
         {
             InitializeComponent();
             ImgBack.MouseLeftButtonDown += ImgBack_Click;
-
         }
 
         private void ImgBack_Click(object sender, MouseButtonEventArgs e)
@@ -42,12 +43,19 @@ namespace TimbiricheViews.Views
             NavigationService.GoBack();
         }
 
+        private void dpBirthdate_Loaded(object sender, RoutedEventArgs e)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                datePicker.DisplayDateEnd = DateTime.Today.AddYears(-3);
+            }
+        }
+
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             if (ValidateFields())
             {
-                DateTime birthdate;
-                DateTime.TryParse(dpBirthdate.Text, out birthdate);
+                DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
 
                 Account newAccount = new Account()
                 {
@@ -60,28 +68,28 @@ namespace TimbiricheViews.Views
                 Player newPlayer = new Player()
                 {
                     username = tbxUsername.Text.Trim(),
-                    email = tbxEmail.Text.Trim(),
+                    email = tbxEmail.Text.Trim().ToLower(),
                     password = pwBxPassword.Password.Trim(),
                     accountFK = newAccount
                 };
-
+                
                 if (!ValidateUniqueIdentifier(newPlayer))
                 {
                     Server.UserManagerClient cliente = new Server.UserManagerClient();
                     int rowsAffected = cliente.AddUser(newAccount, newPlayer);
-                    Console.WriteLine("rows " + rowsAffected);
                     if (rowsAffected > 0)
                     {
+                        //TODO: Message successful registration
                         NavigationService.GoBack();
                     }
                     else
                     {
-                        Console.WriteLine("Error al crear una cuenta de usuario");
+                        //TODO: Internationalizate
+                        System.Windows.MessageBox.Show("No se pudo registrar el usuario, inténtalo de nuevo",
+                            "Error al registrar usuario", MessageBoxButton.OK);
                     }
                 }
-                
             }
-
         }
 
         private bool ValidateUniqueIdentifier(Player newPlayer)
@@ -91,16 +99,12 @@ namespace TimbiricheViews.Views
             if (cliente.ValidateUniqueIdentifierUser(newPlayer.email))
             {
                 existUserIdentifier = true;
-                Console.WriteLine("Este EMAIL ya existe");
-                lbEmailError.Content = "Este correo ya está registrado, intenta con otro";
+                lbExistentEmail.Visibility = Visibility.Visible;
             }
-            Console.WriteLine(cliente.ValidateUniqueIdentifierUser(newPlayer.username));
             if (cliente.ValidateUniqueIdentifierUser(newPlayer.username))
             {
                 existUserIdentifier = true;
-                Console.WriteLine("Este USERNAME ya existe");
-                lbUsernameError.Content = "Este username ya está registrado, intenta con otro";
-
+                lbExistentUsername.Visibility = Visibility.Visible;
             }
             return existUserIdentifier;
         }
@@ -108,6 +112,7 @@ namespace TimbiricheViews.Views
         private bool ValidateFields()
         {
             SetDefaultStyles();
+            ValidatePasswordProperties();
             bool isValid = true;
 
             if (!Utilities.IsValidPersonalInformation(tbxName))
@@ -123,9 +128,10 @@ namespace TimbiricheViews.Views
             if (!Utilities.IsValidEmail(tbxEmail))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                lbEmailError.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidPersonalInformation(tbxUsername))
+            if (!Utilities.IsValidUsername(tbxUsername))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
@@ -133,6 +139,11 @@ namespace TimbiricheViews.Views
             if (!Utilities.IsValidPassword(pwBxPassword))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
+                isValid = false;
+            }
+            if (!DateTime.TryParse(dpBirthdate.Text, out _))
+            {
+                dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
                 isValid = false;
             }
             return isValid;
@@ -146,15 +157,45 @@ namespace TimbiricheViews.Views
             tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
             pwBxPassword.Style = (Style)FindResource("NormalPasswordBoxStyle");
-            lbNameError.Content = "";
-            lbLastNameError.Content = "";
-            lbBirthdateError.Content = "";
-            lbEmailError.Content = "";
-            lbUsernameError.Content = "";
-            lbPasswordError.Content = "";
+            dpBirthdate.Style = (Style)FindResource("NormalDatePickerStyle");
+
+            lbExistentEmail.Visibility = Visibility.Hidden;
+            lbExistentUsername.Visibility = Visibility.Hidden;
+            lbEmailError.Visibility = Visibility.Hidden;
+
+            lbPasswordLengthInstruction.Foreground = Brushes.Red;
+            lbPasswordSymbolInstruction.Foreground = Brushes.Red;
+            lbPasswordCapitalLetterInstruction.Foreground = Brushes.Red;
+            lbPasswordLowerLetterInstruction.Foreground = Brushes.Red;
+            lbPasswordNumberInstruction.Foreground = Brushes.Red;
+        }
+
+        private void ValidatePasswordProperties()
+        {
+            if (pwBxPassword.Password.Trim().Length >= 12)
+            {
+                lbPasswordLengthInstruction.Foreground = Brushes.GreenYellow;
+            }
+            if (Utilities.IsValidSymbol(pwBxPassword))
+            {
+                lbPasswordSymbolInstruction.Foreground = Brushes.GreenYellow;
+            }
+            if (Utilities.IsValidCapitalLetter(pwBxPassword))
+            {
+                lbPasswordCapitalLetterInstruction.Foreground = Brushes.GreenYellow;
+            }
+            if (Utilities.IsValidLowerLetter(pwBxPassword))
+            {
+                lbPasswordLowerLetterInstruction.Foreground = Brushes.GreenYellow;
+            }
+            if (Utilities.IsValidNumber(pwBxPassword))
+            {
+                lbPasswordNumberInstruction.Foreground = Brushes.GreenYellow;
+            }
         }
 
     }
+
 }
 
 

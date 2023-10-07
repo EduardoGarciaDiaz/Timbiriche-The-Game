@@ -8,14 +8,24 @@ namespace TimbiricheDataAccess
 {
     public class UserManagement
     {
-        public int AddUser(Accounts account, Players player)
+        public int AddUser(Players player)
         {
-            using (var context = new TimbiricheDBEntities())
+            Accounts account = null;
+            if (player != null)
             {
-                var newAccount = context.Accounts.Add(account);
-                var newPlayer = context.Players.Add(player);
-                return context.SaveChanges();
+                account = player.Accounts;
+
             }
+            if (account != null)
+            {
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var newAccount = context.Accounts.Add(account);
+                    var newPlayer = context.Players.Add(player);
+                    return context.SaveChanges();
+                }
+            }
+            return -1;
         }
 
         public bool ValidateLoginCredentials(String username, String password)
