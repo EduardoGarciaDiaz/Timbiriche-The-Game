@@ -331,15 +331,6 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a ../Resources/mexicoFlag.png.
-        /// </summary>
-        public static string imgCountryFlag {
-            get {
-                return ResourceManager.GetString("imgCountryFlag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Datos de acceso.
         /// </summary>
         public static string lbAccessData {

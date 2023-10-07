@@ -207,9 +207,6 @@
   <data name="btnStartMatch" xml:space="preserve">
     <value>Empezar</value>
   </data>
-  <data name="imgCountryFlag" xml:space="preserve">
-    <value>../Resources/mexicoFlag.png</value>
-  </data>
   <data name="lbAccessData" xml:space="preserve">
     <value>Datos de acceso</value>
   </data>
