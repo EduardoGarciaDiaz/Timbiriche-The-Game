@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -19,12 +20,13 @@ namespace TimbiricheService
             newAccount.surname = auxiliarAccount.surname;
             newAccount.birthdate = auxiliarAccount.birthdate;
 
-            //TODO: Password hash
-
             Players newPlayer = new Players();
             newPlayer.username = player.username;
             newPlayer.email = player.email;
             newPlayer.password = player.password;
+            newPlayer.coins = player.coins;
+            newPlayer.status = player.status;
+            newPlayer.salt = player.salt;
             newPlayer.Accounts = newAccount;
 
             UserManagement dataAccess = new UserManagement();
@@ -33,7 +35,6 @@ namespace TimbiricheService
 
         public bool ValidateLoginCredentials(String username, String password)
         {
-            //TODO: Pasword hash
             UserManagement dataAccess = new UserManagement();
             return dataAccess.ValidateLoginCredentials(username, password);
         }

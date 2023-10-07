@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TimbiricheDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TimbiricheDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="idAccount" />
@@ -12,8 +12,8 @@
           <Property Name="idAccount" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="name" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="surname" Type="nvarchar" MaxLength="50" />
           <Property Name="birthdate" Type="date" Nullable="false" />
+          <Property Name="surname" Type="nvarchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -22,9 +22,11 @@
           <Property Name="idPlayer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="64" Nullable="false" />
-          <Property Name="coins" Type="int" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
+          <Property Name="coins" Type="int" Nullable="false" />
+          <Property Name="status" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="idAccount" Type="int" Nullable="false" />
+          <Property Name="salt" Type="nvarchar" MaxLength="255" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -46,8 +48,7 @@
             <End Role="Players" EntitySet="Players" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimbiricheDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -58,9 +59,9 @@
           <Property Name="idAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Players" Relationship="Self.FK_PlayersAccounts" FromRole="Accounts" ToRole="Players" />
+          <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -69,10 +70,12 @@
           <Property Name="idPlayer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="coins" Type="Int32" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="coins" Type="Int32" Nullable="false" />
           <Property Name="idAccount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="Self.FK_PlayersAccounts" FromRole="Players" ToRole="Accounts" />
+          <Property Name="status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -103,10 +106,10 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Accounts">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="birthdate" ColumnName="birthdate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -114,6 +117,8 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Players">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="email" ColumnName="email" />

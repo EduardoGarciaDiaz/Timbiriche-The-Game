@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Utils;
+using System.Data.Entity.Validation;
 
 namespace TimbiricheDataAccess
 {
@@ -10,6 +12,11 @@ namespace TimbiricheDataAccess
     {
         public int AddUser(Players player)
         {
+
+            PasswordHashManager passwordHashManager = new PasswordHashManager();
+            player.password = passwordHashManager.HashPassword(player.password);
+            player.salt = passwordHashManager.salt;
+
             Accounts account = null;
             if (player != null)
             {
@@ -22,7 +29,20 @@ namespace TimbiricheDataAccess
                 {
                     var newAccount = context.Accounts.Add(account);
                     var newPlayer = context.Players.Add(player);
-                    return context.SaveChanges();
+                    try
+                    {
+                        return context.SaveChanges();
+                    } catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Entity: { entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: { validationError.ErrorMessage}" );
+                            }
+                        }
+                    }
+
                 }
             }
             return -1;
@@ -30,14 +50,20 @@ namespace TimbiricheDataAccess
 
         public bool ValidateLoginCredentials(String username, String password)
         {
+
             using(var context = new TimbiricheDBEntities())
             {
-                var query = from player in context.Players
-                            where player.username == username && player.password == password
-                            select player;
-                bool userExists = query.Any();
+                var playerData = context.Players.Where(player => player.username == username);
 
-                return userExists;
+                if(playerData != null)
+                {
+                    PasswordHashManager passwordHashManager = new PasswordHashManager();
+                    var playerPassword = playerData.Select(player => player.password).SingleOrDefault();
+                    return passwordHashManager.VerifýPassword(password, playerPassword);
+                }
+
+                return false;
+
             }
         }
 

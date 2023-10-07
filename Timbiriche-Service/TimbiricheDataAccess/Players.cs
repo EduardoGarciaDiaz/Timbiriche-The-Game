@@ -18,8 +18,10 @@ namespace TimbiricheDataAccess
         public string username { get; set; }
         public string email { get; set; }
         public string password { get; set; }
-        public Nullable<int> coins { get; set; }
+        public int coins { get; set; }
         public int idAccount { get; set; }
+        public string status { get; set; }
+        public string salt { get; set; }
     
         public virtual Accounts Accounts { get; set; }
     }
