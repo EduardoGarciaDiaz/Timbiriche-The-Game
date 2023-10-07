@@ -53,6 +53,7 @@ namespace TimbiricheService
         private string _password;
         private int _coins;
         private string _status;
+        private string _salt;
         private Account _accountFK;
 
         [DataMember]
@@ -67,6 +68,8 @@ namespace TimbiricheService
         public int coins { get { return _coins; } set { _coins = value; } }
         [DataMember]
         public string status { get { return _status; } set { _status = value; } }
+        [DataMember]
+        public string salt { get { return _salt; } set { _salt = value; } }
         [DataMember]
         public Account accountFK { get { return _accountFK; } set { _accountFK = value; } }
 

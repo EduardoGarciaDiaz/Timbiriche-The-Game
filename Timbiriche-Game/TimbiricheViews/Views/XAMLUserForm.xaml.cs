@@ -70,13 +70,15 @@ namespace TimbiricheViews.Views
                     username = tbxUsername.Text.Trim(),
                     email = tbxEmail.Text.Trim().ToLower(),
                     password = pwBxPassword.Password.Trim(),
+                    coins = 0,
+                    status = "Not-Banned",
                     accountFK = newAccount
                 };
                 
                 if (!ValidateUniqueIdentifier(newPlayer))
                 {
                     Server.UserManagerClient cliente = new Server.UserManagerClient();
-                    int rowsAffected = cliente.AddUser(newAccount, newPlayer);
+                    int rowsAffected = cliente.AddUser(newPlayer);
                     if (rowsAffected > 0)
                     {
                         //TODO: Message successful registration

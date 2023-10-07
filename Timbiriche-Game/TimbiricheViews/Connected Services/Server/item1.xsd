@@ -4,8 +4,7 @@
   <xs:element name="AddUser">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="account" nillable="true" type="q1:Account" />
-        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="player" nillable="true" type="q2:Player" />
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="player" nillable="true" type="q1:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

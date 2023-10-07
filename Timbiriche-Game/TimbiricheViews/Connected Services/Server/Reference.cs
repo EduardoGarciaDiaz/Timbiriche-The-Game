@@ -15,6 +15,163 @@ namespace TimbiricheViews.Server {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class Player : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private TimbiricheViews.Server.Account accountFKField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int coinsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string emailField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int idPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string passwordField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string saltField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string statusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string usernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public TimbiricheViews.Server.Account accountFK {
+            get {
+                return this.accountFKField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.accountFKField, value) != true)) {
+                    this.accountFKField = value;
+                    this.RaisePropertyChanged("accountFK");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int coins {
+            get {
+                return this.coinsField;
+            }
+            set {
+                if ((this.coinsField.Equals(value) != true)) {
+                    this.coinsField = value;
+                    this.RaisePropertyChanged("coins");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.emailField, value) != true)) {
+                    this.emailField = value;
+                    this.RaisePropertyChanged("email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int idPlayer {
+            get {
+                return this.idPlayerField;
+            }
+            set {
+                if ((this.idPlayerField.Equals(value) != true)) {
+                    this.idPlayerField = value;
+                    this.RaisePropertyChanged("idPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
+                    this.passwordField = value;
+                    this.RaisePropertyChanged("password");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string salt {
+            get {
+                return this.saltField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.saltField, value) != true)) {
+                    this.saltField = value;
+                    this.RaisePropertyChanged("salt");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string status {
+            get {
+                return this.statusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.statusField, value) != true)) {
+                    this.statusField = value;
+                    this.RaisePropertyChanged("status");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
+                    this.usernameField = value;
+                    this.RaisePropertyChanged("username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="Account", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
     [System.SerializableAttribute()]
     public partial class Account : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -122,156 +279,15 @@ namespace TimbiricheViews.Server {
         }
     }
     
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="Player", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
-    [System.SerializableAttribute()]
-    public partial class Player : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
-        
-        [System.NonSerializedAttribute()]
-        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private TimbiricheViews.Server.Account accountFKField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int coinsField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string emailField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idPlayerField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string passwordField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string statusField;
-        
-        [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string usernameField;
-        
-        [global::System.ComponentModel.BrowsableAttribute(false)]
-        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
-            get {
-                return this.extensionDataField;
-            }
-            set {
-                this.extensionDataField = value;
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public TimbiricheViews.Server.Account accountFK {
-            get {
-                return this.accountFKField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.accountFKField, value) != true)) {
-                    this.accountFKField = value;
-                    this.RaisePropertyChanged("accountFK");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int coins {
-            get {
-                return this.coinsField;
-            }
-            set {
-                if ((this.coinsField.Equals(value) != true)) {
-                    this.coinsField = value;
-                    this.RaisePropertyChanged("coins");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string email {
-            get {
-                return this.emailField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.emailField, value) != true)) {
-                    this.emailField = value;
-                    this.RaisePropertyChanged("email");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idPlayer {
-            get {
-                return this.idPlayerField;
-            }
-            set {
-                if ((this.idPlayerField.Equals(value) != true)) {
-                    this.idPlayerField = value;
-                    this.RaisePropertyChanged("idPlayer");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string password {
-            get {
-                return this.passwordField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
-                    this.passwordField = value;
-                    this.RaisePropertyChanged("password");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string status {
-            get {
-                return this.statusField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.statusField, value) != true)) {
-                    this.statusField = value;
-                    this.RaisePropertyChanged("status");
-                }
-            }
-        }
-        
-        [System.Runtime.Serialization.DataMemberAttribute()]
-        public string username {
-            get {
-                return this.usernameField;
-            }
-            set {
-                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
-                    this.usernameField = value;
-                    this.RaisePropertyChanged("username");
-                }
-            }
-        }
-        
-        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
-        
-        protected void RaisePropertyChanged(string propertyName) {
-            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
-            if ((propertyChanged != null)) {
-                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
-            }
-        }
-    }
-    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
-        int AddUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
+        int AddUser(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
-        System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player);
+        System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
         bool ValidateLoginCredentials(string username, string password);
@@ -313,12 +329,12 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public int AddUser(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
-            return base.Channel.AddUser(account, player);
+        public int AddUser(TimbiricheViews.Server.Player player) {
+            return base.Channel.AddUser(player);
         }
         
-        public System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Account account, TimbiricheViews.Server.Player player) {
-            return base.Channel.AddUserAsync(account, player);
+        public System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Player player) {
+            return base.Channel.AddUserAsync(player);
         }
         
         public bool ValidateLoginCredentials(string username, string password) {
