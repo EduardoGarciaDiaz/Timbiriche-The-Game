@@ -601,6 +601,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a *Debes llenar todos los campos obligatorios para crear una cuenta.
+        /// </summary>
+        public static string lbInstructionsRequiredFields {
+            get {
+                return ResourceManager.GetString("lbInstructionsRequiredFields", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Monedas Insuficientes.
         /// </summary>
         public static string lbInsufficientCoins {

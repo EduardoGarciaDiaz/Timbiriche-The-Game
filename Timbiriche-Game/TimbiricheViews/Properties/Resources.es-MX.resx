@@ -297,6 +297,9 @@
   <data name="lbIncorrectCredentials" xml:space="preserve">
     <value>Usuario o contraseña incorrectos</value>
   </data>
+  <data name="lbInstructionsRequiredFields" xml:space="preserve">
+    <value>*Debes llenar todos los campos obligatorios para crear una cuenta</value>
+  </data>
   <data name="lbInsufficientCoins" xml:space="preserve">
     <value>Monedas Insuficientes</value>
   </data>
