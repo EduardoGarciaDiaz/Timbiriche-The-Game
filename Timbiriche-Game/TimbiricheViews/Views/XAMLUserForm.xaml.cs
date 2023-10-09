@@ -29,7 +29,6 @@ namespace TimbiricheViews.Views
                 new System.Globalization.CultureInfo(language);
             InitializeComponent();
             ImgBack.MouseLeftButtonDown += ImgBack_Click;
-
         }
 
         public XAMLUserForm()
@@ -43,7 +42,7 @@ namespace TimbiricheViews.Views
             NavigationService.GoBack();
         }
 
-        private void dpBirthdate_Loaded(object sender, RoutedEventArgs e)
+        private void DpBirthdate_Loaded(object sender, RoutedEventArgs e)
         {
             if (sender is DatePicker datePicker)
             {
@@ -56,7 +55,6 @@ namespace TimbiricheViews.Views
             if (ValidateFields())
             {
                 DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
-
                 Account newAccount = new Account()
                 {
                     name = tbxName.Text.Trim(),
@@ -94,7 +92,7 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private bool ValidateUniqueIdentifier(Player newPlayer)
+        public bool ValidateUniqueIdentifier(Player newPlayer)
         {
             bool existUserIdentifier = false;
             Server.UserManagerClient cliente = new Server.UserManagerClient();
@@ -111,34 +109,34 @@ namespace TimbiricheViews.Views
             return existUserIdentifier;
         }
 
-        private bool ValidateFields()
+        public bool ValidateFields()
         {
             SetDefaultStyles();
             ValidatePasswordProperties();
             bool isValid = true;
 
-            if (!Utilities.IsValidPersonalInformation(tbxName))
+            if (!Utilities.IsValidPersonalInformation(tbxName.Text))
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
-            if (!Utilities.IsValidPersonalInformation(tbxLastName))
+            if (!Utilities.IsValidPersonalInformation(tbxLastName.Text))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
-            if (!Utilities.IsValidEmail(tbxEmail))
+            if (!Utilities.IsValidEmail(tbxEmail.Text))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 lbEmailError.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidUsername(tbxUsername))
+            if (!Utilities.IsValidUsername(tbxUsername.Text))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
-            if (!Utilities.IsValidPassword(pwBxPassword))
+            if (!Utilities.IsValidPassword(pwBxPassword.Password))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 isValid = false;
@@ -178,19 +176,19 @@ namespace TimbiricheViews.Views
             {
                 lbPasswordLengthInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidSymbol(pwBxPassword))
+            if (Utilities.IsValidSymbol(pwBxPassword.Password))
             {
                 lbPasswordSymbolInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidCapitalLetter(pwBxPassword))
+            if (Utilities.IsValidCapitalLetter(pwBxPassword.Password))
             {
                 lbPasswordCapitalLetterInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidLowerLetter(pwBxPassword))
+            if (Utilities.IsValidLowerLetter(pwBxPassword.Password))
             {
                 lbPasswordLowerLetterInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidNumber(pwBxPassword))
+            if (Utilities.IsValidNumber(pwBxPassword.Password))
             {
                 lbPasswordNumberInstruction.Foreground = Brushes.GreenYellow;
             }

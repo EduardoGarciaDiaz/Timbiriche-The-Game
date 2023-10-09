@@ -9,7 +9,7 @@ using System.Windows.Controls;
 namespace TimbiricheViews.Utils
 {
 
-    internal class Utilities
+    public class Utilities
     {
 
         private const string VALID_PERSONAL_INFORMATION = "^[A-Za-zÀ-ÖØ-öø-ÿ' ]{2,50}$";
@@ -21,63 +21,61 @@ namespace TimbiricheViews.Utils
         private const string VALID_LOWER_LETTERS = "^(?=.*[a-z])";
         private const string VALID_NUMBERS = "^(?=.*\\d)";
 
-        public static bool IsEmptyField(TextBox textBox)
+        public static bool IsEmptyField(string fieldText)
         {
             bool isEmpty = false;
-            if (string.IsNullOrEmpty(textBox.Text))
+            if (string.IsNullOrEmpty(fieldText))
             {
                 isEmpty = true;
             }
                 return isEmpty;
         }
 
-        public static bool IsValidPersonalInformation(TextBox textBox)
+        public static bool IsValidPersonalInformation(string personalInformation)
         {
             Regex regex = new Regex(VALID_PERSONAL_INFORMATION);
-            return regex.IsMatch(textBox.Text.Trim());
+            return regex.IsMatch(personalInformation.Trim());
         }
 
-        public static bool IsValidUsername(TextBox tbxUsername)
+        public static bool IsValidUsername(string username)
         {
             Regex regex = new Regex(VALID_USERNAME);
-            return regex.IsMatch(tbxUsername.Text.Trim());
+            return regex.IsMatch(username.Trim());
         }
         
-        public static bool IsValidEmail(TextBox textBox)
+        public static bool IsValidEmail(string email)
         {
             Regex regex = new Regex(VALID_EMAIL);
-            return regex.IsMatch(textBox.Text.Trim());
+            return regex.IsMatch(email.Trim());
         }
 
-        public static bool IsValidPassword(PasswordBox passwordBox)
+        public static bool IsValidPassword(string password)
         {
             Regex regex = new Regex(VALID_PASSWORD);
-            return regex.IsMatch(passwordBox.Password.Trim());
+            return regex.IsMatch(password.Trim());
         }
 
-        public static bool IsValidSymbol(PasswordBox passwordBox)
+        public static bool IsValidSymbol(string password)
         {
             Regex regex = new Regex(VALID_SYMBOLS);
-            return regex.IsMatch((string)passwordBox.Password.Trim());
+            return regex.IsMatch(password.Trim());
         }
 
-        public static bool IsValidCapitalLetter(PasswordBox passwordBox)
+        public static bool IsValidCapitalLetter(string password)
         {
             Regex regex = new Regex(VALID_CAPITAL_LETTERS);
-            return regex.IsMatch((string)passwordBox.Password.Trim());
+            return regex.IsMatch(password.Trim());
         }
-        public static bool IsValidLowerLetter(PasswordBox passwordBox)
+        public static bool IsValidLowerLetter(string password)
         {
             Regex regex = new Regex(VALID_LOWER_LETTERS);
-            return regex.IsMatch((string)passwordBox.Password.Trim());
+            return regex.IsMatch(password.Trim());
         }
-        public static bool IsValidNumber(PasswordBox passwordBox)
+        public static bool IsValidNumber(string password)
         {
             Regex regex = new Regex(VALID_NUMBERS);
-            return regex.IsMatch((string)passwordBox.Password.Trim());
+            return regex.IsMatch(password.Trim());
         }
-
-
 
     }
 
