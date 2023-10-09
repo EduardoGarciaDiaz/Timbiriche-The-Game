@@ -21,7 +21,7 @@ namespace TimbiricheDataAccess.Utils
             return hashedPassword;
         }
 
-        public bool VerifýPassword(string password, string hashedPassword)
+        public bool VerifyPassword(string password, string hashedPassword)
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }

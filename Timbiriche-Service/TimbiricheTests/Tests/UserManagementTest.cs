@@ -37,13 +37,18 @@ namespace TimbiricheTests.Tests
         }
 
         [Fact]
-        public void TestAddUserSuccessFail()
+        public void TestAddUserFail()
         {
             var userManagement = new UserManagement();
             int expectedResult = -1;
             Accounts account = null;
-            Players player = null;
-
+            Players player = new Players
+            {
+                username = "Eduar",
+                email = "eduardo@gmail.com",
+                password = "Pa4sw*rd53C2r-e",
+                Accounts = account
+            };
             int currentResult = userManagement.AddUser(player);
 
             Assert.Equal(expectedResult, currentResult);

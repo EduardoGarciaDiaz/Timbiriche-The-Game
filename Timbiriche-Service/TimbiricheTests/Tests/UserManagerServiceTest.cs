@@ -45,7 +45,7 @@ namespace TimbiricheTests.Tests
         {
             UserManagerService userManagerService = new UserManagerService();
             int currentResult = -1;
-            int expectedResult = 2;
+            int expectedResult = -1;
             Account newAccount = new Account()
             {
                 name = "Juan",
@@ -64,9 +64,9 @@ namespace TimbiricheTests.Tests
 
             currentResult = userManagerService.AddUser(newPlayer);
 
-            Assert.NotEqual(expectedResult, currentResult);
+            Assert.Equal(expectedResult, currentResult);
         }
-
+        
         [Fact]
         public void TestValidateLoginCredentialsSuccess()
         {

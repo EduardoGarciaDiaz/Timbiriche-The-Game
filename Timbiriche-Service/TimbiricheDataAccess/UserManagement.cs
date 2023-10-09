@@ -59,7 +59,7 @@ namespace TimbiricheDataAccess
                 {
                     PasswordHashManager passwordHashManager = new PasswordHashManager();
                     var playerPassword = playerData.Select(player => player.password).SingleOrDefault();
-                    return passwordHashManager.VerifýPassword(password, playerPassword);
+                    return passwordHashManager.VerifyPassword(password, playerPassword);
                 }
 
                 return false;
