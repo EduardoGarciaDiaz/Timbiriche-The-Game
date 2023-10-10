@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -96,8 +97,21 @@ namespace TimbiricheViews.Views
             if (ValidateFields())
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                
-                bool isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                bool isUserValid = false;
+
+                try
+                {
+                    isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindow emergentWindow = new EmergentWindow(
+                        Properties.Resources.lbConnectionFailed,
+                        Properties.Resources.lbConnectionFailedDetails
+                    );
+                    emergentWindow.ShowDialog();
+                }
+
                 if (isUserValid)
                 {
                     NavigationService.Navigate(new XAMLLobby());
@@ -108,7 +122,6 @@ namespace TimbiricheViews.Views
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLUserForm());
-
         }
 
         private void tbxUsername_GotFocus(object sender, RoutedEventArgs e)
