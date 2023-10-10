@@ -31,45 +31,82 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="NormalTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="#CDCDCD" />
+            <Setter Property="FontFamily" Value="Titan One"/>
+            <Setter Property="Tag" Value="{x:Static p:Resources.tbxUserName}" />
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="7" />
+
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+            <Setter Property="FontFamily" Value="Titan One"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Tag" Value="{x:Static p:Resources.tbxUserName}" />
+        </Style>
+
     </Page.Resources>
 
     <Viewbox Stretch="Fill">
 
         <Grid Height="770" Width="1200">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="31*"/>
+                <RowDefinition Height="79*"/>
+            </Grid.RowDefinitions>
             <Grid.Background>
                 <ImageBrush ImageSource="/Resources/backgroundGame.png"/>
             </Grid.Background>
 
-            <Image Source="../Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="524" Width="511" Margin="337,71,0,0"/>
-            <Image Source="../Resources/loginCodeBox.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,607,0,0" Height="116" Width="511"/>
+            <Image Source="../Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="524" Width="511" Margin="337,71,0,0" Grid.RowSpan="2"/>
+            <Image Source="../Resources/loginCodeBox.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,390,0,0" Height="116" Width="511" Grid.Row="1"/>
             <Label FontFamily="Titan One" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="68" Foreground="White" Margin="0,87,0,0" >Timbiriche</Label>
 
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
-            Content="{x:Static p:Resources.lbUser}" Margin="416,0,0,527"></Label>
-            <TextBox x:Name="tbxUsername" Text="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-            VerticalContentAlignment="Center" MouseEnter="MouseEnter_tbxUsername" MouseLeave="MouseLeave_tbxUsername" Margin="416,241,410,482"/>
+            Content="{x:Static p:Resources.lbUser}" Margin="416,0,0,527" Grid.RowSpan="2"></Label>
+
+            <TextBox x:Name="tbxUsername" Text="{x:Static p:Resources.tbxUserName}" Tag="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+            VerticalContentAlignment="Center" Margin="416,24,410,482" Grid.Row="1" GotFocus="tbxUsername_GotFocus" LostFocus="tbxUsername_LostFocus" />
+
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
-            Content="{x:Static p:Resources.lbPassword}" Margin="416,0,0,421"></Label>
-            <TextBox x:Name="tbxPassword" Text="********" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-            VerticalContentAlignment="Center" Margin="416,347,410,377"/>
+            Content="{x:Static p:Resources.lbPassword}" Margin="416,0,0,421" Grid.Row="1"></Label>
+            <TextBox x:Name="pwBxPasswordMask" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
+            VerticalContentAlignment="Center" Margin="416,130,410,377" Grid.Row="1"/>
+            <Border CornerRadius="10" BorderThickness="1" BorderBrush="Transparent" Margin="416,130,410,377" Grid.Row="1">
+                <PasswordBox x:Name="pwBxPassword" Password="************" Tag="************" FontSize="22" FontFamily="Titan One" 
+                             Foreground="#CDCDCD" VerticalContentAlignment="Center" BorderBrush="Transparent" 
+                             Background="Transparent" GotFocus="pwBxPassword_GotFocus" LostFocus="pwBxPassword_LostFocus"/>
+            </Border>
             <Label  FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
-            Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}" Margin="413,398,631,0"></Label>
+            Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}" Margin="413,181,631,0" Grid.Row="1"></Label>
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
-            FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click" Margin="416,463,410,260"></Button>
+            FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click" Margin="416,246,410,260" Grid.Row="1"></Button>
             <Button     Background="Transparent" Foreground="#1CDBD4" BorderThickness="0"
-            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="BtnCreateAccount_Click" Margin="416,515,410,208"></Button>
+            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="BtnCreateAccount_Click" Margin="416,298,410,208" Grid.Row="1"></Button>
 
             <Label FontFamily="Inter" Foreground="White" HorizontalAlignment="Left" 
-            VerticalAlignment="Top" FontSize="18" Content="{x:Static p:Resources.lbAnyCode}" Margin="338,638,0,0" Width="206" HorizontalContentAlignment="Center"></Label>
-            <TextBox Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD" VerticalContentAlignment="Center" Margin="544,632,465,96"/>
+            VerticalAlignment="Top" FontSize="18" Content="{x:Static p:Resources.lbAnyCode}" Margin="338,421,0,0" Width="206" HorizontalContentAlignment="Center" Grid.Row="1"></Label>
+            <TextBox Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD" VerticalContentAlignment="Center" Margin="544,415,465,96" Grid.Row="1"/>
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
-            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}" Margin="740,632,360,96" ></Button>
+            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}" Margin="740,415,360,96" Grid.Row="1" ></Button>
 
-            <Rectangle Fill="#359EFF" RadiusX="10" RadiusY="10" Margin="1061,612,30,66" />
-            <Image x:Name="imgUsaFlag" Visibility="Hidden" Source="/Resources/usaFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="80" Margin="1077,621,0,0"/>
-            <Image x:Name="imgMexicoFlag" Visibility="Visible" Source="/Resources/mexicoFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="85" Margin="1077,619,0,0"/>
-            <Label Name="lbLanguage" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbLanguage}" Margin="1054,675,20,63"></Label>
-            <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" Cursor="Hand" Margin="1061,612,30,66" />
+            <Rectangle Fill="#359EFF" RadiusX="10" RadiusY="10" Margin="1061,395,30,66" Grid.Row="1" />
+            <Image x:Name="imgUsaFlag" Visibility="Hidden" Source="/Resources/usaFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="80" Margin="1077,404,0,0" Grid.Row="1"/>
+            <Image x:Name="imgMexicoFlag" Visibility="Visible" Source="/Resources/mexicoFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="85" Margin="1077,402,0,0" Grid.Row="1"/>
+            <Label Name="lbLanguage" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbLanguage}" Margin="1054,458,20,63" Grid.Row="1"></Label>
+            <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" Cursor="Hand" Margin="1061,395,30,66" Grid.Row="1" />
         </Grid>
     </Viewbox>
 

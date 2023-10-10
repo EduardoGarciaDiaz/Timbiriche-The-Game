@@ -28,7 +28,7 @@ namespace TimbiricheViews.Utils
             {
                 isEmpty = true;
             }
-                return isEmpty;
+            return isEmpty;
         }
 
         public static bool IsValidPersonalInformation(string personalInformation)
