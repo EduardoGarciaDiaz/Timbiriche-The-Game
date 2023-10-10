@@ -76,6 +76,10 @@ namespace TimbiricheViews.Utils
             Regex regex = new Regex(VALID_NUMBERS);
             return regex.IsMatch(password.Trim());
         }
+        public static void CreateEmergentWindow()
+        {
+
+        }
 
     }
 

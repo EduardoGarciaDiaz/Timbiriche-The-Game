@@ -592,6 +592,42 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Máximo 100 caracteres, Mayúsculas, minúsculas, números, símbolos. Ej. ejemplo@correo.com.
+        /// </summary>
+        public static string lbHelpEmailError {
+            get {
+                return ResourceManager.GetString("lbHelpEmailError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Máximo 64 caracteres y las características definidas en el lado izquierdo.
+        /// </summary>
+        public static string lbHelpPasswordError {
+            get {
+                return ResourceManager.GetString("lbHelpPasswordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Máximo 50 caracteres, Mayúsculas y minúsculas.
+        /// </summary>
+        public static string lbHelpPersonalInformationError {
+            get {
+                return ResourceManager.GetString("lbHelpPersonalInformationError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Máximo 50 caracteres, Mayúsculas, minúsculas, números y guiones bajos.
+        /// </summary>
+        public static string lbHelpUsernameError {
+            get {
+                return ResourceManager.GetString("lbHelpUsernameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Usuario o contraseña incorrectos.
         /// </summary>
         public static string lbIncorrectCredentials {
@@ -898,6 +934,24 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cuenta creada con éxito.
+        /// </summary>
+        public static string lbTitleAccountCreatedSuccess {
+            get {
+                return ResourceManager.GetString("lbTitleAccountCreatedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al crear la cuenta.
+        /// </summary>
+        public static string lbTitleCreateAccountFail {
+            get {
+                return ResourceManager.GetString("lbTitleCreateAccountFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Turno de.
         /// </summary>
         public static string lbTurnOf {
@@ -993,6 +1047,24 @@ namespace TimbiricheViews.Properties {
         public static string String {
             get {
                 return ResourceManager.GetString("String", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión con tu usuario y contraseña registrado..
+        /// </summary>
+        public static string tbkDescriptionAccountCreatedSuccess {
+            get {
+                return ResourceManager.GetString("tbkDescriptionAccountCreatedSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se pudo crear la cuenta. Por favor, inténtelo de nuevo..
+        /// </summary>
+        public static string tbkDescriptionCreateAccountFail {
+            get {
+                return ResourceManager.GetString("tbkDescriptionCreateAccountFail", resourceCulture);
             }
         }
         

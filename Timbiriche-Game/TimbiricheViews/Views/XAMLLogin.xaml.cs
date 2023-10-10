@@ -59,7 +59,7 @@ namespace TimbiricheViews.Views
 
         private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
         {
-            ChangeLanguage();
+            ChangeLanguage();            
         }
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)

@@ -72,10 +72,17 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Views\EmergentWindow.xaml.cs">
+      <DependentUpon>EmergentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\EmergentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,6 +223,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\usaFlag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\askIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

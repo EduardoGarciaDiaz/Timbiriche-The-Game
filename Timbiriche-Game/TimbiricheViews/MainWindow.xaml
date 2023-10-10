@@ -6,6 +6,7 @@
         xmlns:p = "clr-namespace:TimbiricheViews.Properties"
         xmlns:local="clr-namespace:TimbiricheViews"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="MainWindow" Height="770" Width="1200">
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">

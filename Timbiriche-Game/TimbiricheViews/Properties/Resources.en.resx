@@ -294,6 +294,18 @@
   <data name="lbFriends" xml:space="preserve">
     <value>Friends</value>
   </data>
+  <data name="lbHelpEmailError" xml:space="preserve">
+    <value>Maximum 100 characters, uppercase, lowercase, numbers, symbols. e.g. example@email.com</value>
+  </data>
+  <data name="lbHelpPasswordError" xml:space="preserve">
+    <value>Maximum 64 characters and characteristics defined on the left side</value>
+  </data>
+  <data name="lbHelpPersonalInformationError" xml:space="preserve">
+    <value>Maximum 50 characters, upper and lower case</value>
+  </data>
+  <data name="lbHelpUsernameError" xml:space="preserve">
+    <value>Maximum 50 characters, uppercase, lowercase, numbers and underscore</value>
+  </data>
   <data name="lbIncorrectCredentials" xml:space="preserve">
     <value>Incorrect username or password</value>
   </data>
@@ -396,6 +408,12 @@
   <data name="lbTemporaryUserNameInstruction" xml:space="preserve">
     <value>Enter a username that you will appear with during the game</value>
   </data>
+  <data name="lbTitleAccountCreatedSuccess" xml:space="preserve">
+    <value>Account created successfully</value>
+  </data>
+  <data name="lbTitleCreateAccountFail" xml:space="preserve">
+    <value>Error creating account</value>
+  </data>
   <data name="lbTurnOf" xml:space="preserve">
     <value>Turn of</value>
   </data>
@@ -428,6 +446,12 @@
   </data>
   <data name="String" xml:space="preserve">
     <value>to be able to play with them</value>
+  </data>
+  <data name="tbkDescriptionAccountCreatedSuccess" xml:space="preserve">
+    <value>Your account has been created successfully. Now you can log in with your registered username and password</value>
+  </data>
+  <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
+    <value>The account could not be created. Please try again.</value>
   </data>
   <data name="tbxBirthdate" xml:space="preserve">
     <value>02/11/2003</value>

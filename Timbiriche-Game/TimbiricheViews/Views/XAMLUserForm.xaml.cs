@@ -75,18 +75,23 @@ namespace TimbiricheViews.Views
                 
                 if (!ValidateUniqueIdentifier(newPlayer))
                 {
-                    Server.UserManagerClient cliente = new Server.UserManagerClient();
-                    int rowsAffected = cliente.AddUser(newPlayer);
+                    Server.UserManagerClient client = new Server.UserManagerClient();
+                    int rowsAffected = client.AddUser(newPlayer);
                     if (rowsAffected > 0)
                     {
-                        //TODO: Message successful registration
+                        EmergentWindow emergentWindow = new EmergentWindow(
+                            Properties.Resources.lbTitleAccountCreatedSuccess,
+                            Properties.Resources.tbkDescriptionAccountCreatedSuccess
+                        );
+                        emergentWindow.ShowDialog();
                         NavigationService.GoBack();
                     }
                     else
                     {
-                        //TODO: Internationalizate
-                        System.Windows.MessageBox.Show("No se pudo registrar el usuario, inténtalo de nuevo",
-                            "Error al registrar usuario", MessageBoxButton.OK);
+                        EmergentWindow emergentWindow = new EmergentWindow(
+                            Properties.Resources.lbTitleCreateAccountFail,
+                            Properties.Resources.tbkDescriptionCreateAccountFail
+                        );
                     }
                 }
             }
@@ -95,13 +100,13 @@ namespace TimbiricheViews.Views
         public bool ValidateUniqueIdentifier(Player newPlayer)
         {
             bool existUserIdentifier = false;
-            Server.UserManagerClient cliente = new Server.UserManagerClient();
-            if (cliente.ValidateUniqueIdentifierUser(newPlayer.email))
+            Server.UserManagerClient client = new Server.UserManagerClient();
+            if (client.ValidateUniqueIdentifierUser(newPlayer.email))
             {
                 existUserIdentifier = true;
                 lbExistentEmail.Visibility = Visibility.Visible;
             }
-            if (cliente.ValidateUniqueIdentifierUser(newPlayer.username))
+            if (client.ValidateUniqueIdentifierUser(newPlayer.username))
             {
                 existUserIdentifier = true;
                 lbExistentUsername.Visibility = Visibility.Visible;
@@ -118,27 +123,32 @@ namespace TimbiricheViews.Views
             if (!Utilities.IsValidPersonalInformation(tbxName.Text))
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                ImgNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
             if (!Utilities.IsValidPersonalInformation(tbxLastName.Text))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                ImgLastNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
             if (!Utilities.IsValidEmail(tbxEmail.Text))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 lbEmailError.Visibility = Visibility.Visible;
+                ImgEmailErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
             if (!Utilities.IsValidUsername(tbxUsername.Text))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                ImgUsernameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
             if (!Utilities.IsValidPassword(pwBxPassword.Password))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
+                ImgPasswordErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
             if (!DateTime.TryParse(dpBirthdate.Text, out _))
@@ -168,6 +178,12 @@ namespace TimbiricheViews.Views
             lbPasswordCapitalLetterInstruction.Foreground = Brushes.Red;
             lbPasswordLowerLetterInstruction.Foreground = Brushes.Red;
             lbPasswordNumberInstruction.Foreground = Brushes.Red;
+
+            ImgNameErrorDetails.Visibility = Visibility.Hidden;
+            ImgLastNameErrorDetails.Visibility = Visibility.Hidden;
+            ImgEmailErrorDetails.Visibility = Visibility.Hidden;
+            ImgUsernameErrorDetails.Visibility = Visibility.Hidden;
+            ImgPasswordErrorDetails.Visibility = Visibility.Hidden;
         }
 
         private void ValidatePasswordProperties()
