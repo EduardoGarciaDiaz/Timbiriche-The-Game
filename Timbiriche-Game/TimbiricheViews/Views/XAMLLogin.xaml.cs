@@ -12,13 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Resources;
+using System.Xml.Linq;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
 
     public partial class XAMLLogin : Page
     {
+
+        string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+
         public XAMLLogin()
         {
             InitializeComponent();
@@ -38,7 +42,6 @@ namespace TimbiricheViews.Views
                 language = "es";
             }
             
-
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
             XAMLLogin newLoginPage = new XAMLLogin();
 
@@ -57,6 +60,32 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(newLoginPage);
         }
 
+        private bool ValidateFields()
+        {
+            SetDefaultStyles();
+            bool isValid = true;
+
+            if (!Utilities.IsValidUsername(tbxUsername.Text) || tbxUsername.Text.Equals(tbxUsername.Tag))
+            {
+                tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+
+            if (!Utilities.IsValidPassword(pwBxPassword.Password) || pwBxPassword.Password.Equals(pwBxPassword.Tag))
+            {
+                pwBxPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
+                isValid = false;
+            }
+
+            return isValid;
+        }
+
+        private void SetDefaultStyles()
+        {
+            tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
+            pwBxPasswordMask.Style = (Style)FindResource("NormalTextBoxStyle");
+        }
+
         private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
         {
             ChangeLanguage();
@@ -64,23 +93,16 @@ namespace TimbiricheViews.Views
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-            //TODo: Excepcion
-            bool isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, tbxPassword.Text);
-            if (isUserValid)
+            if (ValidateFields())
             {
-                NavigationService.Navigate(new XAMLLobby());
+                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                
+                bool isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                if (isUserValid)
+                {
+                    NavigationService.Navigate(new XAMLLobby());
+                }
             }
-        }
-
-        private void MouseEnter_tbxUsername(object sender, MouseEventArgs e)
-        {
-            
-        }
-
-        private void MouseLeave_tbxUsername(object sender, MouseEventArgs e)
-        {
-
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
@@ -88,5 +110,50 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLUserForm());
 
         }
+
+        private void tbxUsername_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(tbxUsername.Text == (string)tbxUsername.Tag) 
+            {
+                tbxUsername.Text = string.Empty;
+                tbxUsername.Foreground = Brushes.Black;
+                tbxUsername.FontFamily = new FontFamily("Inter");
+            }
+        }
+
+        private void tbxUsername_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxUsername.Text))
+            {
+                tbxUsername.Text = (string) tbxUsername.Tag;
+                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
+                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+
+                tbxUsername.Foreground = placeholderBrush;
+                tbxUsername.FontFamily = new FontFamily("Titan One");
+            }
+        }
+
+        private void pwBxPassword_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (pwBxPassword.Password == (string)pwBxPassword.Tag)
+            {
+                pwBxPassword.Password = string.Empty;
+                pwBxPassword.Foreground = Brushes.Black;
+            }
+        }
+
+        private void pwBxPassword_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(pwBxPassword.Password))
+            {
+                pwBxPassword.Password = (string)pwBxPassword.Tag;
+                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
+                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+
+                pwBxPassword.Foreground = placeholderBrush;
+            }
+        }
+
     }
 }
