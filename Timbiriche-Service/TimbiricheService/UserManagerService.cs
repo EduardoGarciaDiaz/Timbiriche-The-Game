@@ -9,7 +9,7 @@ using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
-    public class UserManagerService : IUserManager
+    public partial class UserManagerService : IUserManager
     {
         public int AddUser(Player player)
         {
@@ -74,4 +74,19 @@ namespace TimbiricheService
         }
     }
 
+    public partial class UserManagerService : IManagerOnlineUsers
+    {
+        //TODO: MAP de Usuario con su Channel <ONLINE USERS>
+        public void RegisteredUserToOnlineUsers()
+        {
+            //TODO
+            // Se agrega el usuario a usuarios en linea
+            // Ciclo for para el map, por el channel llama al metodo del callback
+        }
+
+        public void UnegisteredUserToOnlineUsers()
+        {
+            //TODO
+        }
+    }
 }

@@ -21,6 +21,24 @@ namespace TimbiricheService
         bool ValidateUniqueIdentifierUser(String identifier);
     }
 
+    [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]
+    public interface IManagerOnlineUsers
+    {
+        [OperationContract(IsOneWay = true)]
+        void RegisteredUserToOnlineUsers();
+        [OperationContract(IsOneWay = true)]
+        void UnegisteredUserToOnlineUsers();
+    }
+
+    [ServiceContract]
+    public interface IUserManagerCallback
+    {
+        [OperationContract]
+        void NotifyUserLoggedIn(string username);
+        [OperationContract]
+        void NotifyUserLoggedOut(string usernmae);
+    }
+
     [DataContract]
     public class Account
     {
