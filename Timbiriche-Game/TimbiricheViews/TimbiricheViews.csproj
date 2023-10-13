@@ -75,6 +75,9 @@
     <Compile Include="Views\EmergentWindow.xaml.cs">
       <DependentUpon>EmergentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\XAMLLobby.xaml.cs">
+      <DependentUpon>XAMLLobby.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
@@ -87,8 +90,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\XAMLLobby.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -98,9 +101,6 @@
       <DependentUpon>Resources.en.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\XAMLLobby.xaml.cs">
-      <DependentUpon>XAMLLobby.xaml</DependentUpon>
     </Compile>
     <Page Include="Views\XAMLLogin.xaml">
       <SubType>Designer</SubType>
