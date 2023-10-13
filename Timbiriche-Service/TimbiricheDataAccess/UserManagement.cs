@@ -48,24 +48,26 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
-        public bool ValidateLoginCredentials(String username, String password)
+public Players ValidateLoginCredentials(String username, String password)
+{
+    using (var context = new TimbiricheDBEntities())
+    {
+        var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+
+        if (playerData != null)
         {
-
-            using(var context = new TimbiricheDBEntities())
+            PasswordHashManager passwordHashManager = new PasswordHashManager();
+            var playerPassword = playerData.password;
+            if (passwordHashManager.VerifyPassword(password, playerPassword))
             {
-                var playerData = context.Players.Where(player => player.username == username);
-
-                if(playerData != null)
-                {
-                    PasswordHashManager passwordHashManager = new PasswordHashManager();
-                    var playerPassword = playerData.Select(player => player.password).SingleOrDefault();
-                    return passwordHashManager.VerifyPassword(password, playerPassword);
-                }
-
-                return false;
-
+                return playerData;
             }
         }
+
+        return null;
+    }
+}
+
 
         public bool ExistUserIdenitifier(String identifier)
         {

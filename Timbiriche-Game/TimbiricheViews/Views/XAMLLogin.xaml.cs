@@ -97,11 +97,10 @@ namespace TimbiricheViews.Views
             if (ValidateFields())
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                bool isUserValid = false;
-
+                Server.Player playerLogged = null;
                 try
                 {
-                    isUserValid = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
                 }
                 catch (EndpointNotFoundException ex)
                 {
@@ -112,9 +111,9 @@ namespace TimbiricheViews.Views
                     emergentWindow.ShowDialog();
                 }
 
-                if (isUserValid)
+                if (playerLogged!=null)
                 {
-                    NavigationService.Navigate(new XAMLLobby());
+                    NavigationService.Navigate(new XAMLLobby(playerLogged));
                 }
             }
         }

@@ -26,7 +26,7 @@
   <xs:element name="ValidateLoginCredentialsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="ValidateLoginCredentialsResult" type="xs:boolean" />
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="ValidateLoginCredentialsResult" nillable="true" type="q2:Player" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

@@ -290,10 +290,10 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
-        bool ValidateLoginCredentials(string username, string password);
+        TimbiricheViews.Server.Player ValidateLoginCredentials(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
-        System.Threading.Tasks.Task<bool> ValidateLoginCredentialsAsync(string username, string password);
+        System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
         bool ValidateUniqueIdentifierUser(string identifier);
@@ -337,11 +337,11 @@ namespace TimbiricheViews.Server {
             return base.Channel.AddUserAsync(player);
         }
         
-        public bool ValidateLoginCredentials(string username, string password) {
+        public TimbiricheViews.Server.Player ValidateLoginCredentials(string username, string password) {
             return base.Channel.ValidateLoginCredentials(username, password);
         }
         
-        public System.Threading.Tasks.Task<bool> ValidateLoginCredentialsAsync(string username, string password) {
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password) {
             return base.Channel.ValidateLoginCredentialsAsync(username, password);
         }
         

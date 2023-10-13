@@ -16,7 +16,7 @@ namespace TimbiricheService
         int AddUser(Player player);
 
         [OperationContract]
-        bool ValidateLoginCredentials(String username, String password);
+        Player ValidateLoginCredentials(String username, String password);
         [OperationContract]
         bool ValidateUniqueIdentifierUser(String identifier);
     }

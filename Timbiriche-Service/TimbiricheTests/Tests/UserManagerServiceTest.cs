@@ -21,17 +21,17 @@ namespace TimbiricheTests.Tests
             DateTime.TryParse("10/25/2005", out DateTime birthdate);
             Account newAccount = new Account()
             {
-                name = "Juan",
-                lastName = "Durán",
-                surname = "Ortiz",
+                name = "Juan Carlos",
+                lastName = "Pérez",
+                surname = "Arriaga",
                 birthdate = birthdate
             };
 
             Player newPlayer = new Player()
             {
-                username = "Juanillo_1",
-                email = "juani@gmail.com",
-                password = "Juan_D0*0cT5O",
+                username = "ElRevo",
+                email = "elrevo@gmail.com",
+                password = "E1_R3voTecN0",
                 accountFK = newAccount
             };
 
@@ -48,16 +48,16 @@ namespace TimbiricheTests.Tests
             int expectedResult = -1;
             Account newAccount = new Account()
             {
-                name = "Juan",
+                name = "Juan Carlos",
                 lastName = "",
-                surname = "Ortiz",
+                surname = "Arriaga",
                 birthdate = DateTime.Now
             };
 
             Player newPlayer = new Player()
             {
-                username = "Juanillo_1",
-                email = "juani@gmail.com",
+                username = "ElRevo",
+                email = "elrevo@gmail.com",
                 password = "",
                 accountFK = newAccount
             };
@@ -66,36 +66,33 @@ namespace TimbiricheTests.Tests
 
             Assert.Equal(expectedResult, currentResult);
         }
-        
+
         [Fact]
         public void TestValidateLoginCredentialsSuccess()
         {
             UserManagerService userManagerService = new UserManagerService();
-            string username = "Eduar";
-            string password = "Tecn0_C*nstr8";
-            bool currentResult = false;
-
-            currentResult = userManagerService.ValidateLoginCredentials(username, password);
-            Assert.True(currentResult);
+            string username = "ElRevo";
+            string password = "E1_R3voTecN0";
+            Player currentResult = userManagerService.ValidateLoginCredentials(username, password);
+            Assert.NotNull(currentResult);
         }
 
         [Fact]
         public void TestValidateLoginCredentialsFail()
         {
             UserManagerService userManagerService = new UserManagerService();
-            string username = "Eduar";
-            string password = "MyPassword";
-            bool currentResult = false;
+            string username = "ElRevo";
+            string password = "my_password";
 
-            currentResult = userManagerService.ValidateLoginCredentials(username, password);
-            Assert.False(currentResult);
+            Player currentResult = userManagerService.ValidateLoginCredentials(username, password);
+            Assert.Null(currentResult);
         }
 
         [Fact]
         public void TestValidateUniqueIdentifierUserSuccess()
         {
             UserManagerService userManagerService = new UserManagerService();
-            string username = "Eduar";
+            string username = "ElRevo";
             bool currentResult = false;
 
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);
@@ -112,11 +109,11 @@ namespace TimbiricheTests.Tests
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);
             Assert.False(currentResult);
         }
-
+        [Fact]
         public void TestValidateUniqueIdentifierUserEmailSuccess()
         {
             UserManagerService userManagerService = new UserManagerService();
-            string username = "eduardo@gmail.com";
+            string username = "elrevo@gmail.com";
             bool currentResult = false;
 
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);

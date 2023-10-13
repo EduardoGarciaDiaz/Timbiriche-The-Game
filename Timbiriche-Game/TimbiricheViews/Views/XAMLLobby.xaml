@@ -148,7 +148,7 @@
 
                         <Label Grid.Column="0" FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Right" VerticalAlignment="Center">x</Label>
-                        <Label Grid.Column="1" FontFamily="Inter" Foreground="White" FontSize="24"
+                        <Label x:Name="lbCoins" Grid.Column="1" FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold">50</Label>
                     </Grid>
                 </Grid>
@@ -199,7 +199,7 @@
                 </Grid.RowDefinitions>
 
                 <Rectangle Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Fill="#920808" RadiusX="25" RadiusY="25" />
-                <Label Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
+                <Label x:Name="lbUsername" Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
                        FontSize="20" >Gokuvegueta777</Label>
 
                 <Grid Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0" Grid.RowSpan="2">
@@ -230,7 +230,7 @@
                         </Grid.RowDefinitions>
 
                         <Rectangle Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Fill="#E46161" RadiusX="25" RadiusY="25" />
-                        <Label Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
+                        <Label x:Name="lbUserFaceBox" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" 
                             FontSize="72" >L</Label>
 
                     </Grid>

@@ -58,31 +58,29 @@ namespace TimbiricheTests.Tests
         public void TestValidateLoginCredentialsSuccess()
         {
             var userManagement = new UserManagement();
-            var username = "Eduar";
-            var password = "Tecn0_C*nstr8";
+            var username = "ElRevo";
+            var password = "E1_R3voTecN0";
 
-            bool CurrentResult = userManagement.ValidateLoginCredentials(username, password);
-           
-            Assert.True(CurrentResult);
+            Players currentResult = userManagement.ValidateLoginCredentials(username, password);
+            Assert.NotNull(currentResult);
         }
 
         [Fact]
         public void TestValidateLoginCredentialsFail()
         {
             var userManagement = new UserManagement();
-            var username = "Eduar";
-            var password = "password";
-
-            bool CurrentResult = userManagement.ValidateLoginCredentials(username, password);
+            var username = "ElRevo";
+            var password = "My_PassWord1N0RR325";
             
-            Assert.False(CurrentResult);
+            Players currentResult = userManagement.ValidateLoginCredentials(username, password);
+            Assert.Null(currentResult);
         }
 
         [Fact]
         public void TestExistUserIdenitifierByUsernameSuccess()
         {
             var userManagement = new UserManagement();
-            var identifier = "Eduar";
+            var identifier = "Paco01";
 
             bool CurrentResult = userManagement.ExistUserIdenitifier(identifier);
 
@@ -93,7 +91,7 @@ namespace TimbiricheTests.Tests
         public void TestExistUserIdenitifierByEmailSuccess()
         {
             var userManagement = new UserManagement();
-            var identifier = "eduardo@gmail.com";
+            var identifier = "cap@gmail.com";
 
             bool CurrentResult = userManagement.ExistUserIdenitifier(identifier);
 

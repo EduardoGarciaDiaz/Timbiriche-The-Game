@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
@@ -33,10 +34,37 @@ namespace TimbiricheService
             return dataAccess.AddUser(newPlayer);
         }
 
-        public bool ValidateLoginCredentials(String username, String password)
+        public Player ValidateLoginCredentials(String username, String password)
         {
             UserManagement dataAccess = new UserManagement();
-            return dataAccess.ValidateLoginCredentials(username, password);
+            Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
+            if (playerValidated != null)
+            {
+                Accounts accountValidated = playerValidated.Accounts;
+                Account account = new Account
+                {
+                    name = accountValidated.name,
+                    lastName = accountValidated.lastName,
+                    surname = accountValidated.surname,
+                    birthdate = accountValidated.birthdate
+                };
+
+                Player player = new Player
+                {
+                    idPlayer = playerValidated.idPlayer,
+                    username = playerValidated.username,
+                    email = playerValidated.email,
+                    password = playerValidated.password,
+                    coins = playerValidated.coins,
+                    status = playerValidated.status,
+                    salt = playerValidated.salt,
+                    accountFK = account
+                };
+
+                return player;
+            }
+
+            return null;
         }
 
         public bool ValidateUniqueIdentifierUser(String identifier)
