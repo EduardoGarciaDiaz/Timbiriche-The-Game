@@ -206,19 +206,9 @@
     <Resource Include="Resources\backgroundFormUser.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Connected Services\Server\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-    <None Include="Connected Services\Server\configuration.svcinfo" />
-    <None Include="Connected Services\Server\configuration91.svcinfo" />
-    <None Include="Connected Services\Server\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Server\" />
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <ItemGroup>
@@ -229,6 +219,24 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\askIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Server\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

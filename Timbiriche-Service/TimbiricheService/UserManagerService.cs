@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
@@ -74,19 +75,35 @@ namespace TimbiricheService
         }
     }
 
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public partial class UserManagerService : IManagerOnlineUsers
     {
-        //TODO: MAP de Usuario con su Channel <ONLINE USERS>
-        public void RegisteredUserToOnlineUsers()
+        private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
+        //private object lockObject = new object();
+
+        public void RegisteredUserToOnlineUsers(string username)
         {
-            //TODO
-            // Se agrega el usuario a usuarios en linea
-            // Ciclo for para el map, por el channel llama al metodo del callback
+            if (!onlineUsers.ContainsKey(username))
+            {
+                onlineUsers.Add(username, OperationContext.Current.GetCallbackChannel<IUserManagerCallback>());
+            }
+            foreach (var user in onlineUsers)
+            {
+                IUserManagerCallback userValueCallbackChannel = user.Value;
+                userValueCallbackChannel.NotifyUserLoggedIn(user.Key);
+            }
         }
 
-        public void UnegisteredUserToOnlineUsers()
+        public void UnregisteredUserToOnlineUsers(string username)
         {
-            //TODO
+            if (onlineUsers.ContainsKey(username))
+            {
+                IUserManagerCallback userValueCallbackChannel = onlineUsers[username];
+                userValueCallbackChannel.NotifyUserLoggedOut(username);
+                onlineUsers.Remove(username);
+            }
         }
+
     }
+
 }

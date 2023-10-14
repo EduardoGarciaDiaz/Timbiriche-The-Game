@@ -25,9 +25,9 @@ namespace TimbiricheService
     public interface IManagerOnlineUsers
     {
         [OperationContract(IsOneWay = true)]
-        void RegisteredUserToOnlineUsers();
+        void RegisteredUserToOnlineUsers(string username);
         [OperationContract(IsOneWay = true)]
-        void UnegisteredUserToOnlineUsers();
+        void UnregisteredUserToOnlineUsers(string username);
     }
 
     [ServiceContract]
@@ -36,7 +36,7 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyUserLoggedIn(string username);
         [OperationContract]
-        void NotifyUserLoggedOut(string usernmae);
+        void NotifyUserLoggedOut(string username);
     }
 
     [DataContract]
