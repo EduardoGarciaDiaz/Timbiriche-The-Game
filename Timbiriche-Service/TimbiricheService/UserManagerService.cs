@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
@@ -9,7 +10,7 @@ using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
-    public class UserManagerService : IUserManager
+    public partial class UserManagerService : IUserManager
     {
         public int AddUser(Player player)
         {
@@ -72,6 +73,37 @@ namespace TimbiricheService
             UserManagement dataAccess = new UserManagement();
             return dataAccess.ExistUserIdenitifier(identifier);
         }
+    }
+
+    [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
+    public partial class UserManagerService : IManagerOnlineUsers
+    {
+        private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
+        //private object lockObject = new object();
+
+        public void RegisteredUserToOnlineUsers(string username)
+        {
+            if (!onlineUsers.ContainsKey(username))
+            {
+                onlineUsers.Add(username, OperationContext.Current.GetCallbackChannel<IUserManagerCallback>());
+            }
+            foreach (var user in onlineUsers)
+            {
+                IUserManagerCallback userValueCallbackChannel = user.Value;
+                userValueCallbackChannel.NotifyUserLoggedIn(user.Key);
+            }
+        }
+
+        public void UnregisteredUserToOnlineUsers(string username)
+        {
+            if (onlineUsers.ContainsKey(username))
+            {
+                IUserManagerCallback userValueCallbackChannel = onlineUsers[username];
+                userValueCallbackChannel.NotifyUserLoggedOut(username);
+                onlineUsers.Remove(username);
+            }
+        }
+
     }
 
 }

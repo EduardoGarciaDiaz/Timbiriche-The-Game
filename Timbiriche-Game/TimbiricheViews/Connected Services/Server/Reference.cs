@@ -353,4 +353,76 @@ namespace TimbiricheViews.Server {
             return base.Channel.ValidateUniqueIdentifierUserAsync(identifier);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IManagerOnlineUsers", CallbackContract=typeof(TimbiricheViews.Server.IManagerOnlineUsersCallback))]
+    public interface IManagerOnlineUsers {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers")]
+        void RegisteredUserToOnlineUsers(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers")]
+        System.Threading.Tasks.Task RegisteredUserToOnlineUsersAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers")]
+        void UnregisteredUserToOnlineUsers(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers")]
+        System.Threading.Tasks.Task UnregisteredUserToOnlineUsersAsync(string username);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IManagerOnlineUsersCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedIn", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedInResponse")]
+        void NotifyUserLoggedIn(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOut", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOutResponse")]
+        void NotifyUserLoggedOut(string username);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IManagerOnlineUsersChannel : TimbiricheViews.Server.IManagerOnlineUsers, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ManagerOnlineUsersClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IManagerOnlineUsers>, TimbiricheViews.Server.IManagerOnlineUsers {
+        
+        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void RegisteredUserToOnlineUsers(string username) {
+            base.Channel.RegisteredUserToOnlineUsers(username);
+        }
+        
+        public System.Threading.Tasks.Task RegisteredUserToOnlineUsersAsync(string username) {
+            return base.Channel.RegisteredUserToOnlineUsersAsync(username);
+        }
+        
+        public void UnregisteredUserToOnlineUsers(string username) {
+            base.Channel.UnregisteredUserToOnlineUsers(username);
+        }
+        
+        public System.Threading.Tasks.Task UnregisteredUserToOnlineUsersAsync(string username) {
+            return base.Channel.UnregisteredUserToOnlineUsersAsync(username);
+        }
+    }
 }
