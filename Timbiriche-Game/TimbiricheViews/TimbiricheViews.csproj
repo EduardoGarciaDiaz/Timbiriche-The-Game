@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\XAMLActiveUserItemComponent.xaml.cs">
+      <DependentUpon>XAMLActiveUserItemComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\Server\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -82,6 +85,10 @@
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\XAMLActiveUserItemComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -238,6 +245,9 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\friendItemButton.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="TimbiricheViews.Components.XAMLActiveUserItemControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimbiricheViews.Components"
+             mc:Ignorable="d" 
+             d:DesignHeight="58" d:DesignWidth="248">
+    <Grid>
+        <Rectangle Fill="#063343" Height="50" RadiusX="25" RadiusY="25" Width="248" Opacity="0.75" Margin="0,0,0,8" />
+        <Label x:Name="lbUsername" Content="JhonFKenn23" Foreground="White" FontSize="16" FontFamily="Inter" FontWeight="Bold" Margin="47,10,57,22" VerticalAlignment="Center"/>
+        <Image Source="/Resources/friendItemButton.png" Margin="197,15,8,25" />
+        <Rectangle Width="15" Height="15" RadiusX="7.5" RadiusY="7.5" Fill="#61FF00" Margin="18,16,215,27" />
+
+    </Grid>
+</UserControl>

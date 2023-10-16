@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Components;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 
@@ -21,6 +22,9 @@ namespace TimbiricheViews.Views
 
     public partial class XAMLLobby : Page, Server.IManagerOnlineUsersCallback
     {
+
+        Server.Player playerLoggedIn = PlayerSingleton.player;
+
         public XAMLLobby()
         {
             InitializeComponent();
@@ -30,7 +34,6 @@ namespace TimbiricheViews.Views
 
         private void LoadDataPlayer()
         {
-            Server.Player playerLoggedIn = PlayerSingleton.player;
             string initialPlayerNameLetter = playerLoggedIn.username[0].ToString();
             lbUsername.Content = playerLoggedIn.username;
             lbCoins.Content = playerLoggedIn.coins;
@@ -41,9 +44,8 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.RegisteredUserToOnlineUsers(player.username);
+            client.RegisteredUserToOnlineUsers(playerLoggedIn.username);
         }
-
 
         public void NotifyUserLoggedIn(string username)
         {
@@ -55,7 +57,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.UnregisteredUserToOnlineUsers(player.username);
+            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
 
             // Commented while we do the update of the stackpanel view
             // NavigationService.Navigate(new XAMLLogin());
@@ -65,22 +67,18 @@ namespace TimbiricheViews.Views
         public void NotifyUserLoggedOut(string username)
         {
             Console.WriteLine("Disconected User: " + username);
-            RemoveUserToOnlineUserList(username);
+            RemoveUserFromOnlineUserList(username);
         }
-
 
         private void AddUserToOnlineUserList(string username)
         {
-            string idLabel = "lb" + username;
-            Label lbActiveUser = new Label
-            {
-                Content = username,
-                Name = idLabel
-            };
-            stckPnlFriends.Children.Add(lbActiveUser);
+            string idUserItem = "lb" + username;
+            XAMLActiveUserItemControl userItem = new XAMLActiveUserItemControl(username);
+            userItem.Name = idUserItem;
+            stckPnlFriends.Children.Add(userItem);
         }
 
-        private void RemoveUserToOnlineUserList(string username)
+        private void RemoveUserFromOnlineUserList(string username)
         {
             // TODO: Delete the user disconected from the list of active friends on the stack panel
             string idLabel = "lb" + username;
@@ -89,5 +87,18 @@ namespace TimbiricheViews.Views
             stckPnlFriends.UpdateLayout();
             scrlVwrFriends.UpdateLayout();
         }
+
+        private void btnFriendsMenu_Click(object sender, RoutedEventArgs e)
+        {
+            gridFriendsMenu.Visibility = Visibility.Visible;
+            btnFriendsMenu.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnCloseFriendsMenu_Click(object sender, RoutedEventArgs e)
+        {
+            btnFriendsMenu.Visibility = Visibility.Visible;
+            gridFriendsMenu.Visibility = Visibility.Collapsed;
+        }
+
     }
 }
