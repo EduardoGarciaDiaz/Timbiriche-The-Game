@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using TimbiricheViews.Player;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
@@ -113,7 +114,8 @@ namespace TimbiricheViews.Views
 
                 if (playerLogged!=null)
                 {
-                    NavigationService.Navigate(new XAMLLobby(playerLogged));
+                    PlayerSingleton.player = playerLogged;
+                    NavigationService.Navigate(new XAMLLobby());
                 }
             }
         }

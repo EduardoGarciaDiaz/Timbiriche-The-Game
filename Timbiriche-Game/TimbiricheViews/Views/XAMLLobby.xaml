@@ -65,15 +65,15 @@
                             FontSize="120" Content="" Margin="459,402,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <Button FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="12,637,966,69" Content="Cerrar Sesión" Click="BtnSignOff_Click"/>
 
-            <Grid Margin="24,13,820,22">
+            <Grid Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="7,10,10,659" ></Button>
-                <Image Margin="8,17,11,667" Source="/Resources/back.png"/>
+                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="38,30,920,690"></Button>
+                <Image Margin="138,38,1012,698" Source="/Resources/back.png"/>
                 <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Margin="19,78,180,618" >Amigos</Button>
+                FontFamily="Titan One" BorderBrush="Transparent" Margin="44,95,1041,635">Amigos</Button>
                 <Button Background="#063343" Foreground="White" 
-                 FontFamily="Titan One" BorderBrush="Transparent" Margin="178,78,21,618">Solicitudes</Button>
+                 FontFamily="Titan One" BorderBrush="Transparent" Margin="164,95,920,635">Solicitudes</Button>
                 <Line Fill="#00FFD1" />
                 <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="135,0,0,185" >ENVIAR SOLICITUD</Label>
                 

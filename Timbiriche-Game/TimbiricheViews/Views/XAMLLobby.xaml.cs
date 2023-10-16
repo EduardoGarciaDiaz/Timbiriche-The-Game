@@ -13,34 +13,27 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 
 namespace TimbiricheViews.Views
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLLobby.xaml
-    /// </summary>
+
     public partial class XAMLLobby : Page, Server.IManagerOnlineUsersCallback
     {
-        private Player player;
         public XAMLLobby()
         {
             InitializeComponent();
-        }
-
-        public XAMLLobby(Player playerLogged)
-        {
-            InitializeComponent();
-            player = playerLogged;
             ShowAsActiveUser();
             LoadDataPlayer();
         }
 
         private void LoadDataPlayer()
         {
-            string initialPlayerNameLetter = player.username[0].ToString();
-            lbUsername.Content = player.username;
-            lbCoins.Content = player.coins;
+            Server.Player playerLoggedIn = PlayerSingleton.player;
+            string initialPlayerNameLetter = playerLoggedIn.username[0].ToString();
+            lbUsername.Content = playerLoggedIn.username;
+            lbCoins.Content = playerLoggedIn.coins;
             lbUserFaceBox.Content = initialPlayerNameLetter;
         }
 
