@@ -28,7 +28,7 @@
 
 
             <Image Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675"/>
-
+            <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,675" Click="btnFriendsMenu_Click" />
 
 
             <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1105,13,9,677"/>
@@ -65,23 +65,29 @@
                             FontSize="120" Content="" Margin="459,402,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <Button FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="12,637,966,69" Content="Cerrar Sesión" Click="BtnSignOff_Click"/>
 
-            <Grid Margin="15,13,890,19">
+            <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="38,30,920,690"></Button>
-                <Image Margin="138,38,1012,698" Source="/Resources/back.png"/>
+                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="btnCloseFriendsMenu_Click" />
+                <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
                 <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Margin="44,95,1041,635">Amigos</Button>
+                FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616">Amigos</Button>
                 <Button Background="#063343" Foreground="White" 
-                 FontFamily="Titan One" BorderBrush="Transparent" Margin="164,95,920,635">Solicitudes</Button>
-                <Line Fill="#00FFD1" />
-                <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="135,0,0,185" >ENVIAR SOLICITUD</Label>
-                
-                <ScrollViewer x:Name="scrlVwrFriends" Margin="0,122,0,214">
+                 FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616">Solicitudes</Button>
+                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
+                      Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
+
+                <ScrollViewer x:Name="scrlVwrFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
                     <StackPanel x:Name="stckPnlFriends">
                     </StackPanel>
                 </ScrollViewer>
-                
+
+                <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                       FontSize="18" Margin="0,544,0,0" >ENVIAR SOLICITUD</Label>
+                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
+                      StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
+
+
             </Grid>
         </Grid>
     </Viewbox>

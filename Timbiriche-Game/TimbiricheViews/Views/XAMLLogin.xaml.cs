@@ -110,7 +110,7 @@ namespace TimbiricheViews.Views
                         Properties.Resources.lbConnectionFailedDetails
                     );
                     emergentWindow.ShowDialog();
-                }
+                } //TODO: EXCEPTION FOR TIME
 
                 if (playerLogged!=null)
                 {

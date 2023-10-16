@@ -63,7 +63,7 @@ namespace TimbiricheViews.Views
                     birthdate = birthdate
                 };
 
-                Player newPlayer = new Player()
+                Server.Player newPlayer = new Server.Player()
                 {
                     username = tbxUsername.Text.Trim(),
                     email = tbxEmail.Text.Trim().ToLower(),
@@ -97,7 +97,7 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public bool ValidateUniqueIdentifier(Player newPlayer)
+        public bool ValidateUniqueIdentifier(Server.Player newPlayer)
         {
             bool existUserIdentifier = false;
             Server.UserManagerClient client = new Server.UserManagerClient();
