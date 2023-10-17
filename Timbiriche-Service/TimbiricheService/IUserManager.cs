@@ -37,6 +37,8 @@ namespace TimbiricheService
         void NotifyUserLoggedIn(string username);
         [OperationContract]
         void NotifyUserLoggedOut(string username);
+        [OperationContract]
+        void NotifyOnlineUsers(List<string> onlineUsernames);
     }
 
     [DataContract]

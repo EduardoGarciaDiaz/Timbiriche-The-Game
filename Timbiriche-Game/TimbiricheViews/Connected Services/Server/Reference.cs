@@ -379,6 +379,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOut", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOutResponse")]
         void NotifyUserLoggedOut(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyOnlineUsers", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyOnlineUsersResponse")]
+        void NotifyOnlineUsers(string[] onlineUsernames);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

@@ -27,7 +27,7 @@
             <Image Source="../resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
 
 
-            <Image Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675"/>
+            <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675"/>
             <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,675" Click="btnFriendsMenu_Click" />
 
 
