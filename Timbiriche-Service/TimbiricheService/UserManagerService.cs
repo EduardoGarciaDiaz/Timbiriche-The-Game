@@ -79,18 +79,25 @@ namespace TimbiricheService
     public partial class UserManagerService : IManagerOnlineUsers
     {
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
-        //private object lockObject = new object();
 
         public void RegisteredUserToOnlineUsers(string username)
         {
             if (!onlineUsers.ContainsKey(username))
             {
-                onlineUsers.Add(username, OperationContext.Current.GetCallbackChannel<IUserManagerCallback>());
-            }
-            foreach (var user in onlineUsers)
-            {
-                IUserManagerCallback userValueCallbackChannel = user.Value;
-                userValueCallbackChannel.NotifyUserLoggedIn(user.Key);
+                IUserManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IUserManagerCallback>();
+
+                List<string> onlineUsernames = onlineUsers.Keys.ToList();
+                currentUserCallbackChannel.NotifyOnlineUsers(onlineUsernames);
+
+                onlineUsers.Add(username, currentUserCallbackChannel);
+
+                foreach (var user in onlineUsers)
+                {
+                    if (user.Key != username)
+                    {
+                        user.Value.NotifyUserLoggedIn(username);
+                    }
+                }
             }
         }
 
@@ -98,9 +105,12 @@ namespace TimbiricheService
         {
             if (onlineUsers.ContainsKey(username))
             {
-                IUserManagerCallback userValueCallbackChannel = onlineUsers[username];
-                userValueCallbackChannel.NotifyUserLoggedOut(username);
                 onlineUsers.Remove(username);
+
+                foreach(var user in onlineUsers)
+                {
+                    user.Value.NotifyUserLoggedOut(username);
+                }
             }
         }
 

@@ -162,6 +162,9 @@
     <None Include="Connected Services\Server\item2.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Server\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

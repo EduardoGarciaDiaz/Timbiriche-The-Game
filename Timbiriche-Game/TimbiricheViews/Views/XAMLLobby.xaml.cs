@@ -20,7 +20,7 @@ using TimbiricheViews.Server;
 namespace TimbiricheViews.Views
 {
 
-    public partial class XAMLLobby : Page, Server.IManagerOnlineUsersCallback
+    public partial class XAMLLobby : Page, IManagerOnlineUsersCallback
     {
 
         Server.Player playerLoggedIn = PlayerSingleton.player;
@@ -53,50 +53,77 @@ namespace TimbiricheViews.Views
             AddUserToOnlineUserList(username);
         }
 
-        private void BtnSignOff_Click(object sender, RoutedEventArgs e)
-        {
-            InstanceContext context = new InstanceContext(this);
-            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
-
-            // Commented while we do the update of the stackpanel view
-            // NavigationService.Navigate(new XAMLLogin());
-
-        }
-
         public void NotifyUserLoggedOut(string username)
         {
             Console.WriteLine("Disconected User: " + username);
             RemoveUserFromOnlineUserList(username);
         }
 
+        public void NotifyOnlineUsers(string[] onlineUsernames)
+        {
+            AddUsersToOnlineUsersList(onlineUsernames);
+
+        }
+
+        private void AddUsersToOnlineUsersList(string[] onlineUsernames)
+        {
+            foreach(var username in onlineUsernames)
+            {
+                string idUserItem = "lb" + username;
+                XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
+                userOnlineItem.Name = idUserItem;
+                stckPnlFriends.Children.Add(userOnlineItem);
+            }
+        }
+
         private void AddUserToOnlineUserList(string username)
         {
             string idUserItem = "lb" + username;
-            XAMLActiveUserItemControl userItem = new XAMLActiveUserItemControl(username);
-            userItem.Name = idUserItem;
-            stckPnlFriends.Children.Add(userItem);
+            XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
+            userOnlineItem.Name = idUserItem;
+            stckPnlFriends.Children.Add(userOnlineItem);
         }
 
         private void RemoveUserFromOnlineUserList(string username)
         {
-            // TODO: Delete the user disconected from the list of active friends on the stack panel
-            string idLabel = "lb" + username;
-            Label labelAuxiliar = stckPnlFriends.FindName(idLabel) as Label;
-            stckPnlFriends.Children.Remove(labelAuxiliar);
-            stckPnlFriends.UpdateLayout();
-            scrlVwrFriends.UpdateLayout();
+            string  idUserItem = "lb" + username;
+            XAMLActiveUserItemControl userOnlineItemToRemove = null;
+            foreach (XAMLActiveUserItemControl item in stckPnlFriends.Children)
+            {
+                if(item.Name == idUserItem)
+                {
+                    userOnlineItemToRemove = item;
+                    break;
+                }
+            }
+
+            if(userOnlineItemToRemove != null)
+            {
+                stckPnlFriends.Children.Remove(userOnlineItemToRemove);
+            }
+
+        }
+
+        private void BtnSignOff_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
+            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
+
+            NavigationService.Navigate(new XAMLLogin());
         }
 
         private void btnFriendsMenu_Click(object sender, RoutedEventArgs e)
         {
             gridFriendsMenu.Visibility = Visibility.Visible;
             btnFriendsMenu.Visibility = Visibility.Collapsed;
+            imgFriendsMenu.Visibility = Visibility.Collapsed;
         }
 
         private void btnCloseFriendsMenu_Click(object sender, RoutedEventArgs e)
         {
             btnFriendsMenu.Visibility = Visibility.Visible;
+            imgFriendsMenu.Visibility = Visibility.Visible;
             gridFriendsMenu.Visibility = Visibility.Collapsed;
         }
 
