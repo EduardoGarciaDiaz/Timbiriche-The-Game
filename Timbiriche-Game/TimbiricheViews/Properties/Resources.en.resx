@@ -204,6 +204,9 @@
   <data name="btnShop" xml:space="preserve">
     <value>Shop</value>
   </data>
+  <data name="btnSignOff" xml:space="preserve">
+    <value>Sign Off</value>
+  </data>
   <data name="btnStartMatch" xml:space="preserve">
     <value>Start</value>
   </data>

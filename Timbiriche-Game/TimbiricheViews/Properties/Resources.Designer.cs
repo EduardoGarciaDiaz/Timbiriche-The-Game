@@ -322,6 +322,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cerrar Sesión.
+        /// </summary>
+        public static string btnSignOff {
+            get {
+                return ResourceManager.GetString("btnSignOff", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Empezar.
         /// </summary>
         public static string btnStartMatch {

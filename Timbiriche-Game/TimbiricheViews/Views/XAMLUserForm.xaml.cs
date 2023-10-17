@@ -23,14 +23,6 @@ namespace TimbiricheViews.Views
     /// </summary>
     public partial class XAMLUserForm : Page
     {
-        public XAMLUserForm(String language)
-        {
-            System.Threading.Thread.CurrentThread.CurrentUICulture =
-                new System.Globalization.CultureInfo(language);
-            InitializeComponent();
-            ImgBack.MouseLeftButtonDown += ImgBack_Click;
-        }
-
         public XAMLUserForm()
         {
             InitializeComponent();

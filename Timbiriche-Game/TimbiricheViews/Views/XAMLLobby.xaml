@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:TimbiricheViews.Views"
+      xmlns:p="clr-namespace:TimbiricheViews.Properties"
       mc:Ignorable="d" 
       d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
       Title="XAMLLobby">
@@ -27,31 +28,26 @@
             <Image Source="../resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
 
 
-            <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675"/>
-            <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,675" Click="btnFriendsMenu_Click" />
+            <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675" Width="86"/>
+            <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,675" Click="BtnFriendsMenu_Click" />
 
+            <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
 
-            <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1105,13,9,677"/>
+            <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+                        BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689"/>
 
+            <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689"/>
 
-
-            <Button FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
-                        BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689">Sala</Button>
-
-            <Button FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
-            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689">Tienda</Button>
-
-            <Image Source="../Resources/coins.png" Stretch="Fill" Margin="24,716,1141,22" />
-
+            <Image Source="../Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
 
             <Label  FontFamily="Inter" Foreground="White" FontSize="24"
-                               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,712,1119,0">x</Label>
+                               HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,632,1111,0">x</Label>
             <Label x:Name="lbCoins" FontFamily="Inter" Foreground="White" FontSize="24"
-                               HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="77,714,0,0" Width="81" Height="34"></Label>
+                               HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="85,628,0,0" Width="133" Height="50" Content="" VerticalContentAlignment="Center" MinHeight="1"/>
 
-
-            <Button FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196">Unirse con código</Button>
-            <Button FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28">Crear partida</Button>
+            <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196"/>
+            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28"/>
 
             <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="444,662,468,64" />
             <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
@@ -59,16 +55,15 @@
 
             <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="441,588,473,113" />
 
-
             <Rectangle Fill="#E46161" RadiusX="25" RadiusY="25" Margin="459,382,491,140" />
             <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
                             FontSize="120" Content="" Margin="459,402,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-            <Button FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="12,637,966,69" Content="Cerrar Sesión" Click="BtnSignOff_Click"/>
+            <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click"/>
 
             <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="btnCloseFriendsMenu_Click" />
+                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
                 <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
                 <Button Background="#063343" Foreground="White" 
                 FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616">Amigos</Button>
@@ -76,20 +71,17 @@
                  FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616">Solicitudes</Button>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
                       Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
-
                 <ScrollViewer x:Name="scrlVwrFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
                     <StackPanel x:Name="stckPnlFriends">
                     </StackPanel>
                 </ScrollViewer>
-
                 <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
                        FontSize="18" Margin="0,544,0,0" >ENVIAR SOLICITUD</Label>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
                       StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
-
-
             </Grid>
+            <Label x:Name="lbFriends" Content="{x:Static p:Resources.lbFriends}" HorizontalAlignment="Left" Margin="30,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+            <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1120,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
         </Grid>
     </Viewbox>
-
 </Page>

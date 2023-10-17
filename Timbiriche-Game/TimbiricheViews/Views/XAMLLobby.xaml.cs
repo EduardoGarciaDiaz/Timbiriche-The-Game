@@ -49,20 +49,17 @@ namespace TimbiricheViews.Views
 
         public void NotifyUserLoggedIn(string username)
         {
-            Console.WriteLine("Conected User: " + username);
             AddUserToOnlineUserList(username);
         }
 
         public void NotifyUserLoggedOut(string username)
         {
-            Console.WriteLine("Disconected User: " + username);
             RemoveUserFromOnlineUserList(username);
         }
 
         public void NotifyOnlineUsers(string[] onlineUsernames)
         {
             AddUsersToOnlineUsersList(onlineUsernames);
-
         }
 
         private void AddUsersToOnlineUsersList(string[] onlineUsernames)
@@ -96,12 +93,10 @@ namespace TimbiricheViews.Views
                     break;
                 }
             }
-
             if(userOnlineItemToRemove != null)
             {
                 stckPnlFriends.Children.Remove(userOnlineItemToRemove);
             }
-
         }
 
         private void BtnSignOff_Click(object sender, RoutedEventArgs e)
@@ -113,18 +108,20 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLLogin());
         }
 
-        private void btnFriendsMenu_Click(object sender, RoutedEventArgs e)
+        private void BtnFriendsMenu_Click(object sender, RoutedEventArgs e)
         {
             gridFriendsMenu.Visibility = Visibility.Visible;
             btnFriendsMenu.Visibility = Visibility.Collapsed;
             imgFriendsMenu.Visibility = Visibility.Collapsed;
+            lbFriends.Visibility = Visibility.Collapsed;
         }
 
-        private void btnCloseFriendsMenu_Click(object sender, RoutedEventArgs e)
+        private void BtnCloseFriendsMenu_Click(object sender, RoutedEventArgs e)
         {
+            gridFriendsMenu.Visibility = Visibility.Collapsed;
             btnFriendsMenu.Visibility = Visibility.Visible;
             imgFriendsMenu.Visibility = Visibility.Visible;
-            gridFriendsMenu.Visibility = Visibility.Collapsed;
+            lbFriends.Visibility = Visibility.Visible;
         }
 
     }
