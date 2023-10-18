@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.ServiceModel;
 using System.Text;
@@ -104,8 +105,14 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
             client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
-
             NavigationService.Navigate(new XAMLLogin());
+        }
+        
+        public void BtnCloseWindow_Click()
+        {            
+            InstanceContext context = new InstanceContext(this);
+            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
+            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
         }
 
         private void BtnFriendsMenu_Click(object sender, RoutedEventArgs e)
@@ -123,6 +130,13 @@ namespace TimbiricheViews.Views
             imgFriendsMenu.Visibility = Visibility.Visible;
             lbFriends.Visibility = Visibility.Visible;
         }
+
+        private void BtnMyProfile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+
 
     }
 }

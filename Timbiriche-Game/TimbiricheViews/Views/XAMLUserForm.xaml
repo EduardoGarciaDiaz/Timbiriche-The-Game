@@ -104,7 +104,7 @@
             <Label   x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="510,596,0,0" />
             <PasswordBox   x:Name= "pwBxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="510,641,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="13"/>
 
-            <Button  x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="904,669,28,0" Click="BtnCreateAccount_Click"/>
+            <Button  x:Name="btnCreateAccount" Content="{x:Static p:Resources.btnCreateAccount}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="904,669,28,0" Click="BtnCreateAccount_Click" Cursor="Hand"/>
 
             <Label x:Name="lbEmailError" Content="{x:Static p:Resources.lbEmailError}" HorizontalAlignment="Left" Margin="510,556,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="28" RenderTransformOrigin="0.426,0.32" Width="300" FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
             <Label x:Name="lbExistentEmail" Content="{x:Static p:Resources.lbExistentEmail}" HorizontalAlignment="Left" Margin="510,556,0,0" VerticalAlignment="Top" Foreground="#FFF40000" Height="28" RenderTransformOrigin="0.426,0.32" Width="300" FontSize="14" FontWeight="Bold" Visibility="Hidden"/>
@@ -124,33 +124,32 @@
             <Label Content="*" HorizontalAlignment="Left" Margin="685,594,0,0" VerticalAlignment="Top" Foreground="White" Height="26" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
             <Label Content="*" HorizontalAlignment="Left" Margin="1131,483,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="18" FontFamily="Inter" FontSize="20"/>
             <Label x:Name="lbInstructionsRequiredFields"  Content="{x:Static p:Resources.lbInstructionsRequiredFields}" HorizontalAlignment="Right" Margin="0,728,28,0" VerticalAlignment="Top" Foreground="White" Height="32" RenderTransformOrigin="0.426,0.32" Width="458" FontSize="15" HorizontalContentAlignment="Right"/>
-            <Image Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png"/>
-            <Image x:Name="ImgNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,162,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden">
+            <Image Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png" Cursor="Hand"/>
+            <Image x:Name="ImgNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,162,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
                 <Image.ToolTip>
                     <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
                 </Image.ToolTip>
             </Image>
-            <Image x:Name="ImgLastNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="760,261,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden">
+            <Image x:Name="ImgLastNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="760,261,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
                 <Image.ToolTip>
                     <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
                 </Image.ToolTip>
             </Image>
-            <Image x:Name="ImgEmailErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,488,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden">
+            <Image x:Name="ImgEmailErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,488,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
                 <Image.ToolTip>
                     <ToolTip Content="{x:Static p:Resources.lbHelpEmailError}" ToolTipService.ShowDuration="2000"/>
                 </Image.ToolTip>
             </Image>
-            <Image x:Name="ImgPasswordErrorDetails" HorizontalAlignment="Left" Height="14" Margin="711,600,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden">
+            <Image x:Name="ImgPasswordErrorDetails" HorizontalAlignment="Left" Height="14" Margin="711,600,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
                 <Image.ToolTip>
                     <ToolTip Content="{x:Static p:Resources.lbHelpPasswordError}" ToolTipService.ShowDuration="2000"/>
                 </Image.ToolTip>
             </Image>
-            <Image x:Name="ImgUsernameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="1154,489,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden">
+            <Image x:Name="ImgUsernameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="1154,489,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
                 <Image.ToolTip>
                     <ToolTip Content="{x:Static p:Resources.lbHelpUsernameError}" ToolTipService.ShowDuration="2000"/>
                 </Image.ToolTip>
             </Image>
-
         </Grid>
     </Viewbox>
 

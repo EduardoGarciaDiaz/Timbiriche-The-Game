@@ -61,6 +61,9 @@
     <Compile Include="Components\XAMLActiveUserItemComponent.xaml.cs">
       <DependentUpon>XAMLActiveUserItemComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\XAMLEmergentWindow.xaml.cs">
+      <DependentUpon>XAMLEmergentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\Server\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,9 +79,6 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utils\Utilities.cs" />
-    <Compile Include="Views\EmergentWindow.xaml.cs">
-      <DependentUpon>EmergentWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\XAMLLobby.xaml.cs">
       <DependentUpon>XAMLLobby.xaml</DependentUpon>
     </Compile>
@@ -89,11 +89,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Components\XAMLEmergentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\EmergentWindow.xaml">
+    <Page Include="MainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimbiricheViews.Views;
 
 namespace TimbiricheViews
 {
@@ -22,6 +24,19 @@ namespace TimbiricheViews
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void BtnWindowClosing_Click(object sender, CancelEventArgs e)
+        {
+            Page currentPage = frameNavigation.Content as Page;
+            if (currentPage != null)
+            {
+                if (currentPage is XAMLLobby)
+                {
+                    XAMLLobby lobby = (XAMLLobby)currentPage;
+                    lobby.BtnCloseWindow_Click();
+                }
+            }
         }
     }
 }

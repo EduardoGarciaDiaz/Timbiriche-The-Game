@@ -6,8 +6,8 @@
         xmlns:p = "clr-namespace:TimbiricheViews.Properties"
         xmlns:local="clr-namespace:TimbiricheViews"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="770" Width="1200">
+        WindowStartupLocation="CenterScreen" Closing="BtnWindowClosing_Click"
+        Title="Timbiriche" Height="770" Width="1200">
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">
             <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Views/XAMLLogin.xaml" />

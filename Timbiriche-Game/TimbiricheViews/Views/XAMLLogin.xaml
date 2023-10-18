@@ -92,15 +92,15 @@
             <Label  FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
             Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}" Margin="413,181,631,0" Grid.Row="1"></Label>
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
-            FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click" Margin="416,246,410,260" Grid.Row="1"></Button>
+            FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click" Margin="416,246,410,260" Grid.Row="1" Cursor="Hand"></Button>
             <Button     Background="Transparent" Foreground="#1CDBD4" BorderThickness="0"
-            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="BtnCreateAccount_Click" Margin="416,298,410,208" Grid.Row="1"></Button>
+            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnCreateAccount}" Click="BtnCreateAccount_Click" Margin="416,298,410,208" Grid.Row="1" Cursor="Hand"></Button>
 
             <Label FontFamily="Inter" Foreground="White" HorizontalAlignment="Left" 
             VerticalAlignment="Top" FontSize="18" Content="{x:Static p:Resources.lbAnyCode}" Margin="338,421,0,0" Width="206" HorizontalContentAlignment="Center" Grid.Row="1"></Label>
             <TextBox Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD" VerticalContentAlignment="Center" Margin="544,415,465,96" Grid.Row="1"/>
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
-            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}" Margin="740,415,360,96" Grid.Row="1" ></Button>
+            FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}" Margin="740,415,360,96" Grid.Row="1" Cursor="Hand" ></Button>
 
             <Rectangle Fill="#359EFF" RadiusX="10" RadiusY="10" Margin="1061,395,30,66" Grid.Row="1" />
             <Image x:Name="imgUsaFlag" Visibility="Hidden" Source="/Resources/usaFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="80" Margin="1077,404,0,0" Grid.Row="1"/>

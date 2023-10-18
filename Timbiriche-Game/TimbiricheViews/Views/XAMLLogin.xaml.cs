@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
+using TimbiricheViews.Components;
 using TimbiricheViews.Player;
 using TimbiricheViews.Utils;
 
@@ -30,10 +31,9 @@ namespace TimbiricheViews.Views
             InitializeComponent();
         }
 
-
         private void ChangeLanguage()
         {
-            String language = ""; 
+            string language = ""; 
             if (lbLanguage.Content.Equals("Español"))
             {
                 language = "en";
@@ -105,19 +105,24 @@ namespace TimbiricheViews.Views
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    EmergentWindow emergentWindow = new EmergentWindow(
-                        Properties.Resources.lbConnectionFailed,
-                        Properties.Resources.lbConnectionFailedDetails
-                    );
-                    emergentWindow.ShowDialog();
-                } //TODO: EXCEPTION FOR TIME
-
+                    ShowConnectionFailedMessage();
+                    // TODO: Log the excepction
+                }   // TODO: EXCEPTION FOR TIME
                 if (playerLogged!=null)
                 {
                     PlayerSingleton.player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
                 }
             }
+        }
+
+        private void ShowConnectionFailedMessage()
+        {
+            Window mainWindow = Application.Current.MainWindow;
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                Properties.Resources.lbConnectionFailed,
+                Properties.Resources.lbConnectionFailedDetails
+            );            
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
@@ -127,11 +132,12 @@ namespace TimbiricheViews.Views
 
         private void tbxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
-            if(tbxUsername.Text == (string)tbxUsername.Tag) 
+            if (tbxUsername.Text == (string)tbxUsername.Tag) 
             {
                 tbxUsername.Text = string.Empty;
                 tbxUsername.Foreground = Brushes.Black;
                 tbxUsername.FontFamily = new FontFamily("Inter");
+                tbxUsername.FontWeight = FontWeights.Bold;
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Security.Principal;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimbiricheViews.Components;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
@@ -46,63 +48,111 @@ namespace TimbiricheViews.Views
         {
             if (ValidateFields())
             {
-                DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
-                Account newAccount = new Account()
+                string email = tbxEmail.Text.Trim().ToLower();
+                string username = tbxUsername.Text.Trim();
+                if (!ValidateUniqueIdentifier(email, username))
                 {
-                    name = tbxName.Text.Trim(),
-                    lastName = tbxLastName.Text.Trim(),
-                    surname = tbxSurname.Text.Trim(),
-                    birthdate = birthdate
-                };
-
-                Server.Player newPlayer = new Server.Player()
-                {
-                    username = tbxUsername.Text.Trim(),
-                    email = tbxEmail.Text.Trim().ToLower(),
-                    password = pwBxPassword.Password.Trim(),
-                    coins = 0,
-                    status = "Not-Banned",
-                    accountFK = newAccount
-                };
-                
-                if (!ValidateUniqueIdentifier(newPlayer))
-                {
-                    Server.UserManagerClient client = new Server.UserManagerClient();
-                    int rowsAffected = client.AddUser(newPlayer);
-                    if (rowsAffected > 0)
+                    Account newAccount = CreateNewAccount();
+                    Server.Player newPlayer = CreateNewPlayer(newAccount);
+                    try
                     {
-                        EmergentWindow emergentWindow = new EmergentWindow(
-                            Properties.Resources.lbTitleAccountCreatedSuccess,
-                            Properties.Resources.tbkDescriptionAccountCreatedSuccess
-                        );
-                        emergentWindow.ShowDialog();
-                        NavigationService.GoBack();
+                        Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                        int rowsAffected = userManagerClient.AddUser(newPlayer);
+                        if (rowsAffected > 0)
+                        {
+                            ShowSuccessMessage();
+                            NavigationService.GoBack();
+                        }
+                        else
+                        {
+                            ShowErrorMessage();
+                        }
                     }
-                    else
+                    catch (EndpointNotFoundException ex)
                     {
-                        EmergentWindow emergentWindow = new EmergentWindow(
-                            Properties.Resources.lbTitleCreateAccountFail,
-                            Properties.Resources.tbkDescriptionCreateAccountFail
-                        );
+                        ShowConnectionFailedMessage();
+                        // TODO: Log the excepction
                     }
                 }
             }
         }
 
-        public bool ValidateUniqueIdentifier(Server.Player newPlayer)
+        private Account CreateNewAccount()
+        {
+            DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
+            Account newAccount = new Account()
+            {
+                name = tbxName.Text.Trim(),
+                lastName = tbxLastName.Text.Trim(),
+                surname = tbxSurname.Text.Trim(),
+                birthdate = birthdate
+            };
+            return newAccount;
+        }
+
+        private Server.Player CreateNewPlayer(Account account)
+        {
+            const string NOT_BANNED_STATUS = "Not-Banned";
+            const int DEFAULT_NUMBER_OF_COINS = 0;
+            Server.Player newPlayer = new Server.Player()
+            {
+                username = tbxUsername.Text.Trim(),
+                email = tbxEmail.Text.Trim().ToLower(),
+                password = pwBxPassword.Password.Trim(),
+                coins = DEFAULT_NUMBER_OF_COINS,
+                status = NOT_BANNED_STATUS,
+                accountFK = account
+            };
+            return newPlayer;
+        }
+
+        private void ShowSuccessMessage()
+        {
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                Properties.Resources.lbTitleAccountCreatedSuccess,
+                Properties.Resources.tbkDescriptionAccountCreatedSuccess
+            );
+        }
+
+        private void ShowErrorMessage()
+        {
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                Properties.Resources.lbTitleCreateAccountFail,
+                Properties.Resources.tbkDescriptionCreateAccountFail
+            );
+        }
+
+        private void ShowConnectionFailedMessage()
+        {
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                Properties.Resources.lbConnectionFailed,
+                Properties.Resources.lbConnectionFailedDetails
+            );
+        }
+
+        public bool ValidateUniqueIdentifier(string email, string username)
         {
             bool existUserIdentifier = false;
-            Server.UserManagerClient client = new Server.UserManagerClient();
-            if (client.ValidateUniqueIdentifierUser(newPlayer.email))
+            try
             {
-                existUserIdentifier = true;
-                lbExistentEmail.Visibility = Visibility.Visible;
+                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                if (userManagerClient.ValidateUniqueIdentifierUser(email))
+                {
+                    existUserIdentifier = true;
+                    lbExistentEmail.Visibility = Visibility.Visible;
+                }
+                if (userManagerClient.ValidateUniqueIdentifierUser(username))
+                {
+                    existUserIdentifier = true;
+                    lbExistentUsername.Visibility = Visibility.Visible;
+                }
             }
-            if (client.ValidateUniqueIdentifierUser(newPlayer.username))
+            catch (EndpointNotFoundException ex)
             {
-                existUserIdentifier = true;
-                lbExistentUsername.Visibility = Visibility.Visible;
+                ShowConnectionFailedMessage();
+                // TODO: Log the excepction
             }
+
             return existUserIdentifier;
         }
 

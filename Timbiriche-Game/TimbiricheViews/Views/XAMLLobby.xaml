@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TimbiricheViews.Views"
       xmlns:p="clr-namespace:TimbiricheViews.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
+      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8" 
       Title="XAMLLobby">
 
     <Page.Resources>
@@ -23,21 +23,20 @@
 
 
         <Grid Height="770" Width="1200">
-
             <Image Source="../Resources/lobyBackground.png" Stretch="Fill" Margin="0,0,0,427"/>
             <Image Source="../resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
 
-
             <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675" Width="86"/>
-            <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,675" Click="BtnFriendsMenu_Click" />
+            <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,659" Click="BtnFriendsMenu_Click" Cursor="Hand" />
 
             <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
+            <Button x:Name="btnMyProfile" Background="Transparent" BorderBrush="Transparent" Margin="1105,9,7,663" Click="BtnMyProfile_Click" Cursor="Hand" />
 
             <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
-                        BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689"/>
+                        BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand"/>
 
             <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
-            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689"/>
+            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand"/>
 
             <Image Source="../Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
 
@@ -46,8 +45,8 @@
             <Label x:Name="lbCoins" FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="85,628,0,0" Width="133" Height="50" Content="" VerticalContentAlignment="Center" MinHeight="1"/>
 
-            <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196"/>
-            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28"/>
+            <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196" Cursor="Hand"/>
+            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28" Cursor="Hand"/>
 
             <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="444,662,468,64" />
             <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
@@ -58,7 +57,7 @@
             <Rectangle Fill="#E46161" RadiusX="25" RadiusY="25" Margin="459,382,491,140" />
             <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
                             FontSize="120" Content="" Margin="459,402,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
-            <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click"/>
+            <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
             <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />

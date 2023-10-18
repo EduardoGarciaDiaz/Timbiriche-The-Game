@@ -1,0 +1,45 @@
+﻿<Window x:Class="TimbiricheViews.Components.XAMLEmergentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimbiricheViews.Components"
+        xmlns:p = "clr-namespace:TimbiricheViews.Properties"
+        mc:Ignorable="d"
+        WindowState="Normal" ResizeMode="NoResize" WindowStyle="None" 
+        WindowStartupLocation="CenterOwner" Background="#59000000"
+        AllowsTransparency="True"
+        Title="" Height="770" Width="1200">
+        <Window.Resources>
+            <Style TargetType="{x:Type Button}" >
+                <Style.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="CornerRadius" Value="6" />
+                    </Style>
+                </Style.Resources>
+            </Style>
+        </Window.Resources>
+        <Viewbox Stretch="Fill">
+            <Grid Height="770" Width="1200">
+                <Border CornerRadius="25" Background="#1C95D1" Margin="304,265,304,267">
+                    <Grid Height="244" Width="594" Background="Transparent">
+                        <Label x:Name="lbTitleEmergentWindow" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="32" Width="562" HorizontalContentAlignment="Center"/>
+                        <Label x:Name="lbDescriptionEmergentWindow" HorizontalAlignment="Left" Margin="26,89,0,0" VerticalAlignment="Top" Foreground="White" Width="547" Height="83" FontFamily="Inter" FontSize="16">
+                            <TextBlock x:Name="tbkDescriptionEmergentWindow" TextWrapping="Wrap"/>
+                        </Label>
+                        <Separator RenderTransformOrigin="0.5,0.5" Margin="0,71,16,145" HorizontalAlignment="Right" Width="562" Background="#FF05CDDE">
+                            <Separator.RenderTransform>
+                                <TransformGroup>
+                                    <ScaleTransform ScaleY="1"/>
+                                    <SkewTransform/>
+                                    <RotateTransform/>
+                                    <TranslateTransform/>
+                                </TransformGroup>
+                            </Separator.RenderTransform>
+                        </Separator>
+                        <Button x:Name ="BtnMainEmergentWindow" Content="{x:Static p:Resources.btnAccept}" HorizontalAlignment="Left" Margin="242,177,0,0" VerticalAlignment="Top" Height="48" Width="124" FontFamily="Titan One" Foreground="White" Background="#FF3F54C3" BorderBrush="{x:Null}" FontSize="18" Click="BtnAccept_Click" Cursor="Hand"/>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Viewbox>
+    </Window>
