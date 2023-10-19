@@ -15,7 +15,7 @@ namespace TimbiricheDataAccess
 
             PasswordHashManager passwordHashManager = new PasswordHashManager();
             player.password = passwordHashManager.HashPassword(player.password);
-            player.salt = passwordHashManager.salt;
+            player.salt = passwordHashManager.Salt;
 
             Accounts account = null;
             if (player != null)
@@ -32,7 +32,8 @@ namespace TimbiricheDataAccess
                     try
                     {
                         return context.SaveChanges();
-                    } catch (DbEntityValidationException ex)
+                    } 
+                    catch (DbEntityValidationException ex)
                     {
                         foreach (var entityValidationErrors in ex.EntityValidationErrors)
                         {
@@ -48,26 +49,25 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
-public Players ValidateLoginCredentials(String username, String password)
-{
-    using (var context = new TimbiricheDBEntities())
-    {
-        var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
-
-        if (playerData != null)
+        public Players ValidateLoginCredentials(String username, String password)
         {
-            PasswordHashManager passwordHashManager = new PasswordHashManager();
-            var playerPassword = playerData.password;
-            if (passwordHashManager.VerifyPassword(password, playerPassword))
+            using (var context = new TimbiricheDBEntities())
             {
-                return playerData;
+                var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+
+                if (playerData != null)
+                {
+                    PasswordHashManager passwordHashManager = new PasswordHashManager();
+                    var playerPassword = playerData.password;
+                    if (passwordHashManager.VerifyPassword(password, playerPassword))
+                    {
+                        return playerData;
+                    }
+                }
+
+                return null;
             }
         }
-
-        return null;
-    }
-}
-
 
         public bool ExistUserIdenitifier(String identifier)
         {
@@ -82,6 +82,5 @@ public Players ValidateLoginCredentials(String username, String password)
             }
             return identifierExist;
         }
-
     }
 }

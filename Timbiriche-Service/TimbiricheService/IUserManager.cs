@@ -8,13 +8,11 @@ using System.Threading.Tasks;
 
 namespace TimbiricheService
 {
-
     [ServiceContract]
     public interface IUserManager
     {
         [OperationContract]
         int AddUser(Player player);
-
         [OperationContract]
         Player ValidateLoginCredentials(String username, String password);
         [OperationContract]
@@ -25,9 +23,9 @@ namespace TimbiricheService
     public interface IManagerOnlineUsers
     {
         [OperationContract(IsOneWay = true)]
-        void RegisteredUserToOnlineUsers(string username);
+        void RegisterUserToOnlineUsers(string username);
         [OperationContract(IsOneWay = true)]
-        void UnregisteredUserToOnlineUsers(string username);
+        void UnregisterUserToOnlineUsers(string username);
     }
 
     [ServiceContract]
@@ -51,15 +49,15 @@ namespace TimbiricheService
         private DateTime _birthdate;
 
         [DataMember]
-        public int idAcccount { get { return _idAccount; } set { _idAccount = value; } }
+        public int IdAcccount { get { return _idAccount; } set { _idAccount = value; } }
         [DataMember]
-        public string name { get { return _name; } set { _name = value; } }
+        public string Name { get { return _name; } set { _name = value; } }
         [DataMember]
-        public string lastName { get { return _lastName; } set { _lastName = value; } }
+        public string LastName { get { return _lastName; } set { _lastName = value; } }
         [DataMember]
-        public string surname { get { return _surname; } set { _surname = value; } }
+        public string Surname { get { return _surname; } set { _surname = value; } }
         [DataMember]
-        public System.DateTime birthdate { get { return _birthdate; } set { _birthdate = value; } }
+        public DateTime Birthdate { get { return _birthdate; } set { _birthdate = value; } }
 
     }
 
@@ -77,21 +75,21 @@ namespace TimbiricheService
         private Account _accountFK;
 
         [DataMember]
-        public int idPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
+        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
         [DataMember]
-        public string username { get { return _username; } set { _username = value; } }
+        public string Username { get { return _username; } set { _username = value; } }
         [DataMember]
-        public string email { get { return _email; } set { _email = value; } }
+        public string Email { get { return _email; } set { _email = value; } }
         [DataMember]
-        public string password { get { return _password; } set { _password = value; } }
+        public string Password { get { return _password; } set { _password = value; } }
         [DataMember]
-        public int coins { get { return _coins; } set { _coins = value; } }
+        public int Coins { get { return _coins; } set { _coins = value; } }
         [DataMember]
-        public string status { get { return _status; } set { _status = value; } }
+        public string Status { get { return _status; } set { _status = value; } }
         [DataMember]
-        public string salt { get { return _salt; } set { _salt = value; } }
+        public string Salt { get { return _salt; } set { _salt = value; } }
         [DataMember]
-        public Account accountFK { get { return _accountFK; } set { _accountFK = value; } }
+        public Account AccountFK { get { return _accountFK; } set { _accountFK = value; } }
 
     }
 }

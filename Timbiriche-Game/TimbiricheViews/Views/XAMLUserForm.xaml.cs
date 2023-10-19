@@ -79,10 +79,10 @@ namespace TimbiricheViews.Views
             DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
             Account newAccount = new Account()
             {
-                name = tbxName.Text.Trim(),
-                lastName = tbxLastName.Text.Trim(),
-                surname = tbxSurname.Text.Trim(),
-                birthdate = birthdate
+                Name = tbxName.Text.Trim(),
+                LastName = tbxLastName.Text.Trim(),
+                Surname = tbxSurname.Text.Trim(),
+                Birthdate = birthdate
             };
             return newAccount;
         }
@@ -93,12 +93,12 @@ namespace TimbiricheViews.Views
             const int DEFAULT_NUMBER_OF_COINS = 0;
             Server.Player newPlayer = new Server.Player()
             {
-                username = tbxUsername.Text.Trim(),
-                email = tbxEmail.Text.Trim().ToLower(),
-                password = pwBxPassword.Password.Trim(),
-                coins = DEFAULT_NUMBER_OF_COINS,
-                status = NOT_BANNED_STATUS,
-                accountFK = account
+                Username = tbxUsername.Text.Trim(),
+                Email = tbxEmail.Text.Trim().ToLower(),
+                Password = pwBxPassword.Password.Trim(),
+                Coins = DEFAULT_NUMBER_OF_COINS,
+                Status = NOT_BANNED_STATUS,
+                AccountFK = account
             };
             return newPlayer;
         }
@@ -238,9 +238,7 @@ namespace TimbiricheViews.Views
                 lbPasswordNumberInstruction.Foreground = Brushes.GreenYellow;
             }
         }
-
     }
-
 }
 
 

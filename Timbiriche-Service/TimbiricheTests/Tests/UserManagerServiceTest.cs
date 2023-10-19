@@ -11,7 +11,6 @@ namespace TimbiricheTests.Tests
 {
     public class UserManagerServiceTest
     {
-        
         [Fact]
         public void TestAddUserSuccess()
         {
@@ -21,18 +20,18 @@ namespace TimbiricheTests.Tests
             DateTime.TryParse("10/25/2005", out DateTime birthdate);
             Account newAccount = new Account()
             {
-                name = "Juan Carlos",
-                lastName = "Pérez",
-                surname = "Arriaga",
-                birthdate = birthdate
+                Name = "Juan Carlos",
+                LastName = "Pérez",
+                Surname = "Arriaga",
+                Birthdate = birthdate
             };
 
             Player newPlayer = new Player()
             {
-                username = "ElRevo",
-                email = "elrevo@gmail.com",
-                password = "E1_R3voTecN0",
-                accountFK = newAccount
+                Username = "ElRevo",
+                Email = "elrevo@gmail.com",
+                Password = "E1_R3voTecN0",
+                AccountFK = newAccount
             };
 
             currentResult = userManagerService.AddUser(newPlayer);
@@ -48,18 +47,18 @@ namespace TimbiricheTests.Tests
             int expectedResult = -1;
             Account newAccount = new Account()
             {
-                name = "Juan Carlos",
-                lastName = "",
-                surname = "Arriaga",
-                birthdate = DateTime.Now
+                Name = "Juan Carlos",
+                LastName = "",
+                Surname = "Arriaga",
+                Birthdate = DateTime.Now
             };
 
             Player newPlayer = new Player()
             {
-                username = "ElRevo",
-                email = "elrevo@gmail.com",
-                password = "",
-                accountFK = newAccount
+                Username = "ElRevo",
+                Email = "elrevo@gmail.com",
+                Password = "",
+                AccountFK = newAccount
             };
 
             currentResult = userManagerService.AddUser(newPlayer);
@@ -109,6 +108,7 @@ namespace TimbiricheTests.Tests
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);
             Assert.False(currentResult);
         }
+
         [Fact]
         public void TestValidateUniqueIdentifierUserEmailSuccess()
         {
@@ -130,6 +130,5 @@ namespace TimbiricheTests.Tests
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);
             Assert.False(currentResult);
         }
-
     }
 }

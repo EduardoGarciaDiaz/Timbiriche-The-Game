@@ -23,28 +23,28 @@ namespace TimbiricheViews.Server {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private TimbiricheViews.Server.Account accountFKField;
+        private TimbiricheViews.Server.Account AccountFKField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int coinsField;
+        private int CoinsField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string emailField;
+        private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idPlayerField;
+        private int IdPlayerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string passwordField;
+        private string PasswordField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string saltField;
+        private string SaltField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string statusField;
+        private string StatusField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string usernameField;
+        private string UsernameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -57,105 +57,105 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public TimbiricheViews.Server.Account accountFK {
+        public TimbiricheViews.Server.Account AccountFK {
             get {
-                return this.accountFKField;
+                return this.AccountFKField;
             }
             set {
-                if ((object.ReferenceEquals(this.accountFKField, value) != true)) {
-                    this.accountFKField = value;
-                    this.RaisePropertyChanged("accountFK");
+                if ((object.ReferenceEquals(this.AccountFKField, value) != true)) {
+                    this.AccountFKField = value;
+                    this.RaisePropertyChanged("AccountFK");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int coins {
+        public int Coins {
             get {
-                return this.coinsField;
+                return this.CoinsField;
             }
             set {
-                if ((this.coinsField.Equals(value) != true)) {
-                    this.coinsField = value;
-                    this.RaisePropertyChanged("coins");
+                if ((this.CoinsField.Equals(value) != true)) {
+                    this.CoinsField = value;
+                    this.RaisePropertyChanged("Coins");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string email {
+        public string Email {
             get {
-                return this.emailField;
+                return this.EmailField;
             }
             set {
-                if ((object.ReferenceEquals(this.emailField, value) != true)) {
-                    this.emailField = value;
-                    this.RaisePropertyChanged("email");
+                if ((object.ReferenceEquals(this.EmailField, value) != true)) {
+                    this.EmailField = value;
+                    this.RaisePropertyChanged("Email");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idPlayer {
+        public int IdPlayer {
             get {
-                return this.idPlayerField;
+                return this.IdPlayerField;
             }
             set {
-                if ((this.idPlayerField.Equals(value) != true)) {
-                    this.idPlayerField = value;
-                    this.RaisePropertyChanged("idPlayer");
+                if ((this.IdPlayerField.Equals(value) != true)) {
+                    this.IdPlayerField = value;
+                    this.RaisePropertyChanged("IdPlayer");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string password {
+        public string Password {
             get {
-                return this.passwordField;
+                return this.PasswordField;
             }
             set {
-                if ((object.ReferenceEquals(this.passwordField, value) != true)) {
-                    this.passwordField = value;
-                    this.RaisePropertyChanged("password");
+                if ((object.ReferenceEquals(this.PasswordField, value) != true)) {
+                    this.PasswordField = value;
+                    this.RaisePropertyChanged("Password");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string salt {
+        public string Salt {
             get {
-                return this.saltField;
+                return this.SaltField;
             }
             set {
-                if ((object.ReferenceEquals(this.saltField, value) != true)) {
-                    this.saltField = value;
-                    this.RaisePropertyChanged("salt");
+                if ((object.ReferenceEquals(this.SaltField, value) != true)) {
+                    this.SaltField = value;
+                    this.RaisePropertyChanged("Salt");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string status {
+        public string Status {
             get {
-                return this.statusField;
+                return this.StatusField;
             }
             set {
-                if ((object.ReferenceEquals(this.statusField, value) != true)) {
-                    this.statusField = value;
-                    this.RaisePropertyChanged("status");
+                if ((object.ReferenceEquals(this.StatusField, value) != true)) {
+                    this.StatusField = value;
+                    this.RaisePropertyChanged("Status");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string username {
+        public string Username {
             get {
-                return this.usernameField;
+                return this.UsernameField;
             }
             set {
-                if ((object.ReferenceEquals(this.usernameField, value) != true)) {
-                    this.usernameField = value;
-                    this.RaisePropertyChanged("username");
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
                 }
             }
         }
@@ -180,19 +180,19 @@ namespace TimbiricheViews.Server {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private System.DateTime birthdateField;
+        private System.DateTime BirthdateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int idAcccountField;
+        private int IdAcccountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string lastNameField;
+        private string LastNameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string nameField;
+        private string NameField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string surnameField;
+        private string SurnameField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -205,66 +205,66 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public System.DateTime birthdate {
+        public System.DateTime Birthdate {
             get {
-                return this.birthdateField;
+                return this.BirthdateField;
             }
             set {
-                if ((this.birthdateField.Equals(value) != true)) {
-                    this.birthdateField = value;
-                    this.RaisePropertyChanged("birthdate");
+                if ((this.BirthdateField.Equals(value) != true)) {
+                    this.BirthdateField = value;
+                    this.RaisePropertyChanged("Birthdate");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int idAcccount {
+        public int IdAcccount {
             get {
-                return this.idAcccountField;
+                return this.IdAcccountField;
             }
             set {
-                if ((this.idAcccountField.Equals(value) != true)) {
-                    this.idAcccountField = value;
-                    this.RaisePropertyChanged("idAcccount");
+                if ((this.IdAcccountField.Equals(value) != true)) {
+                    this.IdAcccountField = value;
+                    this.RaisePropertyChanged("IdAcccount");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string lastName {
+        public string LastName {
             get {
-                return this.lastNameField;
+                return this.LastNameField;
             }
             set {
-                if ((object.ReferenceEquals(this.lastNameField, value) != true)) {
-                    this.lastNameField = value;
-                    this.RaisePropertyChanged("lastName");
+                if ((object.ReferenceEquals(this.LastNameField, value) != true)) {
+                    this.LastNameField = value;
+                    this.RaisePropertyChanged("LastName");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string name {
+        public string Name {
             get {
-                return this.nameField;
+                return this.NameField;
             }
             set {
-                if ((object.ReferenceEquals(this.nameField, value) != true)) {
-                    this.nameField = value;
-                    this.RaisePropertyChanged("name");
+                if ((object.ReferenceEquals(this.NameField, value) != true)) {
+                    this.NameField = value;
+                    this.RaisePropertyChanged("Name");
                 }
             }
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string surname {
+        public string Surname {
             get {
-                return this.surnameField;
+                return this.SurnameField;
             }
             set {
-                if ((object.ReferenceEquals(this.surnameField, value) != true)) {
-                    this.surnameField = value;
-                    this.RaisePropertyChanged("surname");
+                if ((object.ReferenceEquals(this.SurnameField, value) != true)) {
+                    this.SurnameField = value;
+                    this.RaisePropertyChanged("Surname");
                 }
             }
         }
@@ -358,17 +358,17 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IManagerOnlineUsers", CallbackContract=typeof(TimbiricheViews.Server.IManagerOnlineUsersCallback))]
     public interface IManagerOnlineUsers {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers")]
-        void RegisteredUserToOnlineUsers(string username);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers")]
+        void RegisterUserToOnlineUsers(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers")]
-        System.Threading.Tasks.Task RegisteredUserToOnlineUsersAsync(string username);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers")]
+        System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers")]
-        void UnregisteredUserToOnlineUsers(string username);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers")]
+        void UnregisterUserToOnlineUsers(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers")]
-        System.Threading.Tasks.Task UnregisteredUserToOnlineUsersAsync(string username);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers")]
+        System.Threading.Tasks.Task UnregisterUserToOnlineUsersAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -412,20 +412,20 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void RegisteredUserToOnlineUsers(string username) {
-            base.Channel.RegisteredUserToOnlineUsers(username);
+        public void RegisterUserToOnlineUsers(string username) {
+            base.Channel.RegisterUserToOnlineUsers(username);
         }
         
-        public System.Threading.Tasks.Task RegisteredUserToOnlineUsersAsync(string username) {
-            return base.Channel.RegisteredUserToOnlineUsersAsync(username);
+        public System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(string username) {
+            return base.Channel.RegisterUserToOnlineUsersAsync(username);
         }
         
-        public void UnregisteredUserToOnlineUsers(string username) {
-            base.Channel.UnregisteredUserToOnlineUsers(username);
+        public void UnregisterUserToOnlineUsers(string username) {
+            base.Channel.UnregisterUserToOnlineUsers(username);
         }
         
-        public System.Threading.Tasks.Task UnregisteredUserToOnlineUsersAsync(string username) {
-            return base.Channel.UnregisteredUserToOnlineUsersAsync(username);
+        public System.Threading.Tasks.Task UnregisterUserToOnlineUsersAsync(string username) {
+            return base.Channel.UnregisterUserToOnlineUsersAsync(username);
         }
     }
 }

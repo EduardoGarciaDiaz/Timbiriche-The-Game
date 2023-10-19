@@ -9,10 +9,9 @@ namespace TimbiricheDataAccess.Utils
 {
     public class PasswordHashManager
     {
-
         string _salt;
 
-        public string salt { get { return _salt; } set { _salt = value; } }
+        public string Salt { get { return _salt; } set { _salt = value; } }
 
         public string HashPassword(String password)
         {

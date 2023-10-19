@@ -10,7 +10,6 @@ namespace TimbiricheTests.Tests
 {
     public class PasswordHashManagerTest
     {
-
         [Fact]
         public void TestVerifyPasswordSuccess()
         {
@@ -35,6 +34,5 @@ namespace TimbiricheTests.Tests
 
             Assert.False(result);
         }
-
     }
 }
