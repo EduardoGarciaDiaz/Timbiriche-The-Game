@@ -84,11 +84,11 @@
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IManagerOnlineUsers_RegisteredUserToOnlineUsers_InputMessage">
-    <wsdl:part name="parameters" element="tns:RegisteredUserToOnlineUsers" />
+  <wsdl:message name="IManagerOnlineUsers_RegisterUserToOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUserToOnlineUsers" />
   </wsdl:message>
-  <wsdl:message name="IManagerOnlineUsers_UnregisteredUserToOnlineUsers_InputMessage">
-    <wsdl:part name="parameters" element="tns:UnregisteredUserToOnlineUsers" />
+  <wsdl:message name="IManagerOnlineUsers_UnregisterUserToOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnregisterUserToOnlineUsers" />
   </wsdl:message>
   <wsdl:message name="IManagerOnlineUsers_NotifyUserLoggedIn_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyUserLoggedIn" />
@@ -123,11 +123,11 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IManagerOnlineUsers">
-    <wsdl:operation name="RegisteredUserToOnlineUsers">
-      <wsdl:input wsaw:Action="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers" message="tns:IManagerOnlineUsers_RegisteredUserToOnlineUsers_InputMessage" />
+    <wsdl:operation name="RegisterUserToOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers" message="tns:IManagerOnlineUsers_RegisterUserToOnlineUsers_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="UnregisteredUserToOnlineUsers">
-      <wsdl:input wsaw:Action="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers" message="tns:IManagerOnlineUsers_UnregisteredUserToOnlineUsers_InputMessage" />
+    <wsdl:operation name="UnregisterUserToOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers" message="tns:IManagerOnlineUsers_UnregisterUserToOnlineUsers_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyUserLoggedIn">
       <wsdl:output wsaw:Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedIn" message="tns:IManagerOnlineUsers_NotifyUserLoggedIn_OutputCallbackMessage" />
@@ -176,14 +176,14 @@
   <wsdl:binding name="NetTcpBinding_IManagerOnlineUsers" type="tns:IManagerOnlineUsers">
     <wsp:PolicyReference URI="#NetTcpBinding_IManagerOnlineUsers_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="RegisteredUserToOnlineUsers">
-      <soap12:operation soapAction="http://tempuri.org/IManagerOnlineUsers/RegisteredUserToOnlineUsers" style="document" />
+    <wsdl:operation name="RegisterUserToOnlineUsers">
+      <soap12:operation soapAction="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="UnregisteredUserToOnlineUsers">
-      <soap12:operation soapAction="http://tempuri.org/IManagerOnlineUsers/UnregisteredUserToOnlineUsers" style="document" />
+    <wsdl:operation name="UnregisterUserToOnlineUsers">
+      <soap12:operation soapAction="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

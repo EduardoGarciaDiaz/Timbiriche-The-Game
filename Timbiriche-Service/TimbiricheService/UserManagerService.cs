@@ -14,21 +14,21 @@ namespace TimbiricheService
     {
         public int AddUser(Player player)
         {
-            Account auxiliarAccount = player.accountFK;
+            Account auxiliarAccount = player.AccountFK;
 
             Accounts newAccount = new Accounts();
-            newAccount.name = auxiliarAccount.name;
-            newAccount.lastName = auxiliarAccount.lastName;
-            newAccount.surname = auxiliarAccount.surname;
-            newAccount.birthdate = auxiliarAccount.birthdate;
+            newAccount.name = auxiliarAccount.Name;
+            newAccount.lastName = auxiliarAccount.LastName;
+            newAccount.surname = auxiliarAccount.Surname;
+            newAccount.birthdate = auxiliarAccount.Birthdate;
 
             Players newPlayer = new Players();
-            newPlayer.username = player.username;
-            newPlayer.email = player.email;
-            newPlayer.password = player.password;
-            newPlayer.coins = player.coins;
-            newPlayer.status = player.status;
-            newPlayer.salt = player.salt;
+            newPlayer.username = player.Username;
+            newPlayer.email = player.Email;
+            newPlayer.password = player.Password;
+            newPlayer.coins = player.Coins;
+            newPlayer.status = player.Status;
+            newPlayer.salt = player.Salt;
             newPlayer.Accounts = newAccount;
 
             UserManagement dataAccess = new UserManagement();
@@ -44,22 +44,22 @@ namespace TimbiricheService
                 Accounts accountValidated = playerValidated.Accounts;
                 Account account = new Account
                 {
-                    name = accountValidated.name,
-                    lastName = accountValidated.lastName,
-                    surname = accountValidated.surname,
-                    birthdate = accountValidated.birthdate
+                    Name = accountValidated.name,
+                    LastName = accountValidated.lastName,
+                    Surname = accountValidated.surname,
+                    Birthdate = accountValidated.birthdate
                 };
 
                 Player player = new Player
                 {
-                    idPlayer = playerValidated.idPlayer,
-                    username = playerValidated.username,
-                    email = playerValidated.email,
-                    password = playerValidated.password,
-                    coins = playerValidated.coins,
-                    status = playerValidated.status,
-                    salt = playerValidated.salt,
-                    accountFK = account
+                    IdPlayer = playerValidated.idPlayer,
+                    Username = playerValidated.username,
+                    Email = playerValidated.email,
+                    Password = playerValidated.password,
+                    Coins = playerValidated.coins,
+                    Status = playerValidated.status,
+                    Salt = playerValidated.salt,
+                    AccountFK = account
                 };
 
                 return player;
@@ -80,7 +80,7 @@ namespace TimbiricheService
     {
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 
-        public void RegisteredUserToOnlineUsers(string username)
+        public void RegisterUserToOnlineUsers(string username)
         {
             if (!onlineUsers.ContainsKey(username))
             {
@@ -101,7 +101,7 @@ namespace TimbiricheService
             }
         }
 
-        public void UnregisteredUserToOnlineUsers(string username)
+        public void UnregisterUserToOnlineUsers(string username)
         {
             if (onlineUsers.ContainsKey(username))
             {
@@ -113,7 +113,5 @@ namespace TimbiricheService
                 }
             }
         }
-
     }
-
 }

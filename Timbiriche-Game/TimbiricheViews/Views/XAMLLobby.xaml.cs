@@ -20,10 +20,8 @@ using TimbiricheViews.Server;
 
 namespace TimbiricheViews.Views
 {
-
     public partial class XAMLLobby : Page, IManagerOnlineUsersCallback
     {
-
         Server.Player playerLoggedIn = PlayerSingleton.player;
 
         public XAMLLobby()
@@ -35,9 +33,9 @@ namespace TimbiricheViews.Views
 
         private void LoadDataPlayer()
         {
-            string initialPlayerNameLetter = playerLoggedIn.username[0].ToString();
-            lbUsername.Content = playerLoggedIn.username;
-            lbCoins.Content = playerLoggedIn.coins;
+            string initialPlayerNameLetter = playerLoggedIn.Username[0].ToString();
+            lbUsername.Content = playerLoggedIn.Username;
+            lbCoins.Content = playerLoggedIn.Coins;
             lbUserFaceBox.Content = initialPlayerNameLetter;
         }
 
@@ -45,7 +43,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.RegisteredUserToOnlineUsers(playerLoggedIn.username);
+            client.RegisterUserToOnlineUsers(playerLoggedIn.Username);
         }
 
         public void NotifyUserLoggedIn(string username)
@@ -104,7 +102,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
+            client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
             NavigationService.Navigate(new XAMLLogin());
         }
         
@@ -112,7 +110,7 @@ namespace TimbiricheViews.Views
         {            
             InstanceContext context = new InstanceContext(this);
             Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
-            client.UnregisteredUserToOnlineUsers(playerLoggedIn.username);
+            client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
         }
 
         private void BtnFriendsMenu_Click(object sender, RoutedEventArgs e)
@@ -135,7 +133,5 @@ namespace TimbiricheViews.Views
         {
 
         }
-
     }
-
 }

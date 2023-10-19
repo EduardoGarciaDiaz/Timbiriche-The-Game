@@ -10,7 +10,6 @@ namespace TimbiricheTests.Tests
 {
     public class UserManagementTest
     {
-        
         [Fact]
         public void TestAddUserSuccess()
         {
@@ -119,7 +118,5 @@ namespace TimbiricheTests.Tests
 
             Assert.False(CurrentResult);
         }
-
     }
-
 }
