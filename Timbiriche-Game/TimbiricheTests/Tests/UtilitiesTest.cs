@@ -10,40 +10,9 @@ using Xunit;
 
 namespace TimbiricheTests.Tests
 {
+
     public class UtilitiesTest
     {
-        [Fact]
-        public void TestIsEmptyFieldNullSuccess()
-        {
-            bool currentResult = false;
-            string testText = null;
-
-            currentResult = Utilities.IsEmptyField(testText);
-
-            Assert.True(currentResult);
-        }
-
-        [Fact]
-        public void TestIsEmptyFieldEmptySuccess()
-        {
-            bool currentResult = false;
-            string testText = "";
-
-            currentResult = Utilities.IsEmptyField(testText);
-
-            Assert.True(currentResult);
-        }
-
-        [Fact]
-        public void TestIsEmptyFieldFail()
-        {
-            bool currentResult = false;
-            string testText = "  ";
-
-            currentResult = Utilities.IsEmptyField(testText);
-
-            Assert.False(currentResult);
-        }
         
         [Fact]
         public void TestIsValidPersonalInformationSuccess()
@@ -288,5 +257,7 @@ namespace TimbiricheTests.Tests
             currentResult = Utilities.IsValidNumber(testText);
             Assert.False(currentResult);
         }
+
     }
+
 }

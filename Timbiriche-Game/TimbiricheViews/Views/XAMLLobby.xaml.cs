@@ -70,7 +70,7 @@ namespace TimbiricheViews.Views
                 string idUserItem = "lb" + username;
                 XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
                 userOnlineItem.Name = idUserItem;
-                stckPnlFriends.Children.Add(userOnlineItem);
+                stackPanelFriends.Children.Add(userOnlineItem);
             }
         }
 
@@ -79,24 +79,24 @@ namespace TimbiricheViews.Views
             string idUserItem = "lb" + username;
             XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
             userOnlineItem.Name = idUserItem;
-            stckPnlFriends.Children.Add(userOnlineItem);
+            stackPanelFriends.Children.Add(userOnlineItem);
         }
 
         private void RemoveUserFromOnlineUserList(string username)
         {
             string  idUserItem = "lb" + username;
             XAMLActiveUserItemControl userOnlineItemToRemove = null;
-            foreach (XAMLActiveUserItemControl item in stckPnlFriends.Children)
+            foreach (XAMLActiveUserItemControl item in stackPanelFriends.Children)
             {
-                if(item.Name == idUserItem)
+                if (item.Name == idUserItem)
                 {
                     userOnlineItemToRemove = item;
                     break;
                 }
             }
-            if(userOnlineItemToRemove != null)
+            if (userOnlineItemToRemove != null)
             {
-                stckPnlFriends.Children.Remove(userOnlineItemToRemove);
+                stackPanelFriends.Children.Remove(userOnlineItemToRemove);
             }
         }
 
@@ -136,7 +136,6 @@ namespace TimbiricheViews.Views
 
         }
 
-
-
     }
+
 }

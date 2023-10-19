@@ -16,12 +16,11 @@ using TimbiricheViews.Views;
 
 namespace TimbiricheViews
 {
-    /// <summary>
-    /// Lógica de interacción para MainWindow.xaml
-    /// </summary>
-    public partial class MainWindow : Window
+
+    public partial class XAMLMainWindow : Window
     {
-        public MainWindow()
+
+        public XAMLMainWindow()
         {
             InitializeComponent();
         }
@@ -38,5 +37,7 @@ namespace TimbiricheViews
                 }
             }
         }
+
     }
+
 }

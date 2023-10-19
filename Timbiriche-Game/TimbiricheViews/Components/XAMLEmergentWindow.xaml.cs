@@ -14,11 +14,10 @@ using System.Windows.Shapes;
 
 namespace TimbiricheViews.Components
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLEmergentWindow.xaml
-    /// </summary>
+    
     public partial class XAMLEmergentWindow : Window
     {
+
         private Window _mainWindow;
 
         public XAMLEmergentWindow()
@@ -61,6 +60,7 @@ namespace TimbiricheViews.Components
         {
             this.Close();
         }
+
     }
 
 }

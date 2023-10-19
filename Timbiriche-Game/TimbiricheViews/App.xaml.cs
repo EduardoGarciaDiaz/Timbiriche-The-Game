@@ -9,9 +9,10 @@ using System.Windows;
 namespace TimbiricheViews
 {
     /// <summary>
-    /// Lógica de interacción para App.xaml
+    /// Interaction Logic for App.xaml
     /// </summary>
     public partial class App : Application
     {
     }
+
 }

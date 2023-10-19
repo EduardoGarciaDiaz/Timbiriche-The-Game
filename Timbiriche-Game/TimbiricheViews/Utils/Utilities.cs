@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using TimbiricheViews.Components;
 
 namespace TimbiricheViews.Utils
 {
@@ -20,16 +21,6 @@ namespace TimbiricheViews.Utils
         private const string VALID_CAPITAL_LETTERS = "^(?=.*[A-Z])";
         private const string VALID_LOWER_LETTERS = "^(?=.*[a-z])";
         private const string VALID_NUMBERS = "^(?=.*\\d)";
-
-        public static bool IsEmptyField(string fieldText)
-        {
-            bool isEmpty = false;
-            if (string.IsNullOrEmpty(fieldText))
-            {
-                isEmpty = true;
-            }
-            return isEmpty;
-        }
 
         public static bool IsValidPersonalInformation(string personalInformation)
         {
@@ -66,19 +57,35 @@ namespace TimbiricheViews.Utils
             Regex regex = new Regex(VALID_CAPITAL_LETTERS);
             return regex.IsMatch(password.Trim());
         }
+
         public static bool IsValidLowerLetter(string password)
         {
             Regex regex = new Regex(VALID_LOWER_LETTERS);
             return regex.IsMatch(password.Trim());
         }
+
         public static bool IsValidNumber(string password)
         {
             Regex regex = new Regex(VALID_NUMBERS);
             return regex.IsMatch(password.Trim());
         }
-        public static void CreateEmergentWindow()
-        {
 
+        public static void CreateEmergentWindow(string titleEmergentWindow, string descriptionEmergentWindow)
+        {
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                titleEmergentWindow,
+                descriptionEmergentWindow
+            );
+        }
+
+        public static void CreateConnectionFailedMessageWindow()
+        {
+            string titleEmergentWindow = Properties.Resources.lbConnectionFailed;
+            string descriptionEmergentWindow = Properties.Resources.lbConnectionFailedDetails;
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                titleEmergentWindow,
+                descriptionEmergentWindow
+            );
         }
 
     }

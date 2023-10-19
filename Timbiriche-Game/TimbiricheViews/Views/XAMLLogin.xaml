@@ -78,7 +78,7 @@
             Content="{x:Static p:Resources.lbUser}" Margin="416,0,0,527" Grid.RowSpan="2"></Label>
 
             <TextBox x:Name="tbxUsername" Text="{x:Static p:Resources.tbxUserName}" Tag="{x:Static p:Resources.tbxUserName}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-            VerticalContentAlignment="Center" Margin="416,24,410,482" Grid.Row="1" GotFocus="tbxUsername_GotFocus" LostFocus="tbxUsername_LostFocus" />
+            VerticalContentAlignment="Center" Margin="416,24,410,482" Grid.Row="1" GotFocus="TbxUsername_GotFocus" LostFocus="TbxUsername_LostFocus" />
 
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 
             Content="{x:Static p:Resources.lbPassword}" Margin="416,0,0,421" Grid.Row="1"></Label>
@@ -87,7 +87,7 @@
             <Border CornerRadius="10" BorderThickness="1" BorderBrush="Transparent" Margin="416,130,410,377" Grid.Row="1">
                 <PasswordBox x:Name="pwBxPassword" Password="************" Tag="************" FontSize="22" FontFamily="Titan One" 
                              Foreground="#CDCDCD" VerticalContentAlignment="Center" BorderBrush="Transparent" 
-                             Background="Transparent" GotFocus="pwBxPassword_GotFocus" LostFocus="pwBxPassword_LostFocus"/>
+                             Background="Transparent" GotFocus="PwBxPassword_GotFocus" LostFocus="PwBxPassword_LostFocus"/>
             </Border>
             <Label  FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
             Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}" Margin="413,181,631,0" Grid.Row="1"></Label>

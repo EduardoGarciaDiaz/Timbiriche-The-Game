@@ -70,8 +70,8 @@
                  FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616">Solicitudes</Button>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
                       Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
-                <ScrollViewer x:Name="scrlVwrFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
-                    <StackPanel x:Name="stckPnlFriends">
+                <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
+                    <StackPanel x:Name="stackPanelFriends">
                     </StackPanel>
                 </ScrollViewer>
                 <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 

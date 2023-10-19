@@ -69,8 +69,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="XAMLMainWindow.xaml.cs">
+      <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Player\PlayerSingleton.cs" />
     <Compile Include="Properties\Resources.es-MX.Designer.cs">
@@ -93,7 +93,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="XAMLMainWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

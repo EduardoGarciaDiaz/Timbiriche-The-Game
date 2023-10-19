@@ -24,7 +24,9 @@ namespace TimbiricheViews.Views
     public partial class XAMLLogin : Page
     {
 
-        string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+        const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+        const string MAIN_FONT = "Titan One";
+        const string SECONDARY_FONT = "Inter";
 
         public XAMLLogin()
         {
@@ -33,27 +35,30 @@ namespace TimbiricheViews.Views
 
         private void ChangeLanguage()
         {
-            string language = ""; 
+            string language = "";
+            string spanishMXLanguage = "es-MX";
+            string englishUSLanguage = "en";
+            
             if (lbLanguage.Content.Equals("Español"))
             {
-                language = "en";
+                language = englishUSLanguage;
             }
 
             if(lbLanguage.Content.Equals("English"))
             {
-                language = "es";
+                language = spanishMXLanguage;
             }
             
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
             XAMLLogin newLoginPage = new XAMLLogin();
 
-            if (language.Equals("en"))
+            if (language.Equals(englishUSLanguage))
             {
                 newLoginPage.imgUsaFlag.Visibility = Visibility.Visible;
                 newLoginPage.imgMexicoFlag.Visibility = Visibility.Hidden;
             }
 
-            if (language.Equals("es"))
+            if (language.Equals(spanishMXLanguage))
             {
                 newLoginPage.imgMexicoFlag.Visibility = Visibility.Visible;
                 newLoginPage.imgUsaFlag.Visibility = Visibility.Hidden;
@@ -78,7 +83,6 @@ namespace TimbiricheViews.Views
                 pwBxPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
-
             return isValid;
         }
 
@@ -105,10 +109,10 @@ namespace TimbiricheViews.Views
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    ShowConnectionFailedMessage();
+                    Utilities.CreateConnectionFailedMessageWindow();
                     // TODO: Log the excepction
                 }   // TODO: EXCEPTION FOR TIME
-                if (playerLogged!=null)
+                if (playerLogged != null)
                 {
                     PlayerSingleton.player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
@@ -116,45 +120,36 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void ShowConnectionFailedMessage()
-        {
-            Window mainWindow = Application.Current.MainWindow;
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                Properties.Resources.lbConnectionFailed,
-                Properties.Resources.lbConnectionFailedDetails
-            );            
-        }
-
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLUserForm());
         }
 
-        private void tbxUsername_GotFocus(object sender, RoutedEventArgs e)
+        private void TbxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
+            
             if (tbxUsername.Text == (string)tbxUsername.Tag) 
             {
                 tbxUsername.Text = string.Empty;
                 tbxUsername.Foreground = Brushes.Black;
-                tbxUsername.FontFamily = new FontFamily("Inter");
+                tbxUsername.FontFamily = new FontFamily(SECONDARY_FONT);
                 tbxUsername.FontWeight = FontWeights.Bold;
             }
         }
 
-        private void tbxUsername_LostFocus(object sender, RoutedEventArgs e)
+        private void TbxUsername_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbxUsername.Text))
             {
                 tbxUsername.Text = (string) tbxUsername.Tag;
                 Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
                 SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-
                 tbxUsername.Foreground = placeholderBrush;
-                tbxUsername.FontFamily = new FontFamily("Titan One");
+                tbxUsername.FontFamily = new FontFamily(MAIN_FONT);
             }
         }
 
-        private void pwBxPassword_GotFocus(object sender, RoutedEventArgs e)
+        private void PwBxPassword_GotFocus(object sender, RoutedEventArgs e)
         {
             if (pwBxPassword.Password == (string)pwBxPassword.Tag)
             {
@@ -163,17 +158,17 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void pwBxPassword_LostFocus(object sender, RoutedEventArgs e)
+        private void PwBxPassword_LostFocus(object sender, RoutedEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(pwBxPassword.Password))
             {
                 pwBxPassword.Password = (string)pwBxPassword.Tag;
                 Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
                 SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-
                 pwBxPassword.Foreground = placeholderBrush;
             }
         }
 
     }
+
 }

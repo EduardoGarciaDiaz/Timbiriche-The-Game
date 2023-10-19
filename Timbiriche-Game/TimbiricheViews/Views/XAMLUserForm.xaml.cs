@@ -20,15 +20,12 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLUserForm.xaml
-    /// </summary>
+
     public partial class XAMLUserForm : Page
     {
         public XAMLUserForm()
         {
             InitializeComponent();
-            ImgBack.MouseLeftButtonDown += ImgBack_Click;
         }
 
         private void ImgBack_Click(object sender, MouseButtonEventArgs e)
@@ -60,17 +57,17 @@ namespace TimbiricheViews.Views
                         int rowsAffected = userManagerClient.AddUser(newPlayer);
                         if (rowsAffected > 0)
                         {
-                            ShowSuccessMessage();
+                            ShowAccountCreatedMessage();
                             NavigationService.GoBack();
                         }
                         else
                         {
-                            ShowErrorMessage();
+                            ShowCreateAccountFailMessage();
                         }
                     }
                     catch (EndpointNotFoundException ex)
                     {
-                        ShowConnectionFailedMessage();
+                        Utilities.CreateConnectionFailedMessageWindow();
                         // TODO: Log the excepction
                     }
                 }
@@ -106,29 +103,20 @@ namespace TimbiricheViews.Views
             return newPlayer;
         }
 
-        private void ShowSuccessMessage()
+        private void ShowAccountCreatedMessage()
         {
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                Properties.Resources.lbTitleAccountCreatedSuccess,
-                Properties.Resources.tbkDescriptionAccountCreatedSuccess
-            );
+            string titleEmergentWindow = Properties.Resources.lbTitleAccountCreatedSuccess;
+            string descriptionEmergentWindow = Properties.Resources.tbkDescriptionAccountCreatedSuccess;
+            Utilities.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
-        private void ShowErrorMessage()
+        private void ShowCreateAccountFailMessage()
         {
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                Properties.Resources.lbTitleCreateAccountFail,
-                Properties.Resources.tbkDescriptionCreateAccountFail
-            );
+            string titleEmergentWindow = Properties.Resources.lbTitleCreateAccountFail;
+            string descriptionEmergentWindow = Properties.Resources.tbkDescriptionCreateAccountFail;
+            Utilities.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
-        private void ShowConnectionFailedMessage()
-        {
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                Properties.Resources.lbConnectionFailed,
-                Properties.Resources.lbConnectionFailedDetails
-            );
-        }
 
         public bool ValidateUniqueIdentifier(string email, string username)
         {
@@ -149,10 +137,9 @@ namespace TimbiricheViews.Views
             }
             catch (EndpointNotFoundException ex)
             {
-                ShowConnectionFailedMessage();
+                Utilities.CreateConnectionFailedMessageWindow();
                 // TODO: Log the excepction
             }
-
             return existUserIdentifier;
         }
 

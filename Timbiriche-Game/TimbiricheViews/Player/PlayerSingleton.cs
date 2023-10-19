@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace TimbiricheViews.Player
 {
+
     public static class PlayerSingleton
     {
 
@@ -30,5 +31,7 @@ namespace TimbiricheViews.Player
                 }
             }
         }
+
     }
+
 }
