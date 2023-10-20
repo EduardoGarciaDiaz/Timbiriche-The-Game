@@ -40,10 +40,10 @@ namespace TimbiricheService
     }
 
     [ServiceContract]
-    public interface IEmailsManager
+    public interface IEmailManager
     {
         [OperationContract]
-        int sendEmail(string addressee);
+        string sendEmail(string addressee);
     }
 
     [DataContract]

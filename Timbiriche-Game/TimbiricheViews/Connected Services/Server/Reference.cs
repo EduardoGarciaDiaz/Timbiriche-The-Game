@@ -428,4 +428,51 @@ namespace TimbiricheViews.Server {
             return base.Channel.UnregisterUserToOnlineUsersAsync(username);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IEmailManager")]
+    public interface IEmailManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
+        string sendEmail(string addressee);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
+        System.Threading.Tasks.Task<string> sendEmailAsync(string addressee);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IEmailManagerChannel : TimbiricheViews.Server.IEmailManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EmailManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IEmailManager>, TimbiricheViews.Server.IEmailManager {
+        
+        public EmailManagerClient() {
+        }
+        
+        public EmailManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public EmailManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public EmailManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public EmailManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public string sendEmail(string addressee) {
+            return base.Channel.sendEmail(addressee);
+        }
+        
+        public System.Threading.Tasks.Task<string> sendEmailAsync(string addressee) {
+            return base.Channel.sendEmailAsync(addressee);
+        }
+    }
 }

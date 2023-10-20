@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
+using System.Runtime.Remoting.Contexts;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
@@ -42,36 +43,59 @@ namespace TimbiricheViews.Views
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
-        {
+        {            
             if (ValidateFields())
             {
                 string email = tbxEmail.Text.Trim().ToLower();
                 string username = tbxUsername.Text.Trim();
                 if (!ValidateUniqueIdentifier(email, username))
                 {
-                    Account newAccount = CreateNewAccount();
-                    Server.Player newPlayer = CreateNewPlayer(newAccount);
-                    try
+                    if (VerifyEmailCode(email))
                     {
-                        Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                        int rowsAffected = userManagerClient.AddUser(newPlayer);
-                        if (rowsAffected > 0)
+                        Account newAccount = CreateNewAccount();
+                        Server.Player newPlayer = CreateNewPlayer(newAccount);
+                        try
                         {
-                            ShowAccountCreatedMessage();
-                            NavigationService.GoBack();
+                            Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                            int rowsAffected = userManagerClient.AddUser(newPlayer);
+                            if (rowsAffected > 0)
+                            {
+                                ShowAccountCreatedMessage();
+                                NavigationService.GoBack();
+                            }
+                            else
+                            {
+                                ShowCreateAccountFailMessage();
+                            }
                         }
-                        else
+                        catch (EndpointNotFoundException ex)
                         {
-                            ShowCreateAccountFailMessage();
+                            Utilities.CreateConnectionFailedMessageWindow();
+                            // TODO: Log the excepction
                         }
-                    }
-                    catch (EndpointNotFoundException ex)
-                    {
-                        Utilities.CreateConnectionFailedMessageWindow();
-                        // TODO: Log the excepction
                     }
                 }
             }
+        }
+
+        private bool VerifyEmailCode(string email)
+        {
+            bool isEmailVerified = false;
+            Server.EmailManagerClient emailManagerClient = new Server.EmailManagerClient();
+            string code = emailManagerClient.sendEmail(email);
+            XAMLOneInputWindow codeWindow = new XAMLOneInputWindow(code);
+
+            // TODO: Remove this. It's just for showing the code while we are codding
+            _ = new XAMLEmergentWindow(
+                Properties.Resources.lbCodeMatch,
+                "Your code is: \n" + code
+            );
+            
+            if (codeWindow.ShowDialog() == true)
+            {
+                isEmailVerified = true;
+            }
+            return isEmailVerified;
         }
 
         private Account CreateNewAccount()
@@ -96,7 +120,7 @@ namespace TimbiricheViews.Views
                 Username = tbxUsername.Text.Trim(),
                 Email = tbxEmail.Text.Trim().ToLower(),
                 Password = pwBxPassword.Password.Trim(),
-                Coins = 0,
+                Coins = DEFAULT_NUMBER_OF_COINS,
                 Status = NOT_BANNED_STATUS,
                 AccountFK = account
             };
