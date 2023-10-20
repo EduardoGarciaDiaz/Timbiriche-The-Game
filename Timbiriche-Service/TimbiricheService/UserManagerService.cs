@@ -107,11 +107,13 @@ namespace TimbiricheService
             {
                 onlineUsers.Remove(username);
 
-                foreach(var user in onlineUsers)
+                foreach (var user in onlineUsers)
                 {
                     user.Value.NotifyUserLoggedOut(username);
                 }
             }
         }
+
     }
+
 }

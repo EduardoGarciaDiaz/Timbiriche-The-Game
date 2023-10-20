@@ -96,6 +96,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="connections.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="packages.config" />
     <EntityDeploy Include="TimbiricheModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>

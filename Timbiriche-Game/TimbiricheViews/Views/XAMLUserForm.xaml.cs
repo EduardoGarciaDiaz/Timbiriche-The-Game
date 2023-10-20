@@ -96,7 +96,7 @@ namespace TimbiricheViews.Views
                 Username = tbxUsername.Text.Trim(),
                 Email = tbxEmail.Text.Trim().ToLower(),
                 Password = pwBxPassword.Password.Trim(),
-                Coins = DEFAULT_NUMBER_OF_COINS,
+                Coins = 0,
                 Status = NOT_BANNED_STATUS,
                 AccountFK = account
             };
