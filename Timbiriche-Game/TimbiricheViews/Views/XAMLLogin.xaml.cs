@@ -169,6 +169,10 @@ namespace TimbiricheViews.Views
             }
         }
 
+        private void BtnForgottenPassword_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLPasswordReset());
+        }
     }
 
 }

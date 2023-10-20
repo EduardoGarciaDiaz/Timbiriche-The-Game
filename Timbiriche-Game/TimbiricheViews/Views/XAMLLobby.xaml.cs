@@ -133,5 +133,10 @@ namespace TimbiricheViews.Views
         {
 
         }
+
+        private void BtnShop_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLShop());
+        }
     }
 }

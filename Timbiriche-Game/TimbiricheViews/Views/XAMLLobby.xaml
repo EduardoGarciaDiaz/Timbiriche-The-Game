@@ -28,15 +28,17 @@
 
             <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675" Width="86"/>
             <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,659" Click="BtnFriendsMenu_Click" Cursor="Hand" />
+            <Label x:Name="lbFriends" Content="{x:Static p:Resources.lbFriends}" HorizontalAlignment="Left" Margin="29,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
 
             <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
             <Button x:Name="btnMyProfile" Background="Transparent" BorderBrush="Transparent" Margin="1105,9,7,663" Click="BtnMyProfile_Click" Cursor="Hand" />
-
+            <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1117,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+            
             <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
                         BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand"/>
 
             <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
-            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand"/>
+            BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand" Click="BtnShop_Click"/>
 
             <Image Source="../Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
 
@@ -64,23 +66,21 @@
                 <Button Background="#063343" Foreground="White" 
                 FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
                 <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
-                <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616">Amigos</Button>
-                <Button Background="#063343" Foreground="White" 
-                 FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616">Solicitudes</Button>
+                <Button Content="{x:Static p:Resources.lbFriends}" Background="#063343" Foreground="White" 
+                FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616"></Button>
+                <Button Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
+                 FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616"></Button>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
                       Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
                 <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
                     <StackPanel x:Name="stackPanelFriends">
                     </StackPanel>
                 </ScrollViewer>
-                <Label FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                       FontSize="18" Margin="0,544,0,0" >ENVIAR SOLICITUD</Label>
+                <Label Content="{x:Static p:Resources.lbSendRequest}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                       FontSize="18" Margin="0,544,0,0" ></Label>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
                       StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
             </Grid>
-            <Label x:Name="lbFriends" Content="{x:Static p:Resources.lbFriends}" HorizontalAlignment="Left" Margin="30,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
-            <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1120,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
         </Grid>
     </Viewbox>
 </Page>
