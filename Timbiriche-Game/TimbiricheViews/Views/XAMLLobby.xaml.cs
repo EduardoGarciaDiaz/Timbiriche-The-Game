@@ -20,7 +20,7 @@ using TimbiricheViews.Server;
 
 namespace TimbiricheViews.Views
 {
-    public partial class XAMLLobby : Page, IManagerOnlineUsersCallback
+    public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
     {
         Server.Player playerLoggedIn = PlayerSingleton.player;
 
@@ -42,7 +42,7 @@ namespace TimbiricheViews.Views
         private void ShowAsActiveUser()
         {
             InstanceContext context = new InstanceContext(this);
-            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
+            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
             client.RegisterUserToOnlineUsers(playerLoggedIn.Username);
         }
 
@@ -101,7 +101,7 @@ namespace TimbiricheViews.Views
         private void BtnSignOff_Click(object sender, RoutedEventArgs e)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
+            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
             client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
             NavigationService.Navigate(new XAMLLogin());
         }
@@ -109,7 +109,7 @@ namespace TimbiricheViews.Views
         public void BtnCloseWindow_Click()
         {            
             InstanceContext context = new InstanceContext(this);
-            Server.ManagerOnlineUsersClient client = new Server.ManagerOnlineUsersClient(context);
+            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
             client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
         }
 

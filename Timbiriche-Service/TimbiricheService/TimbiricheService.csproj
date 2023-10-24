@@ -48,6 +48,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IShopManager.cs" />
+    <Compile Include="EmailManagerService.cs" />
+    <Compile Include="IEmailManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ShopManagerService.cs" />
