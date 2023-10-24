@@ -1,4 +1,4 @@
-﻿<Window x:Class="TimbiricheViews.Components.XAMLOneInputWindow"
+﻿<Window x:Class="TimbiricheViews.Components.XAMLBeginnerCodeVerification"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -42,8 +42,6 @@
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
                 FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnSendResetPassword}" Click="BtnSend_Click" Margin="416,455,410,268" Cursor="Hand"/>
             <TextBlock x:Name="lbCodeError"  Text="Código incorrecto, verifica el código o vuelve a generar un código" HorizontalAlignment="Left" Margin="422,507,0,0" VerticalAlignment="Top" Width="368" Foreground="Red" FontFamily="Inter" FontSize="16" Background="{x:Null}" Height="51" TextWrapping="Wrap" Visibility="Collapsed"/>
-            <Image HorizontalAlignment="Left" Height="57" Margin="428,368,0,0" VerticalAlignment="Top" Width="51" Source="/Resources/repeat.png"/>
-            <Label Content="Enviar otro código" HorizontalAlignment="Left" Margin="405,412,0,0" VerticalAlignment="Top" Foreground="White"/>
             <Image HorizontalAlignment="Left" Cursor="Hand" MouseLeftButtonDown="ImgClose_Click" Height="37" Margin="351,85,0,0" VerticalAlignment="Top" Width="33" Source="/Resources/close.png"/>
 
         </Grid>

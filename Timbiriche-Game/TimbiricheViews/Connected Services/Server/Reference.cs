@@ -434,10 +434,10 @@ namespace TimbiricheViews.Server {
     public interface IEmailManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
-        string sendEmail(string addressee);
+        string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
-        System.Threading.Tasks.Task<string> sendEmailAsync(string addressee);
+        System.Threading.Tasks.Task<string> sendEmailAsync(string addresseeEmail, string subjectEmail, string bodyEmail);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -467,12 +467,12 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public string sendEmail(string addressee) {
-            return base.Channel.sendEmail(addressee);
+        public string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail) {
+            return base.Channel.sendEmail(addresseeEmail, subjectEmail, bodyEmail);
         }
         
-        public System.Threading.Tasks.Task<string> sendEmailAsync(string addressee) {
-            return base.Channel.sendEmailAsync(addressee);
+        public System.Threading.Tasks.Task<string> sendEmailAsync(string addresseeEmail, string subjectEmail, string bodyEmail) {
+            return base.Channel.sendEmailAsync(addresseeEmail, subjectEmail, bodyEmail);
         }
     }
 }

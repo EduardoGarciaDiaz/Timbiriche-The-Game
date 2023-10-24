@@ -15,19 +15,16 @@ using System.Windows.Shapes;
 
 namespace TimbiricheViews.Components
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLOneInputWindow.xaml
-    /// </summary>
-    public partial class XAMLOneInputWindow : Window
+    public partial class XAMLBeginnerCodeVerification : Window
     {
         private Window _mainWindow;
         private string _code;
-        public XAMLOneInputWindow()
+        public XAMLBeginnerCodeVerification()
         {
             InitializeComponent();
         }
 
-        public XAMLOneInputWindow(string code)
+        public XAMLBeginnerCodeVerification(string code)
         {
             _mainWindow = Application.Current.MainWindow;
             _code = code;
@@ -60,7 +57,8 @@ namespace TimbiricheViews.Components
         {
             SetDefaultStyles();
             bool isCorrectCode = false;
-            if (tbxCode.Text.Trim() != _code)
+            string codeEntered = tbxCode.Text.Trim().ToUpper();
+            if (codeEntered != _code)
             {
                 lbCodeError.Visibility = Visibility.Visible;
             }

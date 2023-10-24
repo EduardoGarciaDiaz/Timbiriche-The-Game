@@ -486,4 +486,12 @@
   <data name="tbxUserNameRegistration" xml:space="preserve">
     <value>MasterPro3337</value>
   </data>
+  <data name="txtBodyBeginnerEmailVerification" xml:space="preserve">
+    <value>Hello, welcome to Timbiriche!
+This is a verification email to create your account, please enter the following code in the game:
+</value>
+  </data>
+  <data name="txtSubjectBeginnerEmailVerification" xml:space="preserve">
+    <value>Email Verification</value>
+  </data>
 </root>

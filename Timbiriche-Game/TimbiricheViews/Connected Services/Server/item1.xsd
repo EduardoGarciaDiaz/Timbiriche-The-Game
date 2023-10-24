@@ -98,7 +98,9 @@
   <xs:element name="sendEmail">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="addressee" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="addresseeEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="subjectEmail" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="bodyEmail" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

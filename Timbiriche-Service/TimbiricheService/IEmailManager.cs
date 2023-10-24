@@ -11,6 +11,6 @@ namespace TimbiricheService
     public interface IEmailManager
     {
         [OperationContract]
-        string sendEmail(string addressee);
+        string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail);
     }
 }

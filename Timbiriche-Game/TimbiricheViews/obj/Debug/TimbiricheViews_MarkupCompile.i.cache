@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\obj\Debug\
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\
 TimbiricheViews
 none
 false
 DEBUG;TRACE
-C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\App.xaml
-10-678961090
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
+9-1573499733
 
-20-1147689983
+19-160440676
 16-223462102
-Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLColorWrapComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
+Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
 
-True
+False
 

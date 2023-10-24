@@ -11,7 +11,7 @@ namespace TimbiricheService
     internal class EmailManagerService : IEmailManager
     {
         // TODO
-        public string sendEmail(string addressee)
+        public string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail)
         {
             throw new NotImplementedException();
         }
