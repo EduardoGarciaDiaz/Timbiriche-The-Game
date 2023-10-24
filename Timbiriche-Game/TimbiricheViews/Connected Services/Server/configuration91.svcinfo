@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="01nvwLG3fri486giKvIPnW+uQkT0ro72Uzl6vaI+ki0=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="JQ1je5XG9wjnrEVS2YaIr45Mhva4MMdKAYsqLlYoyxo=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IUserManager">
       <properties>
@@ -119,10 +119,10 @@
         </property>
       </properties>
     </bindingConfiguration>
-    <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IManagerOnlineUsers">
+    <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IOnlineUsersManager">
       <properties>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_IManagerOnlineUsers</serializedValue>
+          <serializedValue>NetTcpBinding_IOnlineUsersManager</serializedValue>
         </property>
         <property path="/closeTimeout" isComplexType="false" isExplicitlyDefined="true" clrType="System.TimeSpan, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -442,7 +442,7 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IManagerOnlineUsers" contract="Server.IManagerOnlineUsers" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IManagerOnlineUsers">
+    <endpoint name="NetTcpBinding_IOnlineUsersManager" contract="Server.IOnlineUsersManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IOnlineUsersManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
@@ -454,10 +454,10 @@
           <serializedValue>netTcpBinding</serializedValue>
         </property>
         <property path="/bindingConfiguration" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_IManagerOnlineUsers</serializedValue>
+          <serializedValue>NetTcpBinding_IOnlineUsersManager</serializedValue>
         </property>
         <property path="/contract" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>Server.IManagerOnlineUsers</serializedValue>
+          <serializedValue>Server.IOnlineUsersManager</serializedValue>
         </property>
         <property path="/headers" isComplexType="true" isExplicitlyDefined="false" clrType="System.ServiceModel.Configuration.AddressHeaderCollectionElement, System.ServiceModel, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue>System.ServiceModel.Configuration.AddressHeaderCollectionElement</serializedValue>
@@ -517,7 +517,7 @@
           <serializedValue>False</serializedValue>
         </property>
         <property path="/name" isComplexType="false" isExplicitlyDefined="true" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>NetTcpBinding_IManagerOnlineUsers</serializedValue>
+          <serializedValue>NetTcpBinding_IOnlineUsersManager</serializedValue>
         </property>
         <property path="/kind" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

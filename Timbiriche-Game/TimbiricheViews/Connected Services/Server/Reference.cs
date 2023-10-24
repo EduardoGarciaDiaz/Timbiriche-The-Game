@@ -355,60 +355,60 @@ namespace TimbiricheViews.Server {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IManagerOnlineUsers", CallbackContract=typeof(TimbiricheViews.Server.IManagerOnlineUsersCallback))]
-    public interface IManagerOnlineUsers {
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IOnlineUsersManager", CallbackContract=typeof(TimbiricheViews.Server.IOnlineUsersManagerCallback))]
+    public interface IOnlineUsersManager {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers")]
         void RegisterUserToOnlineUsers(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/RegisterUserToOnlineUsers")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers")]
         System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/UnregisterUserToOnlineUsers")]
         void UnregisterUserToOnlineUsers(string username);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IManagerOnlineUsers/UnregisterUserToOnlineUsers")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/UnregisterUserToOnlineUsers")]
         System.Threading.Tasks.Task UnregisterUserToOnlineUsersAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IManagerOnlineUsersCallback {
+    public interface IOnlineUsersManagerCallback {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedIn", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedInResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedIn", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedInResponse")]
         void NotifyUserLoggedIn(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOut", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyUserLoggedOutResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOut", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOutResponse")]
         void NotifyUserLoggedOut(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IManagerOnlineUsers/NotifyOnlineUsers", ReplyAction="http://tempuri.org/IManagerOnlineUsers/NotifyOnlineUsersResponse")]
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsers", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsersResponse")]
         void NotifyOnlineUsers(string[] onlineUsernames);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IManagerOnlineUsersChannel : TimbiricheViews.Server.IManagerOnlineUsers, System.ServiceModel.IClientChannel {
+    public interface IOnlineUsersManagerChannel : TimbiricheViews.Server.IOnlineUsersManager, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ManagerOnlineUsersClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IManagerOnlineUsers>, TimbiricheViews.Server.IManagerOnlineUsers {
+    public partial class OnlineUsersManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IOnlineUsersManager>, TimbiricheViews.Server.IOnlineUsersManager {
         
-        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance) : 
+        public OnlineUsersManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {
         }
         
-        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+        public OnlineUsersManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
                 base(callbackInstance, endpointConfigurationName) {
         }
         
-        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+        public OnlineUsersManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
                 base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public OnlineUsersManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(callbackInstance, endpointConfigurationName, remoteAddress) {
         }
         
-        public ManagerOnlineUsersClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public OnlineUsersManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(callbackInstance, binding, remoteAddress) {
         }
         

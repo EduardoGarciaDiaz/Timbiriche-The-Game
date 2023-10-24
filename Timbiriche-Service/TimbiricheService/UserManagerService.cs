@@ -78,7 +78,7 @@ namespace TimbiricheService
     }
 
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public partial class UserManagerService : IManagerOnlineUsers
+    public partial class UserManagerService : IOnlineUsersManager
     {
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 

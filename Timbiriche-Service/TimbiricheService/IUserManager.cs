@@ -20,7 +20,7 @@ namespace TimbiricheService
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]
-    public interface IManagerOnlineUsers    //TODO: Change name to: OnlineUserManager
+    public interface IOnlineUsersManager
     {
         [OperationContract(IsOneWay = true)]
         void RegisterUserToOnlineUsers(string username);
@@ -37,13 +37,6 @@ namespace TimbiricheService
         void NotifyUserLoggedOut(string username);
         [OperationContract]
         void NotifyOnlineUsers(List<string> onlineUsernames);
-    }
-
-    [ServiceContract]
-    public interface IEmailManager
-    {
-        [OperationContract]
-        string sendEmail(string addressee);
     }
 
     [DataContract]
