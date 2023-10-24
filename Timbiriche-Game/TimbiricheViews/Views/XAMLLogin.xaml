@@ -61,7 +61,7 @@
 
     <Viewbox Stretch="Fill">
 
-        <Grid Height="770" Width="1200">
+        <Grid Height="770" Width="1200" Cursor="Hand">
             <Grid.RowDefinitions>
                 <RowDefinition Height="31*"/>
                 <RowDefinition Height="79*"/>
@@ -91,6 +91,7 @@
             </Border>
             <Label  FontFamily="Inter" FontSize="14" VerticalAlignment="Top"
             Foreground="#1CDBD4" Cursor="Hand" Content="{x:Static p:Resources.lbForgottenPassword}" Margin="413,181,631,0" Grid.Row="1"></Label>
+            <Button Margin="413,181,631,351" Grid.Row="1" Background="Transparent" BorderThickness="0" Click="BtnForgottenPassword_Click"></Button>
             <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
             FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnLogin_Click" Margin="416,246,410,260" Grid.Row="1" Cursor="Hand"></Button>
             <Button     Background="Transparent" Foreground="#1CDBD4" BorderThickness="0"

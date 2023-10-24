@@ -69,6 +69,12 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Views\XAMLPasswordReset.xaml.cs">
+      <DependentUpon>XAMLPasswordReset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLShop.xaml.cs">
+      <DependentUpon>XAMLShop.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLMainWindow.xaml.cs">
       <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
     </Compile>
@@ -90,6 +96,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\XAMLEmergentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLPasswordReset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLShop.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -208,6 +222,7 @@
     <Resource Include="Resources\shadow.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\shopBackground.png" />
     <Resource Include="Resources\videogameControls.png" />
   </ItemGroup>
   <ItemGroup>
@@ -251,6 +266,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\friendItemButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coinsBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shopBox.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

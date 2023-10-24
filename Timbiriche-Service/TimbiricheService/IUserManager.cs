@@ -58,7 +58,6 @@ namespace TimbiricheService
         public string Surname { get { return _surname; } set { _surname = value; } }
         [DataMember]
         public DateTime Birthdate { get { return _birthdate; } set { _birthdate = value; } }
-
     }
 
     [DataContract]

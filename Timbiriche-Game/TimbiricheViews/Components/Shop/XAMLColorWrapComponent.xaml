@@ -1,0 +1,15 @@
+﻿<UserControl x:Class="TimbiricheViews.Components.Shop.XAMLColorWrapComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimbiricheViews.Components.Shop"
+             mc:Ignorable="d" 
+             d:DesignHeight="208" d:DesignWidth="97">
+    <Grid>
+        <Grid Width="82" Margin="0,10,15,15" Height="173">
+            <Rectangle Fill="Red" Margin="0,0,0,95"  RadiusX="9" RadiusY="9"/>
+            <Rectangle Fill="Green" Margin="0,95,0,0" RadiusX="9" RadiusY="9"/>
+        </Grid>
+    </Grid>
+</UserControl>

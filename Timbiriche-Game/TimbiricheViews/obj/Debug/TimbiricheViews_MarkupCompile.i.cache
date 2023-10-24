@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Game\TimbiricheViews\App.xaml
-6240753967
+10-678961090
 
-16-1092294908
+20-1147689983
 16-223462102
-Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
+Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLColorWrapComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
 
-False
+True
 

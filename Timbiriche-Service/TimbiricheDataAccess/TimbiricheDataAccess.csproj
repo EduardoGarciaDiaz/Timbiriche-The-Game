@@ -76,6 +76,7 @@
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShopManagement.cs" />
     <Compile Include="TimbiricheModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
