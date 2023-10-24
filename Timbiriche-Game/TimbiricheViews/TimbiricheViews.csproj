@@ -64,6 +64,9 @@
     <Compile Include="Components\XAMLEmergentWindow.xaml.cs">
       <DependentUpon>XAMLEmergentWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\XAMLOneInputWindow.xaml.cs">
+      <DependentUpon>XAMLOneInputWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Connected Services\Server\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -104,6 +107,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\XAMLShop.xaml">
+    </Page>
+    <Page Include="Components\XAMLOneInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -272,6 +277,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\shopBox.png" />
+    <Resource Include="Resources\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

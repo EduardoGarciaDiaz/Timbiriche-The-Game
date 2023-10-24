@@ -20,7 +20,7 @@ namespace TimbiricheService
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]
-    public interface IManagerOnlineUsers
+    public interface IOnlineUsersManager
     {
         [OperationContract(IsOneWay = true)]
         void RegisterUserToOnlineUsers(string username);
@@ -42,6 +42,7 @@ namespace TimbiricheService
     [DataContract]
     public class Account
     {
+
         private int _idAccount;
         private string _name;
         private string _lastName;
@@ -64,6 +65,7 @@ namespace TimbiricheService
 
     public class Player
     {
+
         private int _idPlayer;
         private string _username;
         private string _email;
@@ -91,4 +93,5 @@ namespace TimbiricheService
         public Account AccountFK { get { return _accountFK; } set { _accountFK = value; } }
 
     }
+
 }

@@ -24,7 +24,7 @@
                 <Border CornerRadius="25" Background="#1C95D1" Margin="304,265,304,267">
                     <Grid Height="244" Width="594" Background="Transparent">
                         <Label x:Name="lbTitleEmergentWindow" HorizontalAlignment="Left" Margin="22,21,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="32" Width="562" HorizontalContentAlignment="Center"/>
-                        <Label x:Name="lbDescriptionEmergentWindow" HorizontalAlignment="Left" Margin="26,89,0,0" VerticalAlignment="Top" Foreground="White" Width="547" Height="83" FontFamily="Inter" FontSize="16">
+                        <Label x:Name="lbDescriptionEmergentWindow" HorizontalAlignment="Left" Margin="26,89,0,0" VerticalAlignment="Top" Foreground="White" Width="547" Height="83" FontFamily="Inter" FontSize="16" Focusable="True">
                             <TextBlock x:Name="tbkDescriptionEmergentWindow" TextWrapping="Wrap"/>
                         </Label>
                         <Separator RenderTransformOrigin="0.5,0.5" Margin="0,71,16,145" HorizontalAlignment="Right" Width="562" Background="#FF05CDDE">

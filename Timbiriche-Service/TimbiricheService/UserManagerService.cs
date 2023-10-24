@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
@@ -76,7 +78,7 @@ namespace TimbiricheService
     }
 
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
-    public partial class UserManagerService : IManagerOnlineUsers
+    public partial class UserManagerService : IOnlineUsersManager
     {
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 
@@ -107,11 +109,60 @@ namespace TimbiricheService
             {
                 onlineUsers.Remove(username);
 
-                foreach(var user in onlineUsers)
+                foreach (var user in onlineUsers)
                 {
                     user.Value.NotifyUserLoggedOut(username);
                 }
             }
         }
+
+    }
+
+    public partial class UserManagerService : IEmailManager
+    {
+        public string sendEmail(string addressee)
+        {
+            // TODO: change variables to constants
+            // TODO: internationalizate
+            bool isSend = false;
+            string code = GenerateEmailCode();
+            string sender = "timbirichethegame@gmail.com";
+            string displayName = "Timbiriche THE GAME";
+            string subject = "Email Confirmation";
+            string body = "¡Hi, Welcome to Timbiriche!\n This is a confirmation email to create your account," +
+                          " please enter the following code in the game:\n" + code;
+            try
+            {
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(sender, displayName);
+                mail.To.Add(addressee);
+                mail.Subject = subject;
+                mail.Body = body;
+                mail.IsBodyHtml = true;
+
+                SmtpClient client = new SmtpClient("smtp.Gmail.com", 587);
+                client.Credentials = new NetworkCredential(sender, "dusb ueav ompt pckq");
+                client.EnableSsl = true;
+
+                client.Send(mail);
+                isSend = true;
+            }
+            catch (SmtpException ex)
+            {
+                isSend = false;
+            }
+            if (isSend)
+            {
+                return code;
+            }
+            return null;
+        }
+
+        public string GenerateEmailCode()
+        {
+            // TODO: Generate code
+            return "aaa";
+        }
+
     }
 }
