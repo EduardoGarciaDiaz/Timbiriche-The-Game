@@ -72,6 +72,16 @@
     <Compile Include="Accounts.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Colors.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PasswordReset.cs" />
+    <Compile Include="PasswordResetTokens.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PlayerColors.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Players.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
