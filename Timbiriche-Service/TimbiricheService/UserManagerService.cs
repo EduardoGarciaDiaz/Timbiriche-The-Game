@@ -120,28 +120,28 @@ namespace TimbiricheService
 
     public partial class UserManagerService : IEmailManager
     {
-        public string sendEmail(string addressee)
+        public string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail)
         {
-            // TODO: change variables to constants
-            // TODO: internationalizate
             bool isSend = false;
             string code = GenerateEmailCode();
-            string sender = "timbirichethegame@gmail.com";
-            string displayName = "Timbiriche THE GAME";
-            string subject = "Email Confirmation";
-            string body = "¡Hi, Welcome to Timbiriche!\n This is a confirmation email to create your account," +
-                          " please enter the following code in the game:\n" + code;
+            const string SMTP_SERVER = "smtp.Gmail.com";
+            const int SMTP_PORT = 587;
+            const string SENDER = "timbirichethegame@gmail.com";
+            const string PASSWORD = "dusb ueav ompt pckq";
+            const string DISPLAY_NAME = "Timbiriche";
+            string subject = subjectEmail;
+            string body = bodyEmail + code;
             try
             {
                 MailMessage mail = new MailMessage();
-                mail.From = new MailAddress(sender, displayName);
-                mail.To.Add(addressee);
+                mail.From = new MailAddress(SENDER, DISPLAY_NAME);
+                mail.To.Add(addresseeEmail);
                 mail.Subject = subject;
                 mail.Body = body;
                 mail.IsBodyHtml = true;
 
-                SmtpClient client = new SmtpClient("smtp.Gmail.com", 587);
-                client.Credentials = new NetworkCredential(sender, "dusb ueav ompt pckq");
+                SmtpClient client = new SmtpClient(SMTP_SERVER, SMTP_PORT);
+                client.Credentials = new NetworkCredential(SENDER, PASSWORD);
                 client.EnableSsl = true;
 
                 client.Send(mail);
@@ -150,6 +150,7 @@ namespace TimbiricheService
             catch (SmtpException ex)
             {
                 isSend = false;
+                // TODO: Log the exception
             }
             if (isSend)
             {
@@ -160,9 +161,16 @@ namespace TimbiricheService
 
         public string GenerateEmailCode()
         {
-            // TODO: Generate code
-            return "aaa";
+            string confirmationCode = "";
+            const int CODE_LENGTH = 6;
+            const string VALID_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            Random random = new Random();
+            for (int i = 0 ; i < CODE_LENGTH; i++)
+            {
+                int index = random.Next(VALID_CHARACTERS.Length);
+                confirmationCode += VALID_CHARACTERS[index];
+            }
+            return confirmationCode;
         }
-
     }
 }

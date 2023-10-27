@@ -1166,5 +1166,25 @@ namespace TimbiricheViews.Properties {
                 return ResourceManager.GetString("tbxUserNameRegistration", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a ¡Hola, Bienvenido a Timbiriche!
+        ///Este es un correo de verificación para poder crear tu cuenta, por favor ingresa el siguiente código en el juego:
+        ///.
+        /// </summary>
+        public static string txtBodyBeginnerEmailVerification {
+            get {
+                return ResourceManager.GetString("txtBodyBeginnerEmailVerification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Verificación De Correo Electrónico.
+        /// </summary>
+        public static string txtSubjectBeginnerEmailVerification {
+            get {
+                return ResourceManager.GetString("txtSubjectBeginnerEmailVerification", resourceCulture);
+            }
+        }
     }
 }

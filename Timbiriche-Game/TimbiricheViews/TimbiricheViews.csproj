@@ -70,8 +70,8 @@
     <Compile Include="Components\XAMLEmergentWindow.xaml.cs">
       <DependentUpon>XAMLEmergentWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\XAMLOneInputWindow.xaml.cs">
-      <DependentUpon>XAMLOneInputWindow.xaml</DependentUpon>
+    <Compile Include="Components\XAMLBeginnerCodeVerification.xaml.cs">
+      <DependentUpon>XAMLBeginnerCodeVerification.xaml</DependentUpon>
     </Compile>
     <Compile Include="Connected Services\Server\Reference.cs">
       <AutoGen>True</AutoGen>
@@ -122,7 +122,7 @@
     </Page>
     <Page Include="Views\XAMLShop.xaml">
     </Page>
-    <Page Include="Components\XAMLOneInputWindow.xaml">
+    <Page Include="Components\XAMLBeginnerCodeVerification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

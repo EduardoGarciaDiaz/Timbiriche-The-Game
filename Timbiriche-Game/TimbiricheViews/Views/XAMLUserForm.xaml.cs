@@ -81,9 +81,11 @@ namespace TimbiricheViews.Views
         private bool VerifyEmailCode(string email)
         {
             bool isEmailVerified = false;
+            string subject = Properties.Resources.txtSubjectBeginnerEmailVerification;
+            string body = Properties.Resources.txtBodyBeginnerEmailVerification;
             Server.EmailManagerClient emailManagerClient = new Server.EmailManagerClient();
-            string code = emailManagerClient.sendEmail(email);
-            XAMLOneInputWindow codeWindow = new XAMLOneInputWindow(code);
+            string code = emailManagerClient.sendEmail(email, subject, body);
+            XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(code);
 
             // TODO: Remove this. It's just for showing the code while we are codding
             _ = new XAMLEmergentWindow(
