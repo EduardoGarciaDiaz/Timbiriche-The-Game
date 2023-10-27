@@ -48,7 +48,7 @@
                                HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="85,628,0,0" Width="133" Height="50" Content="" VerticalContentAlignment="Center" MinHeight="1"/>
 
             <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196" Cursor="Hand"/>
-            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28" Cursor="Hand"/>
+            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28" Cursor="Hand" Click="Button_Click"/>
 
             <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="444,662,468,64" />
             <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
