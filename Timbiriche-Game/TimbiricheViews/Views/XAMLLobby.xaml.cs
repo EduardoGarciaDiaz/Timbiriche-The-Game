@@ -138,5 +138,10 @@ namespace TimbiricheViews.Views
         {
             NavigationService.Navigate(new XAMLShop());
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLGameBoard());
+        }
     }
 }
