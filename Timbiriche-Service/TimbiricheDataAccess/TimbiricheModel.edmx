@@ -147,7 +147,6 @@
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Players" Relationship="Self.FK_PlayersAccounts" FromRole="Accounts" ToRole="Players" />
           <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -282,7 +281,6 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Accounts">
               <MappingFragment StoreEntitySet="Accounts">
-                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
                 <ScalarProperty Name="name" ColumnName="name" />
