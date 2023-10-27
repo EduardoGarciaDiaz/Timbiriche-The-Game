@@ -15,14 +15,40 @@ using System.Windows.Shapes;
 
 namespace TimbiricheViews.Views
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLPasswordReset.xaml
-    /// </summary>
     public partial class XAMLPasswordReset : Page
     {
+        private string _email;
         public XAMLPasswordReset()
         {
             InitializeComponent();
+        }
+
+        private void BtnSendToken_Click(object sender, RoutedEventArgs e)
+        {
+            _email = tbxEmail.Text;
+            Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+            bool isResetTokenSent = passwordResetClient.SendResetToken(_email);
+            if (isResetTokenSent)
+            {
+                gridEmailConfirmation.Visibility = Visibility.Collapsed;
+                gridCodeConfirmation.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnVerifyToken_Click(object sender, RoutedEventArgs e)
+        {
+            Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+            bool isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text));
+            if (isTokenValid)
+            {
+                gridCodeConfirmation.Visibility = Visibility.Collapsed;
+                gridNewPassword.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

@@ -75,7 +75,7 @@
     <Compile Include="Colors.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="PasswordReset.cs" />
+    <Compile Include="PasswordResetManagement.cs" />
     <Compile Include="PasswordResetTokens.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>

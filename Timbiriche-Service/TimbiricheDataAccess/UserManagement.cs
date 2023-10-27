@@ -83,7 +83,7 @@ namespace TimbiricheDataAccess
             return identifierExist;
         }
 
-        public int EmailExists(String email)
+        public int GetIdPlayerByEmail(String email)
         {
             int idPlayer = 0;
             using (var context = new TimbiricheDBEntities())

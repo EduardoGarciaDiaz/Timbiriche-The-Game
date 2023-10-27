@@ -11,7 +11,7 @@ namespace TimbiricheService
     public interface IPasswordReset
     {
         [OperationContract]
-        bool GenerateResetToken(string email);
+        bool SendResetToken(string email);
         [OperationContract]
         bool ValidateResetToken(string email, int token);
     }
