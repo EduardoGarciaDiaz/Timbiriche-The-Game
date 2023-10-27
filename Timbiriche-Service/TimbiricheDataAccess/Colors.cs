@@ -12,27 +12,19 @@ namespace TimbiricheDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Players
+    public partial class Colors
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Players()
+        public Colors()
         {
-            this.PasswordResetTokens = new HashSet<PasswordResetTokens>();
             this.PlayerColors = new HashSet<PlayerColors>();
         }
     
-        public int idPlayer { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public int coins { get; set; }
-        public int idAccount { get; set; }
-        public string status { get; set; }
-        public string salt { get; set; }
+        public int idColor { get; set; }
+        public string colorName { get; set; }
+        public string hexadecimalCode { get; set; }
+        public Nullable<int> cost { get; set; }
     
-        public virtual Accounts Accounts { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PasswordResetTokens> PasswordResetTokens { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayerColors> PlayerColors { get; set; }
     }

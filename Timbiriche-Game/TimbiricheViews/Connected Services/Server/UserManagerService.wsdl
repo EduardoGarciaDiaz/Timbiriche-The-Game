@@ -87,6 +87,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPasswordReset_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -143,6 +172,18 @@
   <wsdl:message name="IEmailManager_sendEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:sendEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IPasswordReset_SendResetToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendResetToken" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_SendResetToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendResetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ValidateResetToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResetToken" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ValidateResetToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResetTokenResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -181,6 +222,16 @@
     <wsdl:operation name="sendEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmailManager/sendEmail" message="tns:IEmailManager_sendEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmailManager/sendEmailResponse" message="tns:IEmailManager_sendEmail_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPasswordReset">
+    <wsdl:operation name="SendResetToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/SendResetToken" message="tns:IPasswordReset_SendResetToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenResponse" message="tns:IPasswordReset_SendResetToken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateResetToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetToken" message="tns:IPasswordReset_ValidateResetToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse" message="tns:IPasswordReset_ValidateResetToken_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -270,13 +321,35 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPasswordReset" type="tns:IPasswordReset">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPasswordReset_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendResetToken">
+      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/SendResetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateResetToken">
+      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/ValidateResetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -285,7 +358,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -294,7 +367,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPasswordReset" binding="tns:NetTcpBinding_IPasswordReset">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

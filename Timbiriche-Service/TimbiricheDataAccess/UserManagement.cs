@@ -82,5 +82,22 @@ namespace TimbiricheDataAccess
             }
             return identifierExist;
         }
+
+        public int GetIdPlayerByEmail(String email)
+        {
+            int idPlayer = 0;
+            using (var context = new TimbiricheDBEntities())
+            {
+                var query = from p in context.Players
+                            where p.email == email
+                            select p;
+                var player = query.SingleOrDefault();
+                if (player != null)
+                {
+                    idPlayer = player.idPlayer;
+                }
+            }
+            return idPlayer;
+        }
     }
 }

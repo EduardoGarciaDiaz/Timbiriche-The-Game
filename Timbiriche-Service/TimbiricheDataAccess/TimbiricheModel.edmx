@@ -14,6 +14,34 @@
           <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="birthdate" Type="date" Nullable="false" />
           <Property Name="surname" Type="nvarchar" MaxLength="20" />
+          <Property Name="status" Type="varchar" MaxLength="15" />
+        </EntityType>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="idColor" />
+          </Key>
+          <Property Name="idColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="colorName" Type="varchar" MaxLength="30" />
+          <Property Name="hexadecimalCode" Type="varchar" MaxLength="8" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <EntityType Name="PasswordResetTokens">
+          <Key>
+            <PropertyRef Name="idPasswordResetToken" />
+          </Key>
+          <Property Name="idPasswordResetToken" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="token" Type="int" />
+          <Property Name="creationDate" Type="datetime" />
+          <Property Name="expirationDate" Type="datetime" />
+          <Property Name="idPlayer" Type="int" />
+        </EntityType>
+        <EntityType Name="PlayerColors">
+          <Key>
+            <PropertyRef Name="idPlayerColors" />
+          </Key>
+          <Property Name="idPlayerColors" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idColor" Type="int" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -28,6 +56,48 @@
           <Property Name="idAccount" Type="int" Nullable="false" />
           <Property Name="salt" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <Association Name="FK__PasswordR__idPla__4CA06362">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PasswordResetTokens" Type="Self.PasswordResetTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PasswordResetTokens">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idCol__5441852A">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerColors" Type="Self.PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idPla__534D60F1">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerColors" Type="Self.PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Players" Type="Self.Players" Multiplicity="*" />
@@ -42,7 +112,22 @@
         </Association>
         <EntityContainer Name="TimbiricheDBModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordResetTokens" EntityType="Self.PasswordResetTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerColors" EntityType="Self.PlayerColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PasswordR__idPla__4CA06362" Association="Self.FK__PasswordR__idPla__4CA06362">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PasswordResetTokens" EntitySet="PasswordResetTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idCol__5441852A" Association="Self.FK__PlayerCol__idCol__5441852A">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idPla__534D60F1" Association="Self.FK__PlayerCol__idPla__534D60F1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
           <AssociationSet Name="FK_PlayersAccounts" Association="Self.FK_PlayersAccounts">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Players" EntitySet="Players" />
@@ -62,6 +147,7 @@
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Players" Relationship="Self.FK_PlayersAccounts" FromRole="Accounts" ToRole="Players" />
           <Property Name="surname" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -76,6 +162,8 @@
           <NavigationProperty Name="Accounts" Relationship="Self.FK_PlayersAccounts" FromRole="Players" ToRole="Accounts" />
           <Property Name="status" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PasswordResetTokens" Relationship="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362" FromRole="Players" ToRole="PasswordResetTokens" />
+          <NavigationProperty Name="PlayerColors" Relationship="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" FromRole="Players" ToRole="PlayerColors" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -96,7 +184,95 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Players" EntitySet="Players" />
           </AssociationSet>
+          <EntitySet Name="Colors" EntityType="TimbiricheDBModel.Colors" />
+          <EntitySet Name="PasswordResetTokens" EntityType="TimbiricheDBModel.PasswordResetTokens" />
+          <EntitySet Name="PlayerColors" EntityType="TimbiricheDBModel.PlayerColors" />
+          <AssociationSet Name="FK__PlayerCol__idCol__5441852A" Association="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PasswordR__idPla__4CA06362" Association="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PasswordResetTokens" EntitySet="PasswordResetTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idPla__534D60F1" Association="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="idColor" />
+          </Key>
+          <Property Name="idColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="colorName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="hexadecimalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="PlayerColors" Relationship="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A" FromRole="Colors" ToRole="PlayerColors" />
+        </EntityType>
+        <EntityType Name="PasswordResetTokens">
+          <Key>
+            <PropertyRef Name="idPasswordResetToken" />
+          </Key>
+          <Property Name="idPasswordResetToken" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="token" Type="Int32" />
+          <Property Name="creationDate" Type="DateTime" Precision="3" />
+          <Property Name="expirationDate" Type="DateTime" Precision="3" />
+          <Property Name="idPlayer" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362" FromRole="PasswordResetTokens" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="PlayerColors">
+          <Key>
+            <PropertyRef Name="idPlayerColors" />
+          </Key>
+          <Property Name="idPlayerColors" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idColor" Type="Int32" />
+          <NavigationProperty Name="Colors" Relationship="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A" FromRole="PlayerColors" ToRole="Colors" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" FromRole="PlayerColors" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK__PlayerCol__idCol__5441852A">
+          <End Type="TimbiricheDBModel.Colors" Role="Colors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerColors" Role="PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PasswordR__idPla__4CA06362">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PasswordResetTokens" Role="PasswordResetTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PasswordResetTokens">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idPla__534D60F1">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerColors" Role="PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -106,6 +282,7 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Accounts">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -125,6 +302,36 @@
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="coins" ColumnName="coins" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Colors">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="hexadecimalCode" ColumnName="hexadecimalCode" />
+                <ScalarProperty Name="colorName" ColumnName="colorName" />
+                <ScalarProperty Name="idColor" ColumnName="idColor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasswordResetTokens">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PasswordResetTokens">
+              <MappingFragment StoreEntitySet="PasswordResetTokens">
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="idPasswordResetToken" ColumnName="idPasswordResetToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerColors">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PlayerColors">
+              <MappingFragment StoreEntitySet="PlayerColors">
+                <ScalarProperty Name="idColor" ColumnName="idColor" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idPlayerColors" ColumnName="idPlayerColors" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

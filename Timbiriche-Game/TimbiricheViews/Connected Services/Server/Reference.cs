@@ -475,4 +475,65 @@ namespace TimbiricheViews.Server {
             return base.Channel.sendEmailAsync(addresseeEmail, subjectEmail, bodyEmail);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPasswordReset")]
+    public interface IPasswordReset {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/SendResetToken", ReplyAction="http://tempuri.org/IPasswordReset/SendResetTokenResponse")]
+        bool SendResetToken(string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/SendResetToken", ReplyAction="http://tempuri.org/IPasswordReset/SendResetTokenResponse")]
+        System.Threading.Tasks.Task<bool> SendResetTokenAsync(string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
+        bool ValidateResetToken(string email, int token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
+        System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPasswordResetChannel : TimbiricheViews.Server.IPasswordReset, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PasswordResetClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IPasswordReset>, TimbiricheViews.Server.IPasswordReset {
+        
+        public PasswordResetClient() {
+        }
+        
+        public PasswordResetClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public PasswordResetClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PasswordResetClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PasswordResetClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool SendResetToken(string email) {
+            return base.Channel.SendResetToken(email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SendResetTokenAsync(string email) {
+            return base.Channel.SendResetTokenAsync(email);
+        }
+        
+        public bool ValidateResetToken(string email, int token) {
+            return base.Channel.ValidateResetToken(email, token);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token) {
+            return base.Channel.ValidateResetTokenAsync(email, token);
+        }
+    }
 }
