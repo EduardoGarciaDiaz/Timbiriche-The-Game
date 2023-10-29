@@ -95,22 +95,6 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
-  <xs:element name="sendEmail">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="addresseeEmail" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="subjectEmail" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="bodyEmail" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="sendEmailResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="sendEmailResult" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
   <xs:element name="SendResetToken">
     <xs:complexType>
       <xs:sequence>
@@ -138,6 +122,71 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="ValidateResetTokenResult" type="xs:boolean" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="CreateLobby">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyInformation" nillable="true" type="q4:LobbyInformation" />
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q5:LobbyPlayer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="StartMatch">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="JoinLobby">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q6:LobbyPlayer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyLobbyCreated">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyLobbyCreatedResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayersInLobby">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayers" nillable="true" type="q7:ArrayOfLobbyPlayer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayersInLobbyResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerJoinToLobby">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q8:LobbyPlayer" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerJoinToLobbyResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerLeftLobby">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerLeftLobbyResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

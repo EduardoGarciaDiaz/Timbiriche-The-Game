@@ -138,10 +138,102 @@ namespace TimbiricheViews.Views
         {
             NavigationService.Navigate(new XAMLShop());
         }
+    }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+    public partial class XAMLLobby : Page, ILobbyManagerCallback
+    {
+        public void NotifyLobbyCreated()
         {
-            NavigationService.Navigate(new XAMLGameBoard());
+            gridMatchCreation.Visibility = Visibility.Collapsed;
+            gridMatchControl.Visibility = Visibility.Visible;
+        }
+
+        public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer)
+        {
+            if(gridSecondPlayer.Visibility == Visibility.Collapsed)
+            {
+                lbSecondPlayerUsername.Content = lobbyPlayer.Username;
+                lbSecondPlayerFaceBox.Content = lobbyPlayer.Username[0].ToString();
+                gridSecondPlayer.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                if(gridThirdPlayer.Visibility == Visibility.Collapsed)
+                {
+                    lbThirdPlayerUsername.Content = lobbyPlayer.Username;
+                    lbThirdPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                    gridThirdPlayer.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    lbFourthPlayerUsername.Content = lobbyPlayer.Username;
+                    lbFourthPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                    gridFourthPlayer.Visibility = Visibility.Visible;
+                }
+            }
+            
+
+        }
+
+        public void NotifyPlayerLeftLobby()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void NotifyPlayersInLobby(LobbyPlayer[] lobbyPlayers)
+        {
+            int numPlayersInLobby = lobbyPlayers.Length;
+
+            if(numPlayersInLobby > 0)
+            {
+                lbSecondPlayerUsername.Content = lobbyPlayers[0].Username;
+                lbSecondPlayerFaceBox.Content = lobbyPlayers[0].Username[0].ToString();
+                gridSecondPlayer.Visibility = Visibility.Visible;
+            }
+
+            if (numPlayersInLobby > 1)
+            {
+                lbThirdPlayerUsername.Content = lobbyPlayers[1].Username;
+                lbThirdPlayerUsername.Content = lobbyPlayers[1].Username[0].ToString();
+                gridThirdPlayer.Visibility = Visibility.Visible;
+            }
+
+            if (numPlayersInLobby > 2)
+            {
+                lbFourthPlayerUsername.Content = lobbyPlayers[2].Username;
+                lbFourthPlayerUsername.Content = lobbyPlayers[2].Username[0].ToString();
+                gridFourthPlayer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
+        {
+            LobbyInformation lobbyInformation = new LobbyInformation();
+            lobbyInformation.MatchDurationInMinutes = 5;
+
+            LobbyPlayer lobbyPlayer = new LobbyPlayer();
+            lobbyPlayer.Username = playerLoggedIn.Username;
+
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient client = new LobbyManagerClient(context);
+            client.CreateLobby(lobbyInformation, lobbyPlayer);
+        }
+
+        private void BtnJoinByCode_Click(object sender, RoutedEventArgs e)
+        {
+            gridCodeDialog.Visibility = Visibility.Visible;
+        }
+
+        private void BtnJoin_Click(object sender, RoutedEventArgs e)
+        {
+            string lobbyCode = tbxJoinByCode.Text.Trim();
+
+            LobbyPlayer lobbyPlayer = new LobbyPlayer();
+            lobbyPlayer.Username = playerLoggedIn.Username;
+
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient client = new LobbyManagerClient(context);
+            client.JoinLobby(lobbyCode, lobbyPlayer);
         }
     }
 }

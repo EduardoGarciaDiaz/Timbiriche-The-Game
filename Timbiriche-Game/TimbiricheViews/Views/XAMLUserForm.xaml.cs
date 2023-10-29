@@ -83,20 +83,20 @@ namespace TimbiricheViews.Views
             bool isEmailVerified = false;
             string subject = Properties.Resources.txtSubjectBeginnerEmailVerification;
             string body = Properties.Resources.txtBodyBeginnerEmailVerification;
-            Server.EmailManagerClient emailManagerClient = new Server.EmailManagerClient();
-            string code = emailManagerClient.sendEmail(email, subject, body);
-            XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(code);
+            //Server.EmailManagerClient emailManagerClient = new Server.EmailManagerClient();
+            //string code = emailManagerClient.sendEmail(email, subject, body);
+            //XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(code);
 
-            // TODO: Remove this. It's just for showing the code while we are codding
+            /*// TODO: Remove this. It's just for showing the code while we are codding
             _ = new XAMLEmergentWindow(
                 Properties.Resources.lbCodeMatch,
-                "Your code is: \n" + code
+                //"Your code is: \n" + code
             );
             
             if (codeWindow.ShowDialog() == true)
             {
                 isEmailVerified = true;
-            }
+            }*/
             return isEmailVerified;
         }
 
