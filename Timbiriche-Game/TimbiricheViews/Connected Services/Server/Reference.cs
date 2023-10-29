@@ -279,6 +279,128 @@ namespace TimbiricheViews.Server {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LobbyInformation", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class LobbyInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int MatchDurationInMinutesField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int MatchDurationInMinutes {
+            get {
+                return this.MatchDurationInMinutesField;
+            }
+            set {
+                if ((this.MatchDurationInMinutesField.Equals(value) != true)) {
+                    this.MatchDurationInMinutesField = value;
+                    this.RaisePropertyChanged("MatchDurationInMinutes");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="LobbyPlayer", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class LobbyPlayer : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HexadecimalColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StylePathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HexadecimalColor {
+            get {
+                return this.HexadecimalColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HexadecimalColorField, value) != true)) {
+                    this.HexadecimalColorField = value;
+                    this.RaisePropertyChanged("HexadecimalColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StylePath {
+            get {
+                return this.StylePathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StylePathField, value) != true)) {
+                    this.StylePathField = value;
+                    this.RaisePropertyChanged("StylePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
@@ -430,53 +552,6 @@ namespace TimbiricheViews.Server {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IEmailManager")]
-    public interface IEmailManager {
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
-        string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailManager/sendEmail", ReplyAction="http://tempuri.org/IEmailManager/sendEmailResponse")]
-        System.Threading.Tasks.Task<string> sendEmailAsync(string addresseeEmail, string subjectEmail, string bodyEmail);
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IEmailManagerChannel : TimbiricheViews.Server.IEmailManager, System.ServiceModel.IClientChannel {
-    }
-    
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class EmailManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IEmailManager>, TimbiricheViews.Server.IEmailManager {
-        
-        public EmailManagerClient() {
-        }
-        
-        public EmailManagerClient(string endpointConfigurationName) : 
-                base(endpointConfigurationName) {
-        }
-        
-        public EmailManagerClient(string endpointConfigurationName, string remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public EmailManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(endpointConfigurationName, remoteAddress) {
-        }
-        
-        public EmailManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
-                base(binding, remoteAddress) {
-        }
-        
-        public string sendEmail(string addresseeEmail, string subjectEmail, string bodyEmail) {
-            return base.Channel.sendEmail(addresseeEmail, subjectEmail, bodyEmail);
-        }
-        
-        public System.Threading.Tasks.Task<string> sendEmailAsync(string addresseeEmail, string subjectEmail, string bodyEmail) {
-            return base.Channel.sendEmailAsync(addresseeEmail, subjectEmail, bodyEmail);
-        }
-    }
-    
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPasswordReset")]
     public interface IPasswordReset {
         
@@ -534,6 +609,98 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token) {
             return base.Channel.ValidateResetTokenAsync(email, token);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.ILobbyManager", CallbackContract=typeof(TimbiricheViews.Server.ILobbyManagerCallback))]
+    public interface ILobbyManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/CreateLobby")]
+        void CreateLobby(TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/CreateLobby")]
+        System.Threading.Tasks.Task CreateLobbyAsync(TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/StartMatch")]
+        void StartMatch();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/StartMatch")]
+        System.Threading.Tasks.Task StartMatchAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
+        void JoinLobby(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
+        System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ILobbyManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse")]
+        void NotifyLobbyCreated();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayersInLobbyResponse")]
+        void NotifyPlayersInLobby(TimbiricheViews.Server.LobbyPlayer[] lobbyPlayers);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobbyResponse")]
+        void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse")]
+        void NotifyPlayerLeftLobby();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ILobbyManagerChannel : TimbiricheViews.Server.ILobbyManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class LobbyManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.ILobbyManager>, TimbiricheViews.Server.ILobbyManager {
+        
+        public LobbyManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public LobbyManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public LobbyManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void CreateLobby(TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.CreateLobby(lobbyInformation, lobbyPlayer);
+        }
+        
+        public System.Threading.Tasks.Task CreateLobbyAsync(TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.CreateLobbyAsync(lobbyInformation, lobbyPlayer);
+        }
+        
+        public void StartMatch() {
+            base.Channel.StartMatch();
+        }
+        
+        public System.Threading.Tasks.Task StartMatchAsync() {
+            return base.Channel.StartMatchAsync();
+        }
+        
+        public void JoinLobby(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.JoinLobby(lobbyCode, lobbyPlayer);
+        }
+        
+        public System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
         }
     }
 }

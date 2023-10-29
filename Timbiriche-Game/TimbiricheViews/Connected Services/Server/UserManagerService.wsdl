@@ -58,7 +58,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="NetTcpBinding_IEmailManager_policy">
+  <wsp:Policy wsu:Id="NetTcpBinding_IPasswordReset_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
@@ -87,7 +87,7 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
-  <wsp:Policy wsu:Id="NetTcpBinding_IPasswordReset_policy">
+  <wsp:Policy wsu:Id="NetTcpBinding_ILobbyManager_policy">
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
@@ -166,12 +166,6 @@
   <wsdl:message name="IOnlineUsersManager_NotifyOnlineUsers_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyOnlineUsersResponse" />
   </wsdl:message>
-  <wsdl:message name="IEmailManager_sendEmail_InputMessage">
-    <wsdl:part name="parameters" element="tns:sendEmail" />
-  </wsdl:message>
-  <wsdl:message name="IEmailManager_sendEmail_OutputMessage">
-    <wsdl:part name="parameters" element="tns:sendEmailResponse" />
-  </wsdl:message>
   <wsdl:message name="IPasswordReset_SendResetToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendResetToken" />
   </wsdl:message>
@@ -183,6 +177,39 @@
   </wsdl:message>
   <wsdl:message name="IPasswordReset_ValidateResetToken_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateResetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_CreateLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_StartMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartMatch" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyCreated_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyCreatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayersInLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayersInLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayersInLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayersInLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerJoinToLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerJoinToLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerJoinToLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerJoinToLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
@@ -218,12 +245,6 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsersResponse" message="tns:IOnlineUsersManager_NotifyOnlineUsers_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
-  <wsdl:portType name="IEmailManager">
-    <wsdl:operation name="sendEmail">
-      <wsdl:input wsaw:Action="http://tempuri.org/IEmailManager/sendEmail" message="tns:IEmailManager_sendEmail_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IEmailManager/sendEmailResponse" message="tns:IEmailManager_sendEmail_OutputMessage" />
-    </wsdl:operation>
-  </wsdl:portType>
   <wsdl:portType name="IPasswordReset">
     <wsdl:operation name="SendResetToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/SendResetToken" message="tns:IPasswordReset_SendResetToken_InputMessage" />
@@ -232,6 +253,33 @@
     <wsdl:operation name="ValidateResetToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetToken" message="tns:IPasswordReset_ValidateResetToken_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse" message="tns:IPasswordReset_ValidateResetToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ILobbyManager">
+    <wsdl:operation name="CreateLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/CreateLobby" message="tns:ILobbyManager_CreateLobby_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/StartMatch" message="tns:ILobbyManager_StartMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyCreated">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayersInLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby" message="tns:ILobbyManager_NotifyPlayersInLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobbyResponse" message="tns:ILobbyManager_NotifyPlayersInLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerJoinToLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby" message="tns:ILobbyManager_NotifyPlayerJoinToLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobbyResponse" message="tns:ILobbyManager_NotifyPlayerJoinToLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -308,19 +356,6 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
-  <wsdl:binding name="NetTcpBinding_IEmailManager" type="tns:IEmailManager">
-    <wsp:PolicyReference URI="#NetTcpBinding_IEmailManager_policy" />
-    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="sendEmail">
-      <soap12:operation soapAction="http://tempuri.org/IEmailManager/sendEmail" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-  </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IPasswordReset" type="tns:IPasswordReset">
     <wsp:PolicyReference URI="#NetTcpBinding_IPasswordReset_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -335,6 +370,64 @@
     </wsdl:operation>
     <wsdl:operation name="ValidateResetToken">
       <soap12:operation soapAction="http://tempuri.org/IPasswordReset/ValidateResetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILobbyManager" type="tns:ILobbyManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILobbyManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CreateLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/CreateLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="StartMatch">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/StartMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/JoinLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyCreated">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayersInLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerJoinToLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -362,7 +455,7 @@
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
-    <wsdl:port name="NetTcpBinding_IEmailManager" binding="tns:NetTcpBinding_IEmailManager">
+    <wsdl:port name="NetTcpBinding_IPasswordReset" binding="tns:NetTcpBinding_IPasswordReset">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
@@ -371,7 +464,7 @@
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
-    <wsdl:port name="NetTcpBinding_IPasswordReset" binding="tns:NetTcpBinding_IPasswordReset">
+    <wsdl:port name="NetTcpBinding_ILobbyManager" binding="tns:NetTcpBinding_ILobbyManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>

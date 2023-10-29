@@ -33,7 +33,7 @@
             <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
             <Button x:Name="btnMyProfile" Background="Transparent" BorderBrush="Transparent" Margin="1105,9,7,663" Click="BtnMyProfile_Click" Cursor="Hand" />
             <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1117,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
-            
+
             <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
                         BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand"/>
 
@@ -47,18 +47,15 @@
             <Label x:Name="lbCoins" FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="85,628,0,0" Width="133" Height="50" Content="" VerticalContentAlignment="Center" MinHeight="1"/>
 
-            <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Margin="862,500,19,196" Cursor="Hand"/>
-            <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Margin="862,582,19,28" Cursor="Hand" Click="Button_Click"/>
-
-            <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="444,662,468,64" />
+            <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="364,662,548,64" />
             <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
-                       FontSize="20" Content="" Margin="453,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                       FontSize="20" Content="" Margin="373,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-            <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="441,588,473,113" />
+            <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
 
-            <Rectangle Fill="#E46161" RadiusX="25" RadiusY="25" Margin="459,382,491,140" />
+            <Rectangle Fill="#E46161" RadiusX="25" RadiusY="25" Margin="382,373,568,149" />
             <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
-                            FontSize="120" Content="" Margin="459,402,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                            FontSize="120" Content="" Margin="383,387,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
             <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
@@ -81,6 +78,54 @@
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
                       StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
             </Grid>
+
+            <Grid x:Name="gridMatchCreation" Margin="842,500,19,28">
+                <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Click="BtnCreateMatch_Click" Margin="0,99,0,0"/>
+                <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="0,0,0,163" Click="BtnJoinByCode_Click"/>
+            </Grid>
+
+            <Grid x:Name="gridMatchControl" Margin="842,500,19,28" Visibility="Collapsed">
+                <Button Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0"/>
+                <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#359EFF" Cursor="Hand" Margin="237,0,0,163"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163"/>
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163"/>
+            </Grid>
+
+            <Grid x:Name="gridCodeDialog" Background="#1C95D1" Margin="336,264,402,284" Visibility="Collapsed">
+                <TextBox x:Name="tbxJoinByCode" VerticalAlignment="Top" HorizontalAlignment="Center" Width="392" Height="100" Background="White" Margin="0,11,0,0" />
+                <Button Content="{x:Static p:Resources.btnJoin}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="108,153,108,10" Click="BtnJoin_Click"/>
+            </Grid>
+
+            <Grid x:Name="gridSecondPlayer" Margin="78,246,912,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleSecondPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbSecondPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbSecondPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
+            <Grid x:Name="gridThirdPlayer" Margin="694,246,296,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleThirdPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbThirdPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbThirdPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
+            <Grid x:Name="gridFourthPlayer" Margin="951,246,39,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleFourthPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbFourthPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbFourthPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
         </Grid>
     </Viewbox>
 </Page>

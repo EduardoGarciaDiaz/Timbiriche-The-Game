@@ -23,4 +23,24 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="LobbyInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MatchDurationInMinutes" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LobbyInformation" nillable="true" type="tns:LobbyInformation" />
+  <xs:complexType name="LobbyPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HexadecimalColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LobbyPlayer" nillable="true" type="tns:LobbyPlayer" />
+  <xs:complexType name="ArrayOfLobbyPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LobbyPlayer" nillable="true" type="tns:LobbyPlayer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLobbyPlayer" nillable="true" type="tns:ArrayOfLobbyPlayer" />
 </xs:schema>
