@@ -43,7 +43,7 @@ namespace TimbiricheViews.Views
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
-        {            
+        {
             if (ValidateFields())
             {
                 string email = tbxEmail.Text.Trim().ToLower();
@@ -81,23 +81,24 @@ namespace TimbiricheViews.Views
         private bool VerifyEmailCode(string email)
         {
             bool isEmailVerified = false;
-            string subject = Properties.Resources.txtSubjectBeginnerEmailVerification;
-            string body = Properties.Resources.txtBodyBeginnerEmailVerification;
-            //Server.EmailManagerClient emailManagerClient = new Server.EmailManagerClient();
-            //string code = emailManagerClient.sendEmail(email, subject, body);
-            //XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(code);
-
-            /*// TODO: Remove this. It's just for showing the code while we are codding
-            _ = new XAMLEmergentWindow(
-                Properties.Resources.lbCodeMatch,
-                //"Your code is: \n" + code
-            );
-            
-            if (codeWindow.ShowDialog() == true)
+            if (sendEmail(email))
             {
-                isEmailVerified = true;
-            }*/
+                XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification();
+                if (codeWindow.ShowDialog() == true)
+                {
+                    isEmailVerified = true;
+                }
+            }
             return isEmailVerified;
+        }
+
+        private bool sendEmail(string email)
+        {
+            bool isEmailSend = false;
+            Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();
+            // TODO: Try-Catch
+            isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
+            return isEmailSend;
         }
 
         private Account CreateNewAccount()
@@ -266,5 +267,3 @@ namespace TimbiricheViews.Views
         }
     }
 }
-
-

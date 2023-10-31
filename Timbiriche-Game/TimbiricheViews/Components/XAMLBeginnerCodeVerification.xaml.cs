@@ -18,16 +18,11 @@ namespace TimbiricheViews.Components
     public partial class XAMLBeginnerCodeVerification : Window
     {
         private Window _mainWindow;
-        private string _code;
+
         public XAMLBeginnerCodeVerification()
         {
             InitializeComponent();
-        }
-
-        public XAMLBeginnerCodeVerification(string code)
-        {
             _mainWindow = Application.Current.MainWindow;
-            _code = code;
             InitializeComponent();
             ConfigureEmergentWindow();
         }
@@ -58,7 +53,12 @@ namespace TimbiricheViews.Components
             SetDefaultStyles();
             bool isCorrectCode = false;
             string codeEntered = tbxCode.Text.Trim().ToUpper();
-            if (codeEntered != _code)
+
+            Server.EmailVerificationManagerClient emailVerificationManagerClient = 
+                new Server.EmailVerificationManagerClient();
+            bool isTokenValid = emailVerificationManagerClient.VerifyEmailToken(codeEntered);
+
+            if (!isTokenValid)
             {
                 lbCodeError.Visibility = Visibility.Visible;
             }
@@ -67,7 +67,6 @@ namespace TimbiricheViews.Components
                 isCorrectCode = true;
             }
             return isCorrectCode;
-
         }
 
         private void SetDefaultStyles()
@@ -88,6 +87,6 @@ namespace TimbiricheViews.Components
             this.Close();
         }
 
-    }   
+    }
 
 }

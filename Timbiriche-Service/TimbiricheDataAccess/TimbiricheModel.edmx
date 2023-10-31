@@ -14,7 +14,6 @@
           <Property Name="lastName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="birthdate" Type="date" Nullable="false" />
           <Property Name="surname" Type="nvarchar" MaxLength="20" />
-          <Property Name="status" Type="varchar" MaxLength="15" />
         </EntityType>
         <EntityType Name="Colors">
           <Key>

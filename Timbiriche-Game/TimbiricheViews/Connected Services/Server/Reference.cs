@@ -723,4 +723,65 @@ namespace TimbiricheViews.Server {
             return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IEmailVerificationManager")]
+    public interface IEmailVerificationManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/SendEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/SendEmailTokenResponse")]
+        bool SendEmailToken(string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/SendEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/SendEmailTokenResponse")]
+        System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse")]
+        bool VerifyEmailToken(string token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse")]
+        System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IEmailVerificationManagerChannel : TimbiricheViews.Server.IEmailVerificationManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class EmailVerificationManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IEmailVerificationManager>, TimbiricheViews.Server.IEmailVerificationManager {
+        
+        public EmailVerificationManagerClient() {
+        }
+        
+        public EmailVerificationManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public EmailVerificationManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public EmailVerificationManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public EmailVerificationManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool SendEmailToken(string email) {
+            return base.Channel.SendEmailToken(email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email) {
+            return base.Channel.SendEmailTokenAsync(email);
+        }
+        
+        public bool VerifyEmailToken(string token) {
+            return base.Channel.VerifyEmailToken(token);
+        }
+        
+        public System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token) {
+            return base.Channel.VerifyEmailTokenAsync(token);
+        }
+    }
 }

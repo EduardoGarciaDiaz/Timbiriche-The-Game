@@ -18,7 +18,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
     {
-        Server.Player playerLoggedIn = PlayerSingleton.player;
+        private Server.Player playerLoggedIn = PlayerSingleton.player;
 
         public XAMLLobby()
         {
@@ -59,7 +59,7 @@ namespace TimbiricheViews.Views
 
         private void AddUsersToOnlineUsersList(string[] onlineUsernames)
         {
-            foreach(var username in onlineUsernames)
+            foreach (var username in onlineUsernames)
             {
                 string idUserItem = "lb" + username;
                 XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
@@ -78,7 +78,7 @@ namespace TimbiricheViews.Views
 
         private void RemoveUserFromOnlineUserList(string username)
         {
-            string  idUserItem = "lb" + username;
+            string idUserItem = "lb" + username;
             XAMLActiveUserItemControl userOnlineItemToRemove = null;
             foreach (XAMLActiveUserItemControl item in stackPanelFriends.Children)
             {
@@ -101,9 +101,9 @@ namespace TimbiricheViews.Views
             client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
             NavigationService.Navigate(new XAMLLogin());
         }
-        
+
         public void BtnCloseWindow_Click()
-        {            
+        {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
             client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
@@ -127,7 +127,7 @@ namespace TimbiricheViews.Views
 
         private void BtnMyProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new XAMLMyProfile());
         }
 
         private void BtnShop_Click(object sender, RoutedEventArgs e)
@@ -182,7 +182,7 @@ namespace TimbiricheViews.Views
         {
             int numPlayersInLobby = lobbyPlayers.Length;
 
-            if(numPlayersInLobby > 0)
+            if (numPlayersInLobby > 0)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayers[0].Username;
                 lbSecondPlayerFaceBox.Content = lobbyPlayers[0].Username[0].ToString();
@@ -247,5 +247,11 @@ namespace TimbiricheViews.Views
             LobbyManagerClient client = new LobbyManagerClient(context);
             client.JoinLobby(lobbyCode, lobbyPlayer);
         }
+
+        private void BtnStartMatch_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLGameBoard());
+        }
+
     }
 }
