@@ -47,9 +47,11 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailVerificationService.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\Templates\IEmailTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
+    <Compile Include="IEmailVerificationManager.cs" />
     <Compile Include="ILobbyManager.cs" />
     <Compile Include="IPasswordReset.cs" />
     <Compile Include="IShopManager.cs" />

@@ -36,7 +36,8 @@ namespace TimbiricheService
                 return false;
             }
             
-            PasswordResetTokens passwordResetTokens = PasswordResetManagement.GetPasswordResetTokenByIdPlayerAndToken(playerId, token);
+            PasswordResetTokens passwordResetTokens = PasswordResetManagement
+                .GetPasswordResetTokenByIdPlayerAndToken(playerId, token);
 
             if (passwordResetTokens == null)
             {

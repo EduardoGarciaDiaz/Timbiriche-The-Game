@@ -14,9 +14,9 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = 0;
 
-            if(passwordResetToken == null)
+            if (passwordResetToken == null)
             {
-                return false; 
+                return false;
             }
 
             using (var context = new TimbiricheDBEntities())
@@ -32,7 +32,8 @@ namespace TimbiricheDataAccess
                     {
                         foreach (var validationError in entityValidationErrors.ValidationErrors)
                         {
-                            Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}," +
+                                $" Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
                         }
                     }
                 }

@@ -22,25 +22,28 @@ namespace TimbiricheService.Email
         {
             bool emailSent = true;
             string emailContent = _emailTemplate.ComposeEmail(message);
-            string emailSender = "timbirichethegame@gmail.com";
-            string displayName = "Timbiriche Team";
-            string subject = "Timbiriche The Game";
+            const string EMAIL_SENDER = "timbirichethegame@gmail.com";
+            const string APPLICATION_PASSWORD = "dusb ueav ompt pckq";
+            const string DISPLAY_NAME = "Timbiriche Team";
+            const string SUBJECT = "Timbiriche The Game";
+            const string SERVER_ADDRESS = "smtp.gmail.com";
+            const int PORT = 587;
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(emailSender, displayName);
+            mailMessage.From = new MailAddress(EMAIL_SENDER, DISPLAY_NAME);
             mailMessage.To.Add(recipient);
-            mailMessage.Subject = subject;
+            mailMessage.Subject = SUBJECT;
             mailMessage.Body = emailContent;
             mailMessage.IsBodyHtml = true;
 
-            SmtpClient client = new SmtpClient("smtp.Gmail.com", 587);
-            client.Credentials = new NetworkCredential(emailSender, "dusb ueav ompt pckq");
-            client.EnableSsl = true;
+            SmtpClient smtpClient = new SmtpClient(SERVER_ADDRESS, PORT);
+            smtpClient.Credentials = new NetworkCredential(EMAIL_SENDER, APPLICATION_PASSWORD);
+            smtpClient.EnableSsl = true;
 
             try
             {
-                client.Send(mailMessage);
-            } 
+                smtpClient.Send(mailMessage);
+            }
             catch (SmtpException ex)
             {
                 emailSent = false;
