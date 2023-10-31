@@ -7,16 +7,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Components;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -138,6 +134,11 @@ namespace TimbiricheViews.Views
         {
             NavigationService.Navigate(new XAMLShop());
         }
+
+        private void BtnStartMatch_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLGameBoard());
+        }
     }
 
     public partial class XAMLLobby : Page, ILobbyManagerCallback
@@ -148,31 +149,28 @@ namespace TimbiricheViews.Views
             gridMatchControl.Visibility = Visibility.Visible;
         }
 
-        public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer)
+        public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
-            if (gridSecondPlayer.Visibility == Visibility.Collapsed)
+            if(numOfPlayersInLobby == 1)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayer.Username;
                 lbSecondPlayerFaceBox.Content = lobbyPlayer.Username[0].ToString();
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
-            else
+
+            if(numOfPlayersInLobby == 2)
             {
-                if (gridThirdPlayer.Visibility == Visibility.Collapsed)
-                {
-                    lbThirdPlayerUsername.Content = lobbyPlayer.Username;
-                    lbThirdPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
-                    gridThirdPlayer.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    lbFourthPlayerUsername.Content = lobbyPlayer.Username;
-                    lbFourthPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
-                    gridFourthPlayer.Visibility = Visibility.Visible;
-                }
+                lbThirdPlayerUsername.Content = lobbyPlayer.Username;
+                lbThirdPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
-
+            if(numOfPlayersInLobby == 3)
+            {
+                lbFourthPlayerUsername.Content = lobbyPlayer.Username;
+                lbFourthPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                gridFourthPlayer.Visibility = Visibility.Visible;
+            }
         }
 
         public void NotifyPlayerLeftLobby()
@@ -204,6 +202,20 @@ namespace TimbiricheViews.Views
                 lbFourthPlayerUsername.Content = lobbyPlayers[2].Username[0].ToString();
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
+        }
+
+        public void NotifyLobbyIsFull()
+        {
+            string title = "Lobby lleno";
+            string message = "El lobby al que estas intentando entrar esta lleno.";
+            Utilities.CreateEmergentWindow(title, message);
+        }
+
+        public void NotifyLobbyDoesNotExist()
+        {
+            string title = "Lobby no encontrado";
+            string message = "El lobby al que estas intentando entrar no existe.";
+            Utilities.CreateEmergentWindow(title, message);
         }
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)

@@ -85,5 +85,10 @@ namespace TimbiricheService
             return userManagement.GetIdPlayerByEmail(email);
         }
 
+        public bool ChangePassword(string newPassword, string email)
+        {            
+            int idPlayer = GetPlayerIdByEmail(email);
+            return PasswordResetManagement.ChangePasswordById(idPlayer, newPassword);
+        }
     }
 }

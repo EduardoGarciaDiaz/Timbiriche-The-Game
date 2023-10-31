@@ -566,6 +566,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
         System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ChangePassword", ReplyAction="http://tempuri.org/IPasswordReset/ChangePasswordResponse")]
+        bool ChangePassword(string newPassword, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ChangePassword", ReplyAction="http://tempuri.org/IPasswordReset/ChangePasswordResponse")]
+        System.Threading.Tasks.Task<bool> ChangePasswordAsync(string newPassword, string email);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -610,6 +616,14 @@ namespace TimbiricheViews.Server {
         public System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token) {
             return base.Channel.ValidateResetTokenAsync(email, token);
         }
+        
+        public bool ChangePassword(string newPassword, string email) {
+            return base.Channel.ChangePassword(newPassword, email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ChangePasswordAsync(string newPassword, string email) {
+            return base.Channel.ChangePasswordAsync(newPassword, email);
+        }
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -645,10 +659,16 @@ namespace TimbiricheViews.Server {
         void NotifyPlayersInLobby(TimbiricheViews.Server.LobbyPlayer[] lobbyPlayers);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobbyResponse")]
-        void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse")]
         void NotifyPlayerLeftLobby();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyIsFullResponse")]
+        void NotifyLobbyIsFull();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse")]
+        void NotifyLobbyDoesNotExist();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]

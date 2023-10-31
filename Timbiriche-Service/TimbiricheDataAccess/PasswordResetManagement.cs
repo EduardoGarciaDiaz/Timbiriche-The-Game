@@ -52,5 +52,27 @@ namespace TimbiricheDataAccess
                 return passwordResetToken;
             }
         }
+
+        public static bool ChangePasswordById(int idPlayer, string password)
+        {
+            using(var context = new TimbiricheDBEntities())
+            {
+                var query = from player in context.Players
+                            where player.idPlayer == idPlayer
+                            select player;
+
+                var playerFound = query.FirstOrDefault();
+                int rowsAffected = 0;
+                if(playerFound != null)
+                {
+                    Utils.PasswordHashManager passwordHashManager = new Utils.PasswordHashManager();
+                    playerFound.password = passwordHashManager.HashPassword(password);
+                    playerFound.salt = passwordHashManager.Salt;
+                    rowsAffected = context.SaveChanges();
+                }
+                return rowsAffected > 0;
+            }
+        }
+
     }
 }

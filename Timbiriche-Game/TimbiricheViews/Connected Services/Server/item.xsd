@@ -124,6 +124,21 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="ChangePassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="newPassword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ChangePasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="ChangePasswordResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="CreateLobby">
     <xs:complexType>
       <xs:sequence>
@@ -171,6 +186,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q8:LobbyPlayer" />
+        <xs:element minOccurs="0" name="numOfPlayersInLobby" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -189,6 +205,24 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="NotifyLobbyIsFull">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyLobbyIsFullResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyLobbyDoesNotExist">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyLobbyDoesNotExistResponse">
+    <xs:complexType>
+      <xs:sequence />
   <xs:element name="SendEmailToken">
     <xs:complexType>
       <xs:sequence>
