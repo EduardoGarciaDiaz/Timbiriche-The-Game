@@ -28,23 +28,33 @@ namespace TimbiricheService
 
         public void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer)
         {
+            ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
+            lobbyPlayer.CallbackChannel = currentUserCallbackChannel;
+
             if (lobbies.ContainsKey(lobbyCode))
             {
-                ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
-                lobbyPlayer.CallbackChannel = currentUserCallbackChannel;
-
                 List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
 
-                if(playersInLobby.Count < 4)
-                {
-                    playersInLobby.Add(lobbyPlayer);
-                    lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(playersInLobby);
+                if(playersInLobby.Count < 5)
+                {                          
+                    int numOfPlayersInLobby = playersInLobby.Count;
 
                     foreach(var player in playersInLobby)
                     {
-                        player.CallbackChannel.NotifyPlayerJoinToLobby(lobbyPlayer);
+                        player.CallbackChannel.NotifyPlayerJoinToLobby(lobbyPlayer, numOfPlayersInLobby);
                     }
+
+                    lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(playersInLobby);
+                    playersInLobby.Add(lobbyPlayer);
                 }
+                else
+                {
+                    lobbyPlayer.CallbackChannel.NotifyLobbyIsFull();
+                }
+            }
+            else
+            {
+                lobbyPlayer.CallbackChannel.NotifyLobbyDoesNotExist();
             }
         }
 

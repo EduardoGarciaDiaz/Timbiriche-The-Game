@@ -58,34 +58,13 @@
                             FontSize="120" Content="" Margin="383,387,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
             <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
-            <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
-                <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
-                <Button Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
-                <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
-                <Button Content="{x:Static p:Resources.lbFriends}" Background="#063343" Foreground="White" 
-                FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616"></Button>
-                <Button Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
-                 FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616"></Button>
-                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
-                      Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
-                <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
-                    <StackPanel x:Name="stackPanelFriends">
-                    </StackPanel>
-                </ScrollViewer>
-                <Label Content="{x:Static p:Resources.lbSendRequest}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
-                       FontSize="18" Margin="0,544,0,0" ></Label>
-                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
-                      StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
-            </Grid>
-
             <Grid x:Name="gridMatchCreation" Margin="842,500,19,28">
                 <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Click="BtnCreateMatch_Click" Margin="0,99,0,0"/>
                 <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="0,0,0,163" Click="BtnJoinByCode_Click"/>
             </Grid>
 
             <Grid x:Name="gridMatchControl" Margin="842,500,19,28" Visibility="Collapsed">
-                <Button Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0"/>
+                <Button Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnStartMatch_Click"/>
                 <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#359EFF" Cursor="Hand" Margin="237,0,0,163"/>
                 <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163"/>
                 <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163"/>
@@ -124,6 +103,27 @@
                 <Rectangle Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbFourthPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
+            <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
+                <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
+                <Button Background="#063343" Foreground="White" 
+                FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
+                <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
+                <Button Content="{x:Static p:Resources.lbFriends}" Background="#063343" Foreground="White" 
+                    FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616"></Button>
+                <Button Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
+                    FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616"></Button>
+                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
+                    Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
+                <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
+                    <StackPanel x:Name="stackPanelFriends">
+                    </StackPanel>
+                </ScrollViewer>
+                <Label Content="{x:Static p:Resources.lbSendRequest}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
+                    FontSize="18" Margin="0,544,0,0" ></Label>
+                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
+                    StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
             </Grid>
 
         </Grid>

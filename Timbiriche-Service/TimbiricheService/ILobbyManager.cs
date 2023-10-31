@@ -26,9 +26,13 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyPlayersInLobby(List<LobbyPlayer> lobbyPlayers);
         [OperationContract]
-        void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer);
+        void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         [OperationContract]
         void NotifyPlayerLeftLobby();
+        [OperationContract]
+        void NotifyLobbyIsFull();
+        [OperationContract]
+        void NotifyLobbyDoesNotExist();
     }
 
     [DataContract]
