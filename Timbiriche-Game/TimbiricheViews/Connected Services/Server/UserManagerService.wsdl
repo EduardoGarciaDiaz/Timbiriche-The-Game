@@ -207,12 +207,6 @@
   <wsdl:message name="IPasswordReset_ValidateResetToken_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateResetTokenResponse" />
   </wsdl:message>
-  <wsdl:message name="IPasswordReset_UpdatePassword_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePassword" />
-  </wsdl:message>
-  <wsdl:message name="IPasswordReset_UpdatePassword_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePasswordResponse" />
-  </wsdl:message>
   <wsdl:message name="ILobbyManager_CreateLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateLobby" />
   </wsdl:message>
@@ -300,10 +294,6 @@
     <wsdl:operation name="ValidateResetToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetToken" message="tns:IPasswordReset_ValidateResetToken_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse" message="tns:IPasswordReset_ValidateResetToken_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePassword">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/UpdatePassword" message="tns:IPasswordReset_UpdatePassword_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/UpdatePasswordResponse" message="tns:IPasswordReset_UpdatePassword_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ILobbyManager">
@@ -431,15 +421,6 @@
     </wsdl:operation>
     <wsdl:operation name="ValidateResetToken">
       <soap12:operation soapAction="http://tempuri.org/IPasswordReset/ValidateResetToken" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePassword">
-      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/UpdatePassword" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

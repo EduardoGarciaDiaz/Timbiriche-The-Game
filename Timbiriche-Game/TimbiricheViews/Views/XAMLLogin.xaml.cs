@@ -90,7 +90,6 @@ namespace TimbiricheViews.Views
         {
             tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
             pwBxPasswordMask.Style = (Style)FindResource("NormalTextBoxStyle");
-            lbIncorrectUserOrPassword.Visibility = Visibility.Collapsed;
         }
 
         private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
@@ -117,10 +116,6 @@ namespace TimbiricheViews.Views
                 {
                     PlayerSingleton.player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
-                } 
-                else
-                {
-                    lbIncorrectUserOrPassword.Visibility = Visibility.Visible;
                 }
             }
         }

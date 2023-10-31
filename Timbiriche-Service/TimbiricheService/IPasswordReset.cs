@@ -14,7 +14,5 @@ namespace TimbiricheService
         bool SendResetToken(string email);
         [OperationContract]
         bool ValidateResetToken(string email, int token);
-        [OperationContract]
-        int UpdatePassword(string email, string newPassword, string newPasswordConfirmation);
     }
 }
