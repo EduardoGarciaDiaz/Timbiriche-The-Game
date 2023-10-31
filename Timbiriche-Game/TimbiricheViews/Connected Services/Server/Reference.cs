@@ -566,6 +566,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
         System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/UpdatePassword", ReplyAction="http://tempuri.org/IPasswordReset/UpdatePasswordResponse")]
+        int UpdatePassword(string email, string newPassword, string newPasswordConfirmation);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/UpdatePassword", ReplyAction="http://tempuri.org/IPasswordReset/UpdatePasswordResponse")]
+        System.Threading.Tasks.Task<int> UpdatePasswordAsync(string email, string newPassword, string newPasswordConfirmation);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -609,6 +615,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token) {
             return base.Channel.ValidateResetTokenAsync(email, token);
+        }
+        
+        public int UpdatePassword(string email, string newPassword, string newPasswordConfirmation) {
+            return base.Channel.UpdatePassword(email, newPassword, newPasswordConfirmation);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdatePasswordAsync(string email, string newPassword, string newPasswordConfirmation) {
+            return base.Channel.UpdatePasswordAsync(email, newPassword, newPasswordConfirmation);
         }
     }
     

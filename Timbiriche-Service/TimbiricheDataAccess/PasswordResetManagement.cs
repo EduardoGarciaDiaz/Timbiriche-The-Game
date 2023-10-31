@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -51,6 +52,23 @@ namespace TimbiricheDataAccess
                 PasswordResetTokens passwordResetToken = query.SingleOrDefault();
                 return passwordResetToken;
             }
+        }
+
+        public static int UpdatePasswordPlayer(int idPlayer, string password)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                var playerToUpdate = context.Players.Find(idPlayer);
+                if (playerToUpdate != null)
+                {
+                    PasswordHashManager passwordHashManager = new PasswordHashManager();
+                    playerToUpdate.password = passwordHashManager.HashPassword(password);
+                    playerToUpdate.salt = passwordHashManager.Salt;
+                    
+                    return context.SaveChanges();
+                }
+            }
+            return -1;
         }
     }
 }

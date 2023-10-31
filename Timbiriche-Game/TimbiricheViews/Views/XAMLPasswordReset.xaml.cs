@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -25,7 +26,7 @@ namespace TimbiricheViews.Views
 
         private void BtnSendToken_Click(object sender, RoutedEventArgs e)
         {
-            _email = tbxEmail.Text;
+            _email = tbxEmail.Text.Trim();
             Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
             bool isResetTokenSent = passwordResetClient.SendResetToken(_email);
             if (isResetTokenSent)
@@ -38,7 +39,7 @@ namespace TimbiricheViews.Views
         private void BtnVerifyToken_Click(object sender, RoutedEventArgs e)
         {
             Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
-            bool isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text));
+            bool isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text.Trim()));
             if (isTokenValid)
             {
                 gridCodeConfirmation.Visibility = Visibility.Collapsed;
@@ -48,7 +49,25 @@ namespace TimbiricheViews.Views
 
         private void BtnChangePassword_Click(object sender, RoutedEventArgs e)
         {
+            string newPassword = pwBxNewPassword.Password.Trim();
+            string newPasswordConfirmation = pwBxConfirmNewPassword.Password.Trim();
 
+            // TODO: Validate Valid Password
+
+            Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+            int rowsAffected = passwordResetClient.UpdatePassword(_email,
+                newPassword,
+                newPasswordConfirmation);
+            if (rowsAffected > 0)
+            {
+                Utilities.CreateEmergentWindow("Contraseña cambiada exitósamente", "La contraseña ha sido reestablecida, ahora puedes iniciar sesión con tu nueva contraseña");
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            else
+            {
+                Utilities.CreateEmergentWindow("Error al cambiar la contarseña", "Ups... Ocurrió un error al intentar cambiar tu contarseña. Inténtalo de nuevo");
+
+            }
         }
     }
 }
