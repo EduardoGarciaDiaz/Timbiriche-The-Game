@@ -22,7 +22,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
     {
-        Server.Player playerLoggedIn = PlayerSingleton.player;
+        private Server.Player playerLoggedIn = PlayerSingleton.player;
 
         public XAMLLobby()
         {
@@ -131,7 +131,7 @@ namespace TimbiricheViews.Views
 
         private void BtnMyProfile_Click(object sender, RoutedEventArgs e)
         {
-
+            NavigationService.Navigate(new XAMLMyProfile());
         }
 
         private void BtnShop_Click(object sender, RoutedEventArgs e)

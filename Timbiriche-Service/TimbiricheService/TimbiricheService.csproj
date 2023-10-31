@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="EmailVerificationService.cs" />
     <Compile Include="Email\EmailSender.cs" />
+    <Compile Include="Email\Templates\EmailVerificationTemplate.cs" />
     <Compile Include="Email\Templates\IEmailTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
     <Compile Include="IEmailVerificationManager.cs" />

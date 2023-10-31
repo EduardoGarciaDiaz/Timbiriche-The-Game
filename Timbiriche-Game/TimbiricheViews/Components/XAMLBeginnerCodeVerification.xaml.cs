@@ -18,19 +18,11 @@ namespace TimbiricheViews.Components
     public partial class XAMLBeginnerCodeVerification : Window
     {
         private Window _mainWindow;
-        private string _code;
+
         public XAMLBeginnerCodeVerification()
         {
             InitializeComponent();
             _mainWindow = Application.Current.MainWindow;
-            InitializeComponent();
-            ConfigureEmergentWindow();
-        }
-
-        public XAMLBeginnerCodeVerification(string code)
-        {
-            _mainWindow = Application.Current.MainWindow;
-            _code = code;
             InitializeComponent();
             ConfigureEmergentWindow();
         }
