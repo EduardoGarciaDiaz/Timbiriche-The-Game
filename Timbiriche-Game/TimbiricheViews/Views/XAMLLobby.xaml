@@ -126,6 +126,20 @@
                     StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
             </Grid>
 
+            <Grid x:Name="gridSelectColor" Margin="170,237,170,211" >
+                <Rectangle Fill="#1C95D1" Opacity="1" RadiusX="25" RadiusY="25" />
+                <Label Content="{x:Static p:Resources.lbSelectColor}" Foreground="White" FontFamily="Titan One" FontSize="36" Margin="227,5,0,269" HorizontalAlignment="Left"/>
+                <Image HorizontalAlignment="Left" Height="38" Margin="10,8,0,0" VerticalAlignment="Top" Width="38" Source="/Resources/close.png" MouseLeftButtonDown="ImgClose_Click" Cursor="Hand"/>
+                <Separator Background="#FF05CDDE" Margin="20,46,20,240"></Separator>
+                <Label Content="{x:Static p:Resources.lbSelectColorInstrucion}" Foreground="White" FontFamily="Inter" FontSize="24" FontWeight="Bold" Margin="20,73,571,211"/>
+
+                <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="10,111,10,0" Height="201" VerticalAlignment="Top">
+                    <StackPanel x:Name="stackPanelColors" Orientation="Horizontal" Margin="0,0,0,25" Height="159" >
+                        <Rectangle x:Name="PlayerColorTemplate" Fill="Yellow" Margin="5,0,0,0" RadiusX="20" RadiusY="20" Width="156" Height="157" MouseLeftButtonDown="RectangleColor_Click" Visibility="Collapsed" Cursor="Hand"/>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
         </Grid>
     </Viewbox>
 </Page>

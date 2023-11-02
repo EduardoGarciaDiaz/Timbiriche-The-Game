@@ -145,6 +145,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerCustomizationManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -257,6 +286,7 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendEmailToken" />
   </wsdl:message>
@@ -268,6 +298,24 @@
   </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_VerifyEmailToken_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerifyEmailTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHexadecimalColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHexadecimalColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyStyles" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyStylesResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
@@ -360,6 +408,20 @@
     <wsdl:operation name="VerifyEmailToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken" message="tns:IEmailVerificationManager_VerifyEmailToken_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse" message="tns:IEmailVerificationManager_VerifyEmailToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerCustomizationManager">
+    <wsdl:operation name="GetMyColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors" message="tns:IPlayerCustomizationManager_GetMyColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse" message="tns:IPlayerCustomizationManager_GetMyColors_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHexadecimalColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyStyles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" message="tns:IPlayerCustomizationManager_GetMyStyles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse" message="tns:IPlayerCustomizationManager_GetMyStyles_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -565,6 +627,37 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerCustomizationManager" type="tns:IPlayerCustomizationManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerCustomizationManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetMyColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHexadecimalColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyStyles">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
@@ -603,6 +696,15 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IEmailVerificationManager" binding="tns:NetTcpBinding_IEmailVerificationManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerCustomizationManager" binding="tns:NetTcpBinding_IPlayerCustomizationManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>

@@ -223,6 +223,8 @@
   <xs:element name="NotifyLobbyDoesNotExistResponse">
     <xs:complexType>
       <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SendEmailToken">
     <xs:complexType>
       <xs:sequence>
@@ -248,6 +250,48 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="VerifyEmailTokenResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyColors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyColorsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetMyColorsResult" nillable="true" type="q9:ArrayOfPlayerColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHexadecimalColors">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idColor" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetHexadecimalColorsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetHexadecimalColorsResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyStyles">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetMyStylesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetMyStylesResult" type="xs:boolean" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>

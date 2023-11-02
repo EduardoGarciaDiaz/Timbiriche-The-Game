@@ -82,6 +82,7 @@
     <Compile Include="PlayerColors.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="PlayerCustomizationManagement.cs" />
     <Compile Include="Players.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>

@@ -43,4 +43,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfLobbyPlayer" nillable="true" type="tns:ArrayOfLobbyPlayer" />
+  <xs:complexType name="ArrayOfPlayerColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerColor" nillable="true" type="tns:PlayerColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerColor" nillable="true" type="tns:ArrayOfPlayerColor" />
+  <xs:complexType name="PlayerColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdColor" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayerColors" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerColor" nillable="true" type="tns:PlayerColor" />
 </xs:schema>

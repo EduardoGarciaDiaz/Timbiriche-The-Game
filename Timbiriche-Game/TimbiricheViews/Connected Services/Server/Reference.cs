@@ -401,6 +401,83 @@ namespace TimbiricheViews.Server {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayerColor", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class PlayerColor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerColorsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdColor {
+            get {
+                return this.IdColorField;
+            }
+            set {
+                if ((this.IdColorField.Equals(value) != true)) {
+                    this.IdColorField = value;
+                    this.RaisePropertyChanged("IdColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayer {
+            get {
+                return this.IdPlayerField;
+            }
+            set {
+                if ((this.IdPlayerField.Equals(value) != true)) {
+                    this.IdPlayerField = value;
+                    this.RaisePropertyChanged("IdPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayerColors {
+            get {
+                return this.IdPlayerColorsField;
+            }
+            set {
+                if ((this.IdPlayerColorsField.Equals(value) != true)) {
+                    this.IdPlayerColorsField = value;
+                    this.RaisePropertyChanged("IdPlayerColors");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
@@ -782,6 +859,81 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token) {
             return base.Channel.VerifyEmailTokenAsync(token);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerCustomizationManager")]
+    public interface IPlayerCustomizationManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
+        TimbiricheViews.Server.PlayerColor[] GetMyColors(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerColor[]> GetMyColorsAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
+        string GetHexadecimalColors(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
+        System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
+        bool GetMyStyles(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
+        System.Threading.Tasks.Task<bool> GetMyStylesAsync(int idPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerCustomizationManagerChannel : TimbiricheViews.Server.IPlayerCustomizationManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PlayerCustomizationManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IPlayerCustomizationManager>, TimbiricheViews.Server.IPlayerCustomizationManager {
+        
+        public PlayerCustomizationManagerClient() {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerCustomizationManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public TimbiricheViews.Server.PlayerColor[] GetMyColors(int idPlayer) {
+            return base.Channel.GetMyColors(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerColor[]> GetMyColorsAsync(int idPlayer) {
+            return base.Channel.GetMyColorsAsync(idPlayer);
+        }
+        
+        public string GetHexadecimalColors(int idColor) {
+            return base.Channel.GetHexadecimalColors(idColor);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor) {
+            return base.Channel.GetHexadecimalColorsAsync(idColor);
+        }
+        
+        public bool GetMyStyles(int idPlayer) {
+            return base.Channel.GetMyStyles(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<bool> GetMyStylesAsync(int idPlayer) {
+            return base.Channel.GetMyStylesAsync(idPlayer);
         }
     }
 }
