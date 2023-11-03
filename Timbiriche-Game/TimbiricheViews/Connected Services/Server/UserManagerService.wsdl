@@ -116,6 +116,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IMatchManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="NetTcpBinding_IEmailVerificationManager_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -246,6 +275,12 @@
   <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStartOfMatch" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyStartOfMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStartOfMatchResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyIsFull_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyIsFull" />
   </wsdl:message>
@@ -257,6 +292,28 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_MatchSetup_InputMessage">
+    <wsdl:part name="parameters" element="tns:MatchSetup" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_MatchSetup_OutputMessage">
+    <wsdl:part name="parameters" element="tns:MatchSetupResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_EndTurn_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovement" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovementResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendEmailToken" />
   </wsdl:message>
@@ -343,6 +400,10 @@
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
     </wsdl:operation>
+    <wsdl:operation name="NotifyStartOfMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" message="tns:ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatchResponse" message="tns:ILobbyManager_NotifyStartOfMatch_InputCallbackMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyIsFull">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull" message="tns:ILobbyManager_NotifyLobbyIsFull_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFullResponse" message="tns:ILobbyManager_NotifyLobbyIsFull_InputCallbackMessage" />
@@ -350,6 +411,23 @@
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IMatchManager">
+    <wsdl:operation name="MatchSetup">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/MatchSetup" message="tns:IMatchManager_MatchSetup_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/MatchSetupResponse" message="tns:IMatchManager_MatchSetup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndTurn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurn" message="tns:IMatchManager_EndTurn_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewTurn">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurn" message="tns:IMatchManager_NotifyNewTurn_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurnResponse" message="tns:IMatchManager_NotifyNewTurn_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyMovement">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovement" message="tns:IMatchManager_NotifyMovement_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovementResponse" message="tns:IMatchManager_NotifyMovement_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IEmailVerificationManager">
@@ -524,6 +602,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="NotifyStartOfMatch">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyIsFull">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull" style="document" />
       <wsdl:input>
@@ -535,6 +622,43 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IMatchManager" type="tns:IMatchManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IMatchManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="MatchSetup">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/MatchSetup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="EndTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyMovement">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyMovement" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -571,7 +695,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -580,7 +704,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -589,7 +713,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -598,7 +722,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IMatchManager" binding="tns:NetTcpBinding_IMatchManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -607,7 +740,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

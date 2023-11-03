@@ -18,7 +18,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLMyProfile : Page
     {
-        private Server.Player playerLoggedIn = PlayerSingleton.player;
+        private Server.Player playerLoggedIn = PlayerSingleton.Player;
         private string _initialPlayerNameLetter;
 
         private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";

@@ -114,7 +114,7 @@ namespace TimbiricheViews.Views
                 }   // TODO: EXCEPTION FOR TIME
                 if (playerLogged != null)
                 {
-                    PlayerSingleton.player = playerLogged;
+                    PlayerSingleton.Player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
                 }
             }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -29,10 +30,12 @@ namespace TimbiricheViews.Views
         const string VERTICAL_TYPE_LINE = "Vertical";
 
         private bool _itsMyTurn;
+        private string _lobbyCode;
 
 
-        public XAMLGameBoard()
+        public XAMLGameBoard(string lobbyCode)
         {
+            _lobbyCode = lobbyCode;
             InitializeComponent();
             InitializeGameBoard();
         }
@@ -67,6 +70,7 @@ namespace TimbiricheViews.Views
         {
             Button btnLine = XamlReader.Parse(XamlWriter.Save(buttonTemplate)) as Button;
             btnLine.Click += BtnLine_Click;
+            btnLine.Name = typeLine + "Q" + row + "Q" + column;
             btnLine.Tag = typeLine + "," + row + "," + column;
             btnLine.IsEnabled = true;
             btnLine.Visibility = Visibility.Visible;
@@ -91,10 +95,19 @@ namespace TimbiricheViews.Views
 
             if (_itsMyTurn)
             {
-                UpdateButtonAppearance(btnLine, colorPlayer);
-                MarkAsDrawed(_row, _column, typeLine);
-                ValidateSquares(_row, _column, typeLine);
+                SetMovement(btnLine, colorPlayer, _row, _column, typeLine);
+
+                InstanceContext context = new InstanceContext(this);
+                Server.MatchManagerClient client = new Server.MatchManagerClient(context);
+                client.EndTurn(_lobbyCode, typeLine, _row, _column);
             }
+        }
+
+        private void SetMovement(Button btnLine, String colorPlayer, int row, int column, string typeLine)
+        {
+            UpdateButtonAppearance(btnLine, colorPlayer);
+            MarkAsDrawed(row, column, typeLine);
+            ValidateSquares(row, column, typeLine);
         }
 
         private void UpdateButtonAppearance(Button btnLine, string color)
@@ -183,5 +196,31 @@ namespace TimbiricheViews.Views
             gridGameBoard.Children.Add(imageWhoScore);
         }
 
+    }
+
+    public partial class XAMLGameBoard : Server.IMatchManagerCallback
+    {
+        public void NotifyMovement(string typeLine, int row, int column)
+        {
+            Button btnLine = FindButtonByName(typeLine + "Q" + row + "Q" + column);
+            SetMovement(btnLine, "#FFAC4C4C", row, column, typeLine);
+        }
+
+        public void NotifyNewTurn(string username)
+        {
+            if(PlayerSingleton.Player.Username == username)
+            {
+                _itsMyTurn = true;
+            }
+            else
+            {
+                _itsMyTurn = false;
+            }
+        }
+
+        private Button FindButtonByName(string name)
+        {
+            return (Button)LogicalTreeHelper.FindLogicalNode(this, name);
+        }
     }
 }
