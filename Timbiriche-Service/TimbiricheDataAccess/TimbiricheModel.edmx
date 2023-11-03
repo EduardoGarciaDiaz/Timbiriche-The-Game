@@ -55,6 +55,24 @@
           <Property Name="salt" Type="nvarchar" MaxLength="255" />
           <Property Name="status" Type="varchar" MaxLength="15" />
           <Property Name="idColorSelected" Type="int" />
+          <Property Name="idStyleSelected" Type="int" />
+        </EntityType>
+        <EntityType Name="PlayerStyles">
+          <Key>
+            <PropertyRef Name="idPlayerStyles" />
+          </Key>
+          <Property Name="idPlayerStyles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idStyle" Type="int" />
+        </EntityType>
+        <EntityType Name="Styles">
+          <Key>
+            <PropertyRef Name="idStyle" />
+          </Key>
+          <Property Name="idStyle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="styleName" Type="varchar" MaxLength="50" />
+          <Property Name="path" Type="nvarchar" MaxLength="255" />
+          <Property Name="cost" Type="int" />
         </EntityType>
         <Association Name="FK__PasswordR__idPla__4F47C5E3">
           <End Role="Players" Type="Self.Players" Multiplicity="0..1">
@@ -98,6 +116,34 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__PlayerSty__idPla__7755B73D">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerStyles" Type="Self.PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerSty__idSty__7849DB76">
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerStyles" Type="Self.PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Player_PlayerColors">
           <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
           <End Role="Players" Type="Self.Players" Multiplicity="*" />
@@ -107,6 +153,18 @@
             </Principal>
             <Dependent Role="Players">
               <PropertyRef Name="idColorSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerStyles">
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idStyleSelected" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -128,6 +186,8 @@
           <EntitySet Name="PasswordResetTokens" EntityType="Self.PasswordResetTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayerColors" EntityType="Self.PlayerColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerStyles" EntityType="Self.PlayerStyles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Styles" EntityType="Self.Styles" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__PasswordR__idPla__4F47C5E3" Association="Self.FK__PasswordR__idPla__4F47C5E3">
             <End Role="Players" EntitySet="Players" />
             <End Role="PasswordResetTokens" EntitySet="PasswordResetTokens" />
@@ -140,8 +200,20 @@
             <End Role="Players" EntitySet="Players" />
             <End Role="PlayerColors" EntitySet="PlayerColors" />
           </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idPla__7755B73D" Association="Self.FK__PlayerSty__idPla__7755B73D">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="Self.FK__PlayerSty__idSty__7849DB76">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
           <AssociationSet Name="FK_Player_PlayerColors" Association="Self.FK_Player_PlayerColors">
             <End Role="Colors" EntitySet="Colors" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerStyles" Association="Self.FK_Player_PlayerStyles">
+            <End Role="Styles" EntitySet="Styles" />
             <End Role="Players" EntitySet="Players" />
           </AssociationSet>
           <AssociationSet Name="FK_PlayersAccounts" Association="Self.FK_PlayersAccounts">
@@ -181,6 +253,9 @@
           <NavigationProperty Name="PlayerColors" Relationship="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" FromRole="Players" ToRole="PlayerColors" />
           <Property Name="idColorSelected" Type="Int32" />
           <NavigationProperty Name="Colors" Relationship="TimbiricheDBModel.FK_Player_PlayerColors" FromRole="Players" ToRole="Colors" />
+          <Property Name="idStyleSelected" Type="Int32" />
+          <NavigationProperty Name="PlayerStyles" Relationship="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" FromRole="Players" ToRole="PlayerStyles" />
+          <NavigationProperty Name="Styles" Relationship="TimbiricheDBModel.FK_Player_PlayerStyles" FromRole="Players" ToRole="Styles" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -219,6 +294,20 @@
           <AssociationSet Name="FK_Player_PlayerColors" Association="TimbiricheDBModel.FK_Player_PlayerColors">
             <End Role="Colors" EntitySet="Colors" />
             <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <EntitySet Name="PlayerStyles" EntityType="TimbiricheDBModel.PlayerStyles" />
+          <EntitySet Name="Styles" EntityType="TimbiricheDBModel.Styles" />
+          <AssociationSet Name="FK__PlayerSty__idPla__7755B73D" Association="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerStyles" Association="TimbiricheDBModel.FK_Player_PlayerStyles">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Colors">
@@ -307,6 +396,67 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="PlayerStyles">
+          <Key>
+            <PropertyRef Name="idPlayerStyles" />
+          </Key>
+          <Property Name="idPlayerStyles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idStyle" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" FromRole="PlayerStyles" ToRole="Players" />
+          <NavigationProperty Name="Styles" Relationship="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" FromRole="PlayerStyles" ToRole="Styles" />
+        </EntityType>
+        <EntityType Name="Styles">
+          <Key>
+            <PropertyRef Name="idStyle" />
+          </Key>
+          <Property Name="idStyle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="styleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_Player_PlayerStyles" FromRole="Styles" ToRole="Players" />
+          <NavigationProperty Name="PlayerStyles" Relationship="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" FromRole="Styles" ToRole="PlayerStyles" />
+        </EntityType>
+        <Association Name="FK__PlayerSty__idPla__7755B73D">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerStyles" Role="PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerStyles">
+          <End Type="TimbiricheDBModel.Styles" Role="Styles" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idStyleSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerSty__idSty__7849DB76">
+          <End Type="TimbiricheDBModel.Styles" Role="Styles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerStyles" Role="PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -327,6 +477,7 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Players">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="idStyleSelected" ColumnName="idStyleSelected" />
                 <ScalarProperty Name="idColorSelected" ColumnName="idColorSelected" />
                 <ScalarProperty Name="salt" ColumnName="salt" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -366,6 +517,25 @@
                 <ScalarProperty Name="idColor" ColumnName="idColor" />
                 <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
                 <ScalarProperty Name="idPlayerColors" ColumnName="idPlayerColors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerStyles">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PlayerStyles">
+              <MappingFragment StoreEntitySet="PlayerStyles">
+                <ScalarProperty Name="idStyle" ColumnName="idStyle" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idPlayerStyles" ColumnName="idPlayerStyles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Styles">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Styles">
+              <MappingFragment StoreEntitySet="Styles">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="styleName" ColumnName="styleName" />
+                <ScalarProperty Name="idStyle" ColumnName="idStyle" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

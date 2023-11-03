@@ -352,6 +352,18 @@
   <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMyStylesResponse" />
   </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylePath" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylePathResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyStyle" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyStyleResponse" />
+  </wsdl:message>
   <wsdl:message name="IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeColorToColorsSelected" />
   </wsdl:message>
@@ -488,6 +500,14 @@
     <wsdl:operation name="GetMyStyles">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" message="tns:IPlayerCustomizationManager_GetMyStyles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse" message="tns:IPlayerCustomizationManager_GetMyStyles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStylePath">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath" message="tns:IPlayerCustomizationManager_GetStylePath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse" message="tns:IPlayerCustomizationManager_GetStylePath_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle" message="tns:IPlayerCustomizationManager_SelectMyStyle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse" message="tns:IPlayerCustomizationManager_SelectMyStyle_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IPlayerColorsManager">
@@ -748,6 +768,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetMyStyles">
       <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStylePath">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePath" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyStyle">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

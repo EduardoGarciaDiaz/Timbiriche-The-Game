@@ -39,15 +39,38 @@ namespace TimbiricheService
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
             return dataAccess.UpdateMyColorSelected(idPlayer, idColor);
-
         }
 
-        public bool GetMyStyles(int idPlayer)
+        public List<PlayerStyle> GetMyStyles(int idPlayer)
         {
-            throw new NotImplementedException();
+            List<PlayerStyle> myStyles = new List<PlayerStyle>();
+            PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+            List<PlayerStyles> playerStylesDataAccess = dataAccess.GetMyStylesByIdPlayer(idPlayer);
+
+            foreach(PlayerStyles playerStyle in playerStylesDataAccess)
+            {
+                PlayerStyle playerStyleAxiliar = new PlayerStyle();
+                playerStyleAxiliar.IdPlayerStyle = playerStyle.idPlayerStyles;
+                playerStyleAxiliar.IdPlayer = (int)playerStyle.idPlayer;
+                playerStyleAxiliar.IdStyle = (int)playerStyle.idStyle;
+
+                myStyles.Add(playerStyleAxiliar);
+            }
+            return myStyles;
         }
 
+        public string GetStylePath(int idStyle)
+        {
+            PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+            string stylePath = dataAccess.GetStylePathByIdStyle(idStyle);
+            return stylePath;
+        }
 
+        public int SelectMyStyle(int idPlayer, int idStyle)
+        {
+            PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+            return dataAccess.UpdateMyStyleSelected(idPlayer, idStyle);
+        }
     }
 
     public partial class UserManagerService : IPlayerColorsManager
@@ -91,11 +114,6 @@ namespace TimbiricheService
                     callbackChannel.NotifyColorSelected(idColor);
                 }
             }
-        }
-
-        private void NotifyAllPlayers()
-        {
-
         }
 
         public void UnsubscribeColorToColorsSelected(int oldIdColor)

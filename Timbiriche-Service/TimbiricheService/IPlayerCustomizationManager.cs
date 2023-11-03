@@ -19,7 +19,11 @@ namespace TimbiricheService
         [OperationContract]
         int SelectMyColor(int idPlayer, int idColor);
         [OperationContract]
-        bool GetMyStyles(int idPlayer);
+        List<PlayerStyle> GetMyStyles(int idPlayer);
+        [OperationContract]
+        string GetStylePath(int idStyle);
+        [OperationContract]
+        int SelectMyStyle(int idPlayer, int idStyle);
     }
 
     [ServiceContract(CallbackContract = typeof(IPlayerColorsManagerCallback))]
@@ -59,5 +63,20 @@ namespace TimbiricheService
         public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
         [DataMember]
         public int IdColor { get { return _idColor; } set { _idColor = value; } }
+    }
+
+    [DataContract]
+    public class PlayerStyle
+    {
+        private int _idPlayerStyle;
+        private int _idPlayer;
+        private int _idStyle;
+
+        [DataMember]
+        public int IdPlayerStyle { get { return _idPlayerStyle; } set { _idPlayerStyle = value; } }
+        [DataMember]
+        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
+        [DataMember]
+        public int IdStyle { get { return _idStyle; } set { _idStyle = value; } }
     }
 }

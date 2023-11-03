@@ -32,6 +32,7 @@ namespace TimbiricheService
             newPlayer.status = player.Status;
             newPlayer.salt = player.Salt;
             newPlayer.idColorSelected = player.IdColorSelected;
+            newPlayer.idStyleSelected = player.IdStyleSelected;
             newPlayer.Accounts = newAccount;
 
             UserManagement dataAccess = new UserManagement();

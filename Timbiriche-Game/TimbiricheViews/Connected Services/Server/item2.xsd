@@ -7,6 +7,7 @@
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdColorSelected" type="xs:int" />
       <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStyleSelected" type="xs:int" />
       <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Salt" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
@@ -58,4 +59,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayerColor" nillable="true" type="tns:PlayerColor" />
+  <xs:complexType name="ArrayOfPlayerStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerStyle" nillable="true" type="tns:PlayerStyle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerStyle" nillable="true" type="tns:ArrayOfPlayerStyle" />
+  <xs:complexType name="PlayerStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayerStyle" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStyle" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerStyle" nillable="true" type="tns:PlayerStyle" />
 </xs:schema>

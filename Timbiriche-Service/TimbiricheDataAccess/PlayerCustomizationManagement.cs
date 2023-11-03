@@ -21,7 +21,6 @@ namespace TimbiricheDataAccess
                     return myColors;
                 }
                 return null;
-                
             }
         }
 
@@ -52,5 +51,46 @@ namespace TimbiricheDataAccess
             return rowsAffected;
         }
 
+        public List<PlayerStyles> GetMyStylesByIdPlayer(int idPlayer)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                var myStyles = (from ps in context.PlayerStyles
+                                where ps.idPlayer == idPlayer
+                                select ps).ToList();
+                if (myStyles != null)
+                {
+                    return myStyles;
+                }
+                return null;
+            }
+        }
+
+        public string GetStylePathByIdStyle(int idStyle)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                var styleEntity = context.Styles.Where(s => s.idStyle == idStyle).FirstOrDefault<Styles>();
+
+                if (styleEntity != null)
+                {
+                    string stylePath = styleEntity.path;
+                    return stylePath;
+                }
+                return null;
+            }
+        }
+
+        public int UpdateMyStyleSelected(int idPlayer, int idStyle)
+        {
+            int rowsAffected = -1;
+            using (var context = new TimbiricheDBEntities())
+            {
+                var player = context.Players.Find(idPlayer);
+                player.idStyleSelected = idStyle;
+                rowsAffected = context.SaveChanges();
+            }
+            return rowsAffected;
+        }
     }
 }
