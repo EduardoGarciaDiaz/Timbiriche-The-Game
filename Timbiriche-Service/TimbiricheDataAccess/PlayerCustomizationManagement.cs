@@ -46,11 +46,10 @@ namespace TimbiricheDataAccess
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players.Find(idPlayer);
-                //player.idColorSelected = idColor
+                player.idColorSelected = idColor;
                 rowsAffected = context.SaveChanges();
             }
             return rowsAffected;
-
         }
 
     }

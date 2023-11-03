@@ -18,6 +18,7 @@ namespace TimbiricheDataAccess
         public Colors()
         {
             this.PlayerColors = new HashSet<PlayerColors>();
+            this.Players = new HashSet<Players>();
         }
     
         public int idColor { get; set; }
@@ -27,5 +28,7 @@ namespace TimbiricheDataAccess
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayerColors> PlayerColors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Players> Players { get; set; }
     }
 }

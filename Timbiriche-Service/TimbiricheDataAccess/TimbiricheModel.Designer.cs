@@ -1,4 +1,4 @@
-﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\emili\OneDrive\Documentos\Proyecto\Timbiriche-Service\TimbiricheDataAccess\TimbiricheModel.edmx'. 
+﻿// La generación de código T4 está habilitada para el modelo 'C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Service\TimbiricheDataAccess\TimbiricheModel.edmx'. 
 // Para habilitar la generación de código heredada, cambie el valor de la propiedad del diseñador 'Estrategia de generación de código'
 // por 'ObjectContext heredado'. Esta propiedad está disponible en la ventana Propiedades cuando se abre
 // el modelo en el diseñador.

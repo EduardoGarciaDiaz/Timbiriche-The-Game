@@ -74,6 +74,7 @@ namespace TimbiricheService
         private string _status;
         private string _salt;
         private Account _accountFK;
+        private int _idColorSelected;
 
         [DataMember]
         public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
@@ -89,6 +90,8 @@ namespace TimbiricheService
         public string Status { get { return _status; } set { _status = value; } }
         [DataMember]
         public string Salt { get { return _salt; } set { _salt = value; } }
+        [DataMember]
+        public int IdColorSelected { get { return _idColorSelected; } set { _idColorSelected = value; } }
         [DataMember]
         public Account AccountFK { get { return _accountFK; } set { _accountFK = value; } }
 

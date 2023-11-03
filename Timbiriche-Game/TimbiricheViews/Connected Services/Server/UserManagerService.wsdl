@@ -174,6 +174,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerColorsManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -311,11 +340,44 @@
   <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetHexadecimalColorsResponse" />
   </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyColor" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyColorResponse" />
+  </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMyStyles" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMyStylesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeColorToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_RenewSubscriptionToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscriptionToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_UnsubscribeColorToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeColorToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorSelected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorSelected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorSelectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorUnselected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorUnselected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorUnselected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorUnselectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyOccupiedColors_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOccupiedColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOccupiedColorsResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
@@ -419,9 +481,36 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="SelectMyColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor" message="tns:IPlayerCustomizationManager_SelectMyColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse" message="tns:IPlayerCustomizationManager_SelectMyColor_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="GetMyStyles">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" message="tns:IPlayerCustomizationManager_GetMyStyles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse" message="tns:IPlayerCustomizationManager_GetMyStyles_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerColorsManager">
+    <wsdl:operation name="SubscribeColorToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected" message="tns:IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected" message="tns:IPlayerColorsManager_RenewSubscriptionToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeColorToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected" message="tns:IPlayerColorsManager_UnsubscribeColorToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorSelected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected" message="tns:IPlayerColorsManager_NotifyColorSelected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelectedResponse" message="tns:IPlayerColorsManager_NotifyColorSelected_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorUnselected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected" message="tns:IPlayerColorsManager_NotifyColorUnselected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselectedResponse" message="tns:IPlayerColorsManager_NotifyColorUnselected_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOccupiedColors">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" message="tns:IPlayerColorsManager_NotifyOccupiedColors_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse" message="tns:IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -648,8 +737,66 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="SelectMyColor">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetMyStyles">
       <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerColorsManager" type="tns:IPlayerColorsManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerColorsManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SubscribeColorToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeColorToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorUnselected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOccupiedColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -705,6 +852,15 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPlayerCustomizationManager" binding="tns:NetTcpBinding_IPlayerCustomizationManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerColorsManager" binding="tns:NetTcpBinding_IPlayerColorsManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>

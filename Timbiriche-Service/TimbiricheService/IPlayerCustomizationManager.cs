@@ -10,17 +10,41 @@ using TimbiricheDataAccess;
 namespace TimbiricheService
 {
     [ServiceContract]
-    internal interface IPlayerCustomizationManager
+    public interface IPlayerCustomizationManager
     {
         [OperationContract]
         List<PlayerColor> GetMyColors(int idPlayer);
         [OperationContract]
         string GetHexadecimalColors(int idColor);
         [OperationContract]
-        bool SelectMyColor(int idPlayer, int idColor);
+        int SelectMyColor(int idPlayer, int idColor);
         [OperationContract]
         bool GetMyStyles(int idPlayer);
     }
+
+    [ServiceContract(CallbackContract = typeof(IPlayerColorsManagerCallback))]
+    public interface IPlayerColorsManager
+    {
+        [OperationContract(IsOneWay = true)]
+        void SubscribeColorToColorsSelected();
+        [OperationContract(IsOneWay = true)]
+        void RenewSubscriptionToColorsSelected(int idColor);
+        [OperationContract(IsOneWay = true)]
+        void UnsubscribeColorToColorsSelected(int oldIdColor);
+    }
+
+    [ServiceContract]
+    public interface IPlayerColorsManagerCallback
+    {
+        [OperationContract]
+        void NotifyColorSelected(int idSelectedColor);
+        [OperationContract]
+        void NotifyColorUnselected(int idUnselectedColor);
+        [OperationContract]
+        void NotifyOccupiedColors(List<int> occupiedColors);
+    }
+
+
 
     [DataContract]
     public class PlayerColor

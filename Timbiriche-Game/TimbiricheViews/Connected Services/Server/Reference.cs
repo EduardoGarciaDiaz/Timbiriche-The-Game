@@ -32,6 +32,9 @@ namespace TimbiricheViews.Server {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdColorSelectedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdPlayerField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
@@ -91,6 +94,19 @@ namespace TimbiricheViews.Server {
                 if ((object.ReferenceEquals(this.EmailField, value) != true)) {
                     this.EmailField = value;
                     this.RaisePropertyChanged("Email");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdColorSelected {
+            get {
+                return this.IdColorSelectedField;
+            }
+            set {
+                if ((this.IdColorSelectedField.Equals(value) != true)) {
+                    this.IdColorSelectedField = value;
+                    this.RaisePropertyChanged("IdColorSelected");
                 }
             }
         }
@@ -878,6 +894,12 @@ namespace TimbiricheViews.Server {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
         System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
+        int SelectMyColor(int idPlayer, int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
+        System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
         bool GetMyStyles(int idPlayer);
         
@@ -928,12 +950,109 @@ namespace TimbiricheViews.Server {
             return base.Channel.GetHexadecimalColorsAsync(idColor);
         }
         
+        public int SelectMyColor(int idPlayer, int idColor) {
+            return base.Channel.SelectMyColor(idPlayer, idColor);
+        }
+        
+        public System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor) {
+            return base.Channel.SelectMyColorAsync(idPlayer, idColor);
+        }
+        
         public bool GetMyStyles(int idPlayer) {
             return base.Channel.GetMyStyles(idPlayer);
         }
         
         public System.Threading.Tasks.Task<bool> GetMyStylesAsync(int idPlayer) {
             return base.Channel.GetMyStylesAsync(idPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerColorsManager", CallbackContract=typeof(TimbiricheViews.Server.IPlayerColorsManagerCallback))]
+    public interface IPlayerColorsManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
+        void SubscribeColorToColorsSelected();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
+        System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
+        void RenewSubscriptionToColorsSelected(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
+        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
+        void UnsubscribeColorToColorsSelected(int oldIdColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
+        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerColorsManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorSelectedResponse")]
+        void NotifyColorSelected(int idSelectedColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselectedResponse")]
+        void NotifyColorUnselected(int idUnselectedColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse")]
+        void NotifyOccupiedColors(int[] occupiedColors);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerColorsManagerChannel : TimbiricheViews.Server.IPlayerColorsManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PlayerColorsManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IPlayerColorsManager>, TimbiricheViews.Server.IPlayerColorsManager {
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SubscribeColorToColorsSelected() {
+            base.Channel.SubscribeColorToColorsSelected();
+        }
+        
+        public System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync() {
+            return base.Channel.SubscribeColorToColorsSelectedAsync();
+        }
+        
+        public void RenewSubscriptionToColorsSelected(int idColor) {
+            base.Channel.RenewSubscriptionToColorsSelected(idColor);
+        }
+        
+        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor) {
+            return base.Channel.RenewSubscriptionToColorsSelectedAsync(idColor);
+        }
+        
+        public void UnsubscribeColorToColorsSelected(int oldIdColor) {
+            base.Channel.UnsubscribeColorToColorsSelected(oldIdColor);
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor) {
+            return base.Channel.UnsubscribeColorToColorsSelectedAsync(oldIdColor);
         }
     }
 }

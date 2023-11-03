@@ -5,6 +5,7 @@
       <xs:element minOccurs="0" name="AccountFK" nillable="true" type="tns:Account" />
       <xs:element minOccurs="0" name="Coins" type="xs:int" />
       <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdColorSelected" type="xs:int" />
       <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
       <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Salt" nillable="true" type="xs:string" />

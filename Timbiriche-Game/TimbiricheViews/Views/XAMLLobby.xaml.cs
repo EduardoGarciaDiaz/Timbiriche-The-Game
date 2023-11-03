@@ -8,10 +8,12 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Documents;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Xml.Linq;
 using TimbiricheViews.Components;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
@@ -220,8 +222,6 @@ namespace TimbiricheViews.Views
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
-            ShowSelectPlayerColorGrid();
-
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.MatchDurationInMinutes = 5;
 
@@ -231,6 +231,8 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
             client.CreateLobby(lobbyInformation, lobbyPlayer);
+
+            ShowSelectPlayerColorGrid();
         }
 
         private void BtnJoinByCode_Click(object sender, RoutedEventArgs e)
@@ -259,10 +261,10 @@ namespace TimbiricheViews.Views
 
     }
 
-    public partial class XAMLLobby : Page
+    public partial class XAMLLobby : Page, IPlayerColorsManagerCallback
     {
         private PlayerColor[] _myColors = null;
-        private string[] _hexadecimalColors = null;
+        private const string SELECTED_STROKE_COLOR_HEXADECIMAL = "#000000";
 
         private void ShowSelectPlayerColorGrid()
         {
@@ -273,6 +275,7 @@ namespace TimbiricheViews.Views
         private void GetMyColors()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+
             _myColors = playerCustomizationManagerClient.GetMyColors(playerLoggedIn.IdPlayer);
             if (_myColors != null)
             {
@@ -282,7 +285,6 @@ namespace TimbiricheViews.Views
             {
                 Console.WriteLine("The player doesn't have colors related");
             }
-
         }
 
         private void SetMyColors()
@@ -292,16 +294,22 @@ namespace TimbiricheViews.Views
             foreach (PlayerColor playerColor in _myColors)
             {
                 string hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(playerColor.IdColor);
+
                 color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
                 Rectangle colorRectangle = CreateColorBoxes(playerColor.IdColor, color, PlayerColorTemplate);
                 stackPanelColors.Children.Add(colorRectangle);
             }
+
+            InstanceContext context = new InstanceContext(this);
+            Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+            playerColorsManagerClient.SubscribeColorToColorsSelected();
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(playerLoggedIn.IdColorSelected);
         }
 
-        private Rectangle CreateColorBoxes(int id, SolidColorBrush color, Rectangle rectangleTemplate )
+        private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate )
         {
             Rectangle colorRectangle = XamlReader.Parse(XamlWriter.Save(rectangleTemplate)) as Rectangle;
-            colorRectangle.Name = "colorRectangle_" + id;
+            colorRectangle.Name = "colorRectangle" + "_" + idColor;
             colorRectangle.Fill = color;
             colorRectangle.MouseLeftButtonDown += RectangleColor_Click;
             colorRectangle.IsEnabled = true;
@@ -317,22 +325,126 @@ namespace TimbiricheViews.Views
 
         private void SelectColor(Rectangle rectangleSelected)
         {
-            SolidColorBrush blackColor = Utilities.CreateColorFromHexadecimal("#000000");
+            const char SPLIT_SYMBOL = '_';
+            const int INDEX_ID_COLOR_PART = 1;
+            string[] nameParts = rectangleSelected.Name.ToString().Split(SPLIT_SYMBOL);
+            int idColor = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
+
+            InstanceContext context = new InstanceContext(this);
+            Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+            playerColorsManagerClient.UnsubscribeColorToColorsSelected(playerLoggedIn.IdColorSelected);
+
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            playerCustomizationManagerClient.SelectMyColor(playerLoggedIn.IdPlayer, idColor);
+            playerLoggedIn.IdColorSelected = idColor;
+
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(idColor);
+            MarkAsSelectedColor(rectangleSelected);
+        }
+
+        private void MarkAsSelectedColor(Rectangle rectangleSelected)
+        {
+            SolidColorBrush blackColor = Utilities.CreateColorFromHexadecimal(SELECTED_STROKE_COLOR_HEXADECIMAL);
             rectangleSelected.Stroke = blackColor;
-            foreach(Rectangle colorRectangle in stackPanelColors.Children)
+            rectangleSelected.StrokeThickness = 2;
+            ClearOtherColorSelections(rectangleSelected);
+            UpdatePlayerColor(rectangleSelected);
+        }
+
+        private void StablishOcuppiedColors(int[] occupiedColors)
+        {
+            foreach(int idColor in occupiedColors)
             {
-                if (colorRectangle.Name != rectangleSelected.Name) 
+                if ( idColor != 0)
+                {
+                    string idRectangle = "colorRectangle" + "_" + idColor;
+                    MarkAsOccupiedColor(idRectangle);
+                }
+            }
+        }
+
+        private void MarkAsOccupiedColor(string idRectangle)
+        {
+            const string OCCUPIED_COLOR_HEXADECIMAL = "#7F000000";
+            SolidColorBrush difuminedColor = Utilities.CreateColorFromHexadecimal(OCCUPIED_COLOR_HEXADECIMAL);
+
+            Rectangle rectangleFinded = LogicalTreeHelper.FindLogicalNode(stackPanelColors, idRectangle)
+                as Rectangle;
+            rectangleFinded.OpacityMask = difuminedColor;
+            rectangleFinded.IsEnabled = false;
+        }
+
+
+        private void MarkAsUnoccupiedColor(string idRectangle)
+        {
+            Rectangle rectangleFinded = LogicalTreeHelper.FindLogicalNode(stackPanelColors, idRectangle)
+                as Rectangle;
+            rectangleFinded.OpacityMask = null;
+            rectangleFinded.IsEnabled = true;
+        }
+
+        private void ClearOtherColorSelections(Rectangle rectangleSelected)
+        {
+            foreach (Rectangle colorRectangle in stackPanelColors.Children)
+            {
+                if (colorRectangle.Name != rectangleSelected.Name)
                 {
                     colorRectangle.Stroke = null;
                 }
             }
         }
 
-        private void ImgClose_Click(object sender, RoutedEventArgs e)
+        private void UpdatePlayerColor(Rectangle rectangleSelected)
         {
-            gridSelectColor.Visibility = Visibility.Collapsed;
+            rectangleFirstPlayerColor.Fill = rectangleSelected.Fill;
         }
 
+        private void ImgClose_Click(object sender, RoutedEventArgs e)
+        {
+            if (ValidatePlayerSelectColor())
+            {
+                gridSelectColor.Visibility = Visibility.Collapsed;
+            }
+        }
 
+        private bool ValidatePlayerSelectColor()
+        {
+            bool isColorSelected = false;
+            const int COLOR_NOT_SELECTED_ID = -1;
+            if(playerLoggedIn.IdColorSelected > COLOR_NOT_SELECTED_ID)
+            {
+                isColorSelected = true;
+            }
+            return isColorSelected;
+        }
+
+        public void NotifyColorSelected(int idSelectedColor)
+        {
+            const int COLOR_OCCUPIED = 0;
+            string idRectangle = "colorRectangle" + "_" + idSelectedColor;
+            if (idSelectedColor == COLOR_OCCUPIED)
+            {
+                rectangleFirstPlayerColor.Fill = PlayerColorTemplate.Fill;
+            }
+            else
+            {
+                MarkAsOccupiedColor(idRectangle);
+            }
+        }
+
+        public void NotifyColorUnselected(int idUnselectedColor)
+        {
+            const int COLOR_OCCUPIED = 0;
+            string idRectangle = "colorRectangle" + "_" + idUnselectedColor;
+            if (idUnselectedColor != COLOR_OCCUPIED)
+            {
+                MarkAsUnoccupiedColor(idRectangle);
+            }
+        }
+
+        public void NotifyOccupiedColors(int[] ocuppedColors)
+        {
+            StablishOcuppiedColors(ocuppedColors);
+        }
     }
 }
