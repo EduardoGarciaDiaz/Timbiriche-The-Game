@@ -32,7 +32,13 @@ namespace TimbiricheViews.Server {
         private string EmailField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdColorSelectedField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int IdPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdStyleSelectedField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string PasswordField;
@@ -96,6 +102,19 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdColorSelected {
+            get {
+                return this.IdColorSelectedField;
+            }
+            set {
+                if ((this.IdColorSelectedField.Equals(value) != true)) {
+                    this.IdColorSelectedField = value;
+                    this.RaisePropertyChanged("IdColorSelected");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
         public int IdPlayer {
             get {
                 return this.IdPlayerField;
@@ -104,6 +123,19 @@ namespace TimbiricheViews.Server {
                 if ((this.IdPlayerField.Equals(value) != true)) {
                     this.IdPlayerField = value;
                     this.RaisePropertyChanged("IdPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdStyleSelected {
+            get {
+                return this.IdStyleSelectedField;
+            }
+            set {
+                if ((this.IdStyleSelectedField.Equals(value) != true)) {
+                    this.IdStyleSelectedField = value;
+                    this.RaisePropertyChanged("IdStyleSelected");
                 }
             }
         }
@@ -387,6 +419,160 @@ namespace TimbiricheViews.Server {
                 if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
                     this.UsernameField = value;
                     this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayerColor", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class PlayerColor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerColorsField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdColor {
+            get {
+                return this.IdColorField;
+            }
+            set {
+                if ((this.IdColorField.Equals(value) != true)) {
+                    this.IdColorField = value;
+                    this.RaisePropertyChanged("IdColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayer {
+            get {
+                return this.IdPlayerField;
+            }
+            set {
+                if ((this.IdPlayerField.Equals(value) != true)) {
+                    this.IdPlayerField = value;
+                    this.RaisePropertyChanged("IdPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayerColors {
+            get {
+                return this.IdPlayerColorsField;
+            }
+            set {
+                if ((this.IdPlayerColorsField.Equals(value) != true)) {
+                    this.IdPlayerColorsField = value;
+                    this.RaisePropertyChanged("IdPlayerColors");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="PlayerStyle", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class PlayerStyle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerStyleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdStyleField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayer {
+            get {
+                return this.IdPlayerField;
+            }
+            set {
+                if ((this.IdPlayerField.Equals(value) != true)) {
+                    this.IdPlayerField = value;
+                    this.RaisePropertyChanged("IdPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayerStyle {
+            get {
+                return this.IdPlayerStyleField;
+            }
+            set {
+                if ((this.IdPlayerStyleField.Equals(value) != true)) {
+                    this.IdPlayerStyleField = value;
+                    this.RaisePropertyChanged("IdPlayerStyle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdStyle {
+            get {
+                return this.IdStyleField;
+            }
+            set {
+                if ((this.IdStyleField.Equals(value) != true)) {
+                    this.IdStyleField = value;
+                    this.RaisePropertyChanged("IdStyle");
                 }
             }
         }
@@ -871,6 +1057,212 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token) {
             return base.Channel.VerifyEmailTokenAsync(token);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerCustomizationManager")]
+    public interface IPlayerCustomizationManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
+        TimbiricheViews.Server.PlayerColor[] GetMyColors(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerColor[]> GetMyColorsAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
+        string GetHexadecimalColors(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
+        System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
+        int SelectMyColor(int idPlayer, int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
+        System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
+        TimbiricheViews.Server.PlayerStyle[] GetMyStyles(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerStyle[]> GetMyStylesAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse")]
+        string GetStylePath(int idStyle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse")]
+        System.Threading.Tasks.Task<string> GetStylePathAsync(int idStyle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse")]
+        int SelectMyStyle(int idPlayer, int idStyle);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse")]
+        System.Threading.Tasks.Task<int> SelectMyStyleAsync(int idPlayer, int idStyle);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerCustomizationManagerChannel : TimbiricheViews.Server.IPlayerCustomizationManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PlayerCustomizationManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IPlayerCustomizationManager>, TimbiricheViews.Server.IPlayerCustomizationManager {
+        
+        public PlayerCustomizationManagerClient() {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerCustomizationManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerCustomizationManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public TimbiricheViews.Server.PlayerColor[] GetMyColors(int idPlayer) {
+            return base.Channel.GetMyColors(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerColor[]> GetMyColorsAsync(int idPlayer) {
+            return base.Channel.GetMyColorsAsync(idPlayer);
+        }
+        
+        public string GetHexadecimalColors(int idColor) {
+            return base.Channel.GetHexadecimalColors(idColor);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor) {
+            return base.Channel.GetHexadecimalColorsAsync(idColor);
+        }
+        
+        public int SelectMyColor(int idPlayer, int idColor) {
+            return base.Channel.SelectMyColor(idPlayer, idColor);
+        }
+        
+        public System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor) {
+            return base.Channel.SelectMyColorAsync(idPlayer, idColor);
+        }
+        
+        public TimbiricheViews.Server.PlayerStyle[] GetMyStyles(int idPlayer) {
+            return base.Channel.GetMyStyles(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerStyle[]> GetMyStylesAsync(int idPlayer) {
+            return base.Channel.GetMyStylesAsync(idPlayer);
+        }
+        
+        public string GetStylePath(int idStyle) {
+            return base.Channel.GetStylePath(idStyle);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetStylePathAsync(int idStyle) {
+            return base.Channel.GetStylePathAsync(idStyle);
+        }
+        
+        public int SelectMyStyle(int idPlayer, int idStyle) {
+            return base.Channel.SelectMyStyle(idPlayer, idStyle);
+        }
+        
+        public System.Threading.Tasks.Task<int> SelectMyStyleAsync(int idPlayer, int idStyle) {
+            return base.Channel.SelectMyStyleAsync(idPlayer, idStyle);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerColorsManager", CallbackContract=typeof(TimbiricheViews.Server.IPlayerColorsManagerCallback))]
+    public interface IPlayerColorsManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
+        void SubscribeColorToColorsSelected();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
+        System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
+        void RenewSubscriptionToColorsSelected(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
+        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
+        void UnsubscribeColorToColorsSelected(int oldIdColor);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
+        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerColorsManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorSelectedResponse")]
+        void NotifyColorSelected(int idSelectedColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselectedResponse")]
+        void NotifyColorUnselected(int idUnselectedColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse")]
+        void NotifyOccupiedColors(int[] occupiedColors);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerColorsManagerChannel : TimbiricheViews.Server.IPlayerColorsManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PlayerColorsManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IPlayerColorsManager>, TimbiricheViews.Server.IPlayerColorsManager {
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerColorsManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SubscribeColorToColorsSelected() {
+            base.Channel.SubscribeColorToColorsSelected();
+        }
+        
+        public System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync() {
+            return base.Channel.SubscribeColorToColorsSelectedAsync();
+        }
+        
+        public void RenewSubscriptionToColorsSelected(int idColor) {
+            base.Channel.RenewSubscriptionToColorsSelected(idColor);
+        }
+        
+        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor) {
+            return base.Channel.RenewSubscriptionToColorsSelectedAsync(idColor);
+        }
+        
+        public void UnsubscribeColorToColorsSelected(int oldIdColor) {
+            base.Channel.UnsubscribeColorToColorsSelected(oldIdColor);
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor) {
+            return base.Channel.UnsubscribeColorToColorsSelectedAsync(oldIdColor);
         }
     }
 }

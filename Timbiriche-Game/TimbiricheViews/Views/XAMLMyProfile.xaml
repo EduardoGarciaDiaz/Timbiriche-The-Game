@@ -34,27 +34,19 @@
                     <Label x:Name="lbCustomYourCharacter" Content="{x:Static p:Resources.lbCustomYourCharacter}" HorizontalAlignment="Left" Margin="71,167,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
                     <Label x:Name="lbStyles" Content="{x:Static p:Resources.lbStyles}" HorizontalAlignment="Left" Margin="77,196,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="24"/>
                     <Label x:Name="lbStylesInstruction" Content="{x:Static p:Resources.lbStylesInstrucion}" HorizontalAlignment="Left" Margin="77,230,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
-                    <ScrollViewer Margin="79,258,54,346" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <Grid x:Name="gridStyles">
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-
-
-                            </StackPanel>
-
-                        </Grid>
+                    <ScrollViewer Margin="79,258,54,100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel x:Name="wrapPanelPlayerStyles">
+                            <Rectangle x:Name="PlayerStyleBackgroundTemplate"  Fill="Transparent" Margin="15,10,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" MouseLeftButtonDown="RectangleStyle_Click" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
+                            <Rectangle x:Name="PlayerStyleTemplate"  Fill="#FF6C6868" Margin="-150,10,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" MouseLeftButtonDown="RectangleStyle_Click" Cursor="Hand" IsEnabled="False"/>
+                            <!--<Label x:Name="lbInitialPlayerNameLetter" Margin="-150,0,0,0" Foreground="White" Height="160" Width="150" Cursor="Hand" FontFamily="Inter" FontSize="135" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Collapsed" MouseLeftButtonDown="RectangleStyle_Click"/>-->
+                        </WrapPanel>
                     </ScrollViewer>
-
                 </Grid>
 
-                <Grid x:Name="gridColorsInstructions">
+
+
+
+                <Grid x:Name="gridColorsInstructions" Visibility="Collapsed">
                     <Label x:Name="lbColors" Content="{x:Static p:Resources.lbColors}" HorizontalAlignment="Left" Margin="81,441,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="24"/>
                     <Label x:Name="lbColorsInstruction" Content="{x:Static p:Resources.lbColorsInstruction}" HorizontalAlignment="Left" Margin="83,475,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
                     <ScrollViewer Margin="79,500,54,107" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">

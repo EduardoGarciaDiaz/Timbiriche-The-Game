@@ -5,6 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Media;
 using TimbiricheViews.Components;
 
 namespace TimbiricheViews.Utils
@@ -86,6 +87,11 @@ namespace TimbiricheViews.Utils
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
+        }
+
+        public static SolidColorBrush CreateColorFromHexadecimal(string hexadecimalColor)
+        {
+            return new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexadecimalColor));
         }
 
     }

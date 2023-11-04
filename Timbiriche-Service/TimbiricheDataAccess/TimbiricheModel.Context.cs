@@ -30,5 +30,7 @@ namespace TimbiricheDataAccess
         public virtual DbSet<Colors> Colors { get; set; }
         public virtual DbSet<PasswordResetTokens> PasswordResetTokens { get; set; }
         public virtual DbSet<PlayerColors> PlayerColors { get; set; }
+        public virtual DbSet<PlayerStyles> PlayerStyles { get; set; }
+        public virtual DbSet<Styles> Styles { get; set; }
     }
 }

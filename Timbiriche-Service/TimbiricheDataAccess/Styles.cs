@@ -12,35 +12,23 @@ namespace TimbiricheDataAccess
     using System;
     using System.Collections.Generic;
     
-    public partial class Players
+    public partial class Styles
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Players()
+        public Styles()
         {
-            this.PasswordResetTokens = new HashSet<PasswordResetTokens>();
-            this.PlayerColors = new HashSet<PlayerColors>();
+            this.Players = new HashSet<Players>();
             this.PlayerStyles = new HashSet<PlayerStyles>();
         }
     
-        public int idPlayer { get; set; }
-        public string username { get; set; }
-        public string email { get; set; }
-        public string password { get; set; }
-        public Nullable<int> coins { get; set; }
-        public int idAccount { get; set; }
-        public string status { get; set; }
-        public string salt { get; set; }
-        public Nullable<int> idColorSelected { get; set; }
-        public Nullable<int> idStyleSelected { get; set; }
+        public int idStyle { get; set; }
+        public string styleName { get; set; }
+        public string path { get; set; }
+        public Nullable<int> cost { get; set; }
     
-        public virtual Accounts Accounts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PasswordResetTokens> PasswordResetTokens { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<PlayerColors> PlayerColors { get; set; }
-        public virtual Colors Colors { get; set; }
+        public virtual ICollection<Players> Players { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayerStyles> PlayerStyles { get; set; }
-        public virtual Styles Styles { get; set; }
     }
 }

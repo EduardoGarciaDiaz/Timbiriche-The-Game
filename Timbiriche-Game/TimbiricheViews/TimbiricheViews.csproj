@@ -215,6 +215,12 @@
     <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerColor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerStyle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Server\UserManagerService.wsdl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -315,6 +321,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\backgroundCustomizeCharacter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Skins\basicBox.png" />
+    <Resource Include="Resources\Skins\basicBoxSeparated.png" />
+    <Resource Include="Resources\Skins\skully.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

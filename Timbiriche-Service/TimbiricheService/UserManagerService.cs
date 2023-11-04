@@ -31,6 +31,8 @@ namespace TimbiricheService
             newPlayer.coins = player.Coins;
             newPlayer.status = player.Status;
             newPlayer.salt = player.Salt;
+            newPlayer.idColorSelected = player.IdColorSelected;
+            newPlayer.idStyleSelected = player.IdStyleSelected;
             newPlayer.Accounts = newAccount;
 
             UserManagement dataAccess = new UserManagement();
@@ -39,6 +41,7 @@ namespace TimbiricheService
 
         public Player ValidateLoginCredentials(String username, String password)
         {
+            const int DEFAULT_ID_COLOR_SELECTED = 0;
             UserManagement dataAccess = new UserManagement();
             Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
             if (playerValidated != null)
@@ -58,10 +61,11 @@ namespace TimbiricheService
                     Username = playerValidated.username,
                     Email = playerValidated.email,
                     Password = playerValidated.password,
-                    Coins = playerValidated.coins,
+                    Coins = (int)playerValidated.coins,
                     Status = playerValidated.status,
                     Salt = playerValidated.salt,
-                    AccountFK = account
+                    IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                    AccountFK = account,
                 };
 
                 return player;
