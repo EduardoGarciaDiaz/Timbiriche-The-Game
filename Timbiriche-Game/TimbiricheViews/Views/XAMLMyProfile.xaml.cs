@@ -25,6 +25,7 @@ namespace TimbiricheViews.Views
     public partial class XAMLMyProfile : Page
     {
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
+        private PlayerStyle[] _myStyles;
         private string _initialPlayerNameLetter;
         private string _hexadecimalColorRectangle = "#FF6C6868";
         private const string SELECTED_STROKE_STYLE_HEXADECIMAL = "#000000";

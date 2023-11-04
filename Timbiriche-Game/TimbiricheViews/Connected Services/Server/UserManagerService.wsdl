@@ -351,6 +351,24 @@
   <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_RegisterToTheMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterToTheMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_EndTurn_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovement" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovementResponse" />
+  </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendEmailToken" />
   </wsdl:message>
@@ -514,9 +532,6 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IMatchManager">
-    <wsdl:operation name="MatchSetup">
-      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/MatchSetup" message="tns:IMatchManager_MatchSetup_InputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="RegisterToTheMatch">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/RegisterToTheMatch" message="tns:IMatchManager_RegisterToTheMatch_InputMessage" />
     </wsdl:operation>
@@ -784,12 +799,6 @@
   <wsdl:binding name="NetTcpBinding_IMatchManager" type="tns:IMatchManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IMatchManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="MatchSetup">
-      <soap12:operation soapAction="http://tempuri.org/IMatchManager/MatchSetup" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-    </wsdl:operation>
     <wsdl:operation name="RegisterToTheMatch">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/RegisterToTheMatch" style="document" />
       <wsdl:input>
@@ -1010,7 +1019,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1019,7 +1028,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
