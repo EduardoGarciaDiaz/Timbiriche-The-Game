@@ -12,7 +12,7 @@ namespace TimbiricheViews.Player
 
         private static Server.Player _player;
 
-        public static Server.Player player
+        public static Server.Player Player
         {
             get
             {

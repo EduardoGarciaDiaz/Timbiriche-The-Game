@@ -23,7 +23,7 @@ namespace TimbiricheService
 
             lobbies.Add(lobbyCode, (lobbyInformation, players));
 
-            currentUserCallbackChannel.NotifyLobbyCreated();
+            currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
         }
 
         public void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer)
@@ -44,7 +44,7 @@ namespace TimbiricheService
                         player.CallbackChannel.NotifyPlayerJoinToLobby(lobbyPlayer, numOfPlayersInLobby);
                     }
 
-                    lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(playersInLobby);
+                    lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(lobbyCode, playersInLobby);
                     playersInLobby.Add(lobbyPlayer);
                 }
                 else
@@ -58,9 +58,18 @@ namespace TimbiricheService
             }
         }
 
-        public void StartMatch()
+        public void StartMatch(string lobbyCode)
         {
-            throw new NotImplementedException();
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
+                List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
+
+                foreach(var player in players)
+                {
+                    player.CallbackChannel.NotifyStartOfMatch();
+                }
+            }
         }
 
         private string GenerateLobbyCode()

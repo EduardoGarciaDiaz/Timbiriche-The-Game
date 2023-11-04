@@ -823,10 +823,10 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task CreateLobbyAsync(TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/StartMatch")]
-        void StartMatch();
+        void StartMatch(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/StartMatch")]
-        System.Threading.Tasks.Task StartMatchAsync();
+        System.Threading.Tasks.Task StartMatchAsync(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
         void JoinLobby(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
@@ -839,16 +839,19 @@ namespace TimbiricheViews.Server {
     public interface ILobbyManagerCallback {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse")]
-        void NotifyLobbyCreated();
+        void NotifyLobbyCreated(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayersInLobbyResponse")]
-        void NotifyPlayersInLobby(TimbiricheViews.Server.LobbyPlayer[] lobbyPlayers);
+        void NotifyPlayersInLobby(string lobbyCode, TimbiricheViews.Server.LobbyPlayer[] lobbyPlayers);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobbyResponse")]
         void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse")]
         void NotifyPlayerLeftLobby();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch", ReplyAction="http://tempuri.org/ILobbyManager/NotifyStartOfMatchResponse")]
+        void NotifyStartOfMatch();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyIsFullResponse")]
         void NotifyLobbyIsFull();
@@ -893,12 +896,12 @@ namespace TimbiricheViews.Server {
             return base.Channel.CreateLobbyAsync(lobbyInformation, lobbyPlayer);
         }
         
-        public void StartMatch() {
-            base.Channel.StartMatch();
+        public void StartMatch(string lobbyCode) {
+            base.Channel.StartMatch(lobbyCode);
         }
         
-        public System.Threading.Tasks.Task StartMatchAsync() {
-            return base.Channel.StartMatchAsync();
+        public System.Threading.Tasks.Task StartMatchAsync(string lobbyCode) {
+            return base.Channel.StartMatchAsync(lobbyCode);
         }
         
         public void JoinLobby(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
@@ -907,6 +910,92 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
             return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IMatchManager", CallbackContract=typeof(TimbiricheViews.Server.IMatchManagerCallback))]
+    public interface IMatchManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/MatchSetup")]
+        void MatchSetup(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/MatchSetup")]
+        System.Threading.Tasks.Task MatchSetupAsync(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
+        void RegisterToTheMatch(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
+        System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
+        void EndTurn(string lobbyCode, string typeLine, int row, int column);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
+        System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IMatchManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewTurn", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewTurnResponse")]
+        void NotifyNewTurn(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyMovement", ReplyAction="http://tempuri.org/IMatchManager/NotifyMovementResponse")]
+        void NotifyMovement(string typeLine, int row, int column);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IMatchManagerChannel : TimbiricheViews.Server.IMatchManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class MatchManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IMatchManager>, TimbiricheViews.Server.IMatchManager {
+        
+        public MatchManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public MatchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public MatchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public MatchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public MatchManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void MatchSetup(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players) {
+            base.Channel.MatchSetup(lobbyCode, lobbyInformation, players);
+        }
+        
+        public System.Threading.Tasks.Task MatchSetupAsync(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players) {
+            return base.Channel.MatchSetupAsync(lobbyCode, lobbyInformation, players);
+        }
+        
+        public void RegisterToTheMatch(string lobbyCode, string username) {
+            base.Channel.RegisterToTheMatch(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username) {
+            return base.Channel.RegisterToTheMatchAsync(lobbyCode, username);
+        }
+        
+        public void EndTurn(string lobbyCode, string typeLine, int row, int column) {
+            base.Channel.EndTurn(lobbyCode, typeLine, row, column);
+        }
+        
+        public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column) {
+            return base.Channel.EndTurnAsync(lobbyCode, typeLine, row, column);
         }
     }
     

@@ -23,7 +23,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
     {
-        private Server.Player playerLoggedIn = PlayerSingleton.player;
+        private Server.Player playerLoggedIn = PlayerSingleton.Player;
 
         public XAMLLobby()
         {
@@ -143,8 +143,10 @@ namespace TimbiricheViews.Views
 
     public partial class XAMLLobby : Page, ILobbyManagerCallback
     {
-        public void NotifyLobbyCreated()
+        private string _lobbyCode;
+        public void NotifyLobbyCreated(string lobbyCode)
         {
+            _lobbyCode = lobbyCode;
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
         }
@@ -178,8 +180,9 @@ namespace TimbiricheViews.Views
             throw new NotImplementedException();
         }
 
-        public void NotifyPlayersInLobby(LobbyPlayer[] lobbyPlayers)
+        public void NotifyPlayersInLobby(string lobbyCode, LobbyPlayer[] lobbyPlayers)
         {
+            _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;
 
             if (numPlayersInLobby > 0)
@@ -220,6 +223,11 @@ namespace TimbiricheViews.Views
             Utilities.CreateEmergentWindow(title, message);
         }
 
+        public void NotifyStartOfMatch()
+        {
+            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
+        }
+
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
             LobbyInformation lobbyInformation = new LobbyInformation();
@@ -256,7 +264,9 @@ namespace TimbiricheViews.Views
 
         private void BtnStartMatch_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new XAMLGameBoard());
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient client = new LobbyManagerClient(context);
+            client.StartMatch(_lobbyCode);
         }
 
     }

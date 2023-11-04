@@ -54,11 +54,14 @@
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
     <Compile Include="IEmailVerificationManager.cs" />
     <Compile Include="ILobbyManager.cs" />
+    <Compile Include="IMatchManager.cs" />
     <Compile Include="IPasswordReset.cs" />
     <Compile Include="IPlayerCustomizationManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IUserManager.cs" />
     <Compile Include="LobbyManagerService.cs" />
+    <Compile Include="MatchManagerService.cs" />
+    <Compile Include="Match\Match.cs" />
     <Compile Include="PasswordResetService.cs" />
     <Compile Include="PlayerCustomizationManagerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

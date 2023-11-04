@@ -14,7 +14,7 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void CreateLobby(LobbyInformation lobbyInformation, LobbyPlayer lobbyPlayer);
         [OperationContract(IsOneWay = true)]
-        void StartMatch();
+        void StartMatch(string lobbyCode);
         [OperationContract(IsOneWay = true)]
         void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer);
     }
@@ -22,13 +22,15 @@ namespace TimbiricheService
     public interface ILobbyManagerCallback
     {
         [OperationContract]
-        void NotifyLobbyCreated();
+        void NotifyLobbyCreated(string lobbyCode);
         [OperationContract]
-        void NotifyPlayersInLobby(List<LobbyPlayer> lobbyPlayers);
+        void NotifyPlayersInLobby(string lobbyCode, List<LobbyPlayer> lobbyPlayers);
         [OperationContract]
         void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         [OperationContract]
         void NotifyPlayerLeftLobby();
+        [OperationContract]
+        void NotifyStartOfMatch();
         [OperationContract]
         void NotifyLobbyIsFull();
         [OperationContract]
@@ -42,6 +44,7 @@ namespace TimbiricheService
         private string _stylePath;
         private string _hexadecimalColor;
         private ILobbyManagerCallback _callbackChannel;
+        private IMatchManagerCallback _matchManagerCallback;
 
         [DataMember]
         public string Username { get { return _username; } set { _username = value; } }
@@ -50,6 +53,7 @@ namespace TimbiricheService
         [DataMember]
         public string HexadecimalColor { get { return _hexadecimalColor; } set { _hexadecimalColor = value; } }
         public ILobbyManagerCallback CallbackChannel { get { return _callbackChannel;  } set { _callbackChannel = value; } }
+        public IMatchManagerCallback MatchCallbackChannel { get { return _matchManagerCallback; } set { _matchManagerCallback = value; } }
     }
 
     [DataContract]
