@@ -11,7 +11,8 @@ namespace TimbiricheService
     public interface IMatchManager
     {
         [OperationContract(IsOneWay = true)]
-        void MatchSetup(string lobbyCode, LobbyInformation lobbyInformation, List<LobbyPlayer> players);
+        void RegisterToTheMatch(string lobbyCode, string username);
+
         [OperationContract(IsOneWay = true)]
         void EndTurn(string lobbyCode, string typeLine, int row, int column);
     }

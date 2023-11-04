@@ -731,11 +731,17 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IMatchManager", CallbackContract=typeof(TimbiricheViews.Server.IMatchManagerCallback))]
     public interface IMatchManager {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/MatchSetup", ReplyAction="http://tempuri.org/IMatchManager/MatchSetupResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/MatchSetup")]
         void MatchSetup(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/MatchSetup", ReplyAction="http://tempuri.org/IMatchManager/MatchSetupResponse")]
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/MatchSetup")]
         System.Threading.Tasks.Task MatchSetupAsync(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
+        void RegisterToTheMatch(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
+        System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
         void EndTurn(string lobbyCode, string typeLine, int row, int column);
@@ -788,6 +794,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task MatchSetupAsync(string lobbyCode, TimbiricheViews.Server.LobbyInformation lobbyInformation, TimbiricheViews.Server.LobbyPlayer[] players) {
             return base.Channel.MatchSetupAsync(lobbyCode, lobbyInformation, players);
+        }
+        
+        public void RegisterToTheMatch(string lobbyCode, string username) {
+            base.Channel.RegisterToTheMatch(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username) {
+            return base.Channel.RegisterToTheMatchAsync(lobbyCode, username);
         }
         
         public void EndTurn(string lobbyCode, string typeLine, int row, int column) {

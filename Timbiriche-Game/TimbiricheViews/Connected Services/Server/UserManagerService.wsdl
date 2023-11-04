@@ -296,8 +296,8 @@
   <wsdl:message name="IMatchManager_MatchSetup_InputMessage">
     <wsdl:part name="parameters" element="tns:MatchSetup" />
   </wsdl:message>
-  <wsdl:message name="IMatchManager_MatchSetup_OutputMessage">
-    <wsdl:part name="parameters" element="tns:MatchSetupResponse" />
+  <wsdl:message name="IMatchManager_RegisterToTheMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterToTheMatch" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_EndTurn_InputMessage">
     <wsdl:part name="parameters" element="tns:EndTurn" />
@@ -416,7 +416,9 @@
   <wsdl:portType name="IMatchManager">
     <wsdl:operation name="MatchSetup">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/MatchSetup" message="tns:IMatchManager_MatchSetup_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/MatchSetupResponse" message="tns:IMatchManager_MatchSetup_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RegisterToTheMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/RegisterToTheMatch" message="tns:IMatchManager_RegisterToTheMatch_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="EndTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurn" message="tns:IMatchManager_EndTurn_InputMessage" />
@@ -638,9 +640,12 @@
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
-      <wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RegisterToTheMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/RegisterToTheMatch" style="document" />
+      <wsdl:input>
         <soap12:body use="literal" />
-      </wsdl:output>
+      </wsdl:input>
     </wsdl:operation>
     <wsdl:operation name="EndTurn">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndTurn" style="document" />

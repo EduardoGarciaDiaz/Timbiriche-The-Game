@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
+using TimbiricheViews.Server;
 
 namespace TimbiricheViews.Views
 {
@@ -36,6 +37,12 @@ namespace TimbiricheViews.Views
         public XAMLGameBoard(string lobbyCode)
         {
             _lobbyCode = lobbyCode;
+
+            InstanceContext context = new InstanceContext(this);
+            MatchManagerClient client = new MatchManagerClient(context);
+            client.RegisterToTheMatch(_lobbyCode, PlayerSingleton.Player.Username);
+
+            
             InitializeComponent();
             InitializeGameBoard();
         }
@@ -198,7 +205,7 @@ namespace TimbiricheViews.Views
 
     }
 
-    public partial class XAMLGameBoard : Server.IMatchManagerCallback
+    public partial class XAMLGameBoard : IMatchManagerCallback
     {
         public void NotifyMovement(string typeLine, int row, int column)
         {

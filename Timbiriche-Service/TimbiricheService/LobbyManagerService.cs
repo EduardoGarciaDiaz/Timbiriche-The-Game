@@ -69,11 +69,6 @@ namespace TimbiricheService
                 {
                     player.CallbackChannel.NotifyStartOfMatch();
                 }
-
-                lobbies.Remove(lobbyCode);
-
-                IMatchManager matchManager = new UserManagerService();
-                matchManager.MatchSetup(lobbyCode, lobbyInformation, players);
             }
         }
 

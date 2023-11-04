@@ -12,16 +12,33 @@ namespace TimbiricheService
     {
         Dictionary<string, Match.Match> matches = new Dictionary<string, Match.Match> ();
 
-        public void MatchSetup(String lobbyCode, LobbyInformation lobbyInformation, List<LobbyPlayer> players)
+        public void RegisterToTheMatch(string lobbyCode, string username)
         {
-            foreach(LobbyPlayer player in players)
+
+            if (!lobbies.ContainsKey(lobbyCode))
             {
-                IMatchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IMatchManagerCallback>();
-                player.MatchCallbackChannel = currentUserCallbackChannel;
+                LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
+                List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
+
+                Match.Match match = new Match.Match(lobbyInformation, players);
+                matches.Add(lobbyCode, match);
+                lobbies.Remove(lobbyCode);
             }
 
-            Match.Match match = new Match.Match(lobbyInformation, players);
-            matches.Add(lobbyCode, match);
+            IMatchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IMatchManagerCallback>();
+
+            if (matches.ContainsKey(lobbyCode))
+            {
+                Match.Match match = matches[lobbyCode];
+                
+                foreach(var player in match.Players)
+                {
+                    if(player.Username == username)
+                    {
+                        player.MatchCallbackChannel = currentUserCallbackChannel;
+                    }
+                }
+            }
         }
 
         public void EndTurn(string lobbyCode, string typeLine, int row, int column)
