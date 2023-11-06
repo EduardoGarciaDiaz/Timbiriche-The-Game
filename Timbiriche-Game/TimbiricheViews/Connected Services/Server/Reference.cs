@@ -1068,6 +1068,12 @@ namespace TimbiricheViews.Server {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
         System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor);
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse")]
+        bool CheckColorForPlayer(int idPlayer, int idColor);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse")]
+        System.Threading.Tasks.Task<bool> CheckColorForPlayerAsync(int idPlayer, int idColor);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
         TimbiricheViews.Server.PlayerStyle[] GetMyStyles(int idPlayer);
         
@@ -1138,6 +1144,14 @@ namespace TimbiricheViews.Server {
             return base.Channel.SelectMyColorAsync(idPlayer, idColor);
         }
         
+        public bool CheckColorForPlayer(int idPlayer, int idColor) {
+            return base.Channel.CheckColorForPlayer(idPlayer, idColor);
+        }
+        
+        public System.Threading.Tasks.Task<bool> CheckColorForPlayerAsync(int idPlayer, int idColor) {
+            return base.Channel.CheckColorForPlayerAsync(idPlayer, idColor);
+        }
+        
         public TimbiricheViews.Server.PlayerStyle[] GetMyStyles(int idPlayer) {
             return base.Channel.GetMyStyles(idPlayer);
         }
@@ -1168,22 +1182,22 @@ namespace TimbiricheViews.Server {
     public interface IPlayerColorsManager {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
-        void SubscribeColorToColorsSelected();
+        void SubscribeColorToColorsSelected(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected")]
-        System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync();
+        System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
-        void RenewSubscriptionToColorsSelected(int idColor);
+        void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
-        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor);
+        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
-        void UnsubscribeColorToColorsSelected(int oldIdColor);
+        void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
-        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor);
+        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, int oldIdColor);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1227,28 +1241,28 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void SubscribeColorToColorsSelected() {
-            base.Channel.SubscribeColorToColorsSelected();
+        public void SubscribeColorToColorsSelected(string lobbyCode) {
+            base.Channel.SubscribeColorToColorsSelected(lobbyCode);
         }
         
-        public System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync() {
-            return base.Channel.SubscribeColorToColorsSelectedAsync();
+        public System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync(string lobbyCode) {
+            return base.Channel.SubscribeColorToColorsSelectedAsync(lobbyCode);
         }
         
-        public void RenewSubscriptionToColorsSelected(int idColor) {
-            base.Channel.RenewSubscriptionToColorsSelected(idColor);
+        public void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor) {
+            base.Channel.RenewSubscriptionToColorsSelected(lobbyCode, idColor);
         }
         
-        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(int idColor) {
-            return base.Channel.RenewSubscriptionToColorsSelectedAsync(idColor);
+        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, int idColor) {
+            return base.Channel.RenewSubscriptionToColorsSelectedAsync(lobbyCode, idColor);
         }
         
-        public void UnsubscribeColorToColorsSelected(int oldIdColor) {
-            base.Channel.UnsubscribeColorToColorsSelected(oldIdColor);
+        public void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor) {
+            base.Channel.UnsubscribeColorToColorsSelected(lobbyCode, oldIdColor);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(int oldIdColor) {
-            return base.Channel.UnsubscribeColorToColorsSelectedAsync(oldIdColor);
+        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, int oldIdColor) {
+            return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, oldIdColor);
         }
     }
 }

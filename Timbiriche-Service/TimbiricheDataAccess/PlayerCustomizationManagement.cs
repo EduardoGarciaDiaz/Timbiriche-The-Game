@@ -51,6 +51,24 @@ namespace TimbiricheDataAccess
             return rowsAffected;
         }
 
+        public bool SearchInMyColors(int idPlayer, int idColor)
+        {
+            bool hasColor = false;
+            using (var context = new TimbiricheDBEntities())
+            {
+                var playerColor = (from pc in context.PlayerColors
+                                where pc.idPlayer == idPlayer && pc.idColor == idColor
+                                select pc).ToList();
+
+
+                if (playerColor != null && playerColor.Count > 0)
+                {
+                    hasColor = true;
+                }
+            }
+            return hasColor;
+        }
+
         public List<PlayerStyles> GetMyStylesByIdPlayer(int idPlayer)
         {
             using (var context = new TimbiricheDBEntities())

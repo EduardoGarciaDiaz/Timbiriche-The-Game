@@ -19,6 +19,8 @@ namespace TimbiricheService
         [OperationContract]
         int SelectMyColor(int idPlayer, int idColor);
         [OperationContract]
+        bool CheckColorForPlayer(int idPlayer, int idColor);
+        [OperationContract]
         List<PlayerStyle> GetMyStyles(int idPlayer);
         [OperationContract]
         string GetStylePath(int idStyle);
@@ -30,11 +32,11 @@ namespace TimbiricheService
     public interface IPlayerColorsManager
     {
         [OperationContract(IsOneWay = true)]
-        void SubscribeColorToColorsSelected();
+        void SubscribeColorToColorsSelected(string lobbyCode);
         [OperationContract(IsOneWay = true)]
-        void RenewSubscriptionToColorsSelected(int idColor);
+        void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor);
         [OperationContract(IsOneWay = true)]
-        void UnsubscribeColorToColorsSelected(int oldIdColor);
+        void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor);
     }
 
     [ServiceContract]

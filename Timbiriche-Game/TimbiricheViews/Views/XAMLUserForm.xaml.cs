@@ -119,6 +119,8 @@ namespace TimbiricheViews.Views
             const string NOT_BANNED_STATUS = "Not-Banned";
             const int DEFAULT_NUMBER_OF_COINS = 0;
             const int DEFAULT_ID_COLOR_SELECTED = 0;
+            const int DEFAULT_ID_STYLE_SELECTED = 0;
+
             Server.Player newPlayer = new Server.Player()
             {
                 Username = tbxUsername.Text.Trim(),
@@ -127,7 +129,8 @@ namespace TimbiricheViews.Views
                 Coins = DEFAULT_NUMBER_OF_COINS,
                 Status = NOT_BANNED_STATUS,
                 AccountFK = account,
-                IdColorSelected = DEFAULT_ID_COLOR_SELECTED
+                IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                IdStyleSelected = DEFAULT_ID_STYLE_SELECTED,
             };
             return newPlayer;
         }

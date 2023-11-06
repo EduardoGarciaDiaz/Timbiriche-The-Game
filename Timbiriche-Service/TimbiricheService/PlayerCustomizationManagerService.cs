@@ -41,6 +41,12 @@ namespace TimbiricheService
             return dataAccess.UpdateMyColorSelected(idPlayer, idColor);
         }
 
+        public bool CheckColorForPlayer(int idPlayer, int idColor)
+        {
+            PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+            return dataAccess.SearchInMyColors(idPlayer, idColor);
+        }
+
         public List<PlayerStyle> GetMyStyles(int idPlayer)
         {
             List<PlayerStyle> myStyles = new List<PlayerStyle>();
@@ -75,39 +81,49 @@ namespace TimbiricheService
 
     public partial class UserManagerService : IPlayerColorsManager
     {
-        private static ConcurrentDictionary<int, IPlayerColorsManagerCallback> selectedColors = new ConcurrentDictionary<int, IPlayerColorsManagerCallback>();
+        private static ConcurrentDictionary<string, ConcurrentDictionary<int, IPlayerColorsManagerCallback>> selectedColorsByLobby = new ConcurrentDictionary<string, ConcurrentDictionary<int, IPlayerColorsManagerCallback>>();
+        private static Dictionary<string, List<IPlayerColorsManagerCallback>> playersWithDefaultColorByLobby = new Dictionary<string, List<IPlayerColorsManagerCallback>>();
         private const int DEFAULT_COLOR = 0;
 
-        private static List<IPlayerColorsManagerCallback> playersWithDefaultColor = new List<IPlayerColorsManagerCallback>();
-
-
-        public void SubscribeColorToColorsSelected()
+        public void SubscribeColorToColorsSelected(string lobbyCode)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            List<int> occupiedColors = selectedColors.Keys.ToList();
-            currentUserCallbackChannel.NotifyOccupiedColors(occupiedColors);
+            if (selectedColorsByLobby.ContainsKey(lobbyCode))
+            {
+                ConcurrentDictionary<int, IPlayerColorsManagerCallback> selectedColorsAuxiliar = selectedColorsByLobby[lobbyCode];
+                List<int> occupiedColors = selectedColorsAuxiliar.Keys.ToList();
+                currentUserCallbackChannel.NotifyOccupiedColors(occupiedColors);
+            }
         }
 
-        public void RenewSubscriptionToColorsSelected(int idColor)
+        public void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
 
             if (idColor == DEFAULT_COLOR)
             {
-                playersWithDefaultColor.Add(currentUserCallbackChannel);
-                currentUserCallbackChannel?.NotifyColorSelected(idColor);
-            }
-
-            if (!selectedColors.ContainsKey(idColor) && idColor > DEFAULT_COLOR)
-            {
-                selectedColors.TryAdd(idColor, currentUserCallbackChannel);
-                foreach (var colorSelector in selectedColors)
+                if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
                 {
-                    colorSelector.Value.NotifyColorSelected(idColor);                    
+                    playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
+                }
+                playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
+                currentUserCallbackChannel?.NotifyColorSelected(idColor);
+            } 
+            else if (!IsColorSelected(lobbyCode, idColor))
+            {
+                if (!selectedColorsByLobby.ContainsKey(lobbyCode))
+                {
+                    selectedColorsByLobby[lobbyCode] = new ConcurrentDictionary<int, IPlayerColorsManagerCallback>();
+                }
+
+                selectedColorsByLobby[lobbyCode].TryAdd(idColor, currentUserCallbackChannel);
+                foreach (var colorSelector in selectedColorsByLobby[lobbyCode])
+                {
+                    colorSelector.Value.NotifyColorSelected(idColor);
                 }
             }
-
-            foreach(var callbackChannel in playersWithDefaultColor)
+            
+            foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode])
             {
                 if (idColor != DEFAULT_COLOR)
                 {
@@ -116,24 +132,33 @@ namespace TimbiricheService
             }
         }
 
-        public void UnsubscribeColorToColorsSelected(int oldIdColor)
+        private bool IsColorSelected(string lobbyCode, int idColor)
+        {
+            bool isColorSelected = false;
+            if (selectedColorsByLobby.ContainsKey(lobbyCode))
+            {
+                isColorSelected = selectedColorsByLobby[lobbyCode].ContainsKey(idColor);
+            }
+            return isColorSelected;
+        }
+
+        public void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
 
-            if (selectedColors.ContainsKey(oldIdColor))
+            if (selectedColorsByLobby.ContainsKey(lobbyCode) && selectedColorsByLobby[lobbyCode].ContainsKey(oldIdColor))
             {
-                foreach (var colorSelector in selectedColors)
+                foreach (var colorSelector in selectedColorsByLobby[lobbyCode])
                 {
                     colorSelector.Value.NotifyColorUnselected(oldIdColor);
                 }
-                selectedColors.TryRemove(oldIdColor, out _);
+                selectedColorsByLobby[lobbyCode].TryRemove(oldIdColor, out _);
             }
 
-            if (playersWithDefaultColor.Contains(currentUserCallbackChannel))
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
             {
-                playersWithDefaultColor.Remove(currentUserCallbackChannel);
+                playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
-
         }
     }
 }

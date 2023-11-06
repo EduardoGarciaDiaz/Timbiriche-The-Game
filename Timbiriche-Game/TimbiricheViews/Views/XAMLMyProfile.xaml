@@ -31,39 +31,22 @@
                 <TextBlock x:Name = "tbkCustomizeCharacter" Text="{x:Static p:Resources.lbCustomizeCharacter}" TextWrapping="Wrap" Foreground="White" FontSize="62"  FontWeight="Bold"  FontFamily="Titan One" HorizontalAlignment="Left" Margin="729,96,0,494" Width="501" />
 
                 <Grid x:Name="gridSylesInstructions">
-                    <Label x:Name="lbCustomYourCharacter" Content="{x:Static p:Resources.lbCustomYourCharacter}" HorizontalAlignment="Left" Margin="71,167,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
-                    <Label x:Name="lbStyles" Content="{x:Static p:Resources.lbStyles}" HorizontalAlignment="Left" Margin="77,196,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="24"/>
-                    <Label x:Name="lbStylesInstruction" Content="{x:Static p:Resources.lbStylesInstrucion}" HorizontalAlignment="Left" Margin="77,230,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
+                    <Label x:Name="lbCustomYourCharacter" Content="{x:Static p:Resources.lbCustomYourCharacter}" HorizontalAlignment="Left" Margin="71,167,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+                    <Label x:Name="lbStyles" Content="{x:Static p:Resources.lbStyles}" HorizontalAlignment="Left" Margin="77,196,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26"/>
+                    <Label x:Name="lbStylesInstruction" Content="{x:Static p:Resources.lbStylesInstrucion}" HorizontalAlignment="Left" Margin="77,230,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+                    
                     <ScrollViewer Margin="79,258,54,100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <WrapPanel x:Name="wrapPanelPlayerStyles">
-                            <Rectangle x:Name="PlayerStyleBackgroundTemplate"  Fill="Transparent" Margin="15,10,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" MouseLeftButtonDown="RectangleStyle_Click" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
-                            <Rectangle x:Name="PlayerStyleTemplate"  Fill="#FF6C6868" Margin="-150,10,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" MouseLeftButtonDown="RectangleStyle_Click" Cursor="Hand" IsEnabled="False"/>
-                            <!--<Label x:Name="lbInitialPlayerNameLetter" Margin="-150,0,0,0" Foreground="White" Height="160" Width="150" Cursor="Hand" FontFamily="Inter" FontSize="135" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Collapsed" MouseLeftButtonDown="RectangleStyle_Click"/>-->
+                            <Grid x:Name="gridPlayerStyleTemplate" Width="161" Margin="15,10,0,0" Visibility="Collapsed" Cursor="Hand">
+                                <Rectangle x:Name="rectanglePlayerStyleBackgroundTemplate"  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
+                                <Label x:Name="lbPlayerStyleTemplate" Foreground="White" FontSize="105" HorizontalContentAlignment="Center" Visibility="Collapsed">
+                                </Label>
+                            </Grid>
+
                         </WrapPanel>
                     </ScrollViewer>
                 </Grid>
-
-
-
-
-                <Grid x:Name="gridColorsInstructions" Visibility="Collapsed">
-                    <Label x:Name="lbColors" Content="{x:Static p:Resources.lbColors}" HorizontalAlignment="Left" Margin="81,441,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="24"/>
-                    <Label x:Name="lbColorsInstruction" Content="{x:Static p:Resources.lbColorsInstruction}" HorizontalAlignment="Left" Margin="83,475,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter"/>
-                    <ScrollViewer Margin="79,500,54,107" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-                        <Grid x:Name="gridColors">
-                            <StackPanel Orientation="Horizontal">
-                                <Rectangle Fill="LightBlue" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Red" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Green" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-                                <Rectangle Fill="Purple" Margin="5,0,0,0"  RadiusX="20" RadiusY="20" Width="170"/>
-
-
-                            </StackPanel>
-
-                        </Grid>
-                    </ScrollViewer>
-
-                </Grid>
+                
             </Grid>
 
             <Grid x:Name="gridCustomizeProfile" Visibility="Collapsed">
@@ -99,15 +82,14 @@
                     <Label Content="*" HorizontalAlignment="Left" Margin="685,594,0,0" VerticalAlignment="Top" Foreground="White" Height="26" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="1131,483,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="18" FontFamily="Inter" FontSize="20"/>
 
-
+                    <Button  x:Name="btnSaveChanges" Content="{x:Static p:Resources.btnSaveChanges}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="905,688,27,0" Click="BtnSaveChanges_Click" Cursor="Hand"/>
                 </Grid>
 
             </Grid>
 
-            <Button  x:Name="btnSaveChanges" Content="{x:Static p:Resources.btnSaveChanges}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="905,688,27,0" Click="BtnSaveChanges_Click" Cursor="Hand"/>
 
 
-            <Label x:Name="lbUsername" Content="Label1111111111111111" HorizontalAlignment="Right" Margin="0,46,10,0" VerticalAlignment="Top" Foreground="White" Width="223" HorizontalContentAlignment="Right" FontFamily="Inter"/>
+            <Label x:Name="lbUsername" Content="" HorizontalAlignment="Right" Margin="0,46,10,0" VerticalAlignment="Top" Foreground="White" Width="223" HorizontalContentAlignment="Right" FontFamily="Inter"/>
             <Button x:Name="btnCharacter" Content="{x:Static p:Resources.btnCharacter}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
                 BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand" Click="BtnCharacter_Click"/>
             <Button x:Name="btnProfile" Content="{x:Static p:Resources.btnProfile}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 

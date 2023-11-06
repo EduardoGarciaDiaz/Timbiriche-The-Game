@@ -47,15 +47,20 @@
             <Label x:Name="lbCoins" FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Margin="85,628,0,0" Width="133" Height="50" Content="" VerticalContentAlignment="Center" MinHeight="1"/>
 
-            <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="364,662,548,64" />
-            <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
-                       FontSize="20" Content="" Margin="373,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            <Grid>
+                <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="364,662,548,64" />
+                <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
+                FontSize="20" Content="" Margin="373,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-            <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
 
-            <Rectangle x:Name="rectangleFirstPlayerColor" Fill="#E46161" RadiusX="25" RadiusY="25" Margin="382,373,568,149" />
-            <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
-                            FontSize="120" Content="" Margin="383,387,0,0" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+                <Rectangle x:Name="rectangleFirstPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="382,373,568,149" />
+                <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
+                 FontSize="120" Content="" Margin="383,373,0,0" Height="246" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+            </Grid>
+
+
             <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
             <Grid x:Name="gridMatchCreation" Margin="842,500,19,28">
@@ -78,31 +83,31 @@
             <Grid x:Name="gridSecondPlayer" Margin="78,246,912,288" Visibility="Collapsed">
                 <Rectangle x:Name="rectangleSecondPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
                 <Label x:Name="lbSecondPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
                 <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
-                <Rectangle x:Name="rectangleSecondPlayerColor"  Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Rectangle x:Name="rectangleSecondPlayerColor"  Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbSecondPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+                FontSize="70" Content="" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
             </Grid>
 
             <Grid x:Name="gridThirdPlayer" Margin="694,246,296,288" Visibility="Collapsed">
                 <Rectangle x:Name="rectangleThirdPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
                 <Label x:Name="lbThirdPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
                 <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
-                <Rectangle x:Name="rectangleThirdPlayerColor" Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Rectangle x:Name="rectangleThirdPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbThirdPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                    FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+                    FontSize="70" Content="" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
             </Grid>
 
             <Grid x:Name="gridFourthPlayer" Margin="951,246,39,288" Visibility="Collapsed">
                 <Rectangle x:Name="rectangleFourthPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
                 <Label x:Name="lbFourthPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                    FontSize="20" Content="JhonFKenn23" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
                 <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
-                <Rectangle x:Name="rectangleFourthPlayerColor" Fill="#0CB6DC" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Rectangle x:Name="rectangleFourthPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbFourthPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
-                    FontSize="70" Content="L" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+                    FontSize="70" Content="" Height="220" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
             </Grid>
 
             <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">

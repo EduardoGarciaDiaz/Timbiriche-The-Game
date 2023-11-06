@@ -65,6 +65,7 @@ namespace TimbiricheService
                     Status = playerValidated.status,
                     Salt = playerValidated.salt,
                     IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                    IdStyleSelected = (int)playerValidated.idStyleSelected,
                     AccountFK = account,
                 };
 

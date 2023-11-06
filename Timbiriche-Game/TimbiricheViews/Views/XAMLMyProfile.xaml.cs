@@ -27,7 +27,7 @@ namespace TimbiricheViews.Views
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
         private PlayerStyle[] _myStyles;
         private string _initialPlayerNameLetter;
-        private string _hexadecimalColorRectangle = "#FF6C6868";
+        private string HEXADECIMAL_COLOR_RECTANGLE = "#FF6C6868";
         private const string SELECTED_STROKE_STYLE_HEXADECIMAL = "#000000";
 
         private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
@@ -36,8 +36,6 @@ namespace TimbiricheViews.Views
             .ConvertFrom(HEXADECIMAL_COLOR_BTN_PRESSED));
         private SolidColorBrush colorButtonNotPressed = (SolidColorBrush)(new BrushConverter()
             .ConvertFrom(HEXADECIMAL_COLOR_BTN_NOT_PRESSED));
-
-
 
         public XAMLMyProfile()
         {
@@ -82,74 +80,98 @@ namespace TimbiricheViews.Views
 
         private void SetMyStyles()
         {
-            //SetDefaultStyleFacebox();
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            SetDefaultStyleFacebox();
             SolidColorBrush colorBackground;
             foreach (PlayerStyle playerStyle in _myStyles)
             {
-                string stylePath = playerCustomizationManagerClient.GetStylePath(playerStyle.IdStyle);
-
-                string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
-                ImageBrush styleImage = CreateImageByPath(absolutePath);
-                Rectangle styleRectangle = CreateStylesRectangles(playerStyle.IdStyle, styleImage, PlayerStyleTemplate);
-
-                colorBackground = Utilities.CreateColorFromHexadecimal(_hexadecimalColorRectangle);
-                Rectangle backgroundRectangle = CreateBackgroundRectangle(playerStyle.IdStyle, colorBackground,
-                    PlayerStyleBackgroundTemplate);
-
-                wrapPanelPlayerStyles.Children.Add(backgroundRectangle);
-                wrapPanelPlayerStyles.Children.Add(styleRectangle);
+                Grid gridPlayerStyle = CreateStyle(playerStyle);
+                wrapPanelPlayerStyles.Children.Add(gridPlayerStyle);
             }
         }
 
-        //private void SetDefaultStyleFacebox()
-        //{
-        //    SolidColorBrush colorBackground;
-        //    const int ID_DEFAULT_STYLE = 0;
-        //    colorBackground = Utilities.CreateColorFromHexadecimal(_hexadecimalColorRectangle);
-        //    Label lbInitialNameLetter = XamlReader.Parse(XamlWriter.Save(lbInitialPlayerNameLetter)) as Label;
 
-        //    Rectangle backgroundRectangle = CreateBackgroundRectangle(ID_DEFAULT_STYLE, colorBackground,
-        //        PlayerStyleBackgroundTemplate);
-
-        //    lbInitialNameLetter.Name = "styleRectangle" + "_" + ID_DEFAULT_STYLE;
-        //    lbInitialNameLetter.Content = _initialPlayerNameLetter;
-        //    lbInitialNameLetter.MouseLeftButtonDown += RectangleStyle_Click;
-        //    lbInitialNameLetter.Visibility = Visibility.Visible;
-
-        //    wrapPanelPlayerStyles.Children.Add(backgroundRectangle);
-        //    wrapPanelPlayerStyles.Children.Add(lbInitialNameLetter);
-        //}
-
-        private Rectangle CreateBackgroundRectangle(int idStyle, SolidColorBrush colorBackground, Rectangle rectangleTemplate)
+        private Grid CreateStyle(PlayerStyle playerStyle)
         {
-            Rectangle backgroundRectangle = XamlReader.Parse(XamlWriter.Save(rectangleTemplate)) as Rectangle;
-            backgroundRectangle.Name = "backgroundRectangle" + "_" + idStyle;
+            int idStyle = playerStyle.IdStyle;
+            SolidColorBrush colorBackground;
+            colorBackground = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_RECTANGLE);
+
+            Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
+            gridPlayerStyle.Name = "gridStylePlayer" + "_" + idStyle;
+            gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
+            gridPlayerStyle.IsEnabled = true;
+            gridPlayerStyle.Visibility = Visibility.Visible;
+
+            Rectangle rectangleBackground = CreateBackgroundRectangle(idStyle, colorBackground);
+            Label lbPlayerStyle = CreateLabelPlayerStyle(idStyle);
+
+            gridPlayerStyle.Children.Add(rectangleBackground);
+            gridPlayerStyle.Children.Add(lbPlayerStyle);
+
+            return gridPlayerStyle;
+        }
+
+        private void SetDefaultStyleFacebox()
+        {
+            SolidColorBrush colorBackground;
+            const int ID_DEFAULT_STYLE = 0;
+            colorBackground = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_RECTANGLE);
+
+            Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
+            gridPlayerStyle.Name = "gridStylePlayer" + "_" + ID_DEFAULT_STYLE;
+            gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
+            gridPlayerStyle.IsEnabled = true;
+            gridPlayerStyle.Visibility = Visibility.Visible;
+
+            Label lbInitialNameLetter = XamlReader.Parse(XamlWriter.Save(lbPlayerStyleTemplate)) as Label;
+
+            Rectangle backgroundRectangle = CreateBackgroundRectangle(ID_DEFAULT_STYLE, colorBackground);
+
+            lbInitialNameLetter.Name = "lbPlayerStyle" + "_" + ID_DEFAULT_STYLE;
+            lbInitialNameLetter.Content = _initialPlayerNameLetter;
+            lbInitialNameLetter.Visibility = Visibility.Visible;
+
+            gridPlayerStyle.Children.Add(backgroundRectangle);
+            gridPlayerStyle.Children.Add(lbInitialNameLetter);
+            wrapPanelPlayerStyles.Children.Add(gridPlayerStyle);
+        }
+
+        private Rectangle CreateBackgroundRectangle(int idStyle, SolidColorBrush colorBackground)
+        {
+            Rectangle backgroundRectangle = XamlReader.Parse(XamlWriter.Save(rectanglePlayerStyleBackgroundTemplate)) as Rectangle;
+            backgroundRectangle.Name = "rectangleBackground" + "_" + idStyle;
             backgroundRectangle.Fill = colorBackground;
             backgroundRectangle.IsEnabled = false;
             backgroundRectangle.Visibility = Visibility.Visible;
             return backgroundRectangle;
         }
 
-        private Rectangle CreateStylesRectangles(int idStyle, ImageBrush styleImage, Rectangle rectangleTemplate)
+        private Label CreateLabelPlayerStyle(int idStyle)
         {
-            Rectangle styleRectangle = XamlReader.Parse(XamlWriter.Save(rectangleTemplate)) as Rectangle;
-            styleRectangle.Name = "styleRectangle" + "_" + idStyle;
-            styleRectangle.Fill = styleImage;
-            styleRectangle.MouseLeftButtonDown += RectangleStyle_Click;
-            styleRectangle.IsEnabled = true;
-            styleRectangle.Visibility = Visibility.Visible;
-            return styleRectangle;
+            Image styleImage = CreateImageByPath(idStyle);
+
+            Label lbStyle = XamlReader.Parse(XamlWriter.Save(lbPlayerStyleTemplate)) as Label;
+
+            lbStyle.Name = "lbPlayerStyle" + "_" + idStyle;
+            lbStyle.Content = styleImage;
+            lbStyle.Visibility = Visibility.Visible;
+            return lbStyle;
         }
 
-        private ImageBrush CreateImageByPath(string stylePath)
+        private Image CreateImageByPath(int idStyle)
         {
-            ImageBrush styleImage = new ImageBrush();
-            BitmapImage bitmapImage = new BitmapImage(new Uri(stylePath));
-            styleImage.ImageSource = bitmapImage;
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+
+            string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
+
+            Image styleImage = new Image();
+            BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
+            styleImage.Source = bitmapImage;
 
             return styleImage;
         }
+
 
         private void BtnProfile_Click(object sender, RoutedEventArgs e)
         {
@@ -157,7 +179,6 @@ namespace TimbiricheViews.Views
             gridCustomizeCharacter.Visibility = Visibility.Collapsed;
             btnProfile.Background = colorButtonPressed;
             btnCharacter.Background = colorButtonNotPressed;
-
         }
 
         private void BtnCharacter_Click(object sender, RoutedEventArgs e)
@@ -168,42 +189,43 @@ namespace TimbiricheViews.Views
             btnProfile.Background = colorButtonNotPressed;
         }
 
-        private void RectangleStyle_Click(object sender, MouseButtonEventArgs e)
+        private void GridStyle_Click(object sender, MouseButtonEventArgs e)
         {
-            Rectangle clickedRectangle = sender as Rectangle;
-            SelectStyle(clickedRectangle);
+            Grid clickedGrid = sender as Grid;
+            SelectStyle(clickedGrid);
         }
 
-        private void SelectStyle(Rectangle rectangleSelected)
+        private void SelectStyle(Grid gridSelected)
         {
             const char SPLIT_SYMBOL = '_';
             const int INDEX_ID_COLOR_PART = 1;
-            string[] nameParts = rectangleSelected.Name.ToString().Split(SPLIT_SYMBOL);
+            string[] nameParts = gridSelected.Name.ToString().Split(SPLIT_SYMBOL);
             int idStyle = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
 
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             playerCustomizationManagerClient.SelectMyStyle(playerLoggedIn.IdPlayer, idStyle);
             playerLoggedIn.IdStyleSelected = idStyle;
 
-            MarkAsSelectedStyle(rectangleSelected);
+            MarkAsSelectedStyle(gridSelected);
         }
 
-        private void MarkAsSelectedStyle(Rectangle rectangleSelected)
+        private void MarkAsSelectedStyle(Grid gridSelected)
         {
+            Rectangle rectangleSelected = gridSelected.Children[0] as Rectangle;
             SolidColorBrush blackColor = Utilities.CreateColorFromHexadecimal(SELECTED_STROKE_STYLE_HEXADECIMAL);
             rectangleSelected.Stroke = blackColor;
-            rectangleSelected.StrokeThickness = 2;
-            ClearOtherStylesSelections(rectangleSelected);
-            // TODO: UpdatePlayerStyle(rectangleSelected);
+            rectangleSelected.StrokeThickness = 15;
+            ClearOtherStylesSelections(gridSelected);
         }
 
-        private void ClearOtherStylesSelections(Rectangle rectangleSelected)
+        private void ClearOtherStylesSelections(Grid gridSelected)
         {
-            foreach (Rectangle styleRectangle in wrapPanelPlayerStyles.Children)
+            foreach (Grid gridStylePlayer in wrapPanelPlayerStyles.Children)
             {
-                if (styleRectangle.Name != rectangleSelected.Name)
+                if (gridStylePlayer.Name != gridSelected.Name)
                 {
-                    styleRectangle.Stroke = null;
+                    Rectangle rectangleStyle = gridStylePlayer.Children[0] as Rectangle;
+                    rectangleStyle.Stroke = null;
                 }
             }
         }
