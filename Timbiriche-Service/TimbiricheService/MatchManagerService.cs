@@ -10,57 +10,57 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IMatchManager
     {
-        Dictionary<string, Match.Match> matches = new Dictionary<string, Match.Match> ();
+        private static Dictionary<string, Match.Match> matches = new Dictionary<string, Match.Match>();
 
         public void RegisterToTheMatch(string lobbyCode, string username)
         {
-
-            if (!lobbies.ContainsKey(lobbyCode))
-            {
-                LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
-                List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
-
-                Match.Match match = new Match.Match(lobbyInformation, players);
-                matches.Add(lobbyCode, match);
-                lobbies.Remove(lobbyCode);
-            }
-
             IMatchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IMatchManagerCallback>();
 
-            if (matches.ContainsKey(lobbyCode))
+            Match.Match match = matches[lobbyCode];
+               
+            foreach(var player in match.Players)
             {
-                Match.Match match = matches[lobbyCode];
-                
-                foreach(var player in match.Players)
+                if(player.Username == username)
                 {
-                    if(player.Username == username)
-                    {
-                        player.MatchCallbackChannel = currentUserCallbackChannel;
-                    }
+                    player.MatchCallbackChannel = currentUserCallbackChannel;
                 }
             }
+
+            matches[lobbyCode] = match;
         }
 
         public void EndTurn(string lobbyCode, string typeLine, int row, int column)
         {
-            if(matches.ContainsKey(lobbyCode))
+            Match.Match match = matches[lobbyCode];
+
+            foreach (LobbyPlayer player in match.Players)
             {
-                Match.Match match = matches[lobbyCode];
-
-                foreach(LobbyPlayer player in match.Players)
+                if (player != match.GetTurnPlayer())
                 {
-                    if(player != match.GetTurnPlayer())
-                    {
-                        player.MatchCallbackChannel.NotifyMovement(typeLine, row, column);
-                    }
+                    player.MatchCallbackChannel.NotifyMovement(typeLine, row, column);
                 }
+            }
 
-                match.NextTurn();
-                LobbyPlayer temporalPlayer = match.GetTurnPlayer();
+            match.NextTurn();
+            LobbyPlayer temporalPlayer = match.GetTurnPlayer();
 
-                foreach(LobbyPlayer player in match.Players)
+            foreach (LobbyPlayer player in match.Players)
+            {
+                player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+            }
+
+            matches[lobbyCode] = match;
+        }
+
+        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message)
+        {
+            Match.Match match = matches[lobbyCode];
+
+            foreach (var player in match.Players)
+            {
+                if (player.Username != senderUsername)
                 {
-                    player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+                    player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message);
                 }
             }
         }

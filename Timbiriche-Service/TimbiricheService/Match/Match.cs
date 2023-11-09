@@ -64,6 +64,7 @@ namespace TimbiricheService.Match
         private void InitializeScoreboard()
         {
             int initialPoints = 0;
+            _scoreboard = new Dictionary<LobbyPlayer, int>();
             foreach(LobbyPlayer player in _players)
             {
                 _scoreboard.Add(player, initialPoints);

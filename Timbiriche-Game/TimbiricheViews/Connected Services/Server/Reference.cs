@@ -928,6 +928,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
         System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
+        void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
+        System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -938,6 +944,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyMovement", ReplyAction="http://tempuri.org/IMatchManager/NotifyMovementResponse")]
         void NotifyMovement(string typeLine, int row, int column);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
+        void NotifyNewMessage(string senderUsername, string message);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -982,6 +991,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column) {
             return base.Channel.EndTurnAsync(lobbyCode, typeLine, row, column);
+        }
+        
+        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message) {
+            base.Channel.SendMessageToLobby(lobbyCode, senderUsername, message);
+        }
+        
+        public System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message) {
+            return base.Channel.SendMessageToLobbyAsync(lobbyCode, senderUsername, message);
         }
     }
     

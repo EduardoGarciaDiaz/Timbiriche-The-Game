@@ -43,8 +43,6 @@ namespace TimbiricheViews.Views
             LoadFaceBox();
         }
 
-
-
         private void LoadDataPlayer()
         {
             lbUsername.Content = playerLoggedIn.Username;
@@ -272,7 +270,7 @@ namespace TimbiricheViews.Views
 
         public void NotifyStartOfMatch()
         {
-            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
+             NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
         }
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
@@ -310,6 +308,8 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
             client.StartMatch(_lobbyCode);
+
+            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
         }
 
     }

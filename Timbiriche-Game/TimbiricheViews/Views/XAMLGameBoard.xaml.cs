@@ -15,6 +15,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Components.Match;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 
@@ -33,18 +34,15 @@ namespace TimbiricheViews.Views
         private bool _itsMyTurn;
         private string _lobbyCode;
 
-
         public XAMLGameBoard(string lobbyCode)
         {
+            InitializeComponent();
+            InitializeGameBoard();
             _lobbyCode = lobbyCode;
 
             InstanceContext context = new InstanceContext(this);
             MatchManagerClient client = new MatchManagerClient(context);
             client.RegisterToTheMatch(_lobbyCode, PlayerSingleton.Player.Username);
-
-            
-            InitializeComponent();
-            InitializeGameBoard();
         }
 
         private void InitializeGameBoard()
@@ -202,7 +200,6 @@ namespace TimbiricheViews.Views
             Grid.SetColumn(imageWhoScore, column);
             gridGameBoard.Children.Add(imageWhoScore);
         }
-
     }
 
     public partial class XAMLGameBoard : IMatchManagerCallback
@@ -215,19 +212,42 @@ namespace TimbiricheViews.Views
 
         public void NotifyNewTurn(string username)
         {
-            if(PlayerSingleton.Player.Username == username)
-            {
-                _itsMyTurn = true;
-            }
-            else
-            {
-                _itsMyTurn = false;
-            }
+            lbTurnOfUsername.Content = username;
+            _itsMyTurn = (PlayerSingleton.Player.Username == username) ? true : false;
+            
+
+        }
+
+        public void NotifyNewMessage(string senderUsername, string message)
+        {
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
+            messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
+
+            stackPanelMessages.Children.Add(messageComponent);
         }
 
         private Button FindButtonByName(string name)
         {
             return (Button)LogicalTreeHelper.FindLogicalNode(this, name);
+        }
+
+        private void BtnSendMessage_Click(object sender, RoutedEventArgs e)
+        {
+            if(tbxMessage.Text != null && tbxMessage.Text.Length != 0)
+            {
+                string senderUsername = PlayerSingleton.Player.Username;
+                string message = tbxMessage.Text;
+
+                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
+                messageComponent.HorizontalAlignment = HorizontalAlignment.Right;
+
+                stackPanelMessages.Children.Add(messageComponent);
+                tbxMessage.Text = "";
+
+                InstanceContext context = new InstanceContext(this);
+                Server.MatchManagerClient client = new Server.MatchManagerClient(context);
+                client.SendMessageToLobby(_lobbyCode, senderUsername, message);
+            }
         }
     }
 }

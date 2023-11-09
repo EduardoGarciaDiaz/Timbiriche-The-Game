@@ -226,24 +226,8 @@
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,59,0,0" />
 
                 <Grid Margin="21,80,10,81">
-                    <ScrollViewer>
-                        <StackPanel>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="8" Margin="5" HorizontalAlignment="Left" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="DairyPanter8" Foreground="#32B3C2" FontFamily="Inter" FontSize="9"/>
-                                    <Border>
-                                        <TextBlock FontFamily="Inter" FontSize="9" FontWeight="Bold" Text="Este es el mensaje hijo de re mil putas!"/>
-                                    </Border>
-                                </StackPanel>
-                            </Border>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="5" Margin="5" HorizontalAlignment="Right" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="DairyPanter8" Foreground="#32B3C2" FontFamily="Inter" FontSize="9"/>
-                                    <Border>
-                                        <TextBlock FontFamily="Inter" FontSize="9" FontWeight="Bold" Text="Este es el mensaje hijo de re mil putas!"/>
-                                    </Border>
-                                </StackPanel>
-                            </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="stackPanelMessages">
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -251,8 +235,10 @@
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,317,0,0" />
                 <Rectangle Fill="#0094FF" RadiusX="20" RadiusY="20" Margin="313,330,16,14"/>
-                <TextBox  FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-                    VerticalContentAlignment="Center" Margin="21,330,76,14" />
+                <Button Background="Transparent" Margin="313,330,16,14" Click="BtnSendMessage_Click"/>
+                <Rectangle Fill="White" Margin="21,330,76,14" RadiusX="18" RadiusY="18"/>
+                <TextBox x:Name="tbxMessage" FontFamily="Inter" FontSize="16"
+                    VerticalContentAlignment="Center" Margin="31,330,92,14" Background="Transparent" BorderBrush="Transparent"/>
             </Grid>
 
             <Grid x:Name="gridScoreboard" Margin="776,30,42,437">
@@ -278,7 +264,7 @@
 
                 <Rectangle Grid.Column="3" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,0,0"/>
                 <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top">Turno de</Label>
-                <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,3">DairyPanter8</Label>
+                <Label x:Name="lbTurnOfUsername" Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,3">DairyPanter8</Label>
                 <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,6,2">00:25</Label>
 
             </Grid>
