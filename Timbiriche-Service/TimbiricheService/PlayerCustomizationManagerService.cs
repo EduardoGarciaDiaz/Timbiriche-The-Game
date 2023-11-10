@@ -81,84 +81,131 @@ namespace TimbiricheService
 
     public partial class UserManagerService : IPlayerColorsManager
     {
-        private static ConcurrentDictionary<string, ConcurrentDictionary<int, IPlayerColorsManagerCallback>> selectedColorsByLobby = new ConcurrentDictionary<string, ConcurrentDictionary<int, IPlayerColorsManagerCallback>>();
-        private static Dictionary<string, List<IPlayerColorsManagerCallback>> playersWithDefaultColorByLobby = new Dictionary<string, List<IPlayerColorsManagerCallback>>();
         private const int DEFAULT_COLOR = 0;
+        private static Dictionary<string, List<IPlayerColorsManagerCallback>> playersWithDefaultColorByLobby = new Dictionary<string, List<IPlayerColorsManagerCallback>>();
 
         public void SubscribeColorToColorsSelected(string lobbyCode)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            if (selectedColorsByLobby.ContainsKey(lobbyCode))
+            if (LobbyExists(lobbyCode))
             {
-                ConcurrentDictionary<int, IPlayerColorsManagerCallback> selectedColorsAuxiliar = selectedColorsByLobby[lobbyCode];
-                List<int> occupiedColors = selectedColorsAuxiliar.Keys.ToList();
-                currentUserCallbackChannel.NotifyOccupiedColors(occupiedColors);
+                List<LobbyPlayer> playersColorSelection = lobbies[lobbyCode].Item2;
+                currentUserCallbackChannel.NotifyOccupiedColors(playersColorSelection);
             }
         }
 
-        public void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor)
+        public void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
+            int idColor = lobbyPlayer.HexadecimalColor;
 
             if (idColor == DEFAULT_COLOR)
             {
-                if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
-                {
-                    playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
-                }
-                playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
-                currentUserCallbackChannel?.NotifyColorSelected(idColor);
-            } 
+                HandleDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
+            }
             else if (!IsColorSelected(lobbyCode, idColor))
             {
-                if (!selectedColorsByLobby.ContainsKey(lobbyCode))
-                {
-                    selectedColorsByLobby[lobbyCode] = new ConcurrentDictionary<int, IPlayerColorsManagerCallback>();
-                }
+                HandleNonDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
+            }
+            InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor);
+        }
 
-                selectedColorsByLobby[lobbyCode].TryAdd(idColor, currentUserCallbackChannel);
-                foreach (var colorSelector in selectedColorsByLobby[lobbyCode])
+        private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
+            int idColor = lobbyPlayer.HexadecimalColor;
+            if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
+            {
+                playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
+            }
+            playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
+            //currentUserCallbackChannel?.NotifyColorSelected(lobbyPlayer);
+        }
+
+        private void HandleNonDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                if (auxiliarPlayer != null)
                 {
-                    colorSelector.Value.NotifyColorSelected(idColor);
+                    auxiliarPlayer.HexadecimalColor = lobbyPlayer.HexadecimalColor;
+                    auxiliarPlayer.ColorCallbackChannel = currentUserCallbackChannel;
+                }
+                foreach (var colorSelector in lobbies[lobbyCode].Item2)
+                {
+                    colorSelector.ColorCallbackChannel?.NotifyColorSelected(lobbyPlayer);
                 }
             }
-            
+        }
+
+        private void InformDefaultColorSubscriptors(string lobbyCode, LobbyPlayer lobbyPlayer, int idColor)
+        {
             foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode])
             {
                 if (idColor != DEFAULT_COLOR)
                 {
-                    callbackChannel.NotifyColorSelected(idColor);
+                    callbackChannel?.NotifyColorSelected(lobbyPlayer);
                 }
+            }
+        }
+
+        private LobbyPlayer GetLobbyPlayerByUsername(string lobbyCode, string username)
+        {
+            List<LobbyPlayer> lobbyPlayerList = GetLobbyPlayersList(lobbyCode);
+            return lobbyPlayerList.Find(player => player.Username == username);
+        }
+
+        private List<LobbyPlayer> GetLobbyPlayersList(string lobbyCode)
+        {
+            return lobbies[lobbyCode].Item2;
+        }
+
+        public void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
+        {
+            IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
+            int idColor = lobbyPlayer.HexadecimalColor;
+            if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
+            {
+                List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
+                foreach (var player in lobbyPlayers)
+                {
+                    player.ColorCallbackChannel?.NotifyColorUnselected(idColor);
+                }
+            }
+            
+            foreach(var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode])
+            {
+                callbackPlayer.NotifyColorUnselected(idColor);
+            }
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
+            {
+                playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
         }
 
         private bool IsColorSelected(string lobbyCode, int idColor)
         {
             bool isColorSelected = false;
-            if (selectedColorsByLobby.ContainsKey(lobbyCode))
+            if (LobbyExists(lobbyCode))
             {
-                isColorSelected = selectedColorsByLobby[lobbyCode].ContainsKey(idColor);
+                LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.HexadecimalColor == idColor);
+                if (playerHasColor != null)
+                {
+                    isColorSelected = true;
+                }
             }
             return isColorSelected;
         }
 
-        public void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor)
+        private bool LobbyExists(string lobbyCode)
         {
-            IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-
-            if (selectedColorsByLobby.ContainsKey(lobbyCode) && selectedColorsByLobby[lobbyCode].ContainsKey(oldIdColor))
+            bool doesLobbyExist = false;
+            if (lobbies.ContainsKey(lobbyCode))
             {
-                foreach (var colorSelector in selectedColorsByLobby[lobbyCode])
-                {
-                    colorSelector.Value.NotifyColorUnselected(oldIdColor);
-                }
-                selectedColorsByLobby[lobbyCode].TryRemove(oldIdColor, out _);
+                doesLobbyExist = true;
             }
-
-            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
-            {
-                playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
-            }
+            return doesLobbyExist;
         }
+
     }
 }

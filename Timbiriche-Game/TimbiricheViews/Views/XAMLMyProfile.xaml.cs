@@ -29,7 +29,6 @@ namespace TimbiricheViews.Views
         private string _initialPlayerNameLetter;
         private string HEXADECIMAL_COLOR_RECTANGLE = "#FF6C6868";
         private const string SELECTED_STROKE_STYLE_HEXADECIMAL = "#000000";
-
         private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
         private const string HEXADECIMAL_COLOR_BTN_NOT_PRESSED = "#1C95D1";
         private SolidColorBrush colorButtonPressed = (SolidColorBrush)(new BrushConverter()
@@ -81,7 +80,6 @@ namespace TimbiricheViews.Views
         private void SetMyStyles()
         {
             SetDefaultStyleFacebox();
-            SolidColorBrush colorBackground;
             foreach (PlayerStyle playerStyle in _myStyles)
             {
                 Grid gridPlayerStyle = CreateStyle(playerStyle);
@@ -89,34 +87,9 @@ namespace TimbiricheViews.Views
             }
         }
 
-
-        private Grid CreateStyle(PlayerStyle playerStyle)
-        {
-            int idStyle = playerStyle.IdStyle;
-            SolidColorBrush colorBackground;
-            colorBackground = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_RECTANGLE);
-
-            Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
-            gridPlayerStyle.Name = "gridStylePlayer" + "_" + idStyle;
-            gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
-            gridPlayerStyle.IsEnabled = true;
-            gridPlayerStyle.Visibility = Visibility.Visible;
-
-            Rectangle rectangleBackground = CreateBackgroundRectangle(idStyle, colorBackground);
-            Label lbPlayerStyle = CreateLabelPlayerStyle(idStyle);
-
-            gridPlayerStyle.Children.Add(rectangleBackground);
-            gridPlayerStyle.Children.Add(lbPlayerStyle);
-
-            return gridPlayerStyle;
-        }
-
         private void SetDefaultStyleFacebox()
         {
-            SolidColorBrush colorBackground;
             const int ID_DEFAULT_STYLE = 0;
-            colorBackground = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_RECTANGLE);
-
             Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
             gridPlayerStyle.Name = "gridStylePlayer" + "_" + ID_DEFAULT_STYLE;
             gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
@@ -125,7 +98,7 @@ namespace TimbiricheViews.Views
 
             Label lbInitialNameLetter = XamlReader.Parse(XamlWriter.Save(lbPlayerStyleTemplate)) as Label;
 
-            Rectangle backgroundRectangle = CreateBackgroundRectangle(ID_DEFAULT_STYLE, colorBackground);
+            Rectangle backgroundRectangle = CreateBackgroundRectangle(ID_DEFAULT_STYLE);
 
             lbInitialNameLetter.Name = "lbPlayerStyle" + "_" + ID_DEFAULT_STYLE;
             lbInitialNameLetter.Content = _initialPlayerNameLetter;
@@ -136,8 +109,27 @@ namespace TimbiricheViews.Views
             wrapPanelPlayerStyles.Children.Add(gridPlayerStyle);
         }
 
-        private Rectangle CreateBackgroundRectangle(int idStyle, SolidColorBrush colorBackground)
+        private Grid CreateStyle(PlayerStyle playerStyle)
         {
+            int idStyle = playerStyle.IdStyle;
+            Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
+            gridPlayerStyle.Name = "gridStylePlayer" + "_" + idStyle;
+            gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
+            gridPlayerStyle.IsEnabled = true;
+            gridPlayerStyle.Visibility = Visibility.Visible;
+
+            Rectangle rectangleBackground = CreateBackgroundRectangle(idStyle);
+            Label lbPlayerStyle = CreateLabelPlayerStyle(idStyle);
+
+            gridPlayerStyle.Children.Add(rectangleBackground);
+            gridPlayerStyle.Children.Add(lbPlayerStyle);
+
+            return gridPlayerStyle;
+        }
+
+        private Rectangle CreateBackgroundRectangle(int idStyle)
+        {
+            SolidColorBrush colorBackground = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_RECTANGLE);
             Rectangle backgroundRectangle = XamlReader.Parse(XamlWriter.Save(rectanglePlayerStyleBackgroundTemplate)) as Rectangle;
             backgroundRectangle.Name = "rectangleBackground" + "_" + idStyle;
             backgroundRectangle.Fill = colorBackground;
@@ -211,21 +203,24 @@ namespace TimbiricheViews.Views
 
         private void MarkAsSelectedStyle(Grid gridSelected)
         {
-            Rectangle rectangleSelected = gridSelected.Children[0] as Rectangle;
-            SolidColorBrush blackColor = Utilities.CreateColorFromHexadecimal(SELECTED_STROKE_STYLE_HEXADECIMAL);
-            rectangleSelected.Stroke = blackColor;
-            rectangleSelected.StrokeThickness = 15;
+            const int SIZE_STYLE_SELECTED = 170;
+            Rectangle rectangleSelected = gridSelected.Children[2] as Rectangle;
+            rectangleSelected.Width = SIZE_STYLE_SELECTED;
+            rectangleSelected.Height = SIZE_STYLE_SELECTED;
             ClearOtherStylesSelections(gridSelected);
         }
 
         private void ClearOtherStylesSelections(Grid gridSelected)
         {
+            const int SIZE_STYLE_NOT_SELECTED = 150;
             foreach (Grid gridStylePlayer in wrapPanelPlayerStyles.Children)
             {
-                if (gridStylePlayer.Name != gridSelected.Name)
+                if (gridStylePlayer.Name != gridSelected.Name && !gridStylePlayer.Name.Equals("gridPlayerStyleTemplate"))
                 {
-                    Rectangle rectangleStyle = gridStylePlayer.Children[0] as Rectangle;
-                    rectangleStyle.Stroke = null;
+                    Rectangle rectangleStyle = gridStylePlayer.Children[2] as Rectangle;
+
+                    rectangleStyle.Width = SIZE_STYLE_NOT_SELECTED;
+                    rectangleStyle.Height = SIZE_STYLE_NOT_SELECTED;
                 }
             }
         }

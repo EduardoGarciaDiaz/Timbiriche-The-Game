@@ -34,22 +34,21 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void SubscribeColorToColorsSelected(string lobbyCode);
         [OperationContract(IsOneWay = true)]
-        void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor);
+        void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer);
         [OperationContract(IsOneWay = true)]
-        void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor);
+        void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer);
     }
 
     [ServiceContract]
     public interface IPlayerColorsManagerCallback
     {
         [OperationContract]
-        void NotifyColorSelected(int idSelectedColor);
+        void NotifyColorSelected(LobbyPlayer lobbyPlayer);
         [OperationContract]
         void NotifyColorUnselected(int idUnselectedColor);
         [OperationContract]
-        void NotifyOccupiedColors(List<int> occupiedColors);
+        void NotifyOccupiedColors(List<LobbyPlayer> occupiedColors);
     }
-
 
 
     [DataContract]

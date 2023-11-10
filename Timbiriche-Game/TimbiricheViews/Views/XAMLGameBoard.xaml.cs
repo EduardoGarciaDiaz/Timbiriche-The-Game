@@ -77,7 +77,7 @@ namespace TimbiricheViews.Views
         {
             Button btnLine = XamlReader.Parse(XamlWriter.Save(buttonTemplate)) as Button;
             btnLine.Click += BtnLine_Click;
-            btnLine.Name = typeLine + "Q" + row + "Q" + column;
+            btnLine.Name = typeLine + "_" + row + "_" + column;
             btnLine.Tag = typeLine + "," + row + "," + column;
             btnLine.IsEnabled = true;
             btnLine.Visibility = Visibility.Visible;
@@ -212,7 +212,7 @@ namespace TimbiricheViews.Views
         {
             Image imageWhoScore = new Image();
             // TODO: Utilities for transform Images
-            BitmapImage bitmapImage = new BitmapImage(new Uri("../Resources/close.png", UriKind.RelativeOrAbsolute));
+            BitmapImage bitmapImage = new BitmapImage(new Uri("../Resources/Skins/basicBox.png", UriKind.RelativeOrAbsolute));
             imageWhoScore.Source = bitmapImage;
             Grid.SetRow(imageWhoScore, row);
             Grid.SetColumn(imageWhoScore, column);

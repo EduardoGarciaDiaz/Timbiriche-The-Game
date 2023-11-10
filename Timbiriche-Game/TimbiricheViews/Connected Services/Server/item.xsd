@@ -481,7 +481,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="idColor" type="xs:int" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q11:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -489,14 +489,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element minOccurs="0" name="oldIdColor" type="xs:int" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q12:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyColorSelected">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="idSelectedColor" type="xs:int" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q13:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
