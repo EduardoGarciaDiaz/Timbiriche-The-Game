@@ -366,10 +366,10 @@ namespace TimbiricheViews.Server {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string HexadecimalColorField;
+        private int HexadecimalColorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private string StylePathField;
+        private int StylePathField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsernameField;
@@ -385,12 +385,12 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string HexadecimalColor {
+        public int HexadecimalColor {
             get {
                 return this.HexadecimalColorField;
             }
             set {
-                if ((object.ReferenceEquals(this.HexadecimalColorField, value) != true)) {
+                if ((this.HexadecimalColorField.Equals(value) != true)) {
                     this.HexadecimalColorField = value;
                     this.RaisePropertyChanged("HexadecimalColor");
                 }
@@ -398,12 +398,12 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public string StylePath {
+        public int StylePath {
             get {
                 return this.StylePathField;
             }
             set {
-                if ((object.ReferenceEquals(this.StylePathField, value) != true)) {
+                if ((this.StylePathField.Equals(value) != true)) {
                     this.StylePathField = value;
                     this.RaisePropertyChanged("StylePath");
                 }
@@ -1188,29 +1188,29 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task SubscribeColorToColorsSelectedAsync(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
-        void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor);
+        void RenewSubscriptionToColorsSelected(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected")]
-        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, int idColor);
+        System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
-        void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor);
+        void UnsubscribeColorToColorsSelected(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected")]
-        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, int oldIdColor);
+        System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     public interface IPlayerColorsManagerCallback {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorSelectedResponse")]
-        void NotifyColorSelected(int idSelectedColor);
+        void NotifyColorSelected(TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselectedResponse")]
         void NotifyColorUnselected(int idUnselectedColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse")]
-        void NotifyOccupiedColors(int[] occupiedColors);
+        void NotifyOccupiedColors(TimbiricheViews.Server.LobbyPlayer[] occupiedColors);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1249,20 +1249,20 @@ namespace TimbiricheViews.Server {
             return base.Channel.SubscribeColorToColorsSelectedAsync(lobbyCode);
         }
         
-        public void RenewSubscriptionToColorsSelected(string lobbyCode, int idColor) {
-            base.Channel.RenewSubscriptionToColorsSelected(lobbyCode, idColor);
+        public void RenewSubscriptionToColorsSelected(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.RenewSubscriptionToColorsSelected(lobbyCode, lobbyPlayer);
         }
         
-        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, int idColor) {
-            return base.Channel.RenewSubscriptionToColorsSelectedAsync(lobbyCode, idColor);
+        public System.Threading.Tasks.Task RenewSubscriptionToColorsSelectedAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.RenewSubscriptionToColorsSelectedAsync(lobbyCode, lobbyPlayer);
         }
         
-        public void UnsubscribeColorToColorsSelected(string lobbyCode, int oldIdColor) {
-            base.Channel.UnsubscribeColorToColorsSelected(lobbyCode, oldIdColor);
+        public void UnsubscribeColorToColorsSelected(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.UnsubscribeColorToColorsSelected(lobbyCode, lobbyPlayer);
         }
         
-        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, int oldIdColor) {
-            return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, oldIdColor);
+        public System.Threading.Tasks.Task UnsubscribeColorToColorsSelectedAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, lobbyPlayer);
         }
     }
 }
