@@ -29,6 +29,21 @@ namespace TimbiricheService.Match
             return _turns.Peek();
         }
 
+        public List<KeyValuePair<string, int>> GetScoreboard()
+        {
+            Dictionary<string, int> scoreboard = new Dictionary<string, int>();
+
+            foreach(var entry in _scoreboard)
+            {
+                scoreboard.Add(entry.Key.Username, entry.Value);
+            }
+
+            List<KeyValuePair<string, int>> sortedScoreboard = scoreboard.ToList();
+            sortedScoreboard = sortedScoreboard.OrderByDescending(points => points.Value).ToList();
+
+            return sortedScoreboard;
+        }
+
         public void NextTurn()
         {
             LobbyPlayer player = _turns.Dequeue();

@@ -28,6 +28,7 @@
   <xs:complexType name="LobbyInformation">
     <xs:sequence>
       <xs:element minOccurs="0" name="MatchDurationInMinutes" type="xs:int" />
+      <xs:element minOccurs="0" name="TurnDurationInMinutes" type="xs:int" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="LobbyInformation" nillable="true" type="tns:LobbyInformation" />

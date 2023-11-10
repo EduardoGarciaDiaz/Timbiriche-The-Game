@@ -323,6 +323,9 @@ namespace TimbiricheViews.Server {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private int MatchDurationInMinutesField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int TurnDurationInMinutesField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -342,6 +345,19 @@ namespace TimbiricheViews.Server {
                 if ((this.MatchDurationInMinutesField.Equals(value) != true)) {
                     this.MatchDurationInMinutesField = value;
                     this.RaisePropertyChanged("MatchDurationInMinutes");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int TurnDurationInMinutes {
+            get {
+                return this.TurnDurationInMinutesField;
+            }
+            set {
+                if ((this.TurnDurationInMinutesField.Equals(value) != true)) {
+                    this.TurnDurationInMinutesField = value;
+                    this.RaisePropertyChanged("TurnDurationInMinutes");
                 }
             }
         }
@@ -924,10 +940,16 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
-        void EndTurn(string lobbyCode, string typeLine, int row, int column);
+        void EndTurn(string lobbyCode, string typeLine, int row, int column, int points);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
-        System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column);
+        System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column, int points);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement")]
+        void EndTurnWithoutMovement(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement")]
+        System.Threading.Tasks.Task EndTurnWithoutMovementAsync(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
         void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
@@ -944,6 +966,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyMovement", ReplyAction="http://tempuri.org/IMatchManager/NotifyMovementResponse")]
         void NotifyMovement(string typeLine, int row, int column);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyFirstTurn", ReplyAction="http://tempuri.org/IMatchManager/NotifyFirstTurnResponse")]
+        void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse")]
+        void NotifyNewScoreboard(System.Collections.Generic.KeyValuePair<string, int>[] scoreboard);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
         void NotifyNewMessage(string senderUsername, string message);
@@ -985,12 +1013,20 @@ namespace TimbiricheViews.Server {
             return base.Channel.RegisterToTheMatchAsync(lobbyCode, username);
         }
         
-        public void EndTurn(string lobbyCode, string typeLine, int row, int column) {
-            base.Channel.EndTurn(lobbyCode, typeLine, row, column);
+        public void EndTurn(string lobbyCode, string typeLine, int row, int column, int points) {
+            base.Channel.EndTurn(lobbyCode, typeLine, row, column, points);
         }
         
-        public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column) {
-            return base.Channel.EndTurnAsync(lobbyCode, typeLine, row, column);
+        public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column, int points) {
+            return base.Channel.EndTurnAsync(lobbyCode, typeLine, row, column, points);
+        }
+        
+        public void EndTurnWithoutMovement(string lobbyCode) {
+            base.Channel.EndTurnWithoutMovement(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task EndTurnWithoutMovementAsync(string lobbyCode) {
+            return base.Channel.EndTurnWithoutMovementAsync(lobbyCode);
         }
         
         public void SendMessageToLobby(string lobbyCode, string senderUsername, string message) {

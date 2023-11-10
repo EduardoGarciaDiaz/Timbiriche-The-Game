@@ -277,6 +277,7 @@ namespace TimbiricheViews.Views
         {
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.MatchDurationInMinutes = 5;
+            lobbyInformation.TurnDurationInMinutes = 1;
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = playerLoggedIn.Username;

@@ -238,6 +238,7 @@
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUserManager_AddUser_InputMessage">
@@ -357,6 +358,9 @@
   <wsdl:message name="IMatchManager_EndTurn_InputMessage">
     <wsdl:part name="parameters" element="tns:EndTurn" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_EndTurnWithoutMovement_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndTurnWithoutMovement" />
+  </wsdl:message>
   <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
   </wsdl:message>
@@ -371,6 +375,18 @@
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyMovement_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyMovementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyFirstTurn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFirstTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyFirstTurn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFirstTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewScoreboard_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewScoreboard" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewScoreboard_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewScoreboardResponse" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewMessage" />
@@ -553,6 +569,9 @@
     <wsdl:operation name="EndTurn">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurn" message="tns:IMatchManager_EndTurn_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EndTurnWithoutMovement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" message="tns:IMatchManager_EndTurnWithoutMovement_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
     </wsdl:operation>
@@ -563,6 +582,14 @@
     <wsdl:operation name="NotifyMovement">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovement" message="tns:IMatchManager_NotifyMovement_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovementResponse" message="tns:IMatchManager_NotifyMovement_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFirstTurn">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyFirstTurn" message="tns:IMatchManager_NotifyFirstTurn_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyFirstTurnResponse" message="tns:IMatchManager_NotifyFirstTurn_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewScoreboard">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard" message="tns:IMatchManager_NotifyNewScoreboard_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse" message="tns:IMatchManager_NotifyNewScoreboard_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyNewMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
@@ -837,6 +864,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="EndTurnWithoutMovement">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/SendMessageToLobby" style="document" />
       <wsdl:input>
@@ -854,6 +887,24 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyMovement">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyMovement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFirstTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyFirstTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewScoreboard">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewScoreboard" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

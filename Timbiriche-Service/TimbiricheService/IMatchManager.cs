@@ -14,7 +14,9 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void RegisterToTheMatch(string lobbyCode, string username);
         [OperationContract(IsOneWay = true)]
-        void EndTurn(string lobbyCode, string typeLine, int row, int column);
+        void EndTurn(string lobbyCode, string typeLine, int row, int column, int points);
+        [OperationContract(IsOneWay = true)]
+        void EndTurnWithoutMovement(string lobbyCode);
         [OperationContract(IsOneWay = true)]
         void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
     }
@@ -26,6 +28,10 @@ namespace TimbiricheService
         void NotifyNewTurn(string username);
         [OperationContract]
         void NotifyMovement(string typeLine, int row, int column);
+        [OperationContract]
+        void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username);
+        [OperationContract]
+        void NotifyNewScoreboard(List<KeyValuePair<string, int>> scoreboard);
         [OperationContract]
         void NotifyNewMessage(string senderUsername, string message);
     }
