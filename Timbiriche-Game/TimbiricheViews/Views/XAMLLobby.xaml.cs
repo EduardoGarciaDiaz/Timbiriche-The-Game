@@ -32,32 +32,27 @@ namespace TimbiricheViews.Views
             InitializeComponent();
             ShowAsActiveUser();
             LoadDataPlayer();
-            LoadFaceBox();
             this.Loaded += Lobby_Loaded;
-
         }
 
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
         {
             LoadDataPlayer();
-            LoadFaceBox();
         }
-
-
 
         private void LoadDataPlayer()
         {
             lbUsername.Content = playerLoggedIn.Username;
             lbCoins.Content = playerLoggedIn.Coins;
+            LoadFaceBox(lbUserFaceBox, playerLoggedIn.IdStyleSelected, playerLoggedIn.Username);
         }
 
-        private void LoadFaceBox()
+        private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
         {
             const int ID_DEFAULT_STYLE = 0;
-            int idStyle = playerLoggedIn.IdStyleSelected;
             if (idStyle == ID_DEFAULT_STYLE)
             {
-                lbUserFaceBox.Content = playerLoggedIn.Username[ID_DEFAULT_STYLE].ToString();
+                lbFaceBox.Content = username[ID_DEFAULT_STYLE].ToString();
             }
             else
             {
@@ -70,7 +65,7 @@ namespace TimbiricheViews.Views
                 BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
                 styleImage.Source = bitmapImage;
 
-                lbUserFaceBox.Content = styleImage;
+                lbFaceBox.Content = styleImage;
             }
         }
 
@@ -189,35 +184,26 @@ namespace TimbiricheViews.Views
 
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
-            if(numOfPlayersInLobby == 1)
+            if (numOfPlayersInLobby == 1)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayer.Username;
-                lbSecondPlayerFaceBox.Content = lobbyPlayer.Username[0].ToString();
+                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
-            if(numOfPlayersInLobby == 2)
+            if (numOfPlayersInLobby == 2)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayer.Username;
-                lbThirdPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                LoadFaceBox(lbThirdPlayerUsername, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
-            if(numOfPlayersInLobby == 3)
+            if (numOfPlayersInLobby == 3)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
-                lbFourthPlayerUsername.Content = lobbyPlayer.Username[0].ToString();
+                LoadFaceBox(lbFourthPlayerUsername, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
-        }
-
-        private void ChangeColorOfOtherPlayer(string rectangleName)
-        {
-            string hexadecimalColorPlayer = "#ffffff";
-            SolidColorBrush colorPlayer = Utilities.CreateColorFromHexadecimal(hexadecimalColorPlayer);
-            Rectangle rectangleFinded = LogicalTreeHelper.FindLogicalNode(this, rectangleName)
-                as Rectangle;
-            rectangleFinded.Fill = colorPlayer;
         }
 
         public void NotifyPlayerLeftLobby()
@@ -233,21 +219,21 @@ namespace TimbiricheViews.Views
             if (numPlayersInLobby > 0)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayers[0].Username;
-                lbSecondPlayerFaceBox.Content = lobbyPlayers[0].Username[0].ToString();
+                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[0].StylePath, lobbyPlayers[0].Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
             if (numPlayersInLobby > 1)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayers[1].Username;
-                lbThirdPlayerFaceBox.Content = lobbyPlayers[1].Username[0].ToString();
+                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[1].StylePath, lobbyPlayers[1].Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
             if (numPlayersInLobby > 2)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayers[2].Username;
-                lbFourthPlayerFaceBox.Content = lobbyPlayers[2].Username[0].ToString();
+                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[2].StylePath, lobbyPlayers[2].Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
 
@@ -318,6 +304,7 @@ namespace TimbiricheViews.Views
     {
         private PlayerColor[] _myColors = null;
         private const string SELECTED_STROKE_COLOR_HEXADECIMAL = "#000000";
+        private const int DEFAULT_SELECTED_COLOR = 0;
 
         private void ShowSelectPlayerColorGrid()
         {
@@ -356,7 +343,9 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
             playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, playerLoggedIn.IdColorSelected);
+
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
         }
 
         private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate )
@@ -370,6 +359,14 @@ namespace TimbiricheViews.Views
             return colorRectangle;
         }
 
+        private LobbyPlayer CreateLobbyPlayer()
+        {
+            LobbyPlayer lobbyPlayer = new LobbyPlayer();
+            lobbyPlayer.Username = playerLoggedIn.Username;
+            lobbyPlayer.HexadecimalColor = playerLoggedIn.IdColorSelected;
+            return lobbyPlayer;
+        }
+
         private void RectangleColor_Click(object sender, RoutedEventArgs e)
         {
             Rectangle clickedRectangle = sender as Rectangle;
@@ -380,15 +377,18 @@ namespace TimbiricheViews.Views
         {
             int idColor = GetIdColorByRectangle(rectangleSelected);
 
+            LobbyPlayer lobbyPlayer2 = CreateLobbyPlayer();
+
             InstanceContext context = new InstanceContext(this);
             Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
-            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, playerLoggedIn.IdColorSelected);
+            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
 
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             playerCustomizationManagerClient.SelectMyColor(playerLoggedIn.IdPlayer, idColor);
             playerLoggedIn.IdColorSelected = idColor;
 
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, idColor);
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();            
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
             MarkAsSelectedColor(rectangleSelected);
         }
 
@@ -411,12 +411,18 @@ namespace TimbiricheViews.Views
             UpdatePlayerColor(rectangleSelected);
         }
 
-        private void StablishOcuppiedColors(int[] occupiedColors)
+        private void StablishOcuppiedColors(LobbyPlayer[] lobbyPlayers)
         {
             bool isOcuppied = true;
-            foreach (int idColor in occupiedColors)
+            int idColor;
+            foreach (LobbyPlayer lobbyPlayer in lobbyPlayers)
             {
-                HandleColorOccupation(idColor, isOcuppied);
+                if (lobbyPlayer.HexadecimalColor != DEFAULT_SELECTED_COLOR)
+                {
+                    idColor = lobbyPlayer.HexadecimalColor;
+                    HandleColorOccupation(idColor, isOcuppied);
+                    ChangeColorOfOtherPlayer(lobbyPlayer);
+                }
             }
         }
 
@@ -434,6 +440,27 @@ namespace TimbiricheViews.Views
                 {
                     MarkAsUnoccupiedColor(idRectangle);
                 }
+            }
+        }
+
+        private void ChangeColorOfOtherPlayer(LobbyPlayer lobbyPlayer)
+        {
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            string username = lobbyPlayer.Username;
+            int idColor = lobbyPlayer.HexadecimalColor;
+            string selectedHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            SolidColorBrush colorPlayer = Utilities.CreateColorFromHexadecimal(selectedHexadecimalColor);
+
+            if (lbSecondPlayerUsername.Content.Equals(username))
+            {
+                rectangleSecondPlayerColor.Fill = colorPlayer;
+            } else if (lbThirdPlayerUsername.Content.Equals(username))
+            {
+                rectangleThirdPlayerColor.Fill = colorPlayer;
+            }
+            else if (lbFourthPlayerUsername.Content.Equals(username))
+            {
+                rectangleFourthPlayerColor.Fill = colorPlayer;
             }
         }
 
@@ -484,8 +511,7 @@ namespace TimbiricheViews.Views
         private bool ValidatePlayerSelectColor()
         {
             bool isColorSelected = false;
-            const int COLOR_NOT_SELECTED_ID = 0;
-            if(playerLoggedIn.IdColorSelected > COLOR_NOT_SELECTED_ID)
+            if(playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
             {
                 isColorSelected = true;
             }
@@ -500,9 +526,9 @@ namespace TimbiricheViews.Views
             return hasColor;
         }
 
-        public void NotifyColorSelected(int idSelectedColor)
+        public void NotifyColorSelected(LobbyPlayer lobbyPlayer)
         {
-            const int DEFAULT_SELECTED_COLOR = 0;
+            int idSelectedColor = lobbyPlayer.HexadecimalColor;
             bool isOcuppied = true;
 
             if (idSelectedColor == DEFAULT_SELECTED_COLOR)
@@ -512,6 +538,7 @@ namespace TimbiricheViews.Views
             else
             {
                 HandleColorOccupation(idSelectedColor, isOcuppied);
+                ChangeColorOfOtherPlayer(lobbyPlayer);
             }
         }
 
@@ -521,10 +548,12 @@ namespace TimbiricheViews.Views
             HandleColorOccupation(idUnselectedColor, isOcuppied);
         }
 
-        public void NotifyOccupiedColors(int[] ocuppedColors)
+        public void NotifyOccupiedColors(LobbyPlayer[] ocuppedColors)
         {
             StablishOcuppiedColors(ocuppedColors);
         }
+
+
 
     }
 }
