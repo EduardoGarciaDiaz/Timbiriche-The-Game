@@ -55,6 +55,10 @@
             </Setter>
         </Style>
 
+        <Storyboard x:Key="fadeAnimation">
+            <DoubleAnimation Storyboard.TargetName="stackPanelScoreboard" Storyboard.TargetProperty="Opacity" From="1.0" To="0.0" Duration="0:0:3" AutoReverse="True" />
+        </Storyboard>
+
     </Page.Resources>
 
     <Viewbox Stretch="Fill">
@@ -221,29 +225,13 @@
 
             <Grid x:Name="gridChat" Margin="776,352,42,36">
                 <Rectangle   RadiusX="25" RadiusY="25" VerticalAlignment="Center" Fill="#8C1C95D1" Height="382"/>
-                <Label Content="{x:Static p:Resources.lbChat}" FontFamily="Titan One" Foreground="White" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
+                <Label Content="{x:Static p:Resources.lbChat}" FontFamily="Titan One" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,59,0,0" />
 
                 <Grid Margin="21,80,10,81">
-                    <ScrollViewer>
-                        <StackPanel>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="8" Margin="5" HorizontalAlignment="Left" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="DairyPanter8" Foreground="#32B3C2" FontFamily="Inter" FontSize="9"/>
-                                    <Border>
-                                        <TextBlock FontFamily="Inter" FontSize="9" FontWeight="Bold" Text="Este es el mensaje hijo de re mil putas!"/>
-                                    </Border>
-                                </StackPanel>
-                            </Border>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="5" Margin="5" HorizontalAlignment="Right" Padding="5">
-                                <StackPanel>
-                                    <TextBlock Text="DairyPanter8" Foreground="#32B3C2" FontFamily="Inter" FontSize="9"/>
-                                    <Border>
-                                        <TextBlock FontFamily="Inter" FontSize="9" FontWeight="Bold" Text="Este es el mensaje hijo de re mil putas!"/>
-                                    </Border>
-                                </StackPanel>
-                            </Border>
+                    <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="stackPanelMessages">
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
@@ -251,13 +239,73 @@
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,317,0,0" />
                 <Rectangle Fill="#0094FF" RadiusX="20" RadiusY="20" Margin="313,330,16,14"/>
-                <TextBox  FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD"
-                    VerticalContentAlignment="Center" Margin="21,330,76,14" />
+                <Button Background="Transparent" Margin="313,330,16,14" Click="BtnSendMessage_Click"/>
+                <Rectangle Fill="White" Margin="21,330,76,14" RadiusX="18" RadiusY="18"/>
+                <TextBox x:Name="tbxMessage" FontFamily="Inter" FontSize="16"
+                    VerticalContentAlignment="Center" Margin="31,330,92,14" Background="Transparent" BorderBrush="Transparent"/>
             </Grid>
 
-            <Grid x:Name="gridScoreboard" Margin="776,30,42,437">
+            <Grid x:Name="gridScoreboard" Margin="776,30,42,431">
                 <Rectangle RadiusX="25" RadiusY="25" VerticalAlignment="Center" Fill="#8C1C95D1" Height="304"/>
+                <Label Content="{x:Static p:Resources.lbScoreboard}" FontFamily="Titan One" Foreground="White" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,10,0,0"></Label>
+                <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
+                    Height="2" StrokeThickness="5.6" X2="500" Margin="21,59,0,0" />
+                <Rectangle Fill="#77BED8" Margin="21,74,17,15" RadiusX="12.5" RadiusY="12.5"/>
 
+                <StackPanel x:Name="stackPanelScoreboard" Orientation="Vertical" Margin="21,74,17,15">
+                    <Grid>
+                        <TextBlock Text="1°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
+                                   Foreground="#FF9D0A" FontSize="30"/>
+                        <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Margin="5,12,10,0" HorizontalAlignment="Right" Padding="5" Width="282" Height="41">
+                            <Grid>
+                                <TextBlock x:Name="tbxFirstPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="17,0,68,0"
+                                    VerticalAlignment="Center"/>
+                                <TextBlock x:Name="tbxFirstPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="235,0,10,0"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    
+                    <Grid>
+                        <TextBlock Text="2°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
+                            Foreground="#E3E4E5" FontSize="30"/>
+                        <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Margin="5,12,10,0" HorizontalAlignment="Right" Padding="5" Width="282" Height="41">
+                            <Grid>
+                                <TextBlock x:Name="tbxSecondPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="17,0,68,0"
+                                    VerticalAlignment="Center"/>
+                                <TextBlock x:Name="tbxSecondPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="235,0,10,0"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                    
+                    <Grid x:Name="gridThirdPlace" Visibility="Collapsed">
+                        <TextBlock Text="3°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
+                            Foreground="#CD5715" FontSize="30"/>
+                        <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Margin="5,12,10,0" HorizontalAlignment="Right" Padding="5" Width="282" Height="41">
+                            <Grid>
+                                <TextBlock x:Name="tbxThirdPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="17,0,68,0"
+                                    VerticalAlignment="Center"/>
+                                <TextBlock x:Name="tbxThirdPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="235,0,10,0"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                    <Grid x:Name="gridFourthPlace" Visibility="Collapsed">
+                        <TextBlock Text="4°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
+                            Foreground="#B92828" FontSize="30"/>
+                        <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Margin="5,12,10,0" HorizontalAlignment="Right" Padding="5" Width="282" Height="41">
+                            <Grid>
+                                <TextBlock x:Name="tbxFourthPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="17,0,68,0"
+                                    VerticalAlignment="Center"/>
+                                <TextBlock x:Name="tbxFourthPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="12" Margin="235,0,10,0"
+                                    VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Grid>
+                        </Border>
+                    </Grid>
+
+                </StackPanel>
             </Grid>
 
             <Grid x:Name="gridTime" Margin="68,30,479,700">
@@ -271,15 +319,15 @@
                 <Rectangle Grid.Column="0" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>
 
                 <Rectangle Grid.Column="1" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,10,0"/>
-                <Label Grid.Column="1" FontFamily="Titan One" Foreground="White" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="51,0,0,0" Height="30" Width="63">00:25</Label>
+                <Label x:Name="lbMatchTime" Grid.Column="1" FontFamily="Titan One" Foreground="White" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="48,0,0,0" Height="30" Width="63">00:25</Label>
 
                 <Rectangle Grid.Column="2" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>
                 <Label Grid.Column="2" FontFamily="Titan One" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Height="38" Width="162">TIMBIRICHE</Label>
 
                 <Rectangle Grid.Column="3" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,0,0"/>
                 <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top">Turno de</Label>
-                <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,3">DairyPanter8</Label>
-                <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,6,2">00:25</Label>
+                <Label x:Name="lbTurnOfUsername" Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,3">DairyPanter8</Label>
+                <Label x:Name="lbTurnTime" Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,6,2">00:25</Label>
 
             </Grid>
 

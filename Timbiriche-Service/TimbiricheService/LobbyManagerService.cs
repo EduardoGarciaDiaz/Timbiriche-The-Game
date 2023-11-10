@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheService.Match;
 
 namespace TimbiricheService
 {
@@ -19,7 +20,7 @@ namespace TimbiricheService
             List<LobbyPlayer> players = new List<LobbyPlayer>();
             players.Add(lobbyPlayer);
 
-            string lobbyCode = GenerateLobbyCode();
+            string lobbyCode = GenerateLobbyCode(); 
 
             lobbies.Add(lobbyCode, (lobbyInformation, players));
 
@@ -60,16 +61,17 @@ namespace TimbiricheService
 
         public void StartMatch(string lobbyCode)
         {
-            if (lobbies.ContainsKey(lobbyCode))
-            {
-                LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
-                List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
+            LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
+            List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
 
-                foreach(var player in players)
-                {
-                    player.CallbackChannel.NotifyStartOfMatch();
-                }
+            matches.Add(lobbyCode, new Match.Match(lobbyInformation, players));
+
+            foreach(var player in players)
+            {
+                player.CallbackChannel.NotifyStartOfMatch();
             }
+
+            lobbies.Remove(lobbyCode);
         }
 
         private string GenerateLobbyCode()

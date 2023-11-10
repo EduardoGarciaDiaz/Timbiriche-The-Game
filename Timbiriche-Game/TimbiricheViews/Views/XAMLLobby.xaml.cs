@@ -258,13 +258,14 @@ namespace TimbiricheViews.Views
 
         public void NotifyStartOfMatch()
         {
-            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
+             NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
         }
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.MatchDurationInMinutes = 5;
+            lobbyInformation.TurnDurationInMinutes = 1;
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = playerLoggedIn.Username;
@@ -296,6 +297,8 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
             client.StartMatch(_lobbyCode);
+
+            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
         }
 
     }

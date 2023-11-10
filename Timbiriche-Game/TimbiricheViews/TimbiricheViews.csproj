@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Match\XAMLMessageItemComponent.xaml.cs">
+      <DependentUpon>XAMLMessageItemComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Shop\XAMLColorItemComponent.xaml.cs">
       <DependentUpon>XAMLColorItemComponent.xaml</DependentUpon>
     </Compile>
@@ -78,6 +81,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
+    <Compile Include="Match\Timer.cs" />
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
@@ -106,6 +110,10 @@
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\Match\XAMLMessageItemComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\Shop\XAMLColorItemComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -210,6 +218,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Server\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item4.xsd">
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
