@@ -23,7 +23,7 @@ using Path = System.IO.Path;
 
 namespace TimbiricheViews.Views
 {
-    public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
+    public partial class XAMLLobby : Page, IOnlineUsersManagerCallback, IPlayerStylesManagerCallback
     {
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
 
@@ -38,8 +38,63 @@ namespace TimbiricheViews.Views
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
         {
             LoadDataPlayer();
+            PrepareNotificationOfStyleUpdated();
         }
 
+        private void PrepareNotificationOfStyleUpdated()
+        {
+            bool isLoaded = true;
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
+        }
+
+        private void InformUpdateStyleForPlayers(LobbyPlayer lobbyPlayer, bool isLoaded)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.PlayerStylesManagerClient playerStylesManagerClient = new Server.PlayerStylesManagerClient(context);
+            if (!isLoaded)
+            {
+                playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+            }
+            else if (_lobbyCode != null)
+            {
+                playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+            }
+        }
+
+        public void NotifyStyleSelected(LobbyPlayer lobbyPlayer)
+        {
+            string username = lobbyPlayer.Username;
+            int idStyle = lobbyPlayer.StylePath;
+
+            if (lbSecondPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbSecondPlayerFaceBox, idStyle, username);
+            }
+            else if (lbThirdPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbThirdPlayerUsername, idStyle, username);
+            }
+            else if (lbFourthPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbFourthPlayerUsername, idStyle, username);
+            }
+        }
+
+        private Image CreateImageByPath(int idStyle)
+        {
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+
+            string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
+
+            Image styleImage = new Image();
+            BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
+            styleImage.Source = bitmapImage;
+
+            return styleImage;
+        }
+        
         private void LoadDataPlayer()
         {
             lbUsername.Content = playerLoggedIn.Username;
@@ -56,15 +111,7 @@ namespace TimbiricheViews.Views
             }
             else
             {
-                Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
-                string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-                string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
-
-                Image styleImage = new Image();
-                BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
-                styleImage.Source = bitmapImage;
-
+                Image styleImage = CreateImageByPath(idStyle);
                 lbFaceBox.Content = styleImage;
             }
         }
@@ -184,26 +231,31 @@ namespace TimbiricheViews.Views
 
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
-            if (numOfPlayersInLobby == 1)
+            const int ONE_PLAYER_IN_LOBBY = 1;
+            const int TWO_PLAYER_IN_LOBBY = 2;
+            const int THREE_PLAYER_IN_LOBBY = 3;
+
+            if (numOfPlayersInLobby == ONE_PLAYER_IN_LOBBY)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numOfPlayersInLobby == 2)
+            if (numOfPlayersInLobby == TWO_PLAYER_IN_LOBBY)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbThirdPlayerUsername, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numOfPlayersInLobby == 3)
+            if (numOfPlayersInLobby == THREE_PLAYER_IN_LOBBY)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbFourthPlayerUsername, lobbyPlayer.StylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
+
         }
 
         public void NotifyPlayerLeftLobby()
@@ -215,25 +267,28 @@ namespace TimbiricheViews.Views
         {
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;
+            const int SECOND_PLAYER_ID = 0;
+            const int THIRD_PLAYER_ID = 1;
+            const int FOURTH_PLAYER_ID = 2;
 
-            if (numPlayersInLobby > 0)
+            if (numPlayersInLobby > SECOND_PLAYER_ID)
             {
-                lbSecondPlayerUsername.Content = lobbyPlayers[0].Username;
-                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[0].StylePath, lobbyPlayers[0].Username);
+                lbSecondPlayerUsername.Content = lobbyPlayers[SECOND_PLAYER_ID].Username;
+                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[SECOND_PLAYER_ID].StylePath, lobbyPlayers[0].Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numPlayersInLobby > 1)
+            if (numPlayersInLobby > THIRD_PLAYER_ID)
             {
-                lbThirdPlayerUsername.Content = lobbyPlayers[1].Username;
-                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[1].StylePath, lobbyPlayers[1].Username);
+                lbThirdPlayerUsername.Content = lobbyPlayers[THIRD_PLAYER_ID].Username;
+                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[THIRD_PLAYER_ID].StylePath, lobbyPlayers[1].Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numPlayersInLobby > 2)
+            if (numPlayersInLobby > FOURTH_PLAYER_ID)
             {
-                lbFourthPlayerUsername.Content = lobbyPlayers[2].Username;
-                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[2].StylePath, lobbyPlayers[2].Username);
+                lbFourthPlayerUsername.Content = lobbyPlayers[FOURTH_PLAYER_ID].Username;
+                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[FOURTH_PLAYER_ID].StylePath, lobbyPlayers[2].Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
 
@@ -263,11 +318,13 @@ namespace TimbiricheViews.Views
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
+            const int MATCH_DURATION_IN_MINUTES = 5;
             LobbyInformation lobbyInformation = new LobbyInformation();
-            lobbyInformation.MatchDurationInMinutes = 5;
+            lobbyInformation.MatchDurationInMinutes = MATCH_DURATION_IN_MINUTES;
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = playerLoggedIn.Username;
+            lobbyPlayer.StylePath = playerLoggedIn.IdStyleSelected;
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
@@ -285,6 +342,7 @@ namespace TimbiricheViews.Views
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = playerLoggedIn.Username;
+            lobbyPlayer.StylePath = playerLoggedIn.IdStyleSelected;
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
@@ -364,6 +422,7 @@ namespace TimbiricheViews.Views
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = playerLoggedIn.Username;
             lobbyPlayer.HexadecimalColor = playerLoggedIn.IdColorSelected;
+            lobbyPlayer.StylePath = playerLoggedIn.IdStyleSelected;
             return lobbyPlayer;
         }
 
@@ -475,7 +534,6 @@ namespace TimbiricheViews.Views
             rectangleFinded.IsEnabled = false;
         }
 
-
         private void MarkAsUnoccupiedColor(string idRectangle)
         {
             Rectangle rectangleFinded = LogicalTreeHelper.FindLogicalNode(stackPanelColors, idRectangle)
@@ -551,9 +609,8 @@ namespace TimbiricheViews.Views
         public void NotifyOccupiedColors(LobbyPlayer[] ocuppedColors)
         {
             StablishOcuppiedColors(ocuppedColors);
+            InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
+
         }
-
-
-
     }
 }
