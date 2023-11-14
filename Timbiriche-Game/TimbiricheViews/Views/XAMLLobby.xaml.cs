@@ -358,8 +358,8 @@ namespace TimbiricheViews.Views
         private void GetMyColors()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
             _myColors = playerCustomizationManagerClient.GetMyColors(playerLoggedIn.IdPlayer);
+
             if (_myColors != null)
             {
                 SetMyColors();

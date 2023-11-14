@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess;
 using TimbiricheService.Match;
 
 namespace TimbiricheService
@@ -96,6 +97,27 @@ namespace TimbiricheService
             }
 
             matches[lobbyCode] = match;
+        }
+
+        public void EndMatch(string lobbyCode)
+        {
+            Match.Match match = matches[lobbyCode];
+            List<KeyValuePair<string, int>> scoreboard = match.GetScoreboard();
+
+            for(int i = 0; i < scoreboard.Count; i++)
+            {
+                var player = match.Players.FirstOrDefault(p => p.Username == scoreboard[i].Key);
+
+                if(player != null)
+                {
+                    int coinsEarned = CoinsEarn.CalculateExtraCoins(i, scoreboard[i].Value);
+                    
+                    CoinsManagement coinsManagement = new CoinsManagement();
+                    coinsManagement.UpdateCoins(player.Username, coinsEarned);
+
+                    player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
+                }
+            }
         }
     }
 }

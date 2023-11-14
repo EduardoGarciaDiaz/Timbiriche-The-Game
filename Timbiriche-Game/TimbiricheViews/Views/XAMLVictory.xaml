@@ -1,0 +1,49 @@
+﻿<Page x:Class="TimbiricheViews.Views.XAMLVictory"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimbiricheViews.Views"
+      xmlns:p="clr-namespace:TimbiricheViews.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="770" d:DesignWidth="1200"  Background="#005EE8"
+      Title="XAMLVictory">
+
+    <Viewbox Stretch="Fill">
+        <Grid>
+            <Image Source="/Resources/backgroundGame.png" />
+            <Image Source="../Resources/victoryBox.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="1015" Width="1172"/>
+
+            <Grid Margin="374,140,374,140"> 
+                <Label x:Name="lbYouWon" Content="{x:Static p:Resources.lbYouWon}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" FontSize="150" Visibility="Collapsed"/>
+                <Label x:Name="lbYouLost" Content="{x:Static p:Resources.lbYouLost}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" FontSize="150" Visibility="Visible"/>
+                
+                <TextBlock Visibility="Visible" Text="1°" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="#FF9D0A" FontSize="150" Margin="0,230,0,0"/>
+                <TextBlock Visibility="Collapsed" Text="2°" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="#E3E4E5" FontSize="150" Margin="0,230,0,0"/>
+                <TextBlock Visibility="Collapsed" Text="3°" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="#CD5715" FontSize="150" Margin="0,230,0,0"/>
+                <TextBlock Visibility="Collapsed" Text="4°" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="#B92828" FontSize="150" Margin="0,230,0,0"/>
+                
+                <Label x:Name="lbUsername"  Content="Cesarele24" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" Foreground="White"
+                    FontSize="80" FontWeight="Bold"/>
+                <Grid Margin="38,546,613,47">
+                    <Rectangle Fill="#056EA1" Opacity=".55" RadiusX="25" RadiusY="25"/>
+                </Grid>
+                <Grid Margin="624,578,62,47">
+                    <Rectangle Fill="#3F54C3" RadiusX="15" RadiusY="15" Margin="0,253,182,0"/>
+                    <Label Content="{x:Static p:Resources.btnPlayAgain}" Margin="0,253,182,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="White" FontSize="28" />
+                    <Button Background="Transparent" BorderBrush="Transparent" Focusable="False" Margin="0,253,182,0" />
+
+                    <Rectangle Fill="#F61D1D" RadiusX="15" RadiusY="15" Margin="325,253,0,0"/>
+                    <Label Content="{x:Static p:Resources.btnExit}" Margin="325,253,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="White" FontSize="28" />
+
+                    <Image Source="/Resources/coins.png" Height="50" Width="50" Margin="48,65,388,202" />
+                    <Label Content="{x:Static p:Resources.lbYouEarn}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Inter" Foreground="White" FontSize="28" FontWeight="Bold" Margin="114,68,0,0"/>
+                    <Label Content="300" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Inter" Foreground="White" FontSize="28" FontWeight="Bold" Margin="304,68,0,0"/>
+                    <Label Content="{x:Static p:Resources.lbYouEarnCoins}" VerticalAlignment="Top" HorizontalAlignment="Left" FontFamily="Inter" Foreground="White" FontSize="28" FontWeight="Bold" Margin="195,117,0,0"/>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Viewbox>
+</Page>

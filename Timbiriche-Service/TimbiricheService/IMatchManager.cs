@@ -19,6 +19,8 @@ namespace TimbiricheService
         void EndTurnWithoutMovement(string lobbyCode);
         [OperationContract(IsOneWay = true)]
         void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
+        [OperationContract(IsOneWay = true)]
+        void EndMatch(string lobbyCode);
     }
 
     [ServiceContract]
@@ -34,5 +36,7 @@ namespace TimbiricheService
         void NotifyNewScoreboard(List<KeyValuePair<string, int>> scoreboard);
         [OperationContract]
         void NotifyNewMessage(string senderUsername, string message);
+        [OperationContract]
+        void NotifyEndOfTheMatch(List<KeyValuePair<string, int>> scoreboard, int coins);
     }
 }

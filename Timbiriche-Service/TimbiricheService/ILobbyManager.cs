@@ -41,8 +41,12 @@ namespace TimbiricheService
     public class LobbyPlayer
     {
         private string _username;
-        private int _stylePath;
-        private int _hexadecimalColor;
+        private int _idStylePath;
+        private int _idHexadecimalColor;
+
+        private string _stylePath;
+        private string _hexadecimalColor;
+
         private ILobbyManagerCallback _callbackChannel;
         private IMatchManagerCallback _matchManagerCallback;
         private IPlayerColorsManagerCallback _colorManagerCallback;
@@ -50,9 +54,13 @@ namespace TimbiricheService
         [DataMember]
         public string Username { get { return _username; } set { _username = value; } }
         [DataMember]
-        public int StylePath { get { return _stylePath; } set { _stylePath = value; } }
+        public string StylePath { get { return _stylePath; } set { _stylePath = value; } }
         [DataMember]
-        public int HexadecimalColor { get { return _hexadecimalColor; } set { _hexadecimalColor = value; } }
+        public string HexadecimalColor { get { return _hexadecimalColor; } set { _hexadecimalColor = value; } }
+        [DataMember]
+        public int IdStylePath { get { return _idStylePath; } set { _idStylePath = value; } }
+        [DataMember]
+        public int IdHexadecimalColor { get { return _idHexadecimalColor; } set { _idHexadecimalColor = value; } }
         public ILobbyManagerCallback CallbackChannel { get { return _callbackChannel;  } set { _callbackChannel = value; } }
         public IMatchManagerCallback MatchCallbackChannel { get { return _matchManagerCallback; } set { _matchManagerCallback = value; } }
         public IPlayerColorsManagerCallback ColorCallbackChannel { get { return _colorManagerCallback; } set { _colorManagerCallback = value; } }
