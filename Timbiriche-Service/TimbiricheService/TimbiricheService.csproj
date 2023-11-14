@@ -51,10 +51,13 @@
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\Templates\EmailVerificationTemplate.cs" />
     <Compile Include="Email\Templates\IEmailTemplate.cs" />
+    <Compile Include="Email\Templates\InvitationToLobbyTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
     <Compile Include="IEmailVerificationManager.cs" />
+    <Compile Include="IInvitationManager.cs" />
     <Compile Include="ILobbyManager.cs" />
     <Compile Include="IMatchManager.cs" />
+    <Compile Include="InvitationManagerService.cs" />
     <Compile Include="IPasswordReset.cs" />
     <Compile Include="IPlayerCustomizationManager.cs" />
     <Compile Include="IShopManager.cs" />

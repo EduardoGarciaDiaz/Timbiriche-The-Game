@@ -239,7 +239,8 @@
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,317,0,0" />
                 <Rectangle Fill="#0094FF" RadiusX="20" RadiusY="20" Margin="313,330,16,14"/>
-                <Button Background="Transparent" Margin="313,330,16,14" Click="BtnSendMessage_Click"/>
+                <Image Source="../Resources/sendMessageIcon.png"  Margin="330,341,33,25"/>
+                <Button Background="Transparent" Margin="313,330,16,14" Click="BtnSendMessage_Click" Focusable="False" BorderBrush="Transparent"/>
                 <Rectangle Fill="White" Margin="21,330,76,14" RadiusX="18" RadiusY="18"/>
                 <TextBox x:Name="tbxMessage" FontFamily="Inter" FontSize="16"
                     VerticalContentAlignment="Center" Margin="31,330,92,14" Background="Transparent" BorderBrush="Transparent"/>
@@ -317,8 +318,10 @@
                 </Grid.ColumnDefinitions>
 
                 <Rectangle Grid.Column="0" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>
+                <Image Grid.Column="0" Source="../Resources/optionsIcon.png" Margin="5" />
 
                 <Rectangle Grid.Column="1" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,10,0"/>
+                <Image Grid.Column="1" Source="../Resources/TimerIcon.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,5,0,5" Width="34"/>
                 <Label x:Name="lbMatchTime" Grid.Column="1" FontFamily="Titan One" Foreground="White" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="48,0,0,0" Height="30" Width="63">00:25</Label>
 
                 <Rectangle Grid.Column="2" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>

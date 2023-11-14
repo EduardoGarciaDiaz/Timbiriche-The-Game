@@ -1318,4 +1318,51 @@ namespace TimbiricheViews.Server {
             return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, lobbyPlayer);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IInvitationManager")]
+    public interface IInvitationManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInvitationManager/SendInvitationToEmail", ReplyAction="http://tempuri.org/IInvitationManager/SendInvitationToEmailResponse")]
+        bool SendInvitationToEmail(string lobbyCode, string email);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IInvitationManager/SendInvitationToEmail", ReplyAction="http://tempuri.org/IInvitationManager/SendInvitationToEmailResponse")]
+        System.Threading.Tasks.Task<bool> SendInvitationToEmailAsync(string lobbyCode, string email);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IInvitationManagerChannel : TimbiricheViews.Server.IInvitationManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class InvitationManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IInvitationManager>, TimbiricheViews.Server.IInvitationManager {
+        
+        public InvitationManagerClient() {
+        }
+        
+        public InvitationManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public InvitationManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public InvitationManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public InvitationManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool SendInvitationToEmail(string lobbyCode, string email) {
+            return base.Channel.SendInvitationToEmail(lobbyCode, email);
+        }
+        
+        public System.Threading.Tasks.Task<bool> SendInvitationToEmailAsync(string lobbyCode, string email) {
+            return base.Channel.SendInvitationToEmailAsync(lobbyCode, email);
+        }
+    }
 }

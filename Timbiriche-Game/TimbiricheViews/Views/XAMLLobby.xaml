@@ -63,7 +63,7 @@
 
             <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
-            <Grid x:Name="gridMatchCreation" Margin="842,500,19,28">
+            <Grid x:Name="gridMatchCreation" Margin="842,500,19,28" Visibility="Visible">
                 <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Click="BtnCreateMatch_Click" Margin="0,99,0,0"/>
                 <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="0,0,0,163" Click="BtnJoinByCode_Click"/>
             </Grid>
@@ -72,12 +72,22 @@
                 <Button Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnStartMatch_Click"/>
                 <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#359EFF" Cursor="Hand" Margin="237,0,0,163"/>
                 <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163"/>
-                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163"/>
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163" Click="BtnInviteToLobby_Click"/>
+            </Grid>
+
+            <Grid x:Name="gridMatchControlNotLeadPlayer" Margin="842,500,19,28" Visibility="Collapsed">
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#49BF36" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,0,163"/>
             </Grid>
 
             <Grid x:Name="gridCodeDialog" Background="#1C95D1" Margin="336,264,402,284" Visibility="Collapsed">
-                <TextBox x:Name="tbxJoinByCode" VerticalAlignment="Top" HorizontalAlignment="Center" Width="392" Height="100" Background="White" Margin="0,11,0,0" />
-                <Button Content="{x:Static p:Resources.btnJoin}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="108,153,108,10" Click="BtnJoin_Click"/>
+                <Image HorizontalAlignment="Left" Cursor="Hand" MouseLeftButtonDown="ImgCloseGridCodeDialog_Click" Margin="5" Height="37" VerticalAlignment="Top" Width="33" Source="/Resources/close.png"/>
+                <Label Content="{x:Static p:Resources.lbCodeMatch}" FontFamily="Titan One" Foreground="White" FontSize="34" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="10"/>
+                <Rectangle Fill="White" Margin="50,64,50,92" RadiusX="15" RadiusY="15"/>
+                <TextBox x:Name="tbxJoinByCode" Text="{x:Static p:Resources.tbxExampleCode}" Tag="{x:Static p:Resources.tbxExampleCode}" VerticalAlignment="Top" HorizontalAlignment="Center" 
+                         VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Width="362" Height="66" Background="Transparent" FontFamily="Titan One" FontSize="34"
+                         Foreground="#CDCDCD" BorderBrush="Transparent" BorderThickness="0" Margin="0,64,0,0" GotFocus="TbxJoinByCode_GotFocus" LostFocus="TbxJoinByCode_LostFocus" />
+                <Button Content="{x:Static p:Resources.btnJoin}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#3F54C3" Cursor="Hand" Margin="108,153,108,10" Click="BtnJoin_Click"/>
             </Grid>
 
             <Grid x:Name="gridSecondPlayer" Margin="78,246,912,288" Visibility="Collapsed">
@@ -135,7 +145,7 @@
                 <Grid  Margin="170,237,170,211" >
                     <Rectangle Fill="#DC1C95D1" Opacity="1" RadiusX="25" RadiusY="25" />
                     <Label Content="{x:Static p:Resources.lbSelectColor}" Foreground="White" FontFamily="Titan One" FontSize="36" Margin="227,5,0,269" HorizontalAlignment="Left"/>
-                    <Image HorizontalAlignment="Left" Height="38" Margin="10,8,0,0" VerticalAlignment="Top" Width="38" Source="/Resources/close.png" MouseLeftButtonDown="ImgClose_Click" Cursor="Hand"/>
+                    <Image HorizontalAlignment="Left" Height="38" Margin="10,8,0,0" VerticalAlignment="Top" Width="38" Source="/Resources/close.png" MouseLeftButtonDown="ImgCloseGridColorSelection_Click" Cursor="Hand"/>
                     <Separator Background="#FF05CDDE" Margin="20,46,20,240"></Separator>
                     <Label Content="{x:Static p:Resources.lbSelectColorInstrucion}" Foreground="White" FontFamily="Inter" FontSize="24" FontWeight="Bold" Margin="20,73,571,211"/>
 

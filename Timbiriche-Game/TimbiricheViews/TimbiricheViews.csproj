@@ -58,6 +58,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Components\Lobby\XAMLLobbyInvitationComponent.xaml.cs">
+      <DependentUpon>XAMLLobbyInvitationComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\Match\XAMLMessageItemComponent.xaml.cs">
       <DependentUpon>XAMLMessageItemComponent.xaml</DependentUpon>
     </Compile>
@@ -110,6 +113,10 @@
     <Compile Include="Views\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
+    <Page Include="Components\Lobby\XAMLLobbyInvitationComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Components\Match\XAMLMessageItemComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -337,6 +344,30 @@
     <Resource Include="Resources\Skins\basicBox.png" />
     <Resource Include="Resources\Skins\basicBoxSeparated.png" />
     <Resource Include="Resources\Skins\skully.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobbySettingsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\invitationByEmailBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\emailIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\copyToClipboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\optionsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sendMessageIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\timerIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\banOptionIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
