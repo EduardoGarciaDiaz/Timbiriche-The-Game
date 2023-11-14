@@ -6,7 +6,7 @@
         xmlns:p = "clr-namespace:TimbiricheViews.Properties"
         xmlns:local="clr-namespace:TimbiricheViews"
         mc:Ignorable="d"
-        WindowStartupLocation="CenterScreen" Closing="BtnWindowClosing_Click"
+        WindowStartupLocation="CenterScreen" Closing="BtnWindowClosing_Click" StateChanged="MainWindow_StateChanged" KeyDown="MainWindow_KeyDown"
         Title="Timbiriche" Height="770" Width="1200">
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">

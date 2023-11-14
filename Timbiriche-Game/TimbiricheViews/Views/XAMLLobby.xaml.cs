@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -16,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Xml.Linq;
 using TimbiricheViews.Components;
+using TimbiricheViews.Components.Lobby;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -25,6 +27,8 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback
     {
+        const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
 
         public XAMLLobby()
@@ -168,11 +172,40 @@ namespace TimbiricheViews.Views
         {
             NavigationService.Navigate(new XAMLShop());
         }
+
+        private void ImgCloseGridCodeDialog_Click(object sender, MouseButtonEventArgs e)
+        {
+            if(gridCodeDialog.Visibility == Visibility.Visible)
+            {
+                gridCodeDialog.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void TbxJoinByCode_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbxJoinByCode.Text == (string)tbxJoinByCode.Tag)
+            {
+                tbxJoinByCode.Text = string.Empty;
+                tbxJoinByCode.Foreground = Brushes.Black;
+            }
+        }
+
+        private void TbxJoinByCode_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxJoinByCode.Text))
+            {
+                tbxJoinByCode.Text = (string)tbxJoinByCode.Tag;
+                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
+                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+                tbxJoinByCode.Foreground = placeholderBrush;
+            }
+        }
     }
 
     public partial class XAMLLobby : Page, ILobbyManagerCallback
     {
         private string _lobbyCode;
+
         public void NotifyLobbyCreated(string lobbyCode)
         {
             _lobbyCode = lobbyCode;
@@ -213,6 +246,9 @@ namespace TimbiricheViews.Views
 
         public void NotifyPlayersInLobby(string lobbyCode, LobbyPlayer[] lobbyPlayers)
         {
+            gridMatchCreation.Visibility = Visibility.Collapsed;
+            gridMatchControlNotLeadPlayer.Visibility = Visibility.Visible;
+
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;
 
@@ -301,6 +337,10 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLGameBoard(_lobbyCode));
         }
 
+        private void BtnInviteToLobby_Click(object sender, RoutedEventArgs e)
+        {
+            Utilities.CreateLobbyInvitationWindow(_lobbyCode);
+        }
     }
 
     public partial class XAMLLobby : Page, IPlayerColorsManagerCallback
@@ -503,7 +543,7 @@ namespace TimbiricheViews.Views
             rectangleFirstPlayerColor.Fill = rectangleSelected.Fill;
         }
 
-        private void ImgClose_Click(object sender, RoutedEventArgs e)
+        private void ImgCloseGridColorSelection_Click(object sender, RoutedEventArgs e)
         {
             if (ValidatePlayerSelectColor())
             {
@@ -555,8 +595,5 @@ namespace TimbiricheViews.Views
         {
             StablishOcuppiedColors(ocuppedColors);
         }
-
-
-
     }
 }

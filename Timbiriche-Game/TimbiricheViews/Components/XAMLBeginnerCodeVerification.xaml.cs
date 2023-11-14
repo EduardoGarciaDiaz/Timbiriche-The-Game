@@ -48,7 +48,7 @@ namespace TimbiricheViews.Components
             this.Top = centerY;
         }
 
-        public bool validateCorrectCode()
+        public bool ValidateCorrectCode()
         {
             SetDefaultStyles();
             bool isCorrectCode = false;
@@ -76,7 +76,7 @@ namespace TimbiricheViews.Components
 
         private void BtnSend_Click(object sender, RoutedEventArgs e)
         {
-            if (validateCorrectCode())
+            if (ValidateCorrectCode())
             {
                 DialogResult = true;
             }
@@ -86,7 +86,5 @@ namespace TimbiricheViews.Components
         {
             this.Close();
         }
-
     }
-
 }

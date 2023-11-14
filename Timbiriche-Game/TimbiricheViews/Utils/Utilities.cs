@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Media;
 using TimbiricheViews.Components;
+using TimbiricheViews.Components.Lobby;
 
 namespace TimbiricheViews.Utils
 {
-
     public class Utilities
     {
-
         private const string VALID_PERSONAL_INFORMATION = "^[A-Za-zÀ-ÖØ-öø-ÿ' ]{2,50}$";
         private const string VALID_USERNAME = "^[a-zA-Z0-9_]+$";
         private const string VALID_EMAIL = "^(?=.{5,100}$)[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
@@ -87,6 +86,12 @@ namespace TimbiricheViews.Utils
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
+        }
+
+        public static void CreateLobbyInvitationWindow(string lobbyCode)
+        {
+            XAMLLobbyInvitationComponent lobbyInvitationComponent = new XAMLLobbyInvitationComponent(lobbyCode);
+            lobbyInvitationComponent.Show();
         }
 
         public static SolidColorBrush CreateColorFromHexadecimal(string hexadecimalColor)
