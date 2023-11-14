@@ -261,6 +261,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerStylesManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -510,6 +539,18 @@
   <wsdl:message name="IInvitationManager_SendInvitationToEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendInvitationToEmailResponse" />
   </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStyleCallbackToLobbiesList" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_ChooseStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChooseStyle" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelectedResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -698,6 +739,18 @@
     <wsdl:operation name="SendInvitationToEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmail" message="tns:IInvitationManager_SendInvitationToEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmailResponse" message="tns:IInvitationManager_SendInvitationToEmail_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerStylesManager">
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" message="tns:IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/ChooseStyle" message="tns:IPlayerStylesManager_ChooseStyle_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" message="tns:IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelectedResponse" message="tns:IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -1106,6 +1159,31 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendInvitationToEmail">
       <soap12:operation soapAction="http://tempuri.org/IInvitationManager/SendInvitationToEmail" style="document" />
+          <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>    
+  <wsdl:binding name="NetTcpBinding_IPlayerStylesManager" type="tns:IPlayerStylesManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerStylesManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/ChooseStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1193,6 +1271,15 @@
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
           <Upn>CESARELE23\emili</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerStylesManager" binding="tns:NetTcpBinding_IPlayerStylesManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

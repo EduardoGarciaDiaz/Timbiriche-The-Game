@@ -46,6 +46,7 @@ namespace TimbiricheService
         private ILobbyManagerCallback _callbackChannel;
         private IMatchManagerCallback _matchManagerCallback;
         private IPlayerColorsManagerCallback _colorManagerCallback;
+        private IPlayerStylesManagerCallback _styleManagerCallback;
 
         [DataMember]
         public string Username { get { return _username; } set { _username = value; } }
@@ -56,6 +57,8 @@ namespace TimbiricheService
         public ILobbyManagerCallback CallbackChannel { get { return _callbackChannel;  } set { _callbackChannel = value; } }
         public IMatchManagerCallback MatchCallbackChannel { get { return _matchManagerCallback; } set { _matchManagerCallback = value; } }
         public IPlayerColorsManagerCallback ColorCallbackChannel { get { return _colorManagerCallback; } set { _colorManagerCallback = value; } }
+        public IPlayerStylesManagerCallback StyleCallbackChannel { get { return _styleManagerCallback; } set { _styleManagerCallback = value; } }
+
     }
 
     [DataContract]

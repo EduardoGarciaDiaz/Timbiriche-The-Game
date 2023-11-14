@@ -50,6 +50,21 @@ namespace TimbiricheService
         void NotifyOccupiedColors(List<LobbyPlayer> occupiedColors);
     }
 
+    [ServiceContract(CallbackContract = typeof(IPlayerStylesManagerCallback))]
+    public interface IPlayerStylesManager
+    {
+        [OperationContract(IsOneWay = true)]
+        void AddStyleCallbackToLobbiesList(string lobbyCode, LobbyPlayer lobbyPlayer);
+        [OperationContract(IsOneWay = true)]
+        void ChooseStyle(string lobbyCode, LobbyPlayer lobbyPlayer);
+    }
+
+    [ServiceContract]
+    public interface IPlayerStylesManagerCallback
+    {
+        [OperationContract]
+        void NotifyStyleSelected(LobbyPlayer lobbyPlayer);
+    }
 
     [DataContract]
     public class PlayerColor

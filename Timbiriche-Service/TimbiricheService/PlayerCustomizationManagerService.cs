@@ -206,6 +206,38 @@ namespace TimbiricheService
             }
             return doesLobbyExist;
         }
+    }
 
+    public partial class UserManagerService : IPlayerStylesManager
+    {
+
+        public void AddStyleCallbackToLobbiesList(string lobbyCode, LobbyPlayer lobbyPlayer)
+        {
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                IPlayerStylesManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerStylesManagerCallback>();
+                LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                if (auxiliarPlayer != null)
+                {
+                    auxiliarPlayer.StyleCallbackChannel = currentUserCallbackChannel;
+                }
+            }
+        }
+
+        public void ChooseStyle(string lobbyCode, LobbyPlayer lobbyPlayer)
+        {
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                if (auxiliarPlayer != null)
+                {
+                    auxiliarPlayer.StylePath = lobbyPlayer.StylePath;
+                    foreach (var colorSelector in lobbies[lobbyCode].Item2)
+                    {
+                        colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                    }
+                }
+            }
+        }
     }
 }
