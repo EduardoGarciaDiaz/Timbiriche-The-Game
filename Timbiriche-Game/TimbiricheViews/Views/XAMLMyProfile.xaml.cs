@@ -57,8 +57,9 @@ namespace TimbiricheViews.Views
 
         private void LoadDataPlayer()
         {
+            const int INDEX_FIRST_LETTER = 0;
             lbUsername.Content = playerLoggedIn.Username;
-            _initialPlayerNameLetter = playerLoggedIn.Username[0].ToString();
+            _initialPlayerNameLetter = playerLoggedIn.Username[INDEX_FIRST_LETTER].ToString();
             GetMyStyles();
         }
 
@@ -80,16 +81,20 @@ namespace TimbiricheViews.Views
         private void SetMyStyles()
         {
             SetDefaultStyleFacebox();
+            const int ID_DEFAULT_STYLE = 1;
             foreach (PlayerStyle playerStyle in _myStyles)
             {
-                Grid gridPlayerStyle = CreateStyle(playerStyle);
-                wrapPanelPlayerStyles.Children.Add(gridPlayerStyle);
+                if(playerStyle.IdStyle != ID_DEFAULT_STYLE)
+                {
+                    Grid gridPlayerStyle = CreateStyle(playerStyle);
+                    wrapPanelPlayerStyles.Children.Add(gridPlayerStyle);
+                }
             }
         }
 
         private void SetDefaultStyleFacebox()
         {
-            const int ID_DEFAULT_STYLE = 0;
+            const int ID_DEFAULT_STYLE = 1;
             Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
             gridPlayerStyle.Name = "gridStylePlayer" + "_" + ID_DEFAULT_STYLE;
             gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;

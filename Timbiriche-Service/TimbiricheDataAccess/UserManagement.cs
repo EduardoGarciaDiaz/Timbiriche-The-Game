@@ -49,6 +49,58 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
+        public int AddPlayerStyles(PlayerStyles playerStyle)
+        {
+            if (playerStyle != null)
+            {
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var newPlayerStyle = context.PlayerStyles.Add(playerStyle);
+                    try
+                    {
+                        return context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
+        public int AddPlayerColors(PlayerColors playerColor)
+        {
+            if (playerColor != null)
+            {
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var newPlayerColor = context.PlayerColors.Add(playerColor);
+                    try
+                    {
+                        return context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                    }
+                }
+            }
+            return -1;
+        }
+
         public Players ValidateLoginCredentials(String username, String password)
         {
             using (var context = new TimbiricheDBEntities())

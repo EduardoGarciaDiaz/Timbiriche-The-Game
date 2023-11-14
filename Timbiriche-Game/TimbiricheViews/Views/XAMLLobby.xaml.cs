@@ -104,10 +104,11 @@ namespace TimbiricheViews.Views
 
         private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
         {
-            const int ID_DEFAULT_STYLE = 0;
+            const int ID_DEFAULT_STYLE = 1;
+            const int INDEX_FIRST_LETTER = 0;
             if (idStyle == ID_DEFAULT_STYLE)
             {
-                lbFaceBox.Content = username[ID_DEFAULT_STYLE].ToString();
+                lbFaceBox.Content = username[INDEX_FIRST_LETTER].ToString();
             }
             else
             {

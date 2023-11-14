@@ -36,7 +36,38 @@ namespace TimbiricheService
             newPlayer.Accounts = newAccount;
 
             UserManagement dataAccess = new UserManagement();
-            return dataAccess.AddUser(newPlayer);
+            int rowsAffected = dataAccess.AddUser(newPlayer);
+
+            if (rowsAffected > 0)
+            {
+                int rowsAffectedPlayerStyles = SetDefaultStyle(newPlayer);
+                if  (rowsAffectedPlayerStyles > 0)
+                {
+                    SetDefaultColors(newPlayer);
+                }
+            }
+            return rowsAffected;
+        }
+
+        private int SetDefaultStyle(Players newPlayer)
+        {
+            PlayerStyles playerStyle = new PlayerStyles();
+            playerStyle.idPlayer = newPlayer.idPlayer;
+            playerStyle.idStyle = 1;
+            UserManagement dataAccess = new UserManagement();
+            return dataAccess.AddPlayerStyles(playerStyle);
+        }
+
+        private void SetDefaultColors(Players newPlayer)
+        {
+            PlayerColors playerColor = new PlayerColors();
+            playerColor.idPlayer = newPlayer.idPlayer;
+            for (int i = 1 ; i < 5 ; i++)
+            {
+                playerColor.idColor = i;
+                UserManagement dataAccess = new UserManagement();
+                dataAccess.AddPlayerColors(playerColor);
+            }
         }
 
         public Player ValidateLoginCredentials(String username, String password)
