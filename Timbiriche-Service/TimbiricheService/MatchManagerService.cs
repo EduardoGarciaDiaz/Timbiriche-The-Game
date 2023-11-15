@@ -43,7 +43,7 @@ namespace TimbiricheService
             {
                 if (player != match.GetTurnPlayer())
                 {
-                    player.MatchCallbackChannel.NotifyMovement(typeLine, row, column);
+                        player.MatchCallbackChannel.NotifyMovement(typeLine, row, column);
                 }
             }
 
