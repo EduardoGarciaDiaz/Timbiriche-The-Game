@@ -70,6 +70,22 @@ namespace TimbiricheService
             NotifyTurns(lobbyCode);
         }
 
+        public void EndMatch(string lobbyCode)
+        {
+            Match.Match match = matches[lobbyCode];
+            List<KeyValuePair<string, int>> scoreboard = match.GetScoreboard();
+
+            for(int i = 0; i < scoreboard.Count; i++)
+            {
+                var player = match.Players.FirstOrDefault(p => p.Username == scoreboard[i].Key);
+
+                if(player != null)
+                {
+                    //int coinsEarned = CoinsE
+                }
+            }
+        }
+
         public void SendMessageToLobby(string lobbyCode, string senderUsername, string message)
         {
             Match.Match match = matches[lobbyCode];
