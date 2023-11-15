@@ -75,13 +75,15 @@ namespace TimbiricheService
             Match.Match match = matches[lobbyCode];
             List<KeyValuePair<string, int>> scoreboard = match.GetScoreboard();
 
-            for(int i = 0; i < scoreboard.Count; i++)
+            for(int playerPosition = 0; playerPosition < scoreboard.Count; playerPosition++)
             {
-                var player = match.Players.FirstOrDefault(p => p.Username == scoreboard[i].Key);
+                var player = match.Players.FirstOrDefault(p => p.Username == scoreboard[playerPosition].Key);
 
                 if(player != null)
                 {
-                    //int coinsEarned = CoinsE
+                    int coinsEarned = CoinsEarn.CalculateExtraCoins(playerPosition, scoreboard[playerPosition].Value);
+
+
                 }
             }
         }
