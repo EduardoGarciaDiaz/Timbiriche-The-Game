@@ -355,8 +355,9 @@ namespace TimbiricheViews.Views
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
         {
-            const int MATCH_DURATION_IN_MINUTES = 5;
+            const int MATCH_DURATION_IN_MINUTES = 1;
             const int TURN_DURATION_IN_MINUTES = 1;
+
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
             lobbyInformation.MatchDurationInMinutes = MATCH_DURATION_IN_MINUTES;

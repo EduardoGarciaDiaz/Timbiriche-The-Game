@@ -951,6 +951,12 @@ namespace TimbiricheViews.Server {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement")]
         System.Threading.Tasks.Task EndTurnWithoutMovementAsync(string lobbyCode);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndMatch")]
+        void EndMatch(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndMatch")]
+        System.Threading.Tasks.Task EndMatchAsync(string lobbyCode);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
         void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
         
@@ -972,6 +978,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse")]
         void NotifyNewScoreboard(System.Collections.Generic.KeyValuePair<string, int>[] scoreboard);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyEndOfTheMatchResponse")]
+        void NotifyEndOfTheMatch(System.Collections.Generic.KeyValuePair<string, int>[] scoreboard, int coins);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
         void NotifyNewMessage(string senderUsername, string message);
@@ -1027,6 +1036,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task EndTurnWithoutMovementAsync(string lobbyCode) {
             return base.Channel.EndTurnWithoutMovementAsync(lobbyCode);
+        }
+        
+        public void EndMatch(string lobbyCode) {
+            base.Channel.EndMatch(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task EndMatchAsync(string lobbyCode) {
+            return base.Channel.EndMatchAsync(lobbyCode);
         }
         
         public void SendMessageToLobby(string lobbyCode, string senderUsername, string message) {
@@ -1318,7 +1335,7 @@ namespace TimbiricheViews.Server {
             return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, lobbyPlayer);
         }
     }
-
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IInvitationManager")]
     public interface IInvitationManager {
@@ -1365,8 +1382,7 @@ namespace TimbiricheViews.Server {
             return base.Channel.SendInvitationToEmailAsync(lobbyCode, email);
         }
     }
-
-    //
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerStylesManager", CallbackContract=typeof(TimbiricheViews.Server.IPlayerStylesManagerCallback))]
     public interface IPlayerStylesManager {

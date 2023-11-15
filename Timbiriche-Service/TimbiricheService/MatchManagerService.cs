@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess;
 using TimbiricheService.Match;
 
 namespace TimbiricheService
@@ -83,7 +84,10 @@ namespace TimbiricheService
                 {
                     int coinsEarned = CoinsEarn.CalculateExtraCoins(playerPosition, scoreboard[playerPosition].Value);
 
+                    CoinsManagement coinsManagement = new CoinsManagement();
+                    coinsManagement.UpdateCoins(player.Username, coinsEarned);
 
+                    player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
                 }
             }
         }

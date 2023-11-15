@@ -256,14 +256,6 @@ namespace TimbiricheViews.Views
             UpdateTurn(username);
         }
 
-        public void NotifyNewMessage(string senderUsername, string message)
-        {
-            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
-            messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
-
-            stackPanelMessages.Children.Add(messageComponent);
-        }
-
         public void NotifyNewScoreboard(KeyValuePair<string, int>[] scoreboard)
         {
             Storyboard animationFadeIn = (Storyboard)FindResource("fadeAnimation");
@@ -291,6 +283,19 @@ namespace TimbiricheViews.Views
                 tbxFourthPlaceUsername.Text = scoreboard[3].Key;
                 tbxFourthPlacePoints.Text = scoreboard[3].Value.ToString();
             }
+        }
+
+        public void NotifyEndOfTheMatch(KeyValuePair<string, int>[] scoreboard, int coinsEarned)
+        {
+            NavigationService.Navigate(new XAMLVictory(scoreboard, coinsEarned));
+        }
+
+        public void NotifyNewMessage(string senderUsername, string message)
+        {
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
+            messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
+
+            stackPanelMessages.Children.Add(messageComponent);
         }
 
         private Button FindButtonByName(string name)
@@ -321,7 +326,9 @@ namespace TimbiricheViews.Views
 
         private void OnCountDownMatchFinished(object sender, EventArgs e)
         {
-
+            InstanceContext context = new InstanceContext(this);
+            MatchManagerClient client = new MatchManagerClient(context);
+            client.EndMatch(_lobbyCode);
         }
 
         private void BtnSendMessage_Click(object sender, RoutedEventArgs e)

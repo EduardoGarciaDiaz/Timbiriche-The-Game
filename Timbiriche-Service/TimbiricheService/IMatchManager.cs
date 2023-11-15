@@ -35,7 +35,7 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyNewScoreboard(List<KeyValuePair<string, int>> scoreboard);
         [OperationContract]
-        void NotifyEndOfTheMatch(List<KeyValuePair<string, int>> scoreboard, int coins);
+        void NotifyEndOfTheMatch(List<KeyValuePair<string, int>> scoreboard, int coinsEarned);
         [OperationContract]
         void NotifyNewMessage(string senderUsername, string message);
     }

@@ -419,6 +419,9 @@
   <wsdl:message name="IMatchManager_EndTurnWithoutMovement_InputMessage">
     <wsdl:part name="parameters" element="tns:EndTurnWithoutMovement" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_EndMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndMatch" />
+  </wsdl:message>
   <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
   </wsdl:message>
@@ -445,6 +448,12 @@
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewScoreboard_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewScoreboardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatchResponse" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewMessage" />
@@ -648,6 +657,9 @@
     <wsdl:operation name="EndTurnWithoutMovement">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" message="tns:IMatchManager_EndTurnWithoutMovement_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndMatch" message="tns:IMatchManager_EndMatch_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
     </wsdl:operation>
@@ -666,6 +678,10 @@
     <wsdl:operation name="NotifyNewScoreboard">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard" message="tns:IMatchManager_NotifyNewScoreboard_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse" message="tns:IMatchManager_NotifyNewScoreboard_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" message="tns:IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatchResponse" message="tns:IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyNewMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
@@ -964,6 +980,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/SendMessageToLobby" style="document" />
       <wsdl:input>
@@ -999,6 +1021,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyNewScoreboard">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewScoreboard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1159,14 +1190,14 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendInvitationToEmail">
       <soap12:operation soapAction="http://tempuri.org/IInvitationManager/SendInvitationToEmail" style="document" />
-          <wsdl:input>
+      <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-  </wsdl:binding>    
+  </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IPlayerStylesManager" type="tns:IPlayerStylesManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IPlayerStylesManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -1279,7 +1310,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>CESARELE23\emili</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
