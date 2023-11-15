@@ -1318,7 +1318,7 @@ namespace TimbiricheViews.Server {
             return base.Channel.UnsubscribeColorToColorsSelectedAsync(lobbyCode, lobbyPlayer);
         }
     }
-    
+
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IInvitationManager")]
     public interface IInvitationManager {
@@ -1363,6 +1363,76 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> SendInvitationToEmailAsync(string lobbyCode, string email) {
             return base.Channel.SendInvitationToEmailAsync(lobbyCode, email);
+        }
+    }
+
+    //
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IPlayerStylesManager", CallbackContract=typeof(TimbiricheViews.Server.IPlayerStylesManagerCallback))]
+    public interface IPlayerStylesManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList")]
+        void AddStyleCallbackToLobbiesList(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList")]
+        System.Threading.Tasks.Task AddStyleCallbackToLobbiesListAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerStylesManager/ChooseStyle")]
+        void ChooseStyle(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IPlayerStylesManager/ChooseStyle")]
+        System.Threading.Tasks.Task ChooseStyleAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerStylesManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected", ReplyAction="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelectedResponse")]
+        void NotifyStyleSelected(TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IPlayerStylesManagerChannel : TimbiricheViews.Server.IPlayerStylesManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class PlayerStylesManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IPlayerStylesManager>, TimbiricheViews.Server.IPlayerStylesManager {
+        
+        public PlayerStylesManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public PlayerStylesManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public PlayerStylesManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerStylesManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public PlayerStylesManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void AddStyleCallbackToLobbiesList(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.AddStyleCallbackToLobbiesList(lobbyCode, lobbyPlayer);
+        }
+        
+        public System.Threading.Tasks.Task AddStyleCallbackToLobbiesListAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.AddStyleCallbackToLobbiesListAsync(lobbyCode, lobbyPlayer);
+        }
+        
+        public void ChooseStyle(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            base.Channel.ChooseStyle(lobbyCode, lobbyPlayer);
+        }
+        
+        public System.Threading.Tasks.Task ChooseStyleAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
+            return base.Channel.ChooseStyleAsync(lobbyCode, lobbyPlayer);
         }
     }
 }

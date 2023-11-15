@@ -36,9 +36,10 @@ namespace TimbiricheViews.Views
 
         private void DpBirthdate_Loaded(object sender, RoutedEventArgs e)
         {
+            const int YEARS_AGO_ALLOWED = -3;
             if (sender is DatePicker datePicker)
             {
-                datePicker.DisplayDateEnd = DateTime.Today.AddYears(-3);
+                datePicker.DisplayDateEnd = DateTime.Today.AddYears(YEARS_AGO_ALLOWED);
             }
         }
 
@@ -118,8 +119,8 @@ namespace TimbiricheViews.Views
         {
             const string NOT_BANNED_STATUS = "Not-Banned";
             const int DEFAULT_NUMBER_OF_COINS = 0;
-            const int DEFAULT_ID_COLOR_SELECTED = 0;
-            const int DEFAULT_ID_STYLE_SELECTED = 0;
+            const int DEFAULT_ID_COLOR_SELECTED = 1;
+            const int DEFAULT_ID_STYLE_SELECTED = 1;
 
             Server.Player newPlayer = new Server.Player()
             {
