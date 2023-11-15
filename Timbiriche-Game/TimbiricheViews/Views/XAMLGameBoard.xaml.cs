@@ -227,7 +227,7 @@ namespace TimbiricheViews.Views
 
         public void NotifyMovement(string typeLine, int row, int column)
         {
-            Button btnLine = FindButtonByName(typeLine + "Q" + row + "Q" + column);
+            Button btnLine = FindButtonByName(typeLine + "_" + row + "_" + column);
             SetMovement(btnLine, "#FFAC4C4C", row, column, typeLine);
         }
 
