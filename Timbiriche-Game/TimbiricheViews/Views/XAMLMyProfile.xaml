@@ -37,7 +37,7 @@
                     
                     <ScrollViewer Margin="79,258,54,100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <WrapPanel x:Name="wrapPanelPlayerStyles">
-                            <Grid x:Name="gridPlayerStyleTemplate" Width="161" Margin="15,10,0,0" Visibility="Collapsed" Cursor="Hand">
+                            <Grid x:Name="gridPlayerStyleTemplate" Width="160" Margin="15,10,0,0" Visibility="Collapsed" Cursor="Hand">
                                 <Rectangle x:Name="rectanglePlayerStyleBackgroundTemplate"  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
                                 <Label x:Name="lbPlayerStyleTemplate" Foreground="White" FontSize="105" HorizontalContentAlignment="Center" Visibility="Collapsed">
                                 </Label>
