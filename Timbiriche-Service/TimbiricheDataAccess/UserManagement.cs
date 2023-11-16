@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
+using System.Data.Entity.Core;
 
 namespace TimbiricheDataAccess
 {
@@ -105,17 +106,17 @@ namespace TimbiricheDataAccess
         {
             using (var context = new TimbiricheDBEntities())
             {
-                var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
-
+            var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+            
                 if (playerData != null)
+            {
+                PasswordHashManager passwordHashManager = new PasswordHashManager();
+                var playerPassword = playerData.password;
+                if (passwordHashManager.VerifyPassword(password, playerPassword))
                 {
-                    PasswordHashManager passwordHashManager = new PasswordHashManager();
-                    var playerPassword = playerData.password;
-                    if (passwordHashManager.VerifyPassword(password, playerPassword))
-                    {
-                        return playerData;
-                    }
+                    return playerData;
                 }
+            }
 
                 return null;
             }

@@ -53,10 +53,10 @@ namespace TimbiricheViews.Views
                 {
                     if (VerifyEmailCode(email))
                     {
-                        Account newAccount = CreateNewAccount();
-                        Server.Player newPlayer = CreateNewPlayer(newAccount);
                         try
                         {
+                            Account newAccount = CreateNewAccount();
+                            Server.Player newPlayer = CreateNewPlayer(newAccount);
                             Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
                             int rowsAffected = userManagerClient.AddUser(newPlayer);
                             if (rowsAffected > 0)
@@ -71,7 +71,7 @@ namespace TimbiricheViews.Views
                         }
                         catch (EndpointNotFoundException ex)
                         {
-                            Utilities.CreateConnectionFailedMessageWindow();
+                            EmergentWindows.CreateConnectionFailedMessageWindow();
                             // TODO: Log the excepction
                         }
                     }
@@ -140,14 +140,14 @@ namespace TimbiricheViews.Views
         {
             string titleEmergentWindow = Properties.Resources.lbTitleAccountCreatedSuccess;
             string descriptionEmergentWindow = Properties.Resources.tbkDescriptionAccountCreatedSuccess;
-            Utilities.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
+            EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
         private void ShowCreateAccountFailMessage()
         {
             string titleEmergentWindow = Properties.Resources.lbTitleCreateAccountFail;
             string descriptionEmergentWindow = Properties.Resources.tbkDescriptionCreateAccountFail;
-            Utilities.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
+            EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
 
@@ -170,7 +170,7 @@ namespace TimbiricheViews.Views
             }
             catch (EndpointNotFoundException ex)
             {
-                Utilities.CreateConnectionFailedMessageWindow();
+                EmergentWindows.CreateConnectionFailedMessageWindow();
                 // TODO: Log the excepction
             }
             return existUserIdentifier;
@@ -182,32 +182,32 @@ namespace TimbiricheViews.Views
             ValidatePasswordProperties();
             bool isValid = true;
 
-            if (!Utilities.IsValidPersonalInformation(tbxName.Text))
+            if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text))
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidPersonalInformation(tbxLastName.Text))
+            if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidEmail(tbxEmail.Text))
+            if (!ValidationUtilities.IsValidEmail(tbxEmail.Text))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 lbEmailError.Visibility = Visibility.Visible;
                 ImgEmailErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidUsername(tbxUsername.Text))
+            if (!ValidationUtilities.IsValidUsername(tbxUsername.Text))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!Utilities.IsValidPassword(pwBxPassword.Password))
+            if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
@@ -254,19 +254,19 @@ namespace TimbiricheViews.Views
             {
                 lbPasswordLengthInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidSymbol(pwBxPassword.Password))
+            if (ValidationUtilities.IsValidSymbol(pwBxPassword.Password))
             {
                 lbPasswordSymbolInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidCapitalLetter(pwBxPassword.Password))
+            if (ValidationUtilities.IsValidCapitalLetter(pwBxPassword.Password))
             {
                 lbPasswordCapitalLetterInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidLowerLetter(pwBxPassword.Password))
+            if (ValidationUtilities.IsValidLowerLetter(pwBxPassword.Password))
             {
                 lbPasswordLowerLetterInstruction.Foreground = Brushes.GreenYellow;
             }
-            if (Utilities.IsValidNumber(pwBxPassword.Password))
+            if (ValidationUtilities.IsValidNumber(pwBxPassword.Password))
             {
                 lbPasswordNumberInstruction.Foreground = Brushes.GreenYellow;
             }

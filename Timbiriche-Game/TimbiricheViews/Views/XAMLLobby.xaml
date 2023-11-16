@@ -17,6 +17,14 @@
                 </Style>
             </Style.Resources>
         </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
     </Page.Resources>
 
     <Viewbox Stretch="Fill">
@@ -120,25 +128,35 @@
                     FontSize="70" Content="" Height="191" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
             </Grid>
 
-            <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
+            <Grid x:Name="gridFriendsMenu" Visibility="Visible" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
                 FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
                 <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
                 <Button Content="{x:Static p:Resources.lbFriends}" Background="#063343" Foreground="White" 
-                    FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616"></Button>
+                    FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616" Click="BtnFriends_Click"></Button>
                 <Button Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
-                    FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616"></Button>
+                    FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616" Click="BtnFriendsRequest_Click"></Button>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />
-                <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="25,162,5,214">
+                <ScrollViewer x:Name="scrollViewerFriends" VerticalScrollBarVisibility="Auto" Margin="16,162,14,214">
                     <StackPanel x:Name="stackPanelFriends">
+                    </StackPanel>
+                </ScrollViewer>
+                <ScrollViewer x:Name="scrollViewerFriendsRequest" Visibility="Collapsed" VerticalScrollBarVisibility="Auto" Margin="16,162,14,214">
+                    <StackPanel x:Name="stackPanelFriendsRequest">
                     </StackPanel>
                 </ScrollViewer>
                 <Label Content="{x:Static p:Resources.lbSendRequest}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" 
                     FontSize="18" Margin="0,544,0,0" ></Label>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" Height="2" 
                     StrokeThickness="5.6" X2="500" Margin="25,575,25,0" />
+                <Label Content="{x:Static p:Resources.lbUsername}" Margin="25,587,20,122" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="14"></Label>
+                <TextBox x:Name="tbxUsernameSendRequest" Margin="36,612,37,89" FontFamily="Inter" FontSize="16" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontWeight="Bold"/>
+                <Label x:Name="lbFriendRequestUsernameError"  Margin="20,644,0,0" Visibility="Collapsed" HorizontalAlignment="Left" VerticalAlignment="Top" HorizontalContentAlignment="Center" FontFamily="Inter" FontSize="9" VerticalContentAlignment="Center">
+                    <TextBlock Text="{x:Static p:Resources.lbHelpUsernameError}" IsEnabled="False" TextWrapping="Wrap" Height="32" Width="259" VerticalAlignment="Top" HorizontalAlignment="Center" Foreground="#FFDA0303"/>
+                </Label>
+                <Button Content="{x:Static p:Resources.btnSendFriendRequestByUsername}" Margin="72,674,73,23" FontFamily="Titan One" FontSize="18" Foreground="White" Background="#FF063343" Click="BtnSendRequest_Click"></Button>
             </Grid>
 
             <Grid Background="#59000000" x:Name="gridSelectColor" Visibility="Collapsed">

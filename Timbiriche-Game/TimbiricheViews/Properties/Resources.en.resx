@@ -252,9 +252,6 @@
   <data name="lbConnectionFailed" xml:space="preserve">
     <value>Connection Failed</value>
   </data>
-  <data name="lbConnectionFailedDetails" xml:space="preserve">
-    <value>Could not connect to the server. Try again later</value>
-  </data>
   <data name="lbCreateAccount" xml:space="preserve">
     <value>Create account</value>
   </data>
@@ -266,6 +263,9 @@
   </data>
   <data name="lbCustomYourCharacter" xml:space="preserve">
     <value>¡Customize your character!</value>
+  </data>
+  <data name="lbDataBaseErrorTitle" xml:space="preserve">
+    <value>Database error</value>
   </data>
   <data name="lbEmail" xml:space="preserve">
     <value>Email</value>
@@ -411,6 +411,9 @@
   <data name="lbTemporaryUserNameInstruction" xml:space="preserve">
     <value>Enter a username that you will appear with during the game</value>
   </data>
+  <data name="lbTimeOutExceptionTitle" xml:space="preserve">
+    <value>Waiting time exceeded</value>
+  </data>
   <data name="lbTitleAccountCreatedSuccess" xml:space="preserve">
     <value>Account created successfully</value>
   </data>
@@ -450,11 +453,20 @@
   <data name="String" xml:space="preserve">
     <value>to be able to play with them</value>
   </data>
+  <data name="tbkConnectionFailedDetails" xml:space="preserve">
+    <value>Could not connect to the server. Please try again later.</value>
+  </data>
+  <data name="tbkDataBaseErrorDescription" xml:space="preserve">
+    <value>An error related to the database has occurred. Please try again later.</value>
+  </data>
   <data name="tbkDescriptionAccountCreatedSuccess" xml:space="preserve">
     <value>Your account has been created successfully. Now you can log in with your registered username and password</value>
   </data>
   <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
-    <value>The account could not be created. Please try again.</value>
+    <value>The account could not be created. Please try again later.</value>
+  </data>
+  <data name="tbkTimeOutExceptionDescription" xml:space="preserve">
+    <value>The operation has timed out. Please try again later.</value>
   </data>
   <data name="tbxBirthdate" xml:space="preserve">
     <value>02/11/2003</value>

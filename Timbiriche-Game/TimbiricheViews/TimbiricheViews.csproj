@@ -85,6 +85,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Match\Timer.cs" />
+    <Compile Include="Utils\EmergentWindows.cs" />
+    <Compile Include="Utils\ValidationUtilities.cs" />
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>

@@ -72,13 +72,13 @@ namespace TimbiricheViews.Views
             SetDefaultStyles();
             bool isValid = true;
 
-            if (!Utilities.IsValidUsername(tbxUsername.Text) || tbxUsername.Text.Equals(tbxUsername.Tag))
+            if (!ValidationUtilities.IsValidUsername(tbxUsername.Text) || tbxUsername.Text.Equals(tbxUsername.Tag))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
 
-            if (!Utilities.IsValidPassword(pwBxPassword.Password) || pwBxPassword.Password.Equals(pwBxPassword.Tag))
+            if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password) || pwBxPassword.Password.Equals(pwBxPassword.Tag))
             {
                 pwBxPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
@@ -90,6 +90,7 @@ namespace TimbiricheViews.Views
         {
             tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
             pwBxPasswordMask.Style = (Style)FindResource("NormalTextBoxStyle");
+            lbIncorrectCredentials.Visibility = Visibility.Hidden;
         }
 
         private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
@@ -109,15 +110,31 @@ namespace TimbiricheViews.Views
                 }
                 catch (EndpointNotFoundException ex)
                 {
-                    Utilities.CreateConnectionFailedMessageWindow();
-                    // TODO: Log the excepction
-                }   // TODO: EXCEPTION FOR TIME
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    // TODO: Log the exception
+                } 
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                }
+                /*catch (CommunicationException ex)
+                {
+                    //TODO: Show emergent window
+                }
+                catch (Exception ex)
+                {
+                    //TODO: Show emergent window...Ups has ocurried an unexpected error. Please try again later
+                }*/
                 if (playerLogged != null)
                 {
                     PlayerSingleton.Player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
+                } else
+                {
+                    lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }
             }
+            
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
@@ -174,5 +191,4 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLPasswordReset());
         }
     }
-
 }

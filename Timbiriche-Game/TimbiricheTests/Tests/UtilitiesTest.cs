@@ -10,17 +10,15 @@ using Xunit;
 
 namespace TimbiricheTests.Tests
 {
-
     public class UtilitiesTest
     {
-        
         [Fact]
         public void TestIsValidPersonalInformationSuccess()
         {
             bool currentResult = false;
             string testText = "Messi";
 
-            currentResult = Utilities.IsValidPersonalInformation(testText);
+            currentResult = ValidationUtilities.IsValidPersonalInformation(testText);
             
             Assert.True(currentResult);
         }
@@ -31,7 +29,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidPersonalInformation(testText);
+            currentResult = ValidationUtilities.IsValidPersonalInformation(testText);
 
             Assert.False(currentResult);
         }
@@ -42,7 +40,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "Gohan*+";
 
-            currentResult = Utilities.IsValidPersonalInformation(testText);
+            currentResult = ValidationUtilities.IsValidPersonalInformation(testText);
 
             Assert.False(currentResult);
         }
@@ -53,7 +51,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "Messi_10";
 
-            currentResult = Utilities.IsValidUsername(testText);
+            currentResult = ValidationUtilities.IsValidUsername(testText);
 
             Assert.True(currentResult);
         }
@@ -64,7 +62,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidUsername(testText);
+            currentResult = ValidationUtilities.IsValidUsername(testText);
 
             Assert.False(currentResult);
         }
@@ -74,7 +72,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "Willy*-/";
 
-            currentResult = Utilities.IsValidUsername(testText);
+            currentResult = ValidationUtilities.IsValidUsername(testText);
 
             Assert.False(currentResult);
         }
@@ -85,7 +83,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "messi@gmail.com";
 
-            currentResult = Utilities.IsValidEmail(testText);
+            currentResult = ValidationUtilities.IsValidEmail(testText);
             Assert.True(currentResult);
         }
 
@@ -95,7 +93,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidEmail(testText);
+            currentResult = ValidationUtilities.IsValidEmail(testText);
             Assert.False(currentResult);
         }
 
@@ -105,7 +103,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "messi@gmail";
 
-            currentResult = Utilities.IsValidEmail(testText);
+            currentResult = ValidationUtilities.IsValidEmail(testText);
             Assert.False(currentResult);
         }
 
@@ -115,7 +113,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10Ess1A/tOnL";
 
-            currentResult = Utilities.IsValidPassword(testText);
+            currentResult = ValidationUtilities.IsValidPassword(testText);
             Assert.True(currentResult);
         }
 
@@ -125,7 +123,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidPassword(testText);
+            currentResult = ValidationUtilities.IsValidPassword(testText);
             Assert.False(currentResult);
         }
 
@@ -135,7 +133,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10eai12";
 
-            currentResult = Utilities.IsValidPassword(testText);
+            currentResult = ValidationUtilities.IsValidPassword(testText);
             Assert.False(currentResult);
         }
 
@@ -145,7 +143,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10Ess1A/tOnL";
 
-            currentResult = Utilities.IsValidSymbol(testText);
+            currentResult = ValidationUtilities.IsValidSymbol(testText);
             Assert.True(currentResult);
         }
 
@@ -155,7 +153,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidSymbol(testText);
+            currentResult = ValidationUtilities.IsValidSymbol(testText);
             Assert.False(currentResult);
         }
 
@@ -165,7 +163,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M10Ess1AtOnL22";
 
-            currentResult = Utilities.IsValidSymbol(testText);
+            currentResult = ValidationUtilities.IsValidSymbol(testText);
             Assert.False(currentResult);
         }
 
@@ -175,7 +173,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10Ess1A/tOnL";
 
-            currentResult = Utilities.IsValidCapitalLetter(testText);
+            currentResult = ValidationUtilities.IsValidCapitalLetter(testText);
             Assert.True(currentResult);
         }
 
@@ -185,7 +183,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidCapitalLetter(testText);
+            currentResult = ValidationUtilities.IsValidCapitalLetter(testText);
             Assert.False(currentResult);
         }
 
@@ -195,7 +193,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "m_10ess1a/t0nl";
 
-            currentResult = Utilities.IsValidCapitalLetter(testText);
+            currentResult = ValidationUtilities.IsValidCapitalLetter(testText);
             Assert.False(currentResult);
         }
 
@@ -205,7 +203,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10Ess1A/tOnL";
 
-            currentResult = Utilities.IsValidLowerLetter(testText);
+            currentResult = ValidationUtilities.IsValidLowerLetter(testText);
             Assert.True(currentResult);
         }
 
@@ -215,7 +213,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidLowerLetter(testText);
+            currentResult = ValidationUtilities.IsValidLowerLetter(testText);
             Assert.False(currentResult);
         }
 
@@ -225,7 +223,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_108ESS1A/TONL3";
 
-            currentResult = Utilities.IsValidLowerLetter(testText);
+            currentResult = ValidationUtilities.IsValidLowerLetter(testText);
             Assert.False(currentResult);
         }
         [Fact]
@@ -234,7 +232,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_10Ess1A/tOnL";
 
-            currentResult = Utilities.IsValidNumber(testText);
+            currentResult = ValidationUtilities.IsValidNumber(testText);
             Assert.True(currentResult);
         }
 
@@ -244,7 +242,7 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = " ";
 
-            currentResult = Utilities.IsValidNumber(testText);
+            currentResult = ValidationUtilities.IsValidNumber(testText);
             Assert.False(currentResult);
         }
 
@@ -254,10 +252,8 @@ namespace TimbiricheTests.Tests
             bool currentResult = false;
             string testText = "M_DuEssFA/tRnL";
 
-            currentResult = Utilities.IsValidNumber(testText);
+            currentResult = ValidationUtilities.IsValidNumber(testText);
             Assert.False(currentResult);
         }
-
     }
-
 }

@@ -248,7 +248,42 @@ namespace TimbiricheViews.Views
                 tbxJoinByCode.Foreground = placeholderBrush;
             }
         }
+
+        private void BtnFriends_Click(object sender, RoutedEventArgs e)
+        {
+            scrollViewerFriends.Visibility = Visibility.Visible;
+            scrollViewerFriendsRequest.Visibility = Visibility.Collapsed;
+        }
+
+        private void BtnFriendsRequest_Click(object sender, RoutedEventArgs e)
+        {
+            scrollViewerFriendsRequest.Visibility = Visibility.Visible;
+            scrollViewerFriends.Visibility = Visibility.Collapsed;
+        }
+        
     }
+
+    public partial class XAMLLobby : Page //FriendShips
+    {
+        private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
+        {
+            SendRequest();
+        }
+
+        private void SendRequest()
+        {
+            lbFriendRequestUsernameError.Visibility = Visibility.Collapsed;
+            string friendRequestUsername = tbxUsernameSendRequest.Text;
+            if (ValidationUtilities.IsValidUsername(friendRequestUsername))
+            {
+                //TODO: Send Request Service
+            } else
+            {
+                lbFriendRequestUsernameError.Visibility = Visibility.Visible;
+            }
+        }
+    }
+
 
     public partial class XAMLLobby : Page, ILobbyManagerCallback
     {
@@ -338,14 +373,14 @@ namespace TimbiricheViews.Views
         {
             string title = "Lobby lleno";
             string message = "El lobby al que estas intentando entrar esta lleno.";
-            Utilities.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateEmergentWindow(title, message);
         }
 
         public void NotifyLobbyDoesNotExist()
         {
             string title = "Lobby no encontrado";
             string message = "El lobby al que estas intentando entrar no existe.";
-            Utilities.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateEmergentWindow(title, message);
         }
 
         public void NotifyStartOfMatch()
@@ -399,7 +434,7 @@ namespace TimbiricheViews.Views
 
         private void BtnInviteToLobby_Click(object sender, RoutedEventArgs e)
         {
-            Utilities.CreateLobbyInvitationWindow(_lobbyCode);
+            EmergentWindows.CreateLobbyInvitationWindow(_lobbyCode);
         }
     }
 

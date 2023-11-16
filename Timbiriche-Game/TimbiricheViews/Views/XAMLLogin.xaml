@@ -108,6 +108,7 @@
             <Image x:Name="imgMexicoFlag" Visibility="Visible" Source="/Resources/mexicoFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="85" Margin="1077,402,0,0" Grid.Row="1"/>
             <Label Name="lbLanguage" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbLanguage}" Margin="1054,458,20,63" Grid.Row="1"></Label>
             <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" Cursor="Hand" Margin="1061,395,30,66" Grid.Row="1" />
+            <Label x:Name="lbIncorrectCredentials" Content="{x:Static p:Resources.lbIncorrectCredentials}" Visibility="Collapsed" HorizontalAlignment="Left" Margin="416,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontFamily="Inter" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFF5959"/>
         </Grid>
     </Viewbox>
 
