@@ -4,13 +4,26 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TimbiricheViews.Components"
-             mc:Ignorable="d" 
-             d:DesignHeight="58" d:DesignWidth="248">
-    <Grid>
-        <Rectangle Fill="#063343" Height="50" RadiusX="25" RadiusY="25" Width="248" Opacity="0.75" Margin="0,0,0,8" />
-        <Label x:Name="lbUsername" Content="JhonFKenn23" Foreground="White" FontSize="16" FontFamily="Inter" FontWeight="Bold" Margin="47,10,57,22" VerticalAlignment="Center"/>
-        <Image Source="/Resources/friendItemButton.png" Margin="197,15,8,25" />
-        <Rectangle Width="15" Height="15" RadiusX="7.5" RadiusY="7.5" Fill="#61FF00" Margin="18,16,215,27" />
+             xmlns:p = "clr-namespace:TimbiricheViews.Properties"
+             mc:Ignorable="d" Width="248" Height="66">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
 
+    <Grid Background="#00000000" Margin="0,8,0,-8">
+        <Rectangle Fill="#063343" Height="50" RadiusX="25" RadiusY="25" Width="248" Opacity="0.75" />
+        <Label x:Name="lbUsername" Content="username" Foreground="White" FontSize="16" FontFamily="Inter" FontWeight="Bold" Margin="20,0,37,0" VerticalAlignment="Center"/>
+        <Image Source="/Resources/friendItemButton.png" Margin="211,15,10,14" MouseLeftButtonDown="ImgOptionPlayer_Click" Cursor="Hand"/>
+        <Rectangle Width="15" Height="15" RadiusX="7.5" RadiusY="7.5" Fill="#61FF00" Margin="5,22,228,22" />
+        <Grid Margin="68,-10,-68,10" x:Name="gridOptionsPlayer" Visibility="Collapsed">
+            <Border Background="#5E7682"  BorderThickness="1" CornerRadius="15, 15, 0, 15" Margin="9,0,103,33" />
+            <Button Content="{x:Static p:Resources.btnDeleteFriend}" Margin="15,5,107,37" Background="#FF435B67" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" Click="BtnDeleteFriend_Click" />
+        </Grid>
     </Grid>
 </UserControl>

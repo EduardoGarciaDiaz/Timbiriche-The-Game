@@ -42,10 +42,10 @@
             <Button x:Name="btnMyProfile" Background="Transparent" BorderBrush="Transparent" Margin="1105,9,7,663" Click="BtnMyProfile_Click" Cursor="Hand" />
             <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1117,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
 
-            <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+            <Button x:Name="btnLobby" Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
                         BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand"/>
 
-            <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+            <Button x:Name="btnShop" Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
             BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand" Click="BtnShop_Click"/>
 
             <Image Source="../Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
@@ -128,14 +128,14 @@
                     FontSize="70" Content="" Height="191" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
             </Grid>
 
-            <Grid x:Name="gridFriendsMenu" Visibility="Visible" Margin="15,13,890,19">
+            <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
                 FontFamily="Titan One" BorderBrush="Transparent" Content="" Margin="25,30,25,660" Click="BtnCloseFriendsMenu_Click" />
                 <Image Margin="126,40,127,670" Source="/Resources/back.png"/>
-                <Button Content="{x:Static p:Resources.lbFriends}" Background="#063343" Foreground="White" 
+                <Button x:Name="btnFriends" Content="{x:Static p:Resources.lbFriends}" Background="#FF13546C" Foreground="White" 
                     FontFamily="Titan One" BorderBrush="Transparent" Margin="25,83,147,616" Click="BtnFriends_Click"></Button>
-                <Button Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
+                <Button x:Name="btnFriendRequest" Content="{x:Static p:Resources.btnFriendRequests}" Background="#063343" Foreground="White" 
                     FontFamily="Titan One" BorderBrush="Transparent" Margin="153,83,25,616" Click="BtnFriendsRequest_Click"></Button>
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="250" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="25,136,25,0" />

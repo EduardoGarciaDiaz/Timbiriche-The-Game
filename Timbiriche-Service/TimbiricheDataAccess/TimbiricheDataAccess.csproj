@@ -75,6 +75,10 @@
     <Compile Include="Colors.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="FriendRequestManagement.cs" />
+    <Compile Include="FriendShips.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="PasswordResetManagement.cs" />
     <Compile Include="PasswordResetTokens.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>

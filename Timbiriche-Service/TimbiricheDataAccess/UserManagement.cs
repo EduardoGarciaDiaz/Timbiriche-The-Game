@@ -13,7 +13,6 @@ namespace TimbiricheDataAccess
     {
         public int AddUser(Players player)
         {
-
             PasswordHashManager passwordHashManager = new PasswordHashManager();
             player.password = passwordHashManager.HashPassword(player.password);
             player.salt = passwordHashManager.Salt;
@@ -44,7 +43,6 @@ namespace TimbiricheDataAccess
                             }
                         }
                     }
-
                 }
             }
             return -1;
@@ -102,27 +100,26 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
-        public Players ValidateLoginCredentials(String username, String password)
+        public Players ValidateLoginCredentials(string username, string password)
         {
             using (var context = new TimbiricheDBEntities())
             {
             var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
             
                 if (playerData != null)
-            {
-                PasswordHashManager passwordHashManager = new PasswordHashManager();
-                var playerPassword = playerData.password;
-                if (passwordHashManager.VerifyPassword(password, playerPassword))
                 {
-                    return playerData;
+                    PasswordHashManager passwordHashManager = new PasswordHashManager();
+                    var playerPassword = playerData.password;
+                    if (passwordHashManager.VerifyPassword(password, playerPassword))
+                    {
+                        return playerData;
+                    }
                 }
-            }
-
-                return null;
-            }
+                 return null;
+             }
         }
 
-        public bool ExistUserIdenitifier(String identifier)
+        public bool ExistUserIdenitifier(string identifier)
         {
             bool identifierExist = false;
             using(var context = new TimbiricheDBEntities())
@@ -131,12 +128,11 @@ namespace TimbiricheDataAccess
                                where p.email == identifier || p.username == identifier
                                select p).ToList();
                 identifierExist = players.Any();
-
             }
             return identifierExist;
         }
 
-        public int GetIdPlayerByEmail(String email)
+        public int GetIdPlayerByEmail(string email)
         {
             int idPlayer = 0;
             using (var context = new TimbiricheDBEntities())
@@ -151,6 +147,37 @@ namespace TimbiricheDataAccess
                 }
             }
             return idPlayer;
+        }
+
+        public int GetIdPlayerByUsername(string username)
+        {
+            int idPlayer = 0;
+            using (var context = new TimbiricheDBEntities())
+            {
+                var player = context.Players
+                    .FirstOrDefault(p => p.username == username);
+                if (player != null) {
+                    idPlayer = player.idPlayer;
+                }
+            }
+            return idPlayer;
+        }
+
+        public string GetUsernameByIdPlayer(int idPlayer)
+        {
+            string username = string.Empty;
+            using (var context = new TimbiricheDBEntities())
+            {
+                var player = context.Players
+                    .FirstOrDefault(p => p.idPlayer == idPlayer);
+
+                if (player != null)
+                {
+                    username = player.username;
+                }
+            }
+
+            return username;
         }
     }
 }

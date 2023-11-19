@@ -20,6 +20,9 @@
         <AssociationConnector Association="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" />
         <AssociationConnector Association="TimbiricheDBModel.FK_Player_PlayerStyles" />
         <AssociationConnector Association="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.FriendShips" Width="1.5" PointX="2.375" PointY="7.5" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_FriendShips_PlayerFriend" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_FriendShips_Players" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

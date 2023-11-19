@@ -23,7 +23,7 @@ namespace TimbiricheService
     public interface IOnlineUsersManager
     {
         [OperationContract(IsOneWay = true)]
-        void RegisterUserToOnlineUsers(string username);
+        void RegisterUserToOnlineUsers(int idPlayer, string username);
         [OperationContract(IsOneWay = true)]
         void UnregisterUserToOnlineUsers(string username);
     }
@@ -36,7 +36,13 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyUserLoggedOut(string username);
         [OperationContract]
-        void NotifyOnlineUsers(List<string> onlineUsernames);
+        void NotifyOnlineFriends(List<string> onlineUsernames);
+        [OperationContract]
+        void NotifyNewFriendRequest(string username);
+        [OperationContract]
+        void NotifyFriendRequestAccepted(string username);
+        [OperationContract]
+        void NotifyDeletedFriend(string username);
     }
 
     [DataContract]

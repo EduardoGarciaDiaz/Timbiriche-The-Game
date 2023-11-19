@@ -27,8 +27,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback, IPlayerStylesManagerCallback
     {
-        const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
-
+        private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
 
         public XAMLLobby()
@@ -125,7 +124,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.RegisterUserToOnlineUsers(playerLoggedIn.Username);
+            client.RegisterUserToOnlineUsers(playerLoggedIn.IdPlayer, playerLoggedIn.Username);
         }
 
         public void NotifyUserLoggedIn(string username)
@@ -138,7 +137,7 @@ namespace TimbiricheViews.Views
             RemoveUserFromOnlineUserList(username);
         }
 
-        public void NotifyOnlineUsers(string[] onlineUsernames)
+        public void NotifyOnlineFriends(string[] onlineUsernames)
         {
             AddUsersToOnlineUsersList(onlineUsernames);
         }
@@ -159,7 +158,24 @@ namespace TimbiricheViews.Views
             string idUserItem = "lb" + username;
             XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
             userOnlineItem.Name = idUserItem;
+            userOnlineItem.ButtonClicked += UserOnlineItem_BtnDeleteFriendClicked;
             stackPanelFriends.Children.Add(userOnlineItem);
+        }
+
+        private void UserOnlineItem_BtnDeleteFriendClicked(object sender, ButtonClickEventArgs e)
+        {
+            const string BTN_DELETE_FRIEND = "DeleteFriend";
+            if (e.ButtonName.Equals(BTN_DELETE_FRIEND))
+            {
+                DeleteFriend(e.Username);
+            }
+        }
+
+        private void DeleteFriend(string usernameFriendToDelete)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            friendRequestManagerClient.DeleteFriend(playerLoggedIn.IdPlayer, playerLoggedIn.Username, usernameFriendToDelete);
         }
 
         private void RemoveUserFromOnlineUserList(string username)
@@ -223,7 +239,7 @@ namespace TimbiricheViews.Views
 
         private void ImgCloseGridCodeDialog_Click(object sender, MouseButtonEventArgs e)
         {
-            if(gridCodeDialog.Visibility == Visibility.Visible)
+            if (gridCodeDialog.Visibility == Visibility.Visible)
             {
                 gridCodeDialog.Visibility = Visibility.Collapsed;
             }
@@ -249,21 +265,24 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void BtnFriends_Click(object sender, RoutedEventArgs e)
+        public void NotifyNewFriendRequest(string username)
         {
-            scrollViewerFriends.Visibility = Visibility.Visible;
-            scrollViewerFriendsRequest.Visibility = Visibility.Collapsed;
+            AddUserToFriendRequestList(username);
         }
 
-        private void BtnFriendsRequest_Click(object sender, RoutedEventArgs e)
+        public void NotifyFriendRequestAccepted(string username)
         {
-            scrollViewerFriendsRequest.Visibility = Visibility.Visible;
-            scrollViewerFriends.Visibility = Visibility.Collapsed;
+            AddUserToOnlineUserList(username);
+            RemoveFriendRequestFromStackPanel(username);
         }
-        
+
+        public void NotifyDeletedFriend(string username)
+        {
+            RemoveUserFromOnlineUserList(username);
+        }
     }
 
-    public partial class XAMLLobby : Page //FriendShips
+    public partial class XAMLLobby : Page, IFriendRequestManagerCallback
     {
         private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
         {
@@ -273,17 +292,159 @@ namespace TimbiricheViews.Views
         private void SendRequest()
         {
             lbFriendRequestUsernameError.Visibility = Visibility.Collapsed;
-            string friendRequestUsername = tbxUsernameSendRequest.Text;
-            if (ValidationUtilities.IsValidUsername(friendRequestUsername))
+            
+            string usernamePlayerRequested = tbxUsernameSendRequest.Text.Trim();
+            int idPlayer = playerLoggedIn.IdPlayer;
+
+            if (ValidateSendRequest(idPlayer, usernamePlayerRequested))
             {
-                //TODO: Send Request Service
-            } else
+                Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
+
+                InstanceContext context = new InstanceContext(this);
+                Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+                friendRequestManagerClient.SendFriendRequest(playerLoggedIn.Username, usernamePlayerRequested);
+
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
+                    Properties.Resources.lbFriendRequestSent + " " + usernamePlayerRequested);
+                tbxUsernameSendRequest.Text = string.Empty;
+            }
+            else
+            {
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
+                    "No fue posible enviar la solictud de amistad, inténtelo de nuevo");
+            }
+
+        }
+
+        private bool ValidateSendRequest(int idPlayer, string usernamePlayerRequested)
+        {
+            bool isRequestValid = false;
+            if (ValidationUtilities.IsValidUsername(usernamePlayerRequested))
+            {
+                Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+                isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
+            }
+            else
             {
                 lbFriendRequestUsernameError.Visibility = Visibility.Visible;
             }
+            return isRequestValid;
+        }
+
+        private void BtnFriends_Click(object sender, RoutedEventArgs e)
+        {
+            const string NOT_SELECTED_BUTTON = "#FF063343";
+            const string SELECTED_BUTTON = "#FF13546C";
+            scrollViewerFriends.Visibility = Visibility.Visible;
+            scrollViewerFriendsRequest.Visibility = Visibility.Collapsed;
+
+            ChangeButtonColor(btnFriends, SELECTED_BUTTON);
+            ChangeButtonColor(btnFriendRequest, NOT_SELECTED_BUTTON);
+        }
+
+        private void BtnFriendsRequest_Click(object sender, RoutedEventArgs e)
+        {
+            const string NOT_SELECTED_BUTTON = "#FF063343";
+            const string SELECTED_BUTTON = "#FF13546C";
+            scrollViewerFriendsRequest.Visibility = Visibility.Visible;
+            scrollViewerFriends.Visibility = Visibility.Collapsed;
+
+            ChangeButtonColor(btnFriendRequest, SELECTED_BUTTON);
+            ChangeButtonColor(btnFriends, NOT_SELECTED_BUTTON);
+
+            stackPanelFriendsRequest.Children.Clear();
+            string[] usernamePlayers = GetCurrentFriendRequests();
+            AddUsersToFriendsRequestList(usernamePlayers);
+
+        }
+
+        private void ChangeButtonColor(Button btnAppareance, string hexadecimalColor)
+        {
+            SolidColorBrush buttonColor = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
+            btnAppareance.Background = buttonColor;
+        }
+
+        private string[] GetCurrentFriendRequests()
+        {
+            Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+            string[] usernamePlayers = friendshipManagerClient.GetUsernamePlayersRequesters(playerLoggedIn.IdPlayer);
+            if (usernamePlayers != null)
+            {
+                return usernamePlayers;
+            }
+            return null;
+        }
+
+        private void AddUsersToFriendsRequestList(string[] usernamePlayers)
+        {
+            foreach(string username in usernamePlayers)
+            {
+                AddUserToFriendRequestList(username);
+            }
+        }
+
+        private void AddUserToFriendRequestList(string username)
+        {
+            const string ID_ITEM = "lbRequest";
+            string idUserItem = ID_ITEM + username;
+            XAMLFriendRequestItemComponent friendRequestItem = new XAMLFriendRequestItemComponent(username);
+            friendRequestItem.Name = idUserItem;
+            friendRequestItem.ButtonClicked += FriendRequestItem_BtnClicked;
+            stackPanelFriendsRequest.Children.Add(friendRequestItem);
+        }
+
+        private void FriendRequestItem_BtnClicked(object sender, ButtonClickEventArgs e)
+        {
+            const string BTN_ACCEPT = "Accept";
+            const string BTN_REJECT = "Reject";
+            if (e.ButtonName.Equals(BTN_ACCEPT))
+            {
+                AcceptFriendRequest(e.Username);
+            }
+            if (e.ButtonName.Equals(BTN_REJECT))
+            {
+                RejectFriendRequest(e.Username);
+            }
+        }
+
+        private void AcceptFriendRequest(string usernameSender)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+            friendRequestManagerClient.AcceptFriendRequest(playerLoggedIn.IdPlayer, playerLoggedIn.Username, usernameSender);
+        }
+
+        private void RejectFriendRequest(string username)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+            friendRequestManagerClient.RejectFriendRequest(playerLoggedIn.IdPlayer, username);
+            RemoveFriendRequestFromStackPanel(username);
+        }
+
+        private void RemoveFriendRequestFromStackPanel(string username)
+        {
+            string idUserItem = "lbRequest" + username;
+            XAMLFriendRequestItemComponent friendRequestItemToRemove = null;
+            foreach (XAMLFriendRequestItemComponent item in stackPanelFriendsRequest.Children)
+            {
+                if (item.Name == idUserItem)
+                {
+                    friendRequestItemToRemove = item;
+                    break;
+                }
+            }
+            if (friendRequestItemToRemove != null)
+            {
+                stackPanelFriendsRequest.Children.Remove(friendRequestItemToRemove);
+            }
+        }
+
+        public void NotifyFriendRequestAccept()
+        {
         }
     }
-
 
     public partial class XAMLLobby : Page, ILobbyManagerCallback
     {
@@ -691,6 +852,6 @@ namespace TimbiricheViews.Views
             StablishOcuppiedColors(ocuppedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
 
-        }
+        }   
     }
 }

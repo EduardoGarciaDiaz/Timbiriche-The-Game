@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
-15-741507989
+16872003418
 
-281016206277
+29-809040494
 16-223462102
-Components\Lobby\XAMLLobbyInvitationComponent.xaml;Components\Match\XAMLMessageItemComponent.xaml;Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLColorWrapComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLGameBoard.xaml;Views\XAMLMyProfile.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
+Components\Lobby\XAMLLobbyInvitationComponent.xaml;Components\Match\XAMLMessageItemComponent.xaml;Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLColorWrapComponent.xaml;Components\XAMLFriendRequestItemComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLGameBoard.xaml;Views\XAMLMyProfile.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
 
 False
 

@@ -290,6 +290,64 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IFriendshipManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IFriendRequestManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -335,11 +393,29 @@
   <wsdl:message name="IOnlineUsersManager_NotifyUserLoggedOut_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyUserLoggedOutResponse" />
   </wsdl:message>
-  <wsdl:message name="IOnlineUsersManager_NotifyOnlineUsers_OutputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:NotifyOnlineUsers" />
+  <wsdl:message name="IOnlineUsersManager_NotifyOnlineFriends_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlineFriends" />
   </wsdl:message>
-  <wsdl:message name="IOnlineUsersManager_NotifyOnlineUsers_InputCallbackMessage">
-    <wsdl:part name="parameters" element="tns:NotifyOnlineUsersResponse" />
+  <wsdl:message name="IOnlineUsersManager_NotifyOnlineFriends_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlineFriendsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyNewFriendRequest_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyNewFriendRequest_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewFriendRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyFriendRequestAccepted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAccepted" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyFriendRequestAccepted_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAcceptedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyDeletedFriend_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDeletedFriend" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyDeletedFriend_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDeletedFriendResponse" />
   </wsdl:message>
   <wsdl:message name="IPasswordReset_SendResetToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendResetToken" />
@@ -551,6 +627,42 @@
   <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyStyleSelectedResponse" />
   </wsdl:message>
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateFriendRequestSending" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateFriendRequestSendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestFriendship" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestFriendshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequesters" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequestersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_SendFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_AcceptFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_RejectFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RejectFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_DeleteFriend_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFriend" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyFriendRequestAccept_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAccept" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyFriendRequestAccept_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAcceptResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -580,9 +692,21 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOut" message="tns:IOnlineUsersManager_NotifyUserLoggedOut_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOutResponse" message="tns:IOnlineUsersManager_NotifyUserLoggedOut_InputCallbackMessage" />
     </wsdl:operation>
-    <wsdl:operation name="NotifyOnlineUsers">
-      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsers" message="tns:IOnlineUsersManager_NotifyOnlineUsers_OutputCallbackMessage" />
-      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsersResponse" message="tns:IOnlineUsersManager_NotifyOnlineUsers_InputCallbackMessage" />
+    <wsdl:operation name="NotifyOnlineFriends">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriends" message="tns:IOnlineUsersManager_NotifyOnlineFriends_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriendsResponse" message="tns:IOnlineUsersManager_NotifyOnlineFriends_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewFriendRequest">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyNewFriendRequest" message="tns:IOnlineUsersManager_NotifyNewFriendRequest_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyNewFriendRequestResponse" message="tns:IOnlineUsersManager_NotifyNewFriendRequest_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccepted">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyFriendRequestAccepted" message="tns:IOnlineUsersManager_NotifyFriendRequestAccepted_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyFriendRequestAcceptedResponse" message="tns:IOnlineUsersManager_NotifyFriendRequestAccepted_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDeletedFriend">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyDeletedFriend" message="tns:IOnlineUsersManager_NotifyDeletedFriend_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyDeletedFriendResponse" message="tns:IOnlineUsersManager_NotifyDeletedFriend_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IPasswordReset">
@@ -753,6 +877,38 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelectedResponse" message="tns:IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="IFriendshipManager">
+    <wsdl:operation name="ValidateFriendRequestSending">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" message="tns:IFriendshipManager_ValidateFriendRequestSending_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse" message="tns:IFriendshipManager_ValidateFriendRequestSending_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestFriendship">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship" message="tns:IFriendshipManager_AddRequestFriendship_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse" message="tns:IFriendshipManager_AddRequestFriendship_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernamePlayersRequesters">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IFriendRequestManager">
+    <wsdl:operation name="SendFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest" message="tns:IFriendRequestManager_SendFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest" message="tns:IFriendRequestManager_AcceptFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/RejectFriendRequest" message="tns:IFriendRequestManager_RejectFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFriend">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/DeleteFriend" message="tns:IFriendRequestManager_DeleteFriend_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccept">
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAccept" message="tns:IFriendRequestManager_NotifyFriendRequestAccept_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAcceptResponse" message="tns:IFriendRequestManager_NotifyFriendRequestAccept_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IUserManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -817,8 +973,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="NotifyOnlineUsers">
-      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsers" style="document" />
+    <wsdl:operation name="NotifyOnlineFriends">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriends" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyNewFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccepted">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyFriendRequestAccepted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDeletedFriend">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyDeletedFriend" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1159,14 +1342,14 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="SendInvitationToEmail">
       <soap12:operation soapAction="http://tempuri.org/IInvitationManager/SendInvitationToEmail" style="document" />
-          <wsdl:input>
+      <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-  </wsdl:binding>    
+  </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IPlayerStylesManager" type="tns:IPlayerStylesManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IPlayerStylesManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -1192,13 +1375,81 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IFriendshipManager" type="tns:IFriendshipManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IFriendshipManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ValidateFriendRequestSending">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestFriendship">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/AddRequestFriendship" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernamePlayersRequesters">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IFriendRequestManager" type="tns:IFriendRequestManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IFriendRequestManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/SendFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RejectFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/RejectFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFriend">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/DeleteFriend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccept">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAccept" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1207,7 +1458,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1216,7 +1467,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1225,7 +1476,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1234,7 +1485,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1243,7 +1494,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1252,7 +1503,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1261,7 +1512,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1270,11 +1521,29 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPlayerStylesManager" binding="tns:NetTcpBinding_IPlayerStylesManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IFriendshipManager" binding="tns:NetTcpBinding_IFriendshipManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IFriendRequestManager" binding="tns:NetTcpBinding_IFriendRequestManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>

@@ -20,6 +20,8 @@ namespace TimbiricheDataAccess
             this.PasswordResetTokens = new HashSet<PasswordResetTokens>();
             this.PlayerColors = new HashSet<PlayerColors>();
             this.PlayerStyles = new HashSet<PlayerStyles>();
+            this.FriendShips = new HashSet<FriendShips>();
+            this.FriendShips1 = new HashSet<FriendShips>();
         }
     
         public int idPlayer { get; set; }
@@ -42,5 +44,9 @@ namespace TimbiricheDataAccess
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PlayerStyles> PlayerStyles { get; set; }
         public virtual Styles Styles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FriendShips> FriendShips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FriendShips> FriendShips1 { get; set; }
     }
 }

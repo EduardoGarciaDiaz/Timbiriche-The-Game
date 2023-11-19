@@ -1,0 +1,19 @@
+﻿<UserControl x:Class="TimbiricheViews.Components.XAMLFriendRequestItemComponent"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TimbiricheViews.Components"
+             xmlns:p="clr-namespace:TimbiricheViews.Properties"
+             mc:Ignorable="d" 
+             d:DesignHeight="58" d:DesignWidth="248">
+    <Grid>
+        <Rectangle Fill="#063343" Height="50" RadiusX="25" RadiusY="25" Width="248" Opacity="0.75" Margin="0,0,0,8" />
+        <Label x:Name="lbUsername" Content="username" Foreground="White" FontSize="16" FontFamily="Inter" FontWeight="Bold" Margin="6,10,70,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left"  MouseLeftButtonDown="ImgAcceptFriendRequest_Click" Height="26" Margin="179,8,0,0" VerticalAlignment="Top" Width="24" Source="/Resources/acceptFriendRequestIcon.png" Cursor="Hand"/>
+        <Image HorizontalAlignment="Left" MouseLeftButtonDown="ImgRejectFriendRequest_Click" Height="22" Margin="213,10,0,0" VerticalAlignment="Top" Width="20" Source="/Resources/rejectFriendRequestIcon.png.png" Cursor="Hand"/>
+        <Label Content="{x:Static p:Resources.lbAceptFriendRequest}" HorizontalAlignment="Left" Margin="170,27,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="8" Height="22"/>
+        <Label Content="{x:Static p:Resources.lbRejectFriendRequest}" HorizontalAlignment="Left" Margin="203,27,0,0" VerticalAlignment="Top" FontSize="8" FontFamily="Inter" Foreground="White"/>
+
+    </Grid>
+</UserControl>
