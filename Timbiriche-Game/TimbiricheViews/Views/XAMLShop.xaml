@@ -26,7 +26,7 @@
             <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
                     BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand" Click="BtnLobby_Click" />
 
-            <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+            <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
                     BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand"/>
 
             <!--Shop-->

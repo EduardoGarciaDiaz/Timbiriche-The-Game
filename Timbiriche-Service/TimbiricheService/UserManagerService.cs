@@ -118,14 +118,24 @@ namespace TimbiricheService
     {
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 
-        public void RegisterUserToOnlineUsers(string username)
+        public void RegisterUserToOnlineUsers(int idPlayer, string username)
         {
             if (!onlineUsers.ContainsKey(username))
             {
                 IUserManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IUserManagerCallback>();
 
                 List<string> onlineUsernames = onlineUsers.Keys.ToList();
-                currentUserCallbackChannel.NotifyOnlineUsers(onlineUsernames);
+                List<string> onlineFriends = new List<string>();
+
+                foreach(string onlineUsername in onlineUsernames)
+                {
+                    if (FindOnlineFriend(idPlayer, onlineUsername))
+                    {
+                        onlineFriends.Add(onlineUsername);
+                    }
+                }
+                
+                currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
 
                 onlineUsers.Add(username, currentUserCallbackChannel);
 
@@ -133,10 +143,24 @@ namespace TimbiricheService
                 {
                     if (user.Key != username)
                     {
-                        user.Value.NotifyUserLoggedIn(username);
+                        if (FindOnlineFriend(idPlayer, user.Key))
+                        {
+                            user.Value.NotifyUserLoggedIn(username);
+                        }
                     }
                 }
             }
+        }
+
+        private bool FindOnlineFriend(int currentIdPlayer, string onlineUsername)
+        {
+            FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
+            UserManagement userDataAccess = new UserManagement();
+            int idOnlinePlayer = userDataAccess.GetIdPlayerByUsername(onlineUsername);
+
+            bool isFriend = friendRequestDataAccess.IsFriend(currentIdPlayer, idOnlinePlayer);
+
+            return isFriend;
         }
 
         public void UnregisterUserToOnlineUsers(string username)

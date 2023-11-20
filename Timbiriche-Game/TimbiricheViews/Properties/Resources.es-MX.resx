@@ -252,9 +252,6 @@
   <data name="lbConnectionFailed" xml:space="preserve">
     <value>Conexión Fallida</value>
   </data>
-  <data name="lbConnectionFailedDetails" xml:space="preserve">
-    <value>No se pudo conectar con el servidor. Inténtelo más tarde.</value>
-  </data>
   <data name="lbCreateAccount" xml:space="preserve">
     <value>Crear cuenta</value>
   </data>
@@ -266,6 +263,9 @@
   </data>
   <data name="lbCustomYourCharacter" xml:space="preserve">
     <value>¡Personaliza a tu personaje!</value>
+  </data>
+  <data name="lbDataBaseErrorTitle" xml:space="preserve">
+    <value>Error en la base de datos</value>
   </data>
   <data name="lbEmail" xml:space="preserve">
     <value>Correo</value>
@@ -411,6 +411,9 @@
   <data name="lbTemporaryUserNameInstruction" xml:space="preserve">
     <value>Ingresa un nombre de usuario con el que aparecerás durante la partida</value>
   </data>
+  <data name="lbTimeOutExceptionTitle" xml:space="preserve">
+    <value>Tiempo de espera excedido</value>
+  </data>
   <data name="lbTitleAccountCreatedSuccess" xml:space="preserve">
     <value>Cuenta creada con éxito</value>
   </data>
@@ -450,11 +453,20 @@
   <data name="String" xml:space="preserve">
     <value>para poder jugar con ellos</value>
   </data>
+  <data name="tbkConnectionFailedDetails" xml:space="preserve">
+    <value>No se pudo conectar con el servidor. Por favor, inténtelo más tarde.</value>
+  </data>
+  <data name="tbkDataBaseErrorDescription" xml:space="preserve">
+    <value>Ha ocurrido un error relacionado con la base de datos. Por favor, inténtelo más tarde</value>
+  </data>
   <data name="tbkDescriptionAccountCreatedSuccess" xml:space="preserve">
     <value>Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión con tu usuario y contraseña registrado</value>
   </data>
   <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
-    <value>No se pudo crear la cuenta. Por favor, inténtelo de nuevo.</value>
+    <value>No se pudo crear la cuenta. Por favor, inténtelo más tarde.</value>
+  </data>
+  <data name="tbkTimeOutExceptionDescription" xml:space="preserve">
+    <value>La operación ha excedido el tiempo de espera. Por favor, inténtelo más tarde.</value>
   </data>
   <data name="tbxBirthdate" xml:space="preserve">
     <value>11/02/2003</value>

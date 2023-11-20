@@ -24,6 +24,15 @@
           <Property Name="hexadecimalCode" Type="varchar" MaxLength="8" />
           <Property Name="cost" Type="int" />
         </EntityType>
+        <EntityType Name="FriendShips">
+          <Key>
+            <PropertyRef Name="idFriendship" />
+          </Key>
+          <Property Name="idFriendship" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusFriendship" Type="varchar" MaxLength="15" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idPlayerFriend" Type="int" />
+        </EntityType>
         <EntityType Name="PasswordResetTokens">
           <Key>
             <PropertyRef Name="idPasswordResetToken" />
@@ -144,6 +153,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_FriendShips_PlayerFriend">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="FriendShips" Type="Self.FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayerFriend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendShips_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="FriendShips" Type="Self.FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Player_PlayerColors">
           <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
           <End Role="Players" Type="Self.Players" Multiplicity="*" />
@@ -183,6 +216,7 @@
         <EntityContainer Name="TimbiricheDBModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FriendShips" EntityType="Self.FriendShips" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PasswordResetTokens" EntityType="Self.PasswordResetTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayerColors" EntityType="Self.PlayerColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
@@ -207,6 +241,14 @@
           <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="Self.FK__PlayerSty__idSty__7849DB76">
             <End Role="Styles" EntitySet="Styles" />
             <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_PlayerFriend" Association="Self.FK_FriendShips_PlayerFriend">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_Players" Association="Self.FK_FriendShips_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
           </AssociationSet>
           <AssociationSet Name="FK_Player_PlayerColors" Association="Self.FK_Player_PlayerColors">
             <End Role="Colors" EntitySet="Colors" />
@@ -256,6 +298,8 @@
           <Property Name="idStyleSelected" Type="Int32" />
           <NavigationProperty Name="PlayerStyles" Relationship="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" FromRole="Players" ToRole="PlayerStyles" />
           <NavigationProperty Name="Styles" Relationship="TimbiricheDBModel.FK_Player_PlayerStyles" FromRole="Players" ToRole="Styles" />
+          <NavigationProperty Name="FriendShips" Relationship="TimbiricheDBModel.FK_FriendShips_PlayerFriend" FromRole="Players" ToRole="FriendShips" />
+          <NavigationProperty Name="FriendShips1" Relationship="TimbiricheDBModel.FK_FriendShips_Players" FromRole="Players" ToRole="FriendShips" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -308,6 +352,15 @@
           <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76">
             <End Role="Styles" EntitySet="Styles" />
             <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <EntitySet Name="FriendShips" EntityType="TimbiricheDBModel.FriendShips" />
+          <AssociationSet Name="FK_FriendShips_PlayerFriend" Association="TimbiricheDBModel.FK_FriendShips_PlayerFriend">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_Players" Association="TimbiricheDBModel.FK_FriendShips_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Colors">
@@ -457,6 +510,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="FriendShips">
+          <Key>
+            <PropertyRef Name="idFriendship" />
+          </Key>
+          <Property Name="idFriendship" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusFriendship" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idPlayerFriend" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_FriendShips_PlayerFriend" FromRole="FriendShips" ToRole="Players" />
+          <NavigationProperty Name="Players1" Relationship="TimbiricheDBModel.FK_FriendShips_Players" FromRole="FriendShips" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_FriendShips_PlayerFriend">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.FriendShips" Role="FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayerFriend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendShips_Players">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.FriendShips" Role="FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -536,6 +624,16 @@
                 <ScalarProperty Name="path" ColumnName="path" />
                 <ScalarProperty Name="styleName" ColumnName="styleName" />
                 <ScalarProperty Name="idStyle" ColumnName="idStyle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FriendShips">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.FriendShips">
+              <MappingFragment StoreEntitySet="FriendShips">
+                <ScalarProperty Name="idPlayerFriend" ColumnName="idPlayerFriend" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="statusFriendship" ColumnName="statusFriendship" />
+                <ScalarProperty Name="idFriendship" ColumnName="idFriendship" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

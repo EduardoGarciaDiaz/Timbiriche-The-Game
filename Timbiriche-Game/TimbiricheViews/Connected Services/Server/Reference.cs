@@ -840,10 +840,10 @@ namespace TimbiricheViews.Server {
     public interface IOnlineUsersManager {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers")]
-        void RegisterUserToOnlineUsers(string username);
+        void RegisterUserToOnlineUsers(int idPlayer, string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers")]
-        System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(string username);
+        System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(int idPlayer, string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IOnlineUsersManager/UnregisterUserToOnlineUsers")]
         void UnregisterUserToOnlineUsers(string username);
@@ -861,8 +861,8 @@ namespace TimbiricheViews.Server {
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOut", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOutResponse")]
         void NotifyUserLoggedOut(string username);
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsers", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineUsersResponse")]
-        void NotifyOnlineUsers(string[] onlineUsernames);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriends", ReplyAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriendsResponse")]
+        void NotifyOnlineFriends(string[] onlineUsernames);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -893,12 +893,12 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void RegisterUserToOnlineUsers(string username) {
-            base.Channel.RegisterUserToOnlineUsers(username);
+        public void RegisterUserToOnlineUsers(int idPlayer, string username) {
+            base.Channel.RegisterUserToOnlineUsers(idPlayer, username);
         }
         
-        public System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(string username) {
-            return base.Channel.RegisterUserToOnlineUsersAsync(username);
+        public System.Threading.Tasks.Task RegisterUserToOnlineUsersAsync(int idPlayer, string username) {
+            return base.Channel.RegisterUserToOnlineUsersAsync(idPlayer, username);
         }
         
         public void UnregisterUserToOnlineUsers(string username) {
@@ -1606,6 +1606,198 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task ChooseStyleAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
             return base.Channel.ChooseStyleAsync(lobbyCode, lobbyPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IFriendshipManager")]
+    public interface IFriendshipManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending", ReplyAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse")]
+        bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending", ReplyAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse")]
+        System.Threading.Tasks.Task<bool> ValidateFriendRequestSendingAsync(int idPlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship", ReplyAction="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse")]
+        int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship", ReplyAction="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse")]
+        System.Threading.Tasks.Task<int> AddRequestFriendshipAsync(int idPlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters", ReplyAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse")]
+        string[] GetUsernamePlayersRequesters(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters", ReplyAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse")]
+        System.Threading.Tasks.Task<string[]> GetUsernamePlayersRequestersAsync(int idPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IFriendshipManagerChannel : TimbiricheViews.Server.IFriendshipManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FriendshipManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IFriendshipManager>, TimbiricheViews.Server.IFriendshipManager {
+        
+        public FriendshipManagerClient() {
+        }
+        
+        public FriendshipManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public FriendshipManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public FriendshipManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public FriendshipManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested) {
+            return base.Channel.ValidateFriendRequestSending(idPlayerSender, usernamePlayerRequested);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidateFriendRequestSendingAsync(int idPlayerSender, string usernamePlayerRequested) {
+            return base.Channel.ValidateFriendRequestSendingAsync(idPlayerSender, usernamePlayerRequested);
+        }
+        
+        public int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested) {
+            return base.Channel.AddRequestFriendship(idPlayerSender, usernamePlayerRequested);
+        }
+        
+        public System.Threading.Tasks.Task<int> AddRequestFriendshipAsync(int idPlayerSender, string usernamePlayerRequested) {
+            return base.Channel.AddRequestFriendshipAsync(idPlayerSender, usernamePlayerRequested);
+        }
+        
+        public string[] GetUsernamePlayersRequesters(int idPlayer) {
+            return base.Channel.GetUsernamePlayersRequesters(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetUsernamePlayersRequestersAsync(int idPlayer) {
+            return base.Channel.GetUsernamePlayersRequestersAsync(idPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IFriendRequestManager", CallbackContract=typeof(TimbiricheViews.Server.IFriendRequestManagerCallback))]
+    public interface IFriendRequestManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary")]
+        void AddToOnlineFriendsDictionary(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary")]
+        System.Threading.Tasks.Task AddToOnlineFriendsDictionaryAsync(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest")]
+        void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest")]
+        System.Threading.Tasks.Task SendFriendRequestAsync(string usernamePlayerSender, string usernamePlayerRequested);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest")]
+        void AcceptFriendRequest(int idPlayerRequested, string usernamePlayerRequested, string usernamePlayerSender);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest")]
+        System.Threading.Tasks.Task AcceptFriendRequestAsync(int idPlayerRequested, string usernamePlayerRequested, string usernamePlayerSender);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/RejectFriendRequest")]
+        void RejectFriendRequest(int idCurrentPlayer, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/RejectFriendRequest")]
+        System.Threading.Tasks.Task RejectFriendRequestAsync(int idCurrentPlayer, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/DeleteFriend")]
+        void DeleteFriend(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/DeleteFriend")]
+        System.Threading.Tasks.Task DeleteFriendAsync(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IFriendRequestManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequest", ReplyAction="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequestResponse")]
+        void NotifyNewFriendRequest(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAccepted", ReplyAction="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAcceptedResponse")]
+        void NotifyFriendRequestAccepted(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendRequestManager/NotifyDeletedFriend", ReplyAction="http://tempuri.org/IFriendRequestManager/NotifyDeletedFriendResponse")]
+        void NotifyDeletedFriend(string username);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IFriendRequestManagerChannel : TimbiricheViews.Server.IFriendRequestManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class FriendRequestManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IFriendRequestManager>, TimbiricheViews.Server.IFriendRequestManager {
+        
+        public FriendRequestManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public FriendRequestManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public FriendRequestManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public FriendRequestManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public FriendRequestManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void AddToOnlineFriendsDictionary(string usernameCurrentPlayer) {
+            base.Channel.AddToOnlineFriendsDictionary(usernameCurrentPlayer);
+        }
+        
+        public System.Threading.Tasks.Task AddToOnlineFriendsDictionaryAsync(string usernameCurrentPlayer) {
+            return base.Channel.AddToOnlineFriendsDictionaryAsync(usernameCurrentPlayer);
+        }
+        
+        public void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested) {
+            base.Channel.SendFriendRequest(usernamePlayerSender, usernamePlayerRequested);
+        }
+        
+        public System.Threading.Tasks.Task SendFriendRequestAsync(string usernamePlayerSender, string usernamePlayerRequested) {
+            return base.Channel.SendFriendRequestAsync(usernamePlayerSender, usernamePlayerRequested);
+        }
+        
+        public void AcceptFriendRequest(int idPlayerRequested, string usernamePlayerRequested, string usernamePlayerSender) {
+            base.Channel.AcceptFriendRequest(idPlayerRequested, usernamePlayerRequested, usernamePlayerSender);
+        }
+        
+        public System.Threading.Tasks.Task AcceptFriendRequestAsync(int idPlayerRequested, string usernamePlayerRequested, string usernamePlayerSender) {
+            return base.Channel.AcceptFriendRequestAsync(idPlayerRequested, usernamePlayerRequested, usernamePlayerSender);
+        }
+        
+        public void RejectFriendRequest(int idCurrentPlayer, string username) {
+            base.Channel.RejectFriendRequest(idCurrentPlayer, username);
+        }
+        
+        public System.Threading.Tasks.Task RejectFriendRequestAsync(int idCurrentPlayer, string username) {
+            return base.Channel.RejectFriendRequestAsync(idCurrentPlayer, username);
+        }
+        
+        public void DeleteFriend(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted) {
+            base.Channel.DeleteFriend(idCurrentPlayer, usernameCurrentPlayer, usernameFriendDeleted);
+        }
+        
+        public System.Threading.Tasks.Task DeleteFriendAsync(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted) {
+            return base.Channel.DeleteFriendAsync(idCurrentPlayer, usernameCurrentPlayer, usernameFriendDeleted);
         }
     }
 }

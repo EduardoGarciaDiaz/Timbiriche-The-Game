@@ -53,7 +53,9 @@
     <Compile Include="Email\Templates\IEmailTemplate.cs" />
     <Compile Include="Email\Templates\InvitationToLobbyTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
+    <Compile Include="FriendRequestManagerService.cs" />
     <Compile Include="IEmailVerificationManager.cs" />
+    <Compile Include="IFriendRequestManager.cs" />
     <Compile Include="IInvitationManager.cs" />
     <Compile Include="ILobbyManager.cs" />
     <Compile Include="IMatchManager.cs" />

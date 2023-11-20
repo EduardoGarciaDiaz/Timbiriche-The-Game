@@ -31,13 +31,13 @@ namespace TimbiricheViews.Views
             SetDefaultStyles();
             bool isValid = true;
 
-            if (!Utilities.IsValidPassword(pwBxNewPassword.Password) || pwBxNewPassword.Password.Equals(pwBxNewPassword.Tag))
+            if (!ValidationUtilities.IsValidPassword(pwBxNewPassword.Password) || pwBxNewPassword.Password.Equals(pwBxNewPassword.Tag))
             {
                 pwBxNewPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
 
-            if (!Utilities.IsValidPassword(pwBxConfirmNewPassword.Password) || pwBxConfirmNewPassword.Password.Equals(pwBxConfirmNewPassword.Tag))
+            if (!ValidationUtilities.IsValidPassword(pwBxConfirmNewPassword.Password) || pwBxConfirmNewPassword.Password.Equals(pwBxConfirmNewPassword.Tag))
             {
                 pwBxConfirmNewPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
@@ -91,14 +91,14 @@ namespace TimbiricheViews.Views
                 {
                     string title = "Contraseña Cambiada";
                     string message = "La contraseña fue cambiada con éxito";
-                    Utilities.CreateEmergentWindow(title, message);
+                    EmergentWindows.CreateEmergentWindow(title, message);
                     NavigationService.GoBack();
                 }
                 else
                 {
                     string title = "Error al Cambiar Contraseña";
                     string message = "Hubo un error al cambiar la contraeña. Intentelo mas tarde.";
-                    Utilities.CreateEmergentWindow(title, message);
+                    EmergentWindows.CreateEmergentWindow(title, message);
                 }
             }
         }

@@ -70,6 +70,9 @@
     <Compile Include="Components\Shop\XAMLColorWrapComponent.xaml.cs">
       <DependentUpon>XAMLColorWrapComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\XAMLFriendRequestItemComponent.xaml.cs">
+      <DependentUpon>XAMLFriendRequestItemComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\XAMLActiveUserItemComponent.xaml.cs">
       <DependentUpon>XAMLActiveUserItemComponent.xaml</DependentUpon>
     </Compile>
@@ -85,6 +88,8 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Match\Timer.cs" />
+    <Compile Include="Utils\EmergentWindows.cs" />
+    <Compile Include="Utils\ValidationUtilities.cs" />
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
@@ -131,6 +136,10 @@
     <Page Include="Components\Shop\XAMLColorWrapComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\XAMLFriendRequestItemComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\XAMLActiveUserItemComponent.xaml">
       <SubType>Designer</SubType>
@@ -327,24 +336,6 @@
     <Resource Include="Resources\gameBoardBackground.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Server\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\backgroundCustomizeCharacter.png" />
   </ItemGroup>
   <ItemGroup>
@@ -378,6 +369,26 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\victoryBox.png" />
+    <Resource Include="Resources\acceptFriendRequestIcon.png" />
+    <Resource Include="Resources\rejectFriendRequestIcon.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Server\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\item.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

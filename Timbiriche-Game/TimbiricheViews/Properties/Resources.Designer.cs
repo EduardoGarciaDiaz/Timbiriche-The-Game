@@ -466,15 +466,6 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se pudo conectar con el servidor. Inténtelo más tarde..
-        /// </summary>
-        public static string lbConnectionFailedDetails {
-            get {
-                return ResourceManager.GetString("lbConnectionFailedDetails", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Busca una cadena traducida similar a Crear cuenta.
         /// </summary>
         public static string lbCreateAccount {
@@ -507,6 +498,15 @@ namespace TimbiricheViews.Properties {
         public static string lbCustomYourCharacter {
             get {
                 return ResourceManager.GetString("lbCustomYourCharacter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error en la base de datos.
+        /// </summary>
+        public static string lbDataBaseErrorTitle {
+            get {
+                return ResourceManager.GetString("lbDataBaseErrorTitle", resourceCulture);
             }
         }
         
@@ -943,6 +943,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Tiempo de espera excedido.
+        /// </summary>
+        public static string lbTimeOutExceptionTitle {
+            get {
+                return ResourceManager.GetString("lbTimeOutExceptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Cuenta creada con éxito.
         /// </summary>
         public static string lbTitleAccountCreatedSuccess {
@@ -1060,6 +1069,24 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No se pudo conectar con el servidor. Por favor, Inténtelo más tarde..
+        /// </summary>
+        public static string tbkConnectionFailedDetails {
+            get {
+                return ResourceManager.GetString("tbkConnectionFailedDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ha ocurrido un error relacionado con la base de datos. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkDataBaseErrorDescription {
+            get {
+                return ResourceManager.GetString("tbkDataBaseErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Tu cuenta ha sido creada exitosamente. Ahora puedes iniciar sesión con tu usuario y contraseña registrado..
         /// </summary>
         public static string tbkDescriptionAccountCreatedSuccess {
@@ -1069,11 +1096,20 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a No se pudo crear la cuenta. Por favor, inténtelo de nuevo..
+        ///   Busca una cadena traducida similar a No se pudo crear la cuenta. Por favor, inténtelo más tarde..
         /// </summary>
         public static string tbkDescriptionCreateAccountFail {
             get {
                 return ResourceManager.GetString("tbkDescriptionCreateAccountFail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La operación ha excedido el tiempo de espera. Por favor, inténtelo más tarde..
+        /// </summary>
+        public static string tbkTimeOutExceptionDescription {
+            get {
+                return ResourceManager.GetString("tbkTimeOutExceptionDescription", resourceCulture);
             }
         }
         

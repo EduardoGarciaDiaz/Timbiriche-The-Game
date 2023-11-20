@@ -102,7 +102,7 @@ namespace TimbiricheViews.Components.Lobby
             SetDefaultStyles();
             bool isValid = true;
 
-            if (!Utilities.IsValidEmail(tbxFriendEmail.Text) || tbxFriendEmail.Text.Equals(tbxFriendEmail.Tag))
+            if (!ValidationUtilities.IsValidEmail(tbxFriendEmail.Text) || tbxFriendEmail.Text.Equals(tbxFriendEmail.Tag))
             {
                 tbxFriendEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
