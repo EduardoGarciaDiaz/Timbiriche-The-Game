@@ -382,10 +382,16 @@ namespace TimbiricheViews.Server {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int HexadecimalColorField;
+        private string HexadecimalColorField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int StylePathField;
+        private int IdHexadecimalColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdStylePathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StylePathField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string UsernameField;
@@ -401,12 +407,12 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int HexadecimalColor {
+        public string HexadecimalColor {
             get {
                 return this.HexadecimalColorField;
             }
             set {
-                if ((this.HexadecimalColorField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.HexadecimalColorField, value) != true)) {
                     this.HexadecimalColorField = value;
                     this.RaisePropertyChanged("HexadecimalColor");
                 }
@@ -414,12 +420,38 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int StylePath {
+        public int IdHexadecimalColor {
+            get {
+                return this.IdHexadecimalColorField;
+            }
+            set {
+                if ((this.IdHexadecimalColorField.Equals(value) != true)) {
+                    this.IdHexadecimalColorField = value;
+                    this.RaisePropertyChanged("IdHexadecimalColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdStylePath {
+            get {
+                return this.IdStylePathField;
+            }
+            set {
+                if ((this.IdStylePathField.Equals(value) != true)) {
+                    this.IdStylePathField = value;
+                    this.RaisePropertyChanged("IdStylePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StylePath {
             get {
                 return this.StylePathField;
             }
             set {
-                if ((this.StylePathField.Equals(value) != true)) {
+                if ((object.ReferenceEquals(this.StylePathField, value) != true)) {
                     this.StylePathField = value;
                     this.RaisePropertyChanged("StylePath");
                 }
@@ -435,6 +467,131 @@ namespace TimbiricheViews.Server {
                 if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
                     this.UsernameField = value;
                     this.RaisePropertyChanged("Username");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Movement", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class Movement : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ColumnField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int EarnedPointsField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HexadecimalColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int RowField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StylePathField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeLineField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Column {
+            get {
+                return this.ColumnField;
+            }
+            set {
+                if ((this.ColumnField.Equals(value) != true)) {
+                    this.ColumnField = value;
+                    this.RaisePropertyChanged("Column");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int EarnedPoints {
+            get {
+                return this.EarnedPointsField;
+            }
+            set {
+                if ((this.EarnedPointsField.Equals(value) != true)) {
+                    this.EarnedPointsField = value;
+                    this.RaisePropertyChanged("EarnedPoints");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HexadecimalColor {
+            get {
+                return this.HexadecimalColorField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HexadecimalColorField, value) != true)) {
+                    this.HexadecimalColorField = value;
+                    this.RaisePropertyChanged("HexadecimalColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int Row {
+            get {
+                return this.RowField;
+            }
+            set {
+                if ((this.RowField.Equals(value) != true)) {
+                    this.RowField = value;
+                    this.RaisePropertyChanged("Row");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StylePath {
+            get {
+                return this.StylePathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StylePathField, value) != true)) {
+                    this.StylePathField = value;
+                    this.RaisePropertyChanged("StylePath");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeLine {
+            get {
+                return this.TypeLineField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeLineField, value) != true)) {
+                    this.TypeLineField = value;
+                    this.RaisePropertyChanged("TypeLine");
                 }
             }
         }
@@ -934,16 +1091,16 @@ namespace TimbiricheViews.Server {
     public interface IMatchManager {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
-        void RegisterToTheMatch(string lobbyCode, string username);
+        void RegisterToTheMatch(string lobbyCode, string username, string hexadecimalColor);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/RegisterToTheMatch")]
-        System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username);
+        System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username, string hexadecimalColor);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
-        void EndTurn(string lobbyCode, string typeLine, int row, int column, int points);
+        void EndTurn(string lobbyCode, TimbiricheViews.Server.Movement movement);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurn")]
-        System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column, int points);
+        System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, TimbiricheViews.Server.Movement movement);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement")]
         void EndTurnWithoutMovement(string lobbyCode);
@@ -971,16 +1128,16 @@ namespace TimbiricheViews.Server {
         void NotifyNewTurn(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyMovement", ReplyAction="http://tempuri.org/IMatchManager/NotifyMovementResponse")]
-        void NotifyMovement(string typeLine, int row, int column);
+        void NotifyMovement(TimbiricheViews.Server.Movement movement);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyFirstTurn", ReplyAction="http://tempuri.org/IMatchManager/NotifyFirstTurnResponse")]
         void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse")]
-        void NotifyNewScoreboard(System.Collections.Generic.KeyValuePair<string, int>[] scoreboard);
+        void NotifyNewScoreboard(System.Collections.Generic.KeyValuePair<TimbiricheViews.Server.LobbyPlayer, int>[] scoreboard);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyEndOfTheMatchResponse")]
-        void NotifyEndOfTheMatch(System.Collections.Generic.KeyValuePair<string, int>[] scoreboard, int coins);
+        void NotifyEndOfTheMatch(System.Collections.Generic.KeyValuePair<TimbiricheViews.Server.LobbyPlayer, int>[] scoreboard, int coinsEarned);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
         void NotifyNewMessage(string senderUsername, string message);
@@ -1014,20 +1171,20 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void RegisterToTheMatch(string lobbyCode, string username) {
-            base.Channel.RegisterToTheMatch(lobbyCode, username);
+        public void RegisterToTheMatch(string lobbyCode, string username, string hexadecimalColor) {
+            base.Channel.RegisterToTheMatch(lobbyCode, username, hexadecimalColor);
         }
         
-        public System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username) {
-            return base.Channel.RegisterToTheMatchAsync(lobbyCode, username);
+        public System.Threading.Tasks.Task RegisterToTheMatchAsync(string lobbyCode, string username, string hexadecimalColor) {
+            return base.Channel.RegisterToTheMatchAsync(lobbyCode, username, hexadecimalColor);
         }
         
-        public void EndTurn(string lobbyCode, string typeLine, int row, int column, int points) {
-            base.Channel.EndTurn(lobbyCode, typeLine, row, column, points);
+        public void EndTurn(string lobbyCode, TimbiricheViews.Server.Movement movement) {
+            base.Channel.EndTurn(lobbyCode, movement);
         }
         
-        public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, string typeLine, int row, int column, int points) {
-            return base.Channel.EndTurnAsync(lobbyCode, typeLine, row, column, points);
+        public System.Threading.Tasks.Task EndTurnAsync(string lobbyCode, TimbiricheViews.Server.Movement movement) {
+            return base.Channel.EndTurnAsync(lobbyCode, movement);
         }
         
         public void EndTurnWithoutMovement(string lobbyCode) {

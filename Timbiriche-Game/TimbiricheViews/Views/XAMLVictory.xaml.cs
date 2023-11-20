@@ -18,11 +18,11 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLVictory : Page
     {
-        KeyValuePair<string, int>[] _scoreboard;
+        KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
         string _playerUsername;
         int _coinsEarned;
 
-        public XAMLVictory(KeyValuePair<string, int>[] scoreboard, int coinsEarned)
+        public XAMLVictory(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
         {
             InitializeComponent();
             _scoreboard = scoreboard;
@@ -35,25 +35,33 @@ namespace TimbiricheViews.Views
         {
             int numPlayers = _scoreboard.Count();
 
-            tbxFirstPlaceUsername.Text = _scoreboard[0].Key;
+            SolidColorBrush brushFirstPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(_scoreboard[0].Key.HexadecimalColor);
+            tbxFirstPlaceUsername.Text = _scoreboard[0].Key.Username;
             tbxFirstPlacePoints.Text = _scoreboard[0].Value.ToString();
+            borderFirstPlace.Background = brushFirstPlace;
 
-            tbxSecondPlaceUsername.Text = _scoreboard[1].Key;
+            SolidColorBrush brushSecondPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(_scoreboard[1].Key.HexadecimalColor);
+            tbxSecondPlaceUsername.Text = _scoreboard[1].Key.Username;
             tbxSecondPlacePoints.Text = _scoreboard[1].Value.ToString();
+            borderSecondPlace.Background = brushSecondPlace;
 
 
             if (numPlayers > 2)
             {
+                SolidColorBrush brushThirdPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(_scoreboard[2].Key.HexadecimalColor);
                 gridThirdPlace.Visibility = Visibility.Visible;
-                tbxThirdPlaceUsername.Text = _scoreboard[2].Key;
+                tbxThirdPlaceUsername.Text = _scoreboard[2].Key.Username;
                 tbxThirdPlacePoints.Text = _scoreboard[2].Value.ToString();
+                borderThirdPlace.Background = brushThirdPlace;
             }
 
             if (numPlayers > 3)
             {
+                SolidColorBrush brushFourthPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(_scoreboard[3].Key.HexadecimalColor);
                 gridFourthPlace.Visibility = Visibility.Visible;
-                tbxFourthPlaceUsername.Text = _scoreboard[3].Key;
+                tbxFourthPlaceUsername.Text = _scoreboard[3].Key.Username;
                 tbxFourthPlacePoints.Text = _scoreboard[3].Value.ToString();
+                borderFourthPlace.Background = brushFourthPlace;
             }
 
             lbEarnedCoins.Content = _coinsEarned.ToString();
@@ -85,7 +93,7 @@ namespace TimbiricheViews.Views
 
         private bool IsPlayerAWinner()
         {
-            string winnerUsername = _scoreboard[0].Key;
+            string winnerUsername = _scoreboard[0].Key.Username;
 
             return PlayerSingleton.Player.Username == winnerUsername;
         }
@@ -94,7 +102,7 @@ namespace TimbiricheViews.Views
         {
             for(int i = 0; i < _scoreboard.Length; i++)
             {
-                if(_playerUsername == _scoreboard[i].Key)
+                if(_playerUsername == _scoreboard[i].Key.Username)
                 {
                     return i;
                 }
@@ -102,6 +110,5 @@ namespace TimbiricheViews.Views
 
             return -1;
         }
-
     }
 }

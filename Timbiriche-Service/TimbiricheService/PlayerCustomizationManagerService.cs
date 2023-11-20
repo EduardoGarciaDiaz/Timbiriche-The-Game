@@ -97,7 +97,7 @@ namespace TimbiricheService
         public void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
 
             if (idColor == DEFAULT_COLOR)
             {
@@ -112,7 +112,7 @@ namespace TimbiricheService
 
         private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
         {
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
             if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
@@ -163,7 +163,7 @@ namespace TimbiricheService
         public void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
@@ -188,7 +188,7 @@ namespace TimbiricheService
             bool isColorSelected = false;
             if (LobbyExists(lobbyCode))
             {
-                LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.HexadecimalColor == idColor);
+                LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.IdHexadecimalColor == idColor);
                 if (playerHasColor != null)
                 {
                     isColorSelected = true;

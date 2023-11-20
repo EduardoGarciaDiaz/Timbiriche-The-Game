@@ -13,30 +13,29 @@ namespace TimbiricheService
     {
         private static Dictionary<string, Match.Match> matches = new Dictionary<string, Match.Match>();
 
-        public void RegisterToTheMatch(string lobbyCode, string username)
+        public void RegisterToTheMatch(string lobbyCode, string username, string hexadecimalColor)
         {
             IMatchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IMatchManagerCallback>();
 
             Match.Match match = matches[lobbyCode];
-            int matchDurationInMinutes = match.LobbyInformation.MatchDurationInMinutes;
-            int turnDurationInMinutes = match.LobbyInformation.TurnDurationInMinutes;
-
-            string firstTurnUsername = match.GetTurnPlayer().Username;
 
             foreach (var player in match.Players)
             {
                 if(player.Username == username)
                 {
                     player.MatchCallbackChannel = currentUserCallbackChannel;
-                    player.MatchCallbackChannel.NotifyFirstTurn(matchDurationInMinutes, turnDurationInMinutes, firstTurnUsername);
-                    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                    player.StylePath = GetStylePath(player.IdStylePath);
+                    player.HexadecimalColor = hexadecimalColor;
+                    match.SetConnectedUser(player.Username);
                 }
             }
 
             matches[lobbyCode] = match;
+
+            TryStartMatchIfAllConnected(lobbyCode);
         }
 
-        public void EndTurn(string lobbyCode, string typeLine, int row, int column, int points)
+        public void EndTurn(string lobbyCode, Movement movement)
         {
             Match.Match match = matches[lobbyCode];
 
@@ -44,14 +43,16 @@ namespace TimbiricheService
             {
                 if (player != match.GetTurnPlayer())
                 {
-                        player.MatchCallbackChannel.NotifyMovement(typeLine, row, column);
+                        player.MatchCallbackChannel.NotifyMovement(movement);
                 }
             }
 
-            if(points > 0)
+            int earnedPoints = movement.EarnedPoints;
+
+            if(earnedPoints > 0)
             {
                 LobbyPlayer playerScoringPoints = match.GetTurnPlayer();
-                match.ScorePointsToPlayer(playerScoringPoints, points);
+                match.ScorePointsToPlayer(playerScoringPoints, earnedPoints);
                 matches[lobbyCode] = match;
 
                 foreach (LobbyPlayer player in match.Players)
@@ -74,11 +75,11 @@ namespace TimbiricheService
         public void EndMatch(string lobbyCode)
         {
             Match.Match match = matches[lobbyCode];
-            List<KeyValuePair<string, int>> scoreboard = match.GetScoreboard();
+            List<KeyValuePair<LobbyPlayer, int>> scoreboard = match.GetScoreboard();
 
             for(int playerPosition = 0; playerPosition < scoreboard.Count; playerPosition++)
             {
-                var player = match.Players.FirstOrDefault(p => p.Username == scoreboard[playerPosition].Key);
+                var player = match.Players.FirstOrDefault(p => p == scoreboard[playerPosition].Key);
 
                 if(player != null)
                 {
@@ -87,7 +88,17 @@ namespace TimbiricheService
                     CoinsManagement coinsManagement = new CoinsManagement();
                     coinsManagement.UpdateCoins(player.Username, coinsEarned);
 
-                    player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
+                    } 
+                    catch(FaultException ex)
+                    {
+                        Console.WriteLine($"Fault Exception: {ex.Message}");
+                        Console.WriteLine($"Detail: {ex.StackTrace}");
+
+                    }
+
                 }
             }
         }
@@ -118,6 +129,23 @@ namespace TimbiricheService
             }
 
             matches[lobbyCode] = match;
+        }
+
+        private void TryStartMatchIfAllConnected(string lobbyCode)
+        {
+            Match.Match match = matches[lobbyCode];
+            LobbyInformation lobbyInformation = match.LobbyInformation;
+
+            if (match.AreAllPlayersConnected())
+            {
+                foreach (var player in match.Players)
+                {
+                    player.MatchCallbackChannel.NotifyFirstTurn(lobbyInformation.MatchDurationInMinutes, lobbyInformation.TurnDurationInMinutes,
+                                                                match.GetTurnPlayer().Username);
+                    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+
+                }
+            }
         }
     }
 }

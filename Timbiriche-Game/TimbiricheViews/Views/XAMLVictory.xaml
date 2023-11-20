@@ -30,7 +30,7 @@
                     <StackPanel x:Name="stackPanelScoreboard" Orientation="Vertical" Margin="20,33,20,32">
                         <Grid Height="72">
                             <TextBlock Text="1°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#FF9D0A" FontSize="42" Margin="10,0,0,0"/>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
+                            <Border x:Name="borderFirstPlace" BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
                                 <Grid>
                                     <TextBlock x:Name="tbxFirstPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="17,0,68,0" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="tbxFirstPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="235,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -38,8 +38,8 @@
                             </Border>
                         </Grid>
                         <Grid Height="72">
-                            <TextBlock Text="1°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#FF9D0A" FontSize="42" Margin="10,0,0,0"/>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
+                            <TextBlock Text="2°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#E3E4E5" FontSize="42" Margin="10,0,0,0"/>
+                            <Border x:Name="borderSecondPlace" BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
                                 <Grid>
                                     <TextBlock x:Name="tbxSecondPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="17,0,68,0" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="tbxSecondPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="235,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -47,8 +47,8 @@
                             </Border>
                         </Grid>
                         <Grid x:Name="gridThirdPlace" Height="72" Visibility="Collapsed">
-                            <TextBlock Text="1°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#FF9D0A" FontSize="42" Margin="10,0,0,0"/>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
+                            <TextBlock Text="3°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#CD5715" FontSize="42" Margin="10,0,0,0"/>
+                            <Border x:Name="borderThirdPlace" BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
                                 <Grid>
                                     <TextBlock x:Name="tbxThirdPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="17,0,68,0" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="tbxThirdPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="235,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
@@ -56,8 +56,8 @@
                             </Border>
                         </Grid>
                         <Grid x:Name="gridFourthPlace" Height="72" Visibility="Collapsed">
-                            <TextBlock Text="1°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#FF9D0A" FontSize="42" Margin="10,0,0,0"/>
-                            <Border BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
+                            <TextBlock Text="4°" VerticalAlignment="Center" HorizontalAlignment="Left" FontFamily="Titan One" Foreground="#B92828" FontSize="42" Margin="10,0,0,0"/>
+                            <Border x:Name="borderFourthPlace" BorderBrush="LightGray" Background="#EDEDED" BorderThickness="1" CornerRadius="7" Padding="5" Width="425" Height="65" HorizontalAlignment="Right">
                                 <Grid>
                                     <TextBlock x:Name="tbxFourthPlaceUsername" Text="Cesarele23" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="17,0,68,0" VerticalAlignment="Center"/>
                                     <TextBlock x:Name="tbxFourthPlacePoints" Text="0" FontFamily="Inter" FontWeight="Bold" FontSize="24" Margin="235,0,10,0" VerticalAlignment="Center" HorizontalAlignment="Center"/>

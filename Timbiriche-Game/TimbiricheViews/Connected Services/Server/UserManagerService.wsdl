@@ -1229,7 +1229,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1238,7 +1238,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1247,7 +1247,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1256,7 +1256,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1265,7 +1265,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1274,7 +1274,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1283,7 +1283,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1292,7 +1292,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1301,7 +1301,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1310,7 +1310,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
