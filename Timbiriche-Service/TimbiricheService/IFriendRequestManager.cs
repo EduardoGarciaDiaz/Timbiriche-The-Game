@@ -22,6 +22,8 @@ namespace TimbiricheService
     public interface IFriendRequestManager
     {
         [OperationContract(IsOneWay = true)]
+        void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer);
+        [OperationContract(IsOneWay = true)]
         void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested);
         [OperationContract(IsOneWay = true)]
         void AcceptFriendRequest(int idPlayerRequested, string usernamePlayerRequested, string usernamePlayerSender);
@@ -35,7 +37,10 @@ namespace TimbiricheService
     public interface IFriendRequestManagerCallback
     {
         [OperationContract]
-        void NotifyFriendRequestAccept();
-
+        void NotifyNewFriendRequest(string username);
+        [OperationContract]
+        void NotifyFriendRequestAccepted(string username);
+        [OperationContract]
+        void NotifyDeletedFriend(string username);
     }
 }

@@ -17,8 +17,6 @@ namespace TimbiricheService
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
 
-
-
             int idPlayerRequested = userDataAccess.GetIdPlayerByUsername(usernamePlayerRequested);
             if (idPlayerRequested < 1)
             {
@@ -70,12 +68,25 @@ namespace TimbiricheService
     }
 
     public partial class UserManagerService : IFriendRequestManager 
-    { 
+    {
+        public static Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
+
+        public void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer)
+        {
+            IFriendRequestManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IFriendRequestManagerCallback>();
+
+            if (!onlineFriendship.ContainsKey(usernameCurrentPlayer))
+            {
+                onlineFriendship.Add(usernameCurrentPlayer, currentUserCallbackChannel);
+                
+            }
+        }
+
         public void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested)
         {
-            if (onlineUsers.ContainsKey(usernamePlayerRequested))
+            if (onlineFriendship.ContainsKey(usernamePlayerRequested))
             {
-                onlineUsers[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
+                onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
             }
         }
 
@@ -96,9 +107,9 @@ namespace TimbiricheService
 
         private void InformFriendRequestAccepted(string usernameTarget, string usernameNewFriend)
         {
-            if (onlineUsers.ContainsKey(usernameTarget))
+            if (onlineFriendship.ContainsKey(usernameTarget))
             {
-                onlineUsers[usernameTarget].NotifyFriendRequestAccepted(usernameNewFriend);
+                onlineFriendship[usernameTarget].NotifyFriendRequestAccepted(usernameNewFriend);
             }
         }
 
@@ -127,9 +138,9 @@ namespace TimbiricheService
 
         private void InformFriendDeleted(string usernameTarget, string usernameDeletedFriend)
         {
-            if (onlineUsers.ContainsKey(usernameTarget))
+            if (onlineFriendship.ContainsKey(usernameTarget))
             {
-                onlineUsers[usernameTarget].NotifyDeletedFriend(usernameDeletedFriend);
+                onlineFriendship[usernameTarget].NotifyDeletedFriend(usernameDeletedFriend);
             }
         }
     }

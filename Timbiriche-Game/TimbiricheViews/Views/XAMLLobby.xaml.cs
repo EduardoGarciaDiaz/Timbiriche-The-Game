@@ -140,6 +140,7 @@ namespace TimbiricheViews.Views
         public void NotifyOnlineFriends(string[] onlineUsernames)
         {
             AddUsersToOnlineUsersList(onlineUsernames);
+            SuscribeUserToOnlineFriendsDictionary();
         }
 
         private void AddUsersToOnlineUsersList(string[] onlineUsernames)
@@ -265,25 +266,17 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public void NotifyNewFriendRequest(string username)
-        {
-            AddUserToFriendRequestList(username);
-        }
-
-        public void NotifyFriendRequestAccepted(string username)
-        {
-            AddUserToOnlineUserList(username);
-            RemoveFriendRequestFromStackPanel(username);
-        }
-
-        public void NotifyDeletedFriend(string username)
-        {
-            RemoveUserFromOnlineUserList(username);
-        }
     }
 
     public partial class XAMLLobby : Page, IFriendRequestManagerCallback
     {
+        private void SuscribeUserToOnlineFriendsDictionary()
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            friendRequestManagerClient.AddToOnlineFriendsDictionary(playerLoggedIn.Username);
+        }
+
         private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
         {
             SendRequest();
@@ -441,8 +434,20 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public void NotifyFriendRequestAccept()
+        public void NotifyNewFriendRequest(string username)
         {
+            AddUserToFriendRequestList(username);
+        }
+
+        public void NotifyFriendRequestAccepted(string username)
+        {
+            AddUserToOnlineUserList(username);
+            RemoveFriendRequestFromStackPanel(username);
+        }
+
+        public void NotifyDeletedFriend(string username)
+        {
+            RemoveUserFromOnlineUserList(username);
         }
     }
 

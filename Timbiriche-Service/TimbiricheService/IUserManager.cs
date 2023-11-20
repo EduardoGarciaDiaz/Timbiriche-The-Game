@@ -37,12 +37,6 @@ namespace TimbiricheService
         void NotifyUserLoggedOut(string username);
         [OperationContract]
         void NotifyOnlineFriends(List<string> onlineUsernames);
-        [OperationContract]
-        void NotifyNewFriendRequest(string username);
-        [OperationContract]
-        void NotifyFriendRequestAccepted(string username);
-        [OperationContract]
-        void NotifyDeletedFriend(string username);
     }
 
     [DataContract]
