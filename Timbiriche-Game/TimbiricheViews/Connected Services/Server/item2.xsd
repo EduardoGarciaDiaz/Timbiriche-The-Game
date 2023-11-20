@@ -34,8 +34,10 @@
   <xs:element name="LobbyInformation" nillable="true" type="tns:LobbyInformation" />
   <xs:complexType name="LobbyPlayer">
     <xs:sequence>
-      <xs:element minOccurs="0" name="HexadecimalColor" type="xs:int" />
-      <xs:element minOccurs="0" name="StylePath" type="xs:int" />
+      <xs:element minOccurs="0" name="HexadecimalColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdHexadecimalColor" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStylePath" type="xs:int" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
@@ -46,6 +48,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ArrayOfLobbyPlayer" nillable="true" type="tns:ArrayOfLobbyPlayer" />
+  <xs:complexType name="Movement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Column" type="xs:int" />
+      <xs:element minOccurs="0" name="EarnedPoints" type="xs:int" />
+      <xs:element minOccurs="0" name="HexadecimalColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Row" type="xs:int" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeLine" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Movement" nillable="true" type="tns:Movement" />
   <xs:complexType name="ArrayOfPlayerColor">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerColor" nillable="true" type="tns:PlayerColor" />

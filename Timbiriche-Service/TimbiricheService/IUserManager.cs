@@ -77,7 +77,6 @@ namespace TimbiricheService
         private int _idStyleSelected;
         private Account _accountFK;
 
-
         [DataMember]
         public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
         [DataMember]

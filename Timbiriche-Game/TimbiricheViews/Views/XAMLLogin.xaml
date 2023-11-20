@@ -61,7 +61,7 @@
 
     <Viewbox Stretch="Fill">
 
-        <Grid Height="770" Width="1200" Cursor="Hand">
+        <Grid Height="770" Width="1200">
             <Grid.RowDefinitions>
                 <RowDefinition Height="31*"/>
                 <RowDefinition Height="79*"/>

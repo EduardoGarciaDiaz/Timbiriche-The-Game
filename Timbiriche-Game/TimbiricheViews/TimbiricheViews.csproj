@@ -102,6 +102,9 @@
     <Compile Include="Views\XAMLShop.xaml.cs">
       <DependentUpon>XAMLShop.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\XAMLVictory.xaml.cs">
+      <DependentUpon>XAMLVictory.xaml</DependentUpon>
+    </Compile>
     <Compile Include="XAMLMainWindow.xaml.cs">
       <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
     </Compile>
@@ -161,6 +164,10 @@
     <Page Include="Views\XAMLShop.xaml">
     </Page>
     <Page Include="Components\XAMLBeginnerCodeVerification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLVictory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -361,6 +368,7 @@
     <Resource Include="Resources\banOptionIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\victoryBox.png" />
     <Resource Include="Resources\acceptFriendRequestIcon.png" />
     <Resource Include="Resources\rejectFriendRequestIcon.png.png" />
   </ItemGroup>

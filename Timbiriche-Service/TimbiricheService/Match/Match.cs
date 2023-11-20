@@ -12,6 +12,7 @@ namespace TimbiricheService.Match
         List<LobbyPlayer> _players;
         Queue<LobbyPlayer> _turns;
         Dictionary<LobbyPlayer, int> _scoreboard;
+        Dictionary<string, bool> _connectedPlayers;
 
         public Match(LobbyInformation lobbyInformation, List<LobbyPlayer> players)
         {
@@ -19,6 +20,7 @@ namespace TimbiricheService.Match
             _players = players;
             InitializeRandomTurns();
             InitializeScoreboard();
+            InitializePlayersConnected();
         }
 
         public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
@@ -29,16 +31,16 @@ namespace TimbiricheService.Match
             return _turns.Peek();
         }
 
-        public List<KeyValuePair<string, int>> GetScoreboard()
+        public List<KeyValuePair<LobbyPlayer, int>> GetScoreboard()
         {
-            Dictionary<string, int> scoreboard = new Dictionary<string, int>();
+            Dictionary<LobbyPlayer, int> scoreboard = new Dictionary<LobbyPlayer, int>();
 
             foreach(var entry in _scoreboard)
             {
-                scoreboard.Add(entry.Key.Username, entry.Value);
+                scoreboard.Add(entry.Key, entry.Value);
             }
 
-            List<KeyValuePair<string, int>> sortedScoreboard = scoreboard.ToList();
+            List<KeyValuePair<LobbyPlayer, int>> sortedScoreboard = scoreboard.ToList();
             sortedScoreboard = sortedScoreboard.OrderByDescending(points => points.Value).ToList();
 
             return sortedScoreboard;
@@ -86,5 +88,36 @@ namespace TimbiricheService.Match
             }
         }
 
+        private void InitializePlayersConnected()
+        {
+            _connectedPlayers = new Dictionary<string, bool>();
+            foreach (LobbyPlayer player in _players)
+            {
+                _connectedPlayers.Add(player.Username, false);
+            }
+        }
+
+        public bool AreAllPlayersConnected()
+        {
+            bool areAllPlayersConnected = true;
+            
+            foreach(var entry in _connectedPlayers)
+            {
+                if(entry.Value == false)
+                {
+                    return false;
+                }
+            }
+
+            return areAllPlayersConnected;
+        }
+
+        public void SetConnectedUser(string username)
+        {
+            if (_connectedPlayers.ContainsKey(username))
+            {
+                _connectedPlayers[username] = true;
+            }
+        }
     }
 }

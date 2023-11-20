@@ -35,16 +35,22 @@ namespace TimbiricheViews.Views
 
         private bool _itsMyTurn;
         private string _lobbyCode;
+        private string _playerHexadecimalColor;
+        private string _playerStylePath;
 
-        public XAMLGameBoard(string lobbyCode)
+
+        public XAMLGameBoard(string lobbyCode, string playerHexadecimalColor, string playerStylePath)
         {
             InitializeComponent();
             InitializeGameBoard();
+            
             _lobbyCode = lobbyCode;
+            _playerHexadecimalColor = playerHexadecimalColor;
+            _playerStylePath = playerStylePath;
 
             InstanceContext context = new InstanceContext(this);
             MatchManagerClient client = new MatchManagerClient(context);
-            client.RegisterToTheMatch(_lobbyCode, PlayerSingleton.Player.Username);
+            client.RegisterToTheMatch(_lobbyCode, PlayerSingleton.Player.Username, playerHexadecimalColor);
         }
 
         private void InitializeGameBoard()
@@ -92,7 +98,6 @@ namespace TimbiricheViews.Views
             const int INDEX_TYPE_LINE = 0;
             const int INDEX_ROW = 1;
             const int INDEX_COLUMN = 2;
-            string colorPlayer = "#FFAC4C4C";
 
             Button btnLine = (Button)sender;
             string[] tagParts = btnLine.Tag.ToString().Split(SPLIT_SYMBOL);
@@ -102,19 +107,28 @@ namespace TimbiricheViews.Views
 
             if (_itsMyTurn)
             {
-                int points = SetMovement(btnLine, colorPlayer, _row, _column, typeLine);
+                int points = SetMovement(btnLine, _playerHexadecimalColor, _playerStylePath, _row, _column, typeLine);
 
                 InstanceContext context = new InstanceContext(this);
                 Server.MatchManagerClient client = new Server.MatchManagerClient(context);
-                client.EndTurn(_lobbyCode, typeLine, _row, _column, points);
+
+                Movement movement = new Movement();
+                movement.TypeLine = typeLine;
+                movement.Row = _row;
+                movement.Column = _column;
+                movement.EarnedPoints = points;
+                movement.HexadecimalColor = _playerHexadecimalColor;
+                movement.StylePath = _playerStylePath;
+
+                client.EndTurn(_lobbyCode, movement);
             }
         }
 
-        private int SetMovement(Button btnLine, String colorPlayer, int row, int column, string typeLine)
+        private int SetMovement(Button btnLine, String colorPlayer, string stylePath, int row, int column, string typeLine)
         {
             UpdateButtonAppearance(btnLine, colorPlayer);
             MarkAsDrawed(row, column, typeLine);
-            int points = ValidateSquares(row, column, typeLine);
+            int points = ValidateSquares(row, column, typeLine, colorPlayer, stylePath);
 
             return points;
         }
@@ -141,7 +155,7 @@ namespace TimbiricheViews.Views
             }
         }
         
-        private int ValidateSquares(int row, int column, string typeLine)
+        private int ValidateSquares(int row, int column, string typeLine, string hexadecimalColor, string imageBoardPath)
         {
             bool isHorizontalLine = typeLine.Equals(HORIZONTAL_TYPE_LINE);
             bool isVerticalLine = typeLine.Equals(VERTICAL_TYPE_LINE);
@@ -149,86 +163,101 @@ namespace TimbiricheViews.Views
 
             if (isHorizontalLine)
             {
-                points += ValidateSquareAbove(row, column);
-                points += ValidateSquareBelow(row, column);
+                points += ValidateSquareAbove(row, column, hexadecimalColor, imageBoardPath);
+                points += ValidateSquareBelow(row, column, hexadecimalColor, imageBoardPath);
             }
             else if(isVerticalLine)
             {
-                points += ValidateSquareLeft(row, column);
-                points += ValidateSquareRight(row, column);
+                points += ValidateSquareLeft(row, column, hexadecimalColor, imageBoardPath);
+                points += ValidateSquareRight(row, column, hexadecimalColor, imageBoardPath);
             }
 
             return points;
         }
 
-        private int ValidateSquareAbove(int row, int column)
+        private int ValidateSquareAbove(int row, int column, string hexadecimalColor, string imageBoardPath)
         {
             int points = 0;
             if (row > 0 && _horizontalLines[row - 1, column] != 0 && _verticalLines[row - 1, column] != 0 && _verticalLines[row - 1, column + 1] != 0)
             {
                 points++;
-                SetImageBoard(row - 1, column);
+                SetScoringPlayerOnBoard(row - 1, column, imageBoardPath, hexadecimalColor);
+
             }
 
             return points;
         }
 
-        private int ValidateSquareBelow(int row, int column)
+        private int ValidateSquareBelow(int row, int column, string hexadecimalColor, string imageBoardPath)
         {
             int points = 0;
             if (row < BOARD_SIZE - 1 && _horizontalLines[row + 1, column] != 0 && _verticalLines[row, column] != 0 && _verticalLines[row, column + 1] != 0)
             {
                 points++;
-                SetImageBoard(row, column);
+                SetScoringPlayerOnBoard(row, column, imageBoardPath, hexadecimalColor);
             }
 
             return points;
         }
 
-        private int ValidateSquareLeft(int row, int column)
+        private int ValidateSquareLeft(int row, int column, string hexadecimalColor, string imageBoardPath)
         {
             int points = 0;
             if (column > 0 && _verticalLines[row, column - 1] != 0 && _horizontalLines[row, column - 1] != 0 && _horizontalLines[row + 1, column - 1] != 0)
             {
                 points++;
-                SetImageBoard(row, column - 1);
+                SetScoringPlayerOnBoard(row, column - 1, imageBoardPath, hexadecimalColor);
             }
 
             return points;
         }
 
-        private int ValidateSquareRight(int row, int column)
+        private int ValidateSquareRight(int row, int column, string hexadecimalColor, string imageBoardPath)
         {
             int points = 0;
             if (column < BOARD_SIZE - 1 && _verticalLines[row, column + 1] != 0 && _horizontalLines[row, column] != 0 && _horizontalLines[row + 1, column] != 0)
             {
                 points++;
-                SetImageBoard(row, column);
+                SetScoringPlayerOnBoard(row, column, imageBoardPath, hexadecimalColor);
             }
             return points;
         }
 
-        private void SetImageBoard(int row, int column)
+        private void SetScoringPlayerOnBoard(int row, int column, string imageBoardPath, string hexadecimalColor)
         {
-            Image imageWhoScore = new Image();
+            Color color = (Color)ColorConverter.ConvertFromString(hexadecimalColor);
+            SolidColorBrush colorBrush = new SolidColorBrush(color);
+
+            Rectangle scoringPlayerColor = new Rectangle();
+            scoringPlayerColor.Fill = colorBrush;
+
+            Image scoringPlayerImage = new Image();
             // TODO: Utilities for transform Images
-            BitmapImage bitmapImage = new BitmapImage(new Uri("../Resources/Skins/basicBox.png", UriKind.RelativeOrAbsolute));
-            imageWhoScore.Source = bitmapImage;
-            Grid.SetRow(imageWhoScore, row);
-            Grid.SetColumn(imageWhoScore, column);
-            gridGameBoard.Children.Add(imageWhoScore);
+            BitmapImage bitmapImage = new BitmapImage(new Uri(imageBoardPath, UriKind.RelativeOrAbsolute));
+            scoringPlayerImage.Source = bitmapImage;
+
+            Grid containerGrid = new Grid();
+            containerGrid.Children.Add(scoringPlayerColor);
+            containerGrid.Children.Add(scoringPlayerImage);
+
+            Grid.SetZIndex(scoringPlayerColor, 0);
+            Grid.SetZIndex(scoringPlayerImage, 1);
+            Grid.SetRow(containerGrid, row);
+            Grid.SetColumn(containerGrid, column);
+        
+            gridGameBoard.Children.Add(containerGrid);
         }
     }
 
-    public partial class XAMLGameBoard : IMatchManagerCallback
+    public partial class XAMLGameBoard : Page, IMatchManagerCallback
     {
         private Match.Timer _matchTimer;
         private Match.Timer _turnTimer;
 
-        public void NotifyMovement(string typeLine, int row, int column)
+        public void NotifyMovement(Movement movement)
         {
-            Button btnLine = FindButtonByName(typeLine + "_" + row + "_" + column);
-            SetMovement(btnLine, "#FFAC4C4C", row, column, typeLine);
+            Button btnLine = FindButtonByName(movement.TypeLine + "_" + movement.Row + "_" + movement.Column);
+            SetMovement(btnLine, movement.HexadecimalColor, movement.StylePath, movement.Row, movement.Column, movement.TypeLine);
         }
 
         public void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username)
@@ -256,41 +285,64 @@ namespace TimbiricheViews.Views
             UpdateTurn(username);
         }
 
+        public void NotifyNewScoreboard(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard)
+        {
+            if(stackPanelScoreboard.Visibility == Visibility.Collapsed)
+            {
+                stackPanelScoreboard.Visibility = Visibility.Visible;
+            }
+
+            Storyboard animationFadeIn = (Storyboard)FindResource("fadeAnimation");
+            animationFadeIn.Begin();
+
+            int numPlayers = scoreboard.Count();
+
+            SolidColorBrush brushFirstPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[0].Key.HexadecimalColor);
+            tbxFirstPlaceUsername.Text = scoreboard[0].Key.Username;
+            tbxFirstPlacePoints.Text = scoreboard[0].Value.ToString();
+            borderFirstPlace.Background = brushFirstPlace;
+
+            SolidColorBrush brushSecondPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[1].Key.HexadecimalColor);
+            tbxSecondPlaceUsername.Text = scoreboard[1].Key.Username;
+            tbxSecondPlacePoints.Text = scoreboard[1].Value.ToString();
+            borderSecondPlace.Background = brushSecondPlace;
+
+            if (numPlayers  > 2)
+            {
+                SolidColorBrush brushThirdPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[2].Key.HexadecimalColor);
+                gridThirdPlace.Visibility = Visibility.Visible;
+                tbxThirdPlaceUsername.Text = scoreboard[2].Key.Username;
+                tbxThirdPlacePoints.Text = scoreboard[2].Value.ToString();
+                borderThirdPlace.Background = brushThirdPlace;
+            }
+
+            if (numPlayers > 3)
+            {
+                SolidColorBrush brushFourthPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[3].Key.HexadecimalColor);
+                gridFourthPlace.Visibility = Visibility.Visible;
+                tbxFourthPlaceUsername.Text = scoreboard[3].Key.Username;
+                tbxFourthPlacePoints.Text = scoreboard[3].Value.ToString();
+                borderFourthPlace.Background = brushFourthPlace;
+            }
+        }
+
+        public void NotifyEndOfTheMatch(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
+        {
+            _turnTimer.Stop();
+            _matchTimer.Stop();
+
+            XAMLVictory victoryPage = new XAMLVictory(scoreboard, coinsEarned);
+            NavigationService.Navigate(victoryPage);
+
+            NavigationSe
+        }
+
         public void NotifyNewMessage(string senderUsername, string message)
         {
             XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
-        }
-
-        public void NotifyNewScoreboard(KeyValuePair<string, int>[] scoreboard)
-        {
-            Storyboard animationFadeIn = (Storyboard)FindResource("fadeAnimation");
-            animationFadeIn.Begin();
-
-            int numPlayers = scoreboard.Count();
-
-            tbxFirstPlaceUsername.Text = scoreboard[0].Key;
-            tbxFirstPlacePoints.Text = scoreboard[0].Value.ToString();
-
-            tbxSecondPlaceUsername.Text = scoreboard[1].Key;
-            tbxSecondPlacePoints.Text = scoreboard[1].Value.ToString();
-
-
-            if (numPlayers  > 2)
-            {
-                gridThirdPlace.Visibility = Visibility.Visible;
-                tbxThirdPlaceUsername.Text = scoreboard[2].Key;
-                tbxThirdPlacePoints.Text = scoreboard[2].Value.ToString();
-            }
-
-            if (numPlayers > 3)
-            {
-                gridFourthPlace.Visibility = Visibility.Visible;
-                tbxFourthPlaceUsername.Text = scoreboard[3].Key;
-                tbxFourthPlacePoints.Text = scoreboard[3].Value.ToString();
-            }
         }
 
         private Button FindButtonByName(string name)
@@ -321,7 +373,11 @@ namespace TimbiricheViews.Views
 
         private void OnCountDownMatchFinished(object sender, EventArgs e)
         {
+            InstanceContext context = new InstanceContext(this);
+            MatchManagerClient client = new MatchManagerClient(context);
 
+            _itsMyTurn = false;
+            client.EndMatch(_lobbyCode);
         }
 
         private void BtnSendMessage_Click(object sender, RoutedEventArgs e)

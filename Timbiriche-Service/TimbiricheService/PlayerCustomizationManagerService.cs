@@ -16,6 +16,7 @@ namespace TimbiricheService
             List<PlayerColor> myColors = new List<PlayerColor>();
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
             List<PlayerColors> playerColorsDataAccess = dataAccess.GetMyColorsByIdPlayer(idPlayer);
+
             foreach(PlayerColors playerColor in playerColorsDataAccess)
             {
                 PlayerColor playerColorAuxiliar = new PlayerColor();
@@ -97,7 +98,7 @@ namespace TimbiricheService
         public void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
 
             if (idColor == DEFAULT_COLOR)
             {
@@ -107,12 +108,14 @@ namespace TimbiricheService
             {
                 HandleNonDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
             }
+
             InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor);
         }
 
         private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
         {
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
+            
             if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
@@ -163,7 +166,8 @@ namespace TimbiricheService
         public void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
-            int idColor = lobbyPlayer.HexadecimalColor;
+            int idColor = lobbyPlayer.IdHexadecimalColor;
+            
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
@@ -177,6 +181,7 @@ namespace TimbiricheService
             {
                 callbackPlayer.NotifyColorUnselected(idColor);
             }
+
             if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
             {
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
@@ -186,20 +191,24 @@ namespace TimbiricheService
         private bool IsColorSelected(string lobbyCode, int idColor)
         {
             bool isColorSelected = false;
+
             if (LobbyExists(lobbyCode))
             {
-                LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.HexadecimalColor == idColor);
+                LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.IdHexadecimalColor == idColor);
+                
                 if (playerHasColor != null)
                 {
                     isColorSelected = true;
                 }
             }
+
             return isColorSelected;
         }
 
         private bool LobbyExists(string lobbyCode)
         {
             bool doesLobbyExist = false;
+
             if (lobbies.ContainsKey(lobbyCode))
             {
                 doesLobbyExist = true;
