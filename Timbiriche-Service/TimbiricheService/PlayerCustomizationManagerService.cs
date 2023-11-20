@@ -115,7 +115,7 @@ namespace TimbiricheService
         private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
         {
             int idColor = lobbyPlayer.IdHexadecimalColor;
-
+            
             if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
@@ -167,7 +167,7 @@ namespace TimbiricheService
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
             int idColor = lobbyPlayer.IdHexadecimalColor;
-
+            
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
@@ -195,7 +195,7 @@ namespace TimbiricheService
             if (LobbyExists(lobbyCode))
             {
                 LobbyPlayer playerHasColor = GetLobbyPlayersList(lobbyCode).Find(color => color.IdHexadecimalColor == idColor);
-
+                
                 if (playerHasColor != null)
                 {
                     isColorSelected = true;
@@ -215,6 +215,38 @@ namespace TimbiricheService
             }
             return doesLobbyExist;
         }
+    }
 
+    public partial class UserManagerService : IPlayerStylesManager
+    {
+
+        public void AddStyleCallbackToLobbiesList(string lobbyCode, LobbyPlayer lobbyPlayer)
+        {
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                IPlayerStylesManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerStylesManagerCallback>();
+                LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                if (auxiliarPlayer != null)
+                {
+                    auxiliarPlayer.StyleCallbackChannel = currentUserCallbackChannel;
+                }
+            }
+        }
+
+        public void ChooseStyle(string lobbyCode, LobbyPlayer lobbyPlayer)
+        {
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                if (auxiliarPlayer != null)
+                {
+                    auxiliarPlayer.StylePath = lobbyPlayer.StylePath;
+                    foreach (var colorSelector in lobbies[lobbyCode].Item2)
+                    {
+                        colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                    }
+                }
+            }
+        }
     }
 }

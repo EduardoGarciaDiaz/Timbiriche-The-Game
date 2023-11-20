@@ -10,16 +10,21 @@ namespace TimbiricheDataAccess
     {
         public int UpdateCoins(string username, int coinsEarned)
         {
-            using(var context = new TimbiricheDBEntities())
+            int rowsAffected = 0;
+
+            using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players.SingleOrDefault(p => p.username == username);
 
-                if(player != null)
+                if (player != null)
                 {
                     player.coins += coinsEarned;
-                    context.SaveChanges();
+                    rowsAffected = context.SaveChanges();
+                
                 }
             }
+
+            return rowsAffected;
         }
     }
 }

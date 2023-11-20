@@ -61,8 +61,8 @@ namespace TimbiricheService
 
         public void StartMatch(string lobbyCode)
         {
-            LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1 as LobbyInformation;
-            List<LobbyPlayer> players = lobbies[lobbyCode].Item2 as List<LobbyPlayer>;
+            LobbyInformation lobbyInformation = lobbies[lobbyCode].Item1;
+            List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
 
             matches.Add(lobbyCode, new Match.Match(lobbyInformation, players));
 
@@ -88,7 +88,7 @@ namespace TimbiricheService
             }
 
             string lobbyCode = new string(code);
-            Console.WriteLine(lobbyCode);
+
             return lobbies.ContainsKey(lobbyCode) ? GenerateLobbyCode() : lobbyCode;
         }
     }

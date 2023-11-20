@@ -261,6 +261,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerStylesManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -390,6 +419,9 @@
   <wsdl:message name="IMatchManager_EndTurnWithoutMovement_InputMessage">
     <wsdl:part name="parameters" element="tns:EndTurnWithoutMovement" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_EndMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndMatch" />
+  </wsdl:message>
   <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
   </wsdl:message>
@@ -416,6 +448,12 @@
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewScoreboard_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewScoreboardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatchResponse" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewMessage" />
@@ -509,6 +547,18 @@
   </wsdl:message>
   <wsdl:message name="IInvitationManager_SendInvitationToEmail_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendInvitationToEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStyleCallbackToLobbiesList" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_ChooseStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChooseStyle" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelectedResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
@@ -607,6 +657,9 @@
     <wsdl:operation name="EndTurnWithoutMovement">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" message="tns:IMatchManager_EndTurnWithoutMovement_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndMatch" message="tns:IMatchManager_EndMatch_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
     </wsdl:operation>
@@ -625,6 +678,10 @@
     <wsdl:operation name="NotifyNewScoreboard">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard" message="tns:IMatchManager_NotifyNewScoreboard_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse" message="tns:IMatchManager_NotifyNewScoreboard_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" message="tns:IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatchResponse" message="tns:IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyNewMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
@@ -698,6 +755,18 @@
     <wsdl:operation name="SendInvitationToEmail">
       <wsdl:input wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmail" message="tns:IInvitationManager_SendInvitationToEmail_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmailResponse" message="tns:IInvitationManager_SendInvitationToEmail_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerStylesManager">
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" message="tns:IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/ChooseStyle" message="tns:IPlayerStylesManager_ChooseStyle_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" message="tns:IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelectedResponse" message="tns:IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -911,6 +980,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="SendMessageToLobby">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/SendMessageToLobby" style="document" />
       <wsdl:input>
@@ -946,6 +1021,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyNewScoreboard">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewScoreboard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1114,13 +1198,38 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerStylesManager" type="tns:IPlayerStylesManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerStylesManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/ChooseStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1129,7 +1238,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1138,7 +1247,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1147,7 +1256,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1156,7 +1265,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1165,7 +1274,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1174,7 +1283,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1183,7 +1292,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1192,7 +1301,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>CESARELE23\emili</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerStylesManager" binding="tns:NetTcpBinding_IPlayerStylesManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

@@ -64,6 +64,7 @@
     <Compile Include="IUserManager.cs" />
     <Compile Include="LobbyManagerService.cs" />
     <Compile Include="MatchManagerService.cs" />
+    <Compile Include="Match\CoinsEarn.cs" />
     <Compile Include="Match\Match.cs" />
     <Compile Include="PasswordResetService.cs" />
     <Compile Include="PlayerCustomizationManagerService.cs" />
