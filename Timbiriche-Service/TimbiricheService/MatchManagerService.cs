@@ -96,7 +96,6 @@ namespace TimbiricheService
                     {
                         Console.WriteLine($"Fault Exception: {ex.Message}");
                         Console.WriteLine($"Detail: {ex.StackTrace}");
-
                     }
 
                 }
