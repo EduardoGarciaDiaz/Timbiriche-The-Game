@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:TimbiricheViews.Views"
       xmlns:p="clr-namespace:TimbiricheViews.Properties"
       mc:Ignorable="d" 
-      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8" 
+      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
       Title="XAMLLobby">
 
     <Page.Resources>

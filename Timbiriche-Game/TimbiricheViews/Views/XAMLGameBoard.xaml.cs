@@ -331,10 +331,12 @@ namespace TimbiricheViews.Views
             _turnTimer.Stop();
             _matchTimer.Stop();
 
-            XAMLVictory victoryPage = new XAMLVictory(scoreboard, coinsEarned);
-            NavigationService.Navigate(victoryPage);
+            XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
 
-            NavigationSe
+            if (parentWindow != null)
+            {
+                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(scoreboard, coinsEarned));
+            }
         }
 
         public void NotifyNewMessage(string senderUsername, string message)
