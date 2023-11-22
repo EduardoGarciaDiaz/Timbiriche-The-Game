@@ -129,7 +129,7 @@ namespace TimbiricheService
 
                 foreach(string onlineUsername in onlineUsernames)
                 {
-                    if (FindOnlineFriend(idPlayer, onlineUsername))
+                    if (IsFriend(idPlayer, onlineUsername))
                     {
                         onlineFriends.Add(onlineUsername);
                     }
@@ -141,18 +141,15 @@ namespace TimbiricheService
 
                 foreach (var user in onlineUsers)
                 {
-                    if (user.Key != username)
+                    if (user.Key != username && IsFriend(idPlayer, user.Key))
                     {
-                        if (FindOnlineFriend(idPlayer, user.Key))
-                        {
-                            user.Value.NotifyUserLoggedIn(username);
-                        }
+                        user.Value.NotifyUserLoggedIn(username); 
                     }
                 }
             }
         }
 
-        private bool FindOnlineFriend(int currentIdPlayer, string onlineUsername)
+        private bool IsFriend(int currentIdPlayer, string onlineUsername)
         {
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
             UserManagement userDataAccess = new UserManagement();
@@ -168,6 +165,7 @@ namespace TimbiricheService
             if (onlineUsers.ContainsKey(username))
             {
                 onlineUsers.Remove(username);
+                onlineFriendship.Remove(username);
 
                 foreach (var user in onlineUsers)
                 {

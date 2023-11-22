@@ -11,6 +11,14 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IFriendshipManager
     {
+        public List<string> GetListUsernameFriends(int idPlayer)
+        {
+            List<string> playerFriends;
+            FriendRequestManagement dataAccess = new FriendRequestManagement();
+            playerFriends = dataAccess.GetFriends(idPlayer);
+            return playerFriends;
+        }
+
         public bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested)
         {
             bool isFriendRequestValid = false;

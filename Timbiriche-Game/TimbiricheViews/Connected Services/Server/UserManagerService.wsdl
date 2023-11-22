@@ -618,6 +618,12 @@
   <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyStyleSelectedResponse" />
   </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsernameFriends" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsernameFriendsResponse" />
+  </wsdl:message>
   <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateFriendRequestSending" />
   </wsdl:message>
@@ -636,8 +642,8 @@
   <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequestersResponse" />
   </wsdl:message>
-  <wsdl:message name="IFriendRequestManager_AddToOnlineFriendsDictionary_InputMessage">
-    <wsdl:part name="parameters" element="tns:AddToOnlineFriendsDictionary" />
+  <wsdl:message name="IFriendRequestManager_AddToOnlineFriendshipDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddToOnlineFriendshipDictionary" />
   </wsdl:message>
   <wsdl:message name="IFriendRequestManager_SendFriendRequest_InputMessage">
     <wsdl:part name="parameters" element="tns:SendFriendRequest" />
@@ -879,6 +885,10 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IFriendshipManager">
+    <wsdl:operation name="GetListUsernameFriends">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends" message="tns:IFriendshipManager_GetListUsernameFriends_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse" message="tns:IFriendshipManager_GetListUsernameFriends_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ValidateFriendRequestSending">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" message="tns:IFriendshipManager_ValidateFriendRequestSending_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse" message="tns:IFriendshipManager_ValidateFriendRequestSending_OutputMessage" />
@@ -893,8 +903,8 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IFriendRequestManager">
-    <wsdl:operation name="AddToOnlineFriendsDictionary">
-      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary" message="tns:IFriendRequestManager_AddToOnlineFriendsDictionary_InputMessage" />
+    <wsdl:operation name="AddToOnlineFriendshipDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary" message="tns:IFriendRequestManager_AddToOnlineFriendshipDictionary_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="SendFriendRequest">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest" message="tns:IFriendRequestManager_SendFriendRequest_InputMessage" />
@@ -1378,6 +1388,15 @@
   <wsdl:binding name="NetTcpBinding_IFriendshipManager" type="tns:IFriendshipManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IFriendshipManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetListUsernameFriends">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriends" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ValidateFriendRequestSending">
       <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" style="document" />
       <wsdl:input>
@@ -1409,8 +1428,8 @@
   <wsdl:binding name="NetTcpBinding_IFriendRequestManager" type="tns:IFriendRequestManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IFriendRequestManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
-    <wsdl:operation name="AddToOnlineFriendsDictionary">
-      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary" style="document" />
+    <wsdl:operation name="AddToOnlineFriendshipDictionary">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

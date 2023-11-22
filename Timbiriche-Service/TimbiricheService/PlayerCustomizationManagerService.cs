@@ -121,7 +121,6 @@ namespace TimbiricheService
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
             }
             playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
-            //currentUserCallbackChannel?.NotifyColorSelected(lobbyPlayer);
         }
 
         private void HandleNonDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
@@ -131,7 +130,7 @@ namespace TimbiricheService
                 LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
                 if (auxiliarPlayer != null)
                 {
-                    auxiliarPlayer.HexadecimalColor = lobbyPlayer.HexadecimalColor;
+                    auxiliarPlayer.IdHexadecimalColor = lobbyPlayer.IdHexadecimalColor;
                     auxiliarPlayer.ColorCallbackChannel = currentUserCallbackChannel;
                 }
                 foreach (var colorSelector in lobbies[lobbyCode].Item2)
@@ -240,7 +239,7 @@ namespace TimbiricheService
                 LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
                 if (auxiliarPlayer != null)
                 {
-                    auxiliarPlayer.StylePath = lobbyPlayer.StylePath;
+                    auxiliarPlayer.IdStylePath = lobbyPlayer.IdStylePath;
                     foreach (var colorSelector in lobbies[lobbyCode].Item2)
                     {
                         colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
