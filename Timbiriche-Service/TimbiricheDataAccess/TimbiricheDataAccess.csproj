@@ -72,6 +72,9 @@
     <Compile Include="Accounts.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Bans.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="CoinsManagement.cs" />
     <Compile Include="Colors.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
@@ -95,6 +98,9 @@
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="ShopManagement.cs" />
     <Compile Include="Styles.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
