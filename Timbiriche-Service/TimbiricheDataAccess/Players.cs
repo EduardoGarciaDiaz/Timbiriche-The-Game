@@ -22,6 +22,9 @@ namespace TimbiricheDataAccess
             this.PlayerStyles = new HashSet<PlayerStyles>();
             this.FriendShips = new HashSet<FriendShips>();
             this.FriendShips1 = new HashSet<FriendShips>();
+            this.Bans = new HashSet<Bans>();
+            this.Reports = new HashSet<Reports>();
+            this.Reports1 = new HashSet<Reports>();
         }
     
         public int idPlayer { get; set; }
@@ -48,5 +51,11 @@ namespace TimbiricheDataAccess
         public virtual ICollection<FriendShips> FriendShips { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FriendShips> FriendShips1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bans> Bans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports1 { get; set; }
     }
 }
