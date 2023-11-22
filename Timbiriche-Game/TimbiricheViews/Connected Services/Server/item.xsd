@@ -573,6 +573,20 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetListUsernameFriends">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetListUsernameFriendsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetListUsernameFriendsResult" nillable="true" type="q19:ArrayOfstring" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="ValidateFriendRequestSending">
     <xs:complexType>
       <xs:sequence>
@@ -613,11 +627,11 @@
   <xs:element name="GetUsernamePlayersRequestersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q19:ArrayOfstring" />
+        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q20:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="AddToOnlineFriendsDictionary">
+  <xs:element name="AddToOnlineFriendshipDictionary">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="usernameCurrentPlayer" nillable="true" type="xs:string" />

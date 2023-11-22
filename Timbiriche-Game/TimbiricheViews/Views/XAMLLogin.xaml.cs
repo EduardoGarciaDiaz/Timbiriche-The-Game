@@ -129,7 +129,8 @@ namespace TimbiricheViews.Views
                 {
                     PlayerSingleton.Player = playerLogged;
                     NavigationService.Navigate(new XAMLLobby());
-                } else
+                } 
+                else
                 {
                     lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }

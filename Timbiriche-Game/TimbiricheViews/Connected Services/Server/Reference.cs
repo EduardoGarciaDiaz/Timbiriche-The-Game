@@ -1439,6 +1439,12 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IFriendshipManager")]
     public interface IFriendshipManager {
         
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends", ReplyAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse")]
+        string[] GetListUsernameFriends(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends", ReplyAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse")]
+        System.Threading.Tasks.Task<string[]> GetListUsernameFriendsAsync(int idPlayer);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending", ReplyAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse")]
         bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
         
@@ -1485,6 +1491,14 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
+        public string[] GetListUsernameFriends(int idPlayer) {
+            return base.Channel.GetListUsernameFriends(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<string[]> GetListUsernameFriendsAsync(int idPlayer) {
+            return base.Channel.GetListUsernameFriendsAsync(idPlayer);
+        }
+        
         public bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested) {
             return base.Channel.ValidateFriendRequestSending(idPlayerSender, usernamePlayerRequested);
         }
@@ -1514,11 +1528,11 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IFriendRequestManager", CallbackContract=typeof(TimbiricheViews.Server.IFriendRequestManagerCallback))]
     public interface IFriendRequestManager {
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary")]
-        void AddToOnlineFriendsDictionary(string usernameCurrentPlayer);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary")]
+        void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer);
         
-        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendsDictionary")]
-        System.Threading.Tasks.Task AddToOnlineFriendsDictionaryAsync(string usernameCurrentPlayer);
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary")]
+        System.Threading.Tasks.Task AddToOnlineFriendshipDictionaryAsync(string usernameCurrentPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest")]
         void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested);
@@ -1586,12 +1600,12 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void AddToOnlineFriendsDictionary(string usernameCurrentPlayer) {
-            base.Channel.AddToOnlineFriendsDictionary(usernameCurrentPlayer);
+        public void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer) {
+            base.Channel.AddToOnlineFriendshipDictionary(usernameCurrentPlayer);
         }
         
-        public System.Threading.Tasks.Task AddToOnlineFriendsDictionaryAsync(string usernameCurrentPlayer) {
-            return base.Channel.AddToOnlineFriendsDictionaryAsync(usernameCurrentPlayer);
+        public System.Threading.Tasks.Task AddToOnlineFriendshipDictionaryAsync(string usernameCurrentPlayer) {
+            return base.Channel.AddToOnlineFriendshipDictionaryAsync(usernameCurrentPlayer);
         }
         
         public void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested) {
