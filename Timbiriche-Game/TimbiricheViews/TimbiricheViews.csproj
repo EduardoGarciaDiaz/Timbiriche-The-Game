@@ -90,6 +90,9 @@
     <Compile Include="Match\Timer.cs" />
     <Compile Include="Utils\EmergentWindows.cs" />
     <Compile Include="Utils\ValidationUtilities.cs" />
+    <Compile Include="Views\XAMLBan.xaml.cs">
+      <DependentUpon>XAMLBan.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
@@ -146,6 +149,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\XAMLEmergentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLBan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

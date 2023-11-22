@@ -1115,10 +1115,10 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task EndMatchAsync(string lobbyCode);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
-        void SendMessageToLobby(string lobbyCode, string senderUsername, string message);
+        void SendMessageToLobby(string lobbyCode, string senderUsername, string message, int idSenderPlayer);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
-        System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message);
+        System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1140,7 +1140,7 @@ namespace TimbiricheViews.Server {
         void NotifyEndOfTheMatch(System.Collections.Generic.KeyValuePair<TimbiricheViews.Server.LobbyPlayer, int>[] scoreboard, int coinsEarned);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
-        void NotifyNewMessage(string senderUsername, string message);
+        void NotifyNewMessage(string senderUsername, string message, int idSenderPlayer);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1203,12 +1203,12 @@ namespace TimbiricheViews.Server {
             return base.Channel.EndMatchAsync(lobbyCode);
         }
         
-        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message) {
-            base.Channel.SendMessageToLobby(lobbyCode, senderUsername, message);
+        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message, int idSenderPlayer) {
+            base.Channel.SendMessageToLobby(lobbyCode, senderUsername, message, idSenderPlayer);
         }
         
-        public System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message) {
-            return base.Channel.SendMessageToLobbyAsync(lobbyCode, senderUsername, message);
+        public System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer) {
+            return base.Channel.SendMessageToLobbyAsync(lobbyCode, senderUsername, message, idSenderPlayer);
         }
     }
     
@@ -1812,6 +1812,78 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task DeleteFriendAsync(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted) {
             return base.Channel.DeleteFriendAsync(idCurrentPlayer, usernameCurrentPlayer, usernameFriendDeleted);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IBanManager", CallbackContract=typeof(TimbiricheViews.Server.IBanManagerCallback))]
+    public interface IBanManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
+        void ReportMessage(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
+        System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanManager/VerifyBanEndDateResponse")]
+        System.DateTime VerifyBanEndDate(int idPlayer, System.DateTime currentDate);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanManager/VerifyBanEndDateResponse")]
+        System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer, System.DateTime currentDate);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IBanManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/NotifyReportCompleted", ReplyAction="http://tempuri.org/IBanManager/NotifyReportCompletedResponse")]
+        void NotifyReportCompleted();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported", ReplyAction="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReportedResponse")]
+        void NotifyPlayerAlreadyReported();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IBanManagerChannel : TimbiricheViews.Server.IBanManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class BanManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IBanManager>, TimbiricheViews.Server.IBanManager {
+        
+        public BanManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public BanManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public BanManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public BanManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public BanManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void ReportMessage(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate) {
+            base.Channel.ReportMessage(idPlayerReported, idPlayerReporter, reportDate);
+        }
+        
+        public System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate) {
+            return base.Channel.ReportMessageAsync(idPlayerReported, idPlayerReporter, reportDate);
+        }
+        
+        public System.DateTime VerifyBanEndDate(int idPlayer, System.DateTime currentDate) {
+            return base.Channel.VerifyBanEndDate(idPlayer, currentDate);
+        }
+        
+        public System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer, System.DateTime currentDate) {
+            return base.Channel.VerifyBanEndDateAsync(idPlayer, currentDate);
         }
     }
 }

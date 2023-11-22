@@ -21,7 +21,9 @@
 
             <Grid x:Name="gridReportMessage" Visibility="Collapsed" Height="26" Width="90" HorizontalAlignment="Right" VerticalAlignment="Bottom" MouseLeave="GridReportMessage_MouseLeave" >
                 <Border Background="#5E7682" BorderThickness="1" CornerRadius="15, 0, 15, 15" />
-                <Button Content="Reportar jugador" Margin="7,0,7,0" Background="#5E7682" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" FontSize="8" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                <Button Content="Reportar jugador" Margin="7,0,7,0" Background="#5E7682" BorderBrush="{x:Null}" FontFamily="Inter" 
+                        Foreground="White" Cursor="Hand" FontSize="8" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                        Click="BtnReportMessage_Click"/>
             </Grid>
         </Grid>
     </Border>

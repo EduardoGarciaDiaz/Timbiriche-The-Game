@@ -47,6 +47,7 @@
     <Reference Include="System.Xml.Linq" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BanManagerService.cs" />
     <Compile Include="EmailVerificationService.cs" />
     <Compile Include="Email\EmailSender.cs" />
     <Compile Include="Email\Templates\EmailVerificationTemplate.cs" />
@@ -54,6 +55,7 @@
     <Compile Include="Email\Templates\InvitationToLobbyTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
     <Compile Include="FriendRequestManagerService.cs" />
+    <Compile Include="IBanManager.cs" />
     <Compile Include="IEmailVerificationManager.cs" />
     <Compile Include="IFriendRequestManager.cs" />
     <Compile Include="IInvitationManager.cs" />
