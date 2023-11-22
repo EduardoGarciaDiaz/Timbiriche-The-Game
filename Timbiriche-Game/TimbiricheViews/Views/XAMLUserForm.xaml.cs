@@ -82,7 +82,7 @@ namespace TimbiricheViews.Views
         private bool VerifyEmailCode(string email)
         {
             bool isEmailVerified = false;
-            if (sendEmail(email))
+            if (SendEmail(email))
             {
                 XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification();
                 if (codeWindow.ShowDialog() == true)
@@ -93,7 +93,7 @@ namespace TimbiricheViews.Views
             return isEmailVerified;
         }
 
-        private bool sendEmail(string email)
+        private bool SendEmail(string email)
         {
             bool isEmailSend = false;
             Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();

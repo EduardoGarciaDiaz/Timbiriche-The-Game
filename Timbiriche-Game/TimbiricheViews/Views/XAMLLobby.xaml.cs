@@ -140,22 +140,19 @@ namespace TimbiricheViews.Views
 
         public void NotifyUserLoggedIn(string username)
         {
-            //AddUserToOnlineUserList(username);
             bool isOnline = true;
-            ChangePlayerStatus(username, isOnline);
+            ChangeStatusPlayer(username, isOnline);
         }
 
         public void NotifyUserLoggedOut(string username)
         {
             bool isOnline = false;
-            //RemoveUserFromOnlineUserList(username);
-            ChangePlayerStatus(username, isOnline);
+            ChangeStatusPlayer(username, isOnline);
         }
 
         public void NotifyOnlineFriends(string[] onlineUsernames)
         {
             bool isOnline = true;
-            //AddUsersToOnlineUsersList(onlineUsernames);
             ChangeStatusFriends(onlineUsernames, isOnline);
             SuscribeUserToOnlineFriendsDictionary();
         }
@@ -164,11 +161,11 @@ namespace TimbiricheViews.Views
         {
             foreach(string onlineUsername in onlineUsernames)
             {
-                ChangePlayerStatus(onlineUsername, isOnline);
+                ChangeStatusPlayer(onlineUsername, isOnline);
             }
         }
 
-        private void ChangePlayerStatus(string username, bool isOnline)
+        private void ChangeStatusPlayer(string username, bool isOnline)
         {
             string idUserItem = "lb" + username;
             XAMLActiveUserItemControl userOnlineItem = FindActiveUserItemControlById(idUserItem);
@@ -543,17 +540,16 @@ namespace TimbiricheViews.Views
             if (numOfPlayersInLobby == TWO_PLAYER_IN_LOBBY)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayer.Username;
-                LoadFaceBox(lbThirdPlayerUsername, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
+                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
             if (numOfPlayersInLobby == THREE_PLAYER_IN_LOBBY)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
-                LoadFaceBox(lbFourthPlayerUsername, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
+                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
-
         }
 
         public void NotifyPlayerLeftLobby()
@@ -575,21 +571,21 @@ namespace TimbiricheViews.Views
             if (numPlayersInLobby > SECOND_PLAYER_ID)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayers[SECOND_PLAYER_ID].Username;
-                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[SECOND_PLAYER_ID].IdStylePath, lobbyPlayers[0].Username);
+                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[SECOND_PLAYER_ID].IdStylePath, lobbyPlayers[SECOND_PLAYER_ID].Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
             if (numPlayersInLobby > THIRD_PLAYER_ID)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayers[THIRD_PLAYER_ID].Username;
-                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[THIRD_PLAYER_ID].IdStylePath, lobbyPlayers[1].Username);
+                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[THIRD_PLAYER_ID].IdStylePath, lobbyPlayers[THIRD_PLAYER_ID].Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
             if (numPlayersInLobby > FOURTH_PLAYER_ID)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayers[FOURTH_PLAYER_ID].Username;
-                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[FOURTH_PLAYER_ID].IdStylePath, lobbyPlayers[2].Username);
+                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[FOURTH_PLAYER_ID].IdStylePath, lobbyPlayers[FOURTH_PLAYER_ID].Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
 
@@ -932,7 +928,6 @@ namespace TimbiricheViews.Views
         {
             StablishOcuppiedColors(ocuppedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
-
         }   
     }
 }
