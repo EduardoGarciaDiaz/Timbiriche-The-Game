@@ -369,3 +369,5 @@ Timbiriche-Game/TimbiricheViews/obj/Debug
 Timbiriche-Service/TimbiricheDataAccess/obj/Debug 
 Timbiriche-Service/TimbiricheHost/obj/Debug 
 Timbiriche-Service/TimbiricheService/obj/Debug 
+/Timbiriche-Game/.sonarqube/conf
+/Timbiriche-Service/.sonarqube/conf
