@@ -18,9 +18,9 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLVictory : Page
     {
-        KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
-        string _playerUsername;
-        int _coinsEarned;
+        private KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
+        private string _playerUsername;
+        private int _coinsEarned;
 
         public XAMLVictory(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
         {
