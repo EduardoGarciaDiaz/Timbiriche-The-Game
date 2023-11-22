@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Numerics;
+using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
@@ -157,5 +159,22 @@ namespace TimbiricheDataAccess
             }
         }
 
+        public List<string> GetFriends(int idPlayer)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                var friends = context.FriendShips
+                .Where(f => (f.idPlayerFriend == idPlayer || f.idPlayer == idPlayer) && f.statusFriendship == STATUS_FRIEND)
+                .SelectMany(f => new[] { f.idPlayer, f.idPlayerFriend })
+                .Distinct()
+                .Where(id => id != idPlayer)
+                .Join(context.Players,
+                      friendId => friendId,
+                      player => player.idPlayer,
+                      (friendId, player) => player.username)
+                .ToList();
+                return friends;
+            }
+        }
     }    
 }

@@ -11,6 +11,8 @@ namespace TimbiricheService
     public interface IFriendshipManager
     {
         [OperationContract]
+        List<string> GetListUsernameFriends(int idPlayer);
+        [OperationContract]
         bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
         [OperationContract]
         int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested);
