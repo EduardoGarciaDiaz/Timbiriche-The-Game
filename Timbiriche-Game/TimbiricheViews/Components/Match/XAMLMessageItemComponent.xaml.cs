@@ -17,11 +17,29 @@ namespace TimbiricheViews.Components.Match
 {
     public partial class XAMLMessageItemComponent : UserControl
     {
-        public XAMLMessageItemComponent(string senderUsername, string message)
+        public XAMLMessageItemComponent(string senderUsername, string message, bool isMessageReceived)
         {          
             InitializeComponent();
             tbkSenderUsername.Text = senderUsername;
             tbkMessage.Text = message;
+
+            if (!isMessageReceived)
+            {
+                imgResportMessage.Visibility = Visibility.Collapsed;
+            }
         }
+
+        private void ImgReportMessage_MouseEnter(object sender, MouseEventArgs e)
+        {
+            imgResportMessage.Visibility = Visibility.Collapsed;
+            gridReportMessage.Visibility = Visibility.Visible;
+        }
+
+        private void GridReportMessage_MouseLeave(object sender, MouseEventArgs e)
+        {
+            imgResportMessage.Visibility = Visibility.Visible;
+            gridReportMessage.Visibility = Visibility.Collapsed;
+        }
+
     }
 }

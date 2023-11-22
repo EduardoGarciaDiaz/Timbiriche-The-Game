@@ -341,7 +341,9 @@ namespace TimbiricheViews.Views
 
         public void NotifyNewMessage(string senderUsername, string message)
         {
-            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
+            bool isMessageReceived = true;
+
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived);
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
@@ -388,8 +390,9 @@ namespace TimbiricheViews.Views
             {
                 string senderUsername = PlayerSingleton.Player.Username;
                 string message = tbxMessage.Text;
+                bool isMessageReceived = false;
 
-                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message);
+                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived);
                 messageComponent.HorizontalAlignment = HorizontalAlignment.Right;
 
                 stackPanelMessages.Children.Add(messageComponent);
