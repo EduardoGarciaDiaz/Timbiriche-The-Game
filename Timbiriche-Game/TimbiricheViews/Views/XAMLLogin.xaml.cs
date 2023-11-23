@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -23,10 +24,10 @@ namespace TimbiricheViews.Views
 
     public partial class XAMLLogin : Page
     {
-
-        const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
-        const string MAIN_FONT = "Titan One";
-        const string SECONDARY_FONT = "Inter";
+        private ILogger _logger = LoggerManager.GetLogger();
+        private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+        private const string MAIN_FONT = "Titan One";
+        private const string SECONDARY_FONT = "Inter";
 
         public XAMLLogin()
         {
@@ -111,8 +112,8 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    // TODO: Log the exception
-                } 
+                    _logger.Error(ex.StackTrace);
+                }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
