@@ -102,7 +102,7 @@ namespace TimbiricheService
             }
         }
 
-        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message)
+        public void SendMessageToLobby(string lobbyCode, string senderUsername, string message, int idSenderPlayer)
         {
             Match.Match match = matches[lobbyCode];
 
@@ -110,7 +110,7 @@ namespace TimbiricheService
             {
                 if (player.Username != senderUsername)
                 {
-                    player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message);
+                    player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
                 }
             }
         }

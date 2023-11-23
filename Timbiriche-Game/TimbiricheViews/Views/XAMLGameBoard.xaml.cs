@@ -339,11 +339,11 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public void NotifyNewMessage(string senderUsername, string message)
+        public void NotifyNewMessage(string senderUsername, string message, int idSenderPlayer)
         {
             bool isMessageReceived = true;
 
-            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived);
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer);
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
@@ -392,7 +392,9 @@ namespace TimbiricheViews.Views
                 string message = tbxMessage.Text;
                 bool isMessageReceived = false;
 
-                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived);
+                int idSenderPlayer = PlayerSingleton.Player.IdPlayer;
+
+                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer);
                 messageComponent.HorizontalAlignment = HorizontalAlignment.Right;
 
                 stackPanelMessages.Children.Add(messageComponent);
@@ -400,7 +402,7 @@ namespace TimbiricheViews.Views
 
                 InstanceContext context = new InstanceContext(this);
                 Server.MatchManagerClient client = new Server.MatchManagerClient(context);
-                client.SendMessageToLobby(_lobbyCode, senderUsername, message);
+                client.SendMessageToLobby(_lobbyCode, senderUsername, message, idSenderPlayer);
             }
         }
     }

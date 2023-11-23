@@ -72,6 +72,7 @@
     <Compile Include="Accounts.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="BanManagement.cs" />
     <Compile Include="Bans.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>

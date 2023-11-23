@@ -279,6 +279,7 @@
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="senderUsername" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idSenderPlayer" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -350,6 +351,7 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="senderUsername" nillable="true" type="xs:string" />
         <xs:element minOccurs="0" name="message" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idSenderPlayer" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -599,7 +601,7 @@
   <xs:element name="GetListUsernameFriendsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetListUsernameFriendsResult" nillable="true" type="q19:ArrayOfstring" />
+        <xs:element xmlns:q22="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetListUsernameFriendsResult" nillable="true" type="q22:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -643,7 +645,7 @@
   <xs:element name="GetUsernamePlayersRequestersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q20="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q20:ArrayOfstring" />
+        <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q23:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -720,6 +722,50 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyDeletedFriendResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ReportMessage">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayerReported" type="xs:int" />
+        <xs:element minOccurs="0" name="idPlayerReporter" type="xs:int" />
+        <xs:element minOccurs="0" name="reportDate" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerifyBanEndDate">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+        <xs:element minOccurs="0" name="currentDate" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="VerifyBanEndDateResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="VerifyBanEndDateResult" type="xs:dateTime" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyReportCompleted">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyReportCompletedResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerAlreadyReported">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerAlreadyReportedResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
