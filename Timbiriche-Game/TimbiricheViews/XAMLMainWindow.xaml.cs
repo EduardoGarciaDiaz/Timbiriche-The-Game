@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimbiricheViews.Utils;
 using TimbiricheViews.Views;
 
 namespace TimbiricheViews
@@ -20,6 +22,8 @@ namespace TimbiricheViews
 
     public partial class XAMLMainWindow : Window
     {
+        private ILogger _logger = LoggerManager.GetLogger();
+
         public XAMLMainWindow()
         {
             InitializeComponent();
@@ -36,6 +40,7 @@ namespace TimbiricheViews
                     lobby.BtnCloseWindow_Click();
                 }
             }
+            LoggerManager.CloseAndFlush();
         }
 
         private void MainWindow_StateChanged(object sender, EventArgs e)
