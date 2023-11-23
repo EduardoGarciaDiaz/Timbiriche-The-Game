@@ -171,7 +171,7 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                // TODO: Log the excepction
+                // TODO: Log the exception
             }
             return existUserIdentifier;
         }
@@ -182,32 +182,32 @@ namespace TimbiricheViews.Views
             ValidatePasswordProperties();
             bool isValid = true;
 
-            if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text))
+            if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text.Trim()))
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text))
+            if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!ValidationUtilities.IsValidEmail(tbxEmail.Text))
+            if (!ValidationUtilities.IsValidEmail(tbxEmail.Text.Trim()))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 lbEmailError.Visibility = Visibility.Visible;
                 ImgEmailErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!ValidationUtilities.IsValidUsername(tbxUsername.Text))
+            if (!ValidationUtilities.IsValidUsername(tbxUsername.Text.Trim()))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password))
+            if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password.Trim()))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
@@ -227,7 +227,6 @@ namespace TimbiricheViews.Views
             tbxLastName.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
             tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
-            tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
             pwBxPassword.Style = (Style)FindResource("NormalPasswordBoxStyle");
             dpBirthdate.Style = (Style)FindResource("NormalDatePickerStyle");
 
