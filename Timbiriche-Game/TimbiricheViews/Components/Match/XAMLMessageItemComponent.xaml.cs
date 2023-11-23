@@ -61,7 +61,7 @@ namespace TimbiricheViews.Components.Match
 
         }
 
-        private void BtnReportMessage_Click(object sender, MouseEventArgs e)
+        private void BtnReportMessage_Click(object sender, RoutedEventArgs e)
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
             DateTime currentDateTime = DateTime.Now;
