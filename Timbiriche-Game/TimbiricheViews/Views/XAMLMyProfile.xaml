@@ -10,6 +10,14 @@
       Title="XAMLMyProfile">
 
     <Page.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
         <Style TargetType="{x:Type Button}" >
             <Style.Resources>
                 <Style TargetType="{x:Type Border}">
@@ -17,6 +25,56 @@
                 </Style>
             </Style.Resources>
         </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="NormalTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="ErrorPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="NormalPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
+        <Style TargetType="{x:Type DatePicker}" x:Key="ErrorDatePickerStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+
+        </Style>
+
+        <Style TargetType="{x:Type DatePicker}" x:Key="NormalDatePickerStyle">
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
     </Page.Resources>
 
     <Viewbox Stretch="Fill">
@@ -34,7 +92,7 @@
                     <Label x:Name="lbCustomYourCharacter" Content="{x:Static p:Resources.lbCustomYourCharacter}" HorizontalAlignment="Left" Margin="71,167,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
                     <Label x:Name="lbStyles" Content="{x:Static p:Resources.lbStyles}" HorizontalAlignment="Left" Margin="77,196,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26"/>
                     <Label x:Name="lbStylesInstruction" Content="{x:Static p:Resources.lbStylesInstrucion}" HorizontalAlignment="Left" Margin="77,230,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
-                    
+
                     <ScrollViewer Margin="79,258,54,100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                         <WrapPanel x:Name="wrapPanelPlayerStyles">
                             <Grid x:Name="gridPlayerStyleTemplate" Width="160" Margin="15,10,0,0" Visibility="Collapsed" Cursor="Hand">
@@ -46,7 +104,7 @@
                         </WrapPanel>
                     </ScrollViewer>
                 </Grid>
-                
+
             </Grid>
 
             <Grid x:Name="gridCustomizeProfile" Visibility="Collapsed">
@@ -68,21 +126,22 @@
                     <TextBox   x:Name="tbxSurname" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32"  Margin="856,299,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
                     <Label   x:Name = "lbBirthdate" Content="{x:Static p:Resources.lbBirthdate}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="508,351,0,0" />
                     <DatePicker   x:Name ="dpBirthdate" BorderBrush="{x:Null}" FontFamily="Inter" HorizontalAlignment="Left" Width="298" Height="32"  Margin="508,393,0,345" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Loaded="DpBirthdate_Loaded"/>
-                    <Label x:Name ="lbAccessData" Content="{x:Static p:Resources.lbAccessData}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold" FontFamily="Inter" FontSize="16" Margin="491,449,0,0" />
-                    <Label   x:Name = "lbEmail" Content="{x:Static p:Resources.lbEmail}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="510,483,0,0" />
-                    <TextBox   x:Name ="tbxEmail" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="304" Height="32"  Margin="508,528,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="20"/>
-                    <Label x:Name = "lbUsername_Copiar" Content="{x:Static p:Resources.lbUsername}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontSize="26" FontFamily="Titan One" Margin="856,488,0,0" />
-                    <TextBox x:Name = "tbxUsername" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="856,528,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
-                    <Label   x:Name ="lbPassword" Content="{x:Static p:Resources.lbPassword}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="510,596,0,0" />
-                    <PasswordBox   x:Name= "pwBxPassword" HorizontalAlignment="Left" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="510,641,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="13"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="620,156,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="22" FontSize="20" FontFamily="Inter"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="739,255,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
                     <Label Content="*" HorizontalAlignment="Left" Margin="803,346,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="618,481,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="685,594,0,0" VerticalAlignment="Top" Foreground="White" Height="26" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
-                    <Label Content="*" HorizontalAlignment="Left" Margin="1131,483,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="18" FontFamily="Inter" FontSize="20"/>
+                    <Label x:Name="lbInstructionsRequiredFields"  Content="{x:Static p:Resources.lbInstructionsRequiredFields}" HorizontalAlignment="Right" Margin="0,728,28,0" VerticalAlignment="Top" Foreground="White" Height="32" RenderTransformOrigin="0.426,0.32" Width="458" FontSize="15" HorizontalContentAlignment="Right"/>
+                    <Image x:Name="ImgNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,162,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
+                        <Image.ToolTip>
+                            <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <Image x:Name="ImgLastNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="760,261,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
+                        <Image.ToolTip>
+                            <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
+                        </Image.ToolTip>
+                    </Image>
 
-                    <Button  x:Name="btnSaveChanges" Content="{x:Static p:Resources.btnSaveChanges}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="905,688,27,0" Click="BtnSaveChanges_Click" Cursor="Hand"/>
+                    <Button  x:Name="btnSaveChanges" Content="{x:Static p:Resources.btnSaveChanges}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="904,664,28,0" Click="BtnSaveChanges_Click" Cursor="Hand"/>
                 </Grid>
 
             </Grid>

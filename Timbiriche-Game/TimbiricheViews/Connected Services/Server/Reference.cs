@@ -781,6 +781,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
         System.Threading.Tasks.Task<bool> ValidateUniqueIdentifierUserAsync(string identifier);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/UpdateAccount", ReplyAction="http://tempuri.org/IUserManager/UpdateAccountResponse")]
+        int UpdateAccount(TimbiricheViews.Server.Account account);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/UpdateAccount", ReplyAction="http://tempuri.org/IUserManager/UpdateAccountResponse")]
+        System.Threading.Tasks.Task<int> UpdateAccountAsync(TimbiricheViews.Server.Account account);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -832,6 +838,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> ValidateUniqueIdentifierUserAsync(string identifier) {
             return base.Channel.ValidateUniqueIdentifierUserAsync(identifier);
+        }
+        
+        public int UpdateAccount(TimbiricheViews.Server.Account account) {
+            return base.Channel.UpdateAccount(account);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateAccountAsync(TimbiricheViews.Server.Account account) {
+            return base.Channel.UpdateAccountAsync(account);
         }
     }
     
