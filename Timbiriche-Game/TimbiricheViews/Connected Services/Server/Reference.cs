@@ -1820,16 +1820,10 @@ namespace TimbiricheViews.Server {
     public interface IBanManager {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
-        void ReportMessage(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate);
+        void ReportMessage(int idPlayerReported, int idPlayerReporter);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
-        System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanManager/VerifyBanEndDateResponse")]
-        System.DateTime VerifyBanEndDate(int idPlayer, System.DateTime currentDate);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanManager/VerifyBanEndDateResponse")]
-        System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer, System.DateTime currentDate);
+        System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1870,20 +1864,59 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public void ReportMessage(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate) {
-            base.Channel.ReportMessage(idPlayerReported, idPlayerReporter, reportDate);
+        public void ReportMessage(int idPlayerReported, int idPlayerReporter) {
+            base.Channel.ReportMessage(idPlayerReported, idPlayerReporter);
         }
         
-        public System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter, System.DateTime reportDate) {
-            return base.Channel.ReportMessageAsync(idPlayerReported, idPlayerReporter, reportDate);
+        public System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter) {
+            return base.Channel.ReportMessageAsync(idPlayerReported, idPlayerReporter);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IBanVerifierManager")]
+    public interface IBanVerifierManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
+        System.DateTime VerifyBanEndDate(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
+        System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IBanVerifierManagerChannel : TimbiricheViews.Server.IBanVerifierManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class BanVerifierManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IBanVerifierManager>, TimbiricheViews.Server.IBanVerifierManager {
+        
+        public BanVerifierManagerClient() {
         }
         
-        public System.DateTime VerifyBanEndDate(int idPlayer, System.DateTime currentDate) {
-            return base.Channel.VerifyBanEndDate(idPlayer, currentDate);
+        public BanVerifierManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
         }
         
-        public System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer, System.DateTime currentDate) {
-            return base.Channel.VerifyBanEndDateAsync(idPlayer, currentDate);
+        public BanVerifierManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public BanVerifierManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public BanVerifierManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public System.DateTime VerifyBanEndDate(int idPlayer) {
+            return base.Channel.VerifyBanEndDate(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer) {
+            return base.Channel.VerifyBanEndDateAsync(idPlayer);
         }
     }
 }

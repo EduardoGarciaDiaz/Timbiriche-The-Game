@@ -11,9 +11,7 @@ namespace TimbiricheService
     public interface IBanManager
     {
         [OperationContract(IsOneWay = true)]
-        void ReportMessage(int idPlayerReported, int idPlayerReporter, DateTime reportDate);
-        [OperationContract]
-        DateTime VerifyBanEndDate(int idPlayer, DateTime currentDate);
+        void ReportMessage(int idPlayerReported, int idPlayerReporter); 
     }
 
     [ServiceContract]
@@ -23,6 +21,12 @@ namespace TimbiricheService
         void NotifyReportCompleted();
         [OperationContract]
         void NotifyPlayerAlreadyReported();
+    }
 
+    [ServiceContract]
+    public interface IBanVerifierManager
+    {
+        [OperationContract]
+        DateTime VerifyBanEndDate(int idPlayer);
     }
 }

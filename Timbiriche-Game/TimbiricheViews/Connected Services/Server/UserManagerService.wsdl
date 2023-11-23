@@ -377,6 +377,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IBanVerifierManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -707,12 +736,6 @@
   <wsdl:message name="IBanManager_ReportMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:ReportMessage" />
   </wsdl:message>
-  <wsdl:message name="IBanManager_VerifyBanEndDate_InputMessage">
-    <wsdl:part name="parameters" element="tns:VerifyBanEndDate" />
-  </wsdl:message>
-  <wsdl:message name="IBanManager_VerifyBanEndDate_OutputMessage">
-    <wsdl:part name="parameters" element="tns:VerifyBanEndDateResponse" />
-  </wsdl:message>
   <wsdl:message name="IBanManager_NotifyReportCompleted_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyReportCompleted" />
   </wsdl:message>
@@ -724,6 +747,12 @@
   </wsdl:message>
   <wsdl:message name="IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerAlreadyReportedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyBanEndDate" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyBanEndDateResponse" />
   </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
@@ -985,10 +1014,6 @@
     <wsdl:operation name="ReportMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/ReportMessage" message="tns:IBanManager_ReportMessage_InputMessage" />
     </wsdl:operation>
-    <wsdl:operation name="VerifyBanEndDate">
-      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/VerifyBanEndDate" message="tns:IBanManager_VerifyBanEndDate_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/VerifyBanEndDateResponse" message="tns:IBanManager_VerifyBanEndDate_OutputMessage" />
-    </wsdl:operation>
     <wsdl:operation name="NotifyReportCompleted">
       <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyReportCompleted" message="tns:IBanManager_NotifyReportCompleted_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyReportCompletedResponse" message="tns:IBanManager_NotifyReportCompleted_InputCallbackMessage" />
@@ -996,6 +1021,12 @@
     <wsdl:operation name="NotifyPlayerAlreadyReported">
       <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" message="tns:IBanManager_NotifyPlayerAlreadyReported_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReportedResponse" message="tns:IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IBanVerifierManager">
+    <wsdl:operation name="VerifyBanEndDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate" message="tns:IBanVerifierManager_VerifyBanEndDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse" message="tns:IBanVerifierManager_VerifyBanEndDate_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -1562,15 +1593,6 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
-    <wsdl:operation name="VerifyBanEndDate">
-      <soap12:operation soapAction="http://tempuri.org/IBanManager/VerifyBanEndDate" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="NotifyReportCompleted">
       <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyReportCompleted" style="document" />
       <wsdl:input>
@@ -1582,6 +1604,19 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyPlayerAlreadyReported">
       <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IBanVerifierManager" type="tns:IBanVerifierManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IBanVerifierManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="VerifyBanEndDate">
+      <soap12:operation soapAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1700,6 +1735,15 @@
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IBanManager" binding="tns:NetTcpBinding_IBanManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IBanVerifierManager" binding="tns:NetTcpBinding_IBanVerifierManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>

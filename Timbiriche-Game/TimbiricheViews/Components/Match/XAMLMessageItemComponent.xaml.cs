@@ -68,7 +68,7 @@ namespace TimbiricheViews.Components.Match
 
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
-            banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter, currentDateTime);
+            banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
         }
     }
 

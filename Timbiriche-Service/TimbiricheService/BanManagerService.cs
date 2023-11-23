@@ -11,18 +11,18 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IBanManager
     {
-        public void ReportMessage(int idPlayerReported, int idPlayerReporter, DateTime reportDate)
+        public void ReportMessage(int idPlayerReported, int idPlayerReporter)
         {
             IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
 
-
             if (VerifyUniqueReport(idPlayerReported, idPlayerReporter))
             {
-                bool reportCreated = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, reportDate);
+                DateTime currentDateTime = DateTime.Now;
+                bool reportCreated = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
 
                 if (reportCreated)
                 {
-                    VerifyBanNeed(idPlayerReported, reportDate);
+                    VerifyBanNeed(idPlayerReported, currentDateTime);
                     currentUserCallbackChannel.NotifyReportCompleted();
                 }
             }
@@ -30,18 +30,6 @@ namespace TimbiricheService
             {
                 currentUserCallbackChannel.NotifyPlayerAlreadyReported();
             }
-        }
-
-        public DateTime VerifyBanEndDate(int idPlayer, DateTime currentDate)
-        {
-            DateTime endDate = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
-
-            if(endDate >= currentDate)
-            {
-                BanManagement.UpdatePlayerStatus(idPlayer, "Not-Banned");
-            }
-
-            return endDate;
         }
 
         private bool VerifyUniqueReport(int idPlayerReported, int idPlayerReporter)
@@ -100,4 +88,21 @@ namespace TimbiricheService
             return endDate;
         }
     }
+
+    public partial class UserManagerService : IBanVerifierManager
+    {
+        public DateTime VerifyBanEndDate(int idPlayer)
+        {
+            DateTime endDate = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
+            DateTime currentDateTime = DateTime.Now;
+
+            if (currentDateTime >= endDate)
+            {
+                BanManagement.UpdatePlayerStatus(idPlayer, "Not-Banned");
+            }
+
+            return endDate;
+        }
+    }
+
 }
