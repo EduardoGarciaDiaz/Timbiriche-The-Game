@@ -404,6 +404,12 @@
     <Resource Include="Resources\rejectFriendRequestIcon.png.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\messageReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
     <WCFMetadataStorage Include="Connected Services\Server\" />
   </ItemGroup>
   <ItemGroup>
@@ -420,12 +426,6 @@
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\messageReport.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Logs\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
