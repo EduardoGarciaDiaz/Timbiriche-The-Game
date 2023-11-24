@@ -37,7 +37,7 @@ namespace TimbiricheDataAccess
                     .Where(r => r.idPlayerReported == idPlayerReported)
                     .Where(r => r.idPlayerReporter == idPlayerReporter);
 
-                return query.Count() == 1;
+                return query.Count() < 1;
             }
         }
 
@@ -119,8 +119,6 @@ namespace TimbiricheDataAccess
             return rowsAffected > 0;
         }
 
-
-
         public static DateTime GetBanEndDateByIdPlayer(int idPlayer)
         {
             using (var context = new TimbiricheDBEntities())
@@ -131,6 +129,22 @@ namespace TimbiricheDataAccess
                     .FirstOrDefault();
 
                 return (DateTime) banEndDate.endDate;
+            }
+        }
+
+        public static string GetPlayerStatusByIdPlayer(int idPlayer)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                string playerStatus = null;
+                var player = context.Players.Find(idPlayer);
+
+                if(player != null)
+                {
+                    playerStatus = player.status;
+                }
+
+                return playerStatus;
             }
         }
     }

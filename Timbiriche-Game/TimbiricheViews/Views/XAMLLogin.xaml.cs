@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Xml.Linq;
 using TimbiricheViews.Components;
 using TimbiricheViews.Player;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
@@ -105,6 +106,7 @@ namespace TimbiricheViews.Views
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
                 Server.Player playerLogged = null;
+
                 try
                 {
                     playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
@@ -126,10 +128,20 @@ namespace TimbiricheViews.Views
                 {
                     //TODO: Show emergent window...Ups has ocurried an unexpected error. Please try again later
                 }*/
+
                 if (playerLogged != null)
                 {
-                    PlayerSingleton.Player = playerLogged;
-                    NavigationService.Navigate(new XAMLLobby());
+                    bool isPlayerBanned = ValidatePlayerIsNotBanned(playerLogged);
+
+                    if (isPlayerBanned)
+                    {
+                        NavigationService.Navigate(new XAMLBan(playerLogged.IdPlayer));
+                    }
+                    else
+                    {
+                        PlayerSingleton.Player = playerLogged;
+                        NavigationService.Navigate(new XAMLLobby());
+                    }
                 } 
                 else
                 {
@@ -137,6 +149,20 @@ namespace TimbiricheViews.Views
                 }
             }
             
+        }
+
+        private bool ValidatePlayerIsNotBanned(Server.Player player)
+        {
+            string statusBanned = "Banned";
+
+            bool isPlayerBanned = false;
+
+            if (player.Status.Equals(statusBanned))
+            {
+                isPlayerBanned = true;
+            }
+
+            return isPlayerBanned;
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)

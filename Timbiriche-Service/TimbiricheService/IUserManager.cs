@@ -17,6 +17,8 @@ namespace TimbiricheService
         [OperationContract]
         Player ValidateLoginCredentials(String username, String password);
         [OperationContract]
+        Player GetPlayerByIdPlayer(int idPlayer);
+        [OperationContract]
         bool ValidateUniqueIdentifierUser(String identifier);
         [OperationContract]
         int UpdateAccount(Account account);

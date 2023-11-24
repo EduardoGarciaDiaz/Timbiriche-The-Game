@@ -32,6 +32,10 @@ namespace TimbiricheViews.Player
             }
         }
 
+        public static void UpdatePlayerFromDataBase()
+        {
+            Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+            _player = userManagerClient.GetPlayerByIdPlayer(_player.IdPlayer);
+        }
     }
-
 }

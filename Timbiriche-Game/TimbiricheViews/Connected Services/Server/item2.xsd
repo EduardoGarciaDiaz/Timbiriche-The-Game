@@ -87,4 +87,11 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="PlayerStyle" nillable="true" type="tns:PlayerStyle" />
+  <xs:complexType name="BanInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BanStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BanInformation" nillable="true" type="tns:BanInformation" />
 </xs:schema>

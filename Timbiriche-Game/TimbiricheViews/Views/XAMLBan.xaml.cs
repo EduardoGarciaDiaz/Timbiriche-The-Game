@@ -12,17 +12,31 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Server;
 
 namespace TimbiricheViews.Views
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLBan.xaml
-    /// </summary>
     public partial class XAMLBan : Page
     {
-        public XAMLBan()
+        public XAMLBan(int idPlayerBanned)
         {
             InitializeComponent();
+
+            Server.BanVerifierManagerClient banManagerClient = new Server.BanVerifierManagerClient();
+            Server.BanInformation banInformation = banManagerClient.VerifyBanEndDate(idPlayerBanned);
+
+            string formattedDateTime = banInformation.EndDate.ToString("dd MMMM yyyy HH:mm");
+            lbBanEndDate.Content = formattedDateTime;
+
+            if (banInformation.BanStatus.Equals("Inactive"))
+            {
+                gridBanFinished.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnGoToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }
