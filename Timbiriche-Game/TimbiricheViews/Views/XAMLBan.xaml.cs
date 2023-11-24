@@ -23,11 +23,20 @@ namespace TimbiricheViews.Views
             InitializeComponent();
 
             Server.BanVerifierManagerClient banManagerClient = new Server.BanVerifierManagerClient();
-            DateTime banEndDateTime = banManagerClient.VerifyBanEndDate(idPlayerBanned);
+            Server.BanInformation banInformation = banManagerClient.VerifyBanEndDate(idPlayerBanned);
 
-
-            string formattedDateTime = banEndDateTime.ToString("dd MMMM yyyy HH:mm");
+            string formattedDateTime = banInformation.EndDate.ToString("dd MMMM yyyy HH:mm");
             lbBanEndDate.Content = formattedDateTime;
+
+            if (banInformation.BanStatus.Equals("Inactive"))
+            {
+                gridBanFinished.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void BtnGoToLogin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
         }
     }
 }

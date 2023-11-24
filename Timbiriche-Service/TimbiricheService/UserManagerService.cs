@@ -14,6 +14,8 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IUserManager
     {
+        const int DEFAULT_ID_COLOR_SELECTED = 0;
+
         public int AddUser(Player player)
         {
             Account auxiliarAccount = player.AccountFK;
@@ -72,7 +74,6 @@ namespace TimbiricheService
 
         public Player ValidateLoginCredentials(String username, String password)
         {
-            const int DEFAULT_ID_COLOR_SELECTED = 0;
             UserManagement dataAccess = new UserManagement();
             Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
             if (playerValidated != null)
@@ -104,6 +105,42 @@ namespace TimbiricheService
             }
 
             return null;
+        }
+
+        public Player GetPlayerByIdPlayer(int idPlayer)
+        {
+            UserManagement dataAccess = new UserManagement();
+            Players playerFromDataBase = dataAccess.GetPlayerByIdPlayer(idPlayer);
+
+            Player player = null;
+
+            if (playerFromDataBase != null)
+            {
+                Accounts accountValidated = playerFromDataBase.Accounts;
+                Account account = new Account
+                {
+                    Name = accountValidated.name,
+                    LastName = accountValidated.lastName,
+                    Surname = accountValidated.surname,
+                    Birthdate = accountValidated.birthdate
+                };
+
+                player = new Player
+                {
+                    IdPlayer = playerFromDataBase.idPlayer,
+                    Username = playerFromDataBase.username,
+                    Email = playerFromDataBase.email,
+                    Password = playerFromDataBase.password,
+                    Coins = (int)playerFromDataBase.coins,
+                    Status = playerFromDataBase .status,
+                    Salt = playerFromDataBase.salt,
+                    IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                    IdStyleSelected = (int)playerFromDataBase.idStyleSelected,
+                    AccountFK = account,
+                };
+            }
+
+            return player;
         }
 
         public bool ValidateUniqueIdentifierUser(String identifier)

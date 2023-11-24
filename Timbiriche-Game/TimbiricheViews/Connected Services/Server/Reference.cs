@@ -760,6 +760,67 @@ namespace TimbiricheViews.Server {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="BanInformation", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class BanInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string BanStatusField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private System.DateTime EndDateField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string BanStatus {
+            get {
+                return this.BanStatusField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.BanStatusField, value) != true)) {
+                    this.BanStatusField = value;
+                    this.RaisePropertyChanged("BanStatus");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public System.DateTime EndDate {
+            get {
+                return this.EndDateField;
+            }
+            set {
+                if ((this.EndDateField.Equals(value) != true)) {
+                    this.EndDateField = value;
+                    this.RaisePropertyChanged("EndDate");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
@@ -775,6 +836,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
+        TimbiricheViews.Server.Player GetPlayerByIdPlayer(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.Player> GetPlayerByIdPlayerAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
         bool ValidateUniqueIdentifierUser(string identifier);
@@ -824,6 +891,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password) {
             return base.Channel.ValidateLoginCredentialsAsync(username, password);
+        }
+        
+        public TimbiricheViews.Server.Player GetPlayerByIdPlayer(int idPlayer) {
+            return base.Channel.GetPlayerByIdPlayer(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.Player> GetPlayerByIdPlayerAsync(int idPlayer) {
+            return base.Channel.GetPlayerByIdPlayerAsync(idPlayer);
         }
         
         public bool ValidateUniqueIdentifierUser(string identifier) {
@@ -1878,10 +1953,16 @@ namespace TimbiricheViews.Server {
     public interface IBanVerifierManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
-        System.DateTime VerifyBanEndDate(int idPlayer);
+        TimbiricheViews.Server.BanInformation VerifyBanEndDate(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
-        System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer);
+        System.Threading.Tasks.Task<TimbiricheViews.Server.BanInformation> VerifyBanEndDateAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse")]
+        bool VerifyPlayerIsBanned(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse")]
+        System.Threading.Tasks.Task<bool> VerifyPlayerIsBannedAsync(int idPlayer);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1911,12 +1992,20 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public System.DateTime VerifyBanEndDate(int idPlayer) {
+        public TimbiricheViews.Server.BanInformation VerifyBanEndDate(int idPlayer) {
             return base.Channel.VerifyBanEndDate(idPlayer);
         }
         
-        public System.Threading.Tasks.Task<System.DateTime> VerifyBanEndDateAsync(int idPlayer) {
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.BanInformation> VerifyBanEndDateAsync(int idPlayer) {
             return base.Channel.VerifyBanEndDateAsync(idPlayer);
+        }
+        
+        public bool VerifyPlayerIsBanned(int idPlayer) {
+            return base.Channel.VerifyPlayerIsBanned(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<bool> VerifyPlayerIsBannedAsync(int idPlayer) {
+            return base.Channel.VerifyPlayerIsBannedAsync(idPlayer);
         }
     }
 }

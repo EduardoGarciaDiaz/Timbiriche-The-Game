@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
+using System.Numerics;
 
 namespace TimbiricheDataAccess
 {
@@ -104,7 +105,7 @@ namespace TimbiricheDataAccess
         {
             using (var context = new TimbiricheDBEntities())
             {
-            var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+                var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
             
                 if (playerData != null)
                 {
@@ -116,7 +117,17 @@ namespace TimbiricheDataAccess
                     }
                 }
                  return null;
-             }
+            }
+        }
+
+        public Players GetPlayerByIdPlayer(int idPlayer)
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                Players playerFromDataBase = context.Players.Include("Accounts").SingleOrDefault(player => player.idPlayer == idPlayer);
+
+                return playerFromDataBase;
+            }
         }
 
         public bool ExistUserIdenitifier(string identifier)

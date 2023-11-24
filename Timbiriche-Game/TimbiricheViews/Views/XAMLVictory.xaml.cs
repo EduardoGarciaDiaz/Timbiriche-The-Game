@@ -98,7 +98,7 @@ namespace TimbiricheViews.Views
             return PlayerSingleton.Player.Username == winnerUsername;
         }
 
-        private int GetPlayerPositionInScoreboard()
+        private int GetPlayerPositionInScoreboard() //TODO: Check dictionary
         {
             for(int i = 0; i < _scoreboard.Length; i++)
             {
@@ -109,6 +109,30 @@ namespace TimbiricheViews.Views
             }
 
             return -1;
+        }
+
+        private bool VerifyPlayerIsNotBanned(int idPlayer)
+        {
+            Server.BanVerifierManagerClient banVerifierManagerClient = new Server.BanVerifierManagerClient();
+            bool isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
+
+            return isPlayerBanned;
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            //TODO: Exit lobby
+            bool isPlayerBanned = VerifyPlayerIsNotBanned(PlayerSingleton.Player.IdPlayer);
+
+            if (isPlayerBanned)
+            {
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            else
+            {
+                PlayerSingleton.UpdatePlayerFromDataBase();
+                NavigationService.Navigate(new XAMLLobby());
+            }
         }
     }
 }

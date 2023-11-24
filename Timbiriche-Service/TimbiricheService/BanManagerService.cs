@@ -41,7 +41,7 @@ namespace TimbiricheService
         {
             int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
 
-            if (numberOfReports >= 3)
+            if (numberOfReports >= 1) //Change num of reports to 3
             {
                 BanPlayer(idPlayerReported, startDate);
             }
@@ -66,7 +66,7 @@ namespace TimbiricheService
         {
             DateTime endDate;
 
-            switch (numberOfBans)
+            /*switch (numberOfBans)
             {
                 case 0:
                     endDate = startDate.AddHours(24); 
@@ -83,6 +83,25 @@ namespace TimbiricheService
                 default:
                     endDate = startDate;
                     break;
+            }*/
+
+            switch (numberOfBans)
+            {
+                case 0:
+                    endDate = startDate.AddMinutes(2); 
+                    break;
+                case 1:
+                    endDate = startDate.AddMinutes(5);
+                    break;
+                case 3:
+                    endDate = startDate.AddHours(876000);
+                    break;
+                case 4:
+                    endDate = startDate.AddHours(876000);
+                    break;
+                default:
+                    endDate = startDate;
+                    break;
             }
 
             return endDate;
@@ -91,18 +110,28 @@ namespace TimbiricheService
 
     public partial class UserManagerService : IBanVerifierManager
     {
-        public DateTime VerifyBanEndDate(int idPlayer)
+        public BanInformation VerifyBanEndDate(int idPlayer)
         {
             DateTime endDate = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
             DateTime currentDateTime = DateTime.Now;
 
+            BanInformation banInformation = new BanInformation();
+            banInformation.EndDate = endDate;
+            banInformation.BanStatus = "Active";
+
             if (currentDateTime >= endDate)
             {
                 BanManagement.UpdatePlayerStatus(idPlayer, "Not-Banned");
+                banInformation.BanStatus = "Inactive";
             }
 
-            return endDate;
+            return banInformation;
+        }
+
+        public bool VerifyPlayerIsBanned(int idPlayer)
+        {
+            string playerStatus = BanManagement.GetPlayerStatusByIdPlayer(idPlayer);
+            return playerStatus.Equals("Banned");
         }
     }
-
 }

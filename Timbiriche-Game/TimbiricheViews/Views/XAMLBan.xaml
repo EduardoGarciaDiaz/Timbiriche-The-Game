@@ -21,6 +21,12 @@
 
                 <Label x:Name="lbBanEndDate"  Content="24 Marzo 2023 13:00" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" Foreground="White"
                  FontSize="80" FontWeight="Bold"/>
+
+                <Grid x:Name="gridBanFinished" Margin="164,590,163,93" Visibility="Collapsed">
+                    <Label Content="El baneo  terminado. Recuerda portarte bien." FontFamily="Inter" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,62,0,0"/>
+                    <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
+                        FontFamily="Titan One" FontSize="24" Content="{x:Static p:Resources.btnLogin}" Click="BtnGoToLogin_Click" Margin="293,130,293,64"></Button>
+                </Grid>
             </Grid>
 
         </Grid>

@@ -12,9 +12,9 @@ DEBUG;TRACE
 C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
 18704622095
 
-32-927642383
+311445546792
 24543459188
 Components\Lobby\XAMLLobbyInvitationComponent.xaml;Components\Match\XAMLMessageItemComponent.xaml;Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLColorWrapComponent.xaml;Components\XAMLFriendRequestItemComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLBan.xaml;Views\XAMLGameBoard.xaml;Views\XAMLMyProfile.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;Views\XAMLVictory.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
 
-True
+False
 
