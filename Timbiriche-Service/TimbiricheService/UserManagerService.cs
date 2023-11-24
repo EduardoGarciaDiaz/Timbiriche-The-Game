@@ -81,6 +81,7 @@ namespace TimbiricheService
                 Accounts accountValidated = playerValidated.Accounts;
                 Account account = new Account
                 {
+                    IdAcccount = accountValidated.idAccount,
                     Name = accountValidated.name,
                     LastName = accountValidated.lastName,
                     Surname = accountValidated.surname,
@@ -147,6 +148,21 @@ namespace TimbiricheService
         {
             UserManagement dataAccess = new UserManagement();
             return dataAccess.ExistUserIdenitifier(identifier);
+        }
+
+        public int UpdateAccount(Account account)
+        {
+            Accounts editedAccount = new Accounts();
+            editedAccount.idAccount = account.IdAcccount;
+            editedAccount.name = account.Name;
+            editedAccount.lastName = account.LastName;
+            editedAccount.surname = account.Surname;
+            editedAccount.birthdate = account.Birthdate;
+
+            UserManagement dataAccess = new UserManagement();
+            int rowsAffected = dataAccess.UpdateAccount(editedAccount);
+
+            return rowsAffected;
         }
     }
 

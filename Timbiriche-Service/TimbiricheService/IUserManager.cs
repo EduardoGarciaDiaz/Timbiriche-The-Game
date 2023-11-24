@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace TimbiricheService
         Player GetPlayerByIdPlayer(int idPlayer);
         [OperationContract]
         bool ValidateUniqueIdentifierUser(String identifier);
+        [OperationContract]
+        int UpdateAccount(Account account);
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]
@@ -44,7 +47,6 @@ namespace TimbiricheService
     [DataContract]
     public class Account
     {
-
         private int _idAccount;
         private string _name;
         private string _lastName;

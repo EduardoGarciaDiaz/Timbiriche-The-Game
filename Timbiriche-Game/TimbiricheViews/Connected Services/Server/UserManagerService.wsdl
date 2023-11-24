@@ -439,6 +439,12 @@
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUserResponse" />
   </wsdl:message>
+  <wsdl:message name="IUserManager_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
   <wsdl:message name="IOnlineUsersManager_RegisterUserToOnlineUsers_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUserToOnlineUsers" />
   </wsdl:message>
@@ -783,6 +789,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" message="tns:IUserManager_ValidateUniqueIdentifierUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse" message="tns:IUserManager_ValidateUniqueIdentifierUser_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/UpdateAccount" message="tns:IUserManager_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountResponse" message="tns:IUserManager_UpdateAccount_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IOnlineUsersManager">
     <wsdl:operation name="RegisterUserToOnlineUsers">
@@ -1081,6 +1091,15 @@
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
       <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/UpdateAccount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1750,7 +1769,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

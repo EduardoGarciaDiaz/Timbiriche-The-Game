@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
-using System.Numerics;
 
 namespace TimbiricheDataAccess
 {
@@ -111,6 +110,10 @@ namespace TimbiricheDataAccess
                 {
                     PasswordHashManager passwordHashManager = new PasswordHashManager();
                     var playerPassword = playerData.password;
+                    if (playerData.Accounts != null)
+                    {
+                        var accountEntry = playerData.Accounts;
+                    }
                     if (passwordHashManager.VerifyPassword(password, playerPassword))
                     {
                         return playerData;
@@ -189,6 +192,22 @@ namespace TimbiricheDataAccess
             }
 
             return username;
+        }
+
+        public int UpdateAccount(Accounts editedAccount)
+        {
+            using (var context = new TimbiricheDBEntities()){
+                var account = context.Accounts.FirstOrDefault(a => a.idAccount == editedAccount.idAccount);
+                if (account != null)
+                {
+                    account.name = editedAccount.name;
+                    account.surname = editedAccount.surname;
+                    account.lastName = editedAccount.lastName;
+                    account.birthdate = editedAccount.birthdate;
+                    return context.SaveChanges();
+                }
+            }
+            return -1;
         }
     }
 }
