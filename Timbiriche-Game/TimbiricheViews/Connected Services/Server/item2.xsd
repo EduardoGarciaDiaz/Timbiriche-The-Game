@@ -94,4 +94,34 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BanInformation" nillable="true" type="tns:BanInformation" />
+  <xs:complexType name="ArrayOfShopColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShopColor" nillable="true" type="tns:ShopColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShopColor" nillable="true" type="tns:ArrayOfShopColor" />
+  <xs:complexType name="ShopColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ColorCost" type="xs:int" />
+      <xs:element minOccurs="0" name="ColorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HexadecimalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdColor" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShopColor" nillable="true" type="tns:ShopColor" />
+  <xs:complexType name="ArrayOfShopStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShopStyle" nillable="true" type="tns:ShopStyle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShopStyle" nillable="true" type="tns:ArrayOfShopStyle" />
+  <xs:complexType name="ShopStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdStyle" type="xs:int" />
+      <xs:element minOccurs="0" name="StyleCost" type="xs:int" />
+      <xs:element minOccurs="0" name="StyleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShopStyle" nillable="true" type="tns:ShopStyle" />
 </xs:schema>

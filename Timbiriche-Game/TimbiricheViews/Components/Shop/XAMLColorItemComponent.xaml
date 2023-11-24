@@ -6,6 +6,14 @@
              xmlns:local="clr-namespace:TimbiricheViews.Components.Shop"
              mc:Ignorable="d" d:DesignWidth="79" Height="178">
     <Grid>
-        <Rectangle Fill="Red" Margin="0,0,0,95" Height="82" Width="78" RadiusX="9" RadiusY="9"/>
+        <Grid Margin="0,0,0,95">
+            <Rectangle x:Name="rectangleColor" Fill="Red" Height="82" Width="78" RadiusX="9" RadiusY="9"/>
+            <Grid x:Name="gridBuyColor" Visibility="Collapsed" MouseEnter="GridBuyColor_MouseEnter" MouseLeave="GridBuyColor_MouseLeave">
+                <Rectangle Fill="#59000000"/>
+                <Image Source="../../Resources/coins.png" Height="18" Width="18" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                <Label x:Name="lbColorCost" Content="800" FontFamily="Titan One" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="28,0,0,0"/>
+                <Button Margin="10,56,10,10"  />
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>

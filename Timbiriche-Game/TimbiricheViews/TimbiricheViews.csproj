@@ -89,9 +89,6 @@
     <Compile Include="Components\Shop\XAMLColorItemComponent.xaml.cs">
       <DependentUpon>XAMLColorItemComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\Shop\XAMLColorWrapComponent.xaml.cs">
-      <DependentUpon>XAMLColorWrapComponent.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Components\XAMLFriendRequestItemComponent.xaml.cs">
       <DependentUpon>XAMLFriendRequestItemComponent.xaml</DependentUpon>
     </Compile>
@@ -156,12 +153,8 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Shop\XAMLColorItemComponent.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Components\Shop\XAMLColorWrapComponent.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\XAMLFriendRequestItemComponent.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -286,6 +279,12 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerStyle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopColor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopStyle.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Server\UserManagerService.wsdl" />

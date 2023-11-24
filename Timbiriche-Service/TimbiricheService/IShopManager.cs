@@ -12,14 +12,14 @@ namespace TimbiricheService
     public interface IShopManager
     {
         [OperationContract]
-        List<Color> GetColors();
+        List<ShopColor> GetColors();
         [OperationContract]
-        List<Style> GetStyles();
+        List<ShopStyle> GetStyles();
 
     }
 
     [DataContract]
-    public class Color
+    public class ShopColor
     {
         private int _idColor;
         private string _colorName;
@@ -37,7 +37,7 @@ namespace TimbiricheService
     }
 
     [DataContract]
-    public class Style
+    public class ShopStyle
     {
         private int _idStyle;
         private string _styleName;

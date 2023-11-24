@@ -63,7 +63,7 @@
   <xs:element name="UpdateAccount">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="account" nillable="true" type="q3:Account" />
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="account" nillable="true" type="q4:Account" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -116,7 +116,7 @@
   <xs:element name="NotifyOnlineFriends">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q4="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="onlineUsernames" nillable="true" type="q4:ArrayOfstring" />
+        <xs:element xmlns:q5="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="onlineUsernames" nillable="true" type="q5:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -172,8 +172,8 @@
   <xs:element name="CreateLobby">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyInformation" nillable="true" type="q5:LobbyInformation" />
-        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q6:LobbyPlayer" />
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyInformation" nillable="true" type="q6:LobbyInformation" />
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q7:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -188,7 +188,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q7:LobbyPlayer" />
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q8:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -208,7 +208,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayers" nillable="true" type="q8:ArrayOfLobbyPlayer" />
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayers" nillable="true" type="q9:ArrayOfLobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -220,7 +220,7 @@
   <xs:element name="NotifyPlayerJoinToLobby">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q9:LobbyPlayer" />
+        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q10:LobbyPlayer" />
         <xs:element minOccurs="0" name="numOfPlayersInLobby" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -283,7 +283,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q10="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="movement" nillable="true" type="q10:Movement" />
+        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="movement" nillable="true" type="q11:Movement" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -326,7 +326,7 @@
   <xs:element name="NotifyMovement">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="movement" nillable="true" type="q11:Movement" />
+        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="movement" nillable="true" type="q12:Movement" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -352,7 +352,7 @@
   <xs:element name="NotifyNewScoreboard">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q12="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="scoreboard" nillable="true" type="q12:ArrayOfKeyValuePairOfLobbyPlayerinttbPaEAnV" />
+        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="scoreboard" nillable="true" type="q13:ArrayOfKeyValuePairOfLobbyPlayerinttbPaEAnV" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -364,7 +364,7 @@
   <xs:element name="NotifyEndOfTheMatch">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q13="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="scoreboard" nillable="true" type="q13:ArrayOfKeyValuePairOfLobbyPlayerinttbPaEAnV" />
+        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/System.Collections.Generic" minOccurs="0" name="scoreboard" nillable="true" type="q14:ArrayOfKeyValuePairOfLobbyPlayerinttbPaEAnV" />
         <xs:element minOccurs="0" name="coinsEarned" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
@@ -426,7 +426,7 @@
   <xs:element name="GetMyColorsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q14="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetMyColorsResult" nillable="true" type="q14:ArrayOfPlayerColor" />
+        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetMyColorsResult" nillable="true" type="q15:ArrayOfPlayerColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -484,7 +484,7 @@
   <xs:element name="GetMyStylesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q15="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetMyStylesResult" nillable="true" type="q15:ArrayOfPlayerStyle" />
+        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetMyStylesResult" nillable="true" type="q16:ArrayOfPlayerStyle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -528,7 +528,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q16="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q16:LobbyPlayer" />
+        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q17:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -536,14 +536,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q17="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q17:LobbyPlayer" />
+        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q18:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyColorSelected">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q18="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q18:LobbyPlayer" />
+        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q19:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -567,7 +567,7 @@
   <xs:element name="NotifyOccupiedColors">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q19="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="occupiedColors" nillable="true" type="q19:ArrayOfLobbyPlayer" />
+        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="occupiedColors" nillable="true" type="q20:ArrayOfLobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -595,7 +595,7 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q20="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q20:LobbyPlayer" />
+        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q21:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -603,14 +603,14 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-        <xs:element xmlns:q21="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q21:LobbyPlayer" />
+        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q22:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyStyleSelected">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q22="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q22:LobbyPlayer" />
+        <xs:element xmlns:q23="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="lobbyPlayer" nillable="true" type="q23:LobbyPlayer" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -629,7 +629,7 @@
   <xs:element name="GetListUsernameFriendsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q23="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetListUsernameFriendsResult" nillable="true" type="q23:ArrayOfstring" />
+        <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetListUsernameFriendsResult" nillable="true" type="q24:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -673,7 +673,7 @@
   <xs:element name="GetUsernamePlayersRequestersResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q24="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q24:ArrayOfstring" />
+        <xs:element xmlns:q25="http://schemas.microsoft.com/2003/10/Serialization/Arrays" minOccurs="0" name="GetUsernamePlayersRequestersResult" nillable="true" type="q25:ArrayOfstring" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -792,7 +792,7 @@
   <xs:element name="VerifyBanEndDateResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element xmlns:q25="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="VerifyBanEndDateResult" nillable="true" type="q25:BanInformation" />
+        <xs:element xmlns:q26="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="VerifyBanEndDateResult" nillable="true" type="q26:BanInformation" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
@@ -807,6 +807,30 @@
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="VerifyPlayerIsBannedResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetColors">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetColorsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetColorsResult" nillable="true" type="q27:ArrayOfShopColor" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStyles">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetStylesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetStylesResult" nillable="true" type="q28:ArrayOfShopStyle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
