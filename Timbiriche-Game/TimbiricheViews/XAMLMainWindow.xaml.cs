@@ -14,6 +14,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimbiricheViews.Player;
 using TimbiricheViews.Utils;
 using TimbiricheViews.Views;
 
@@ -40,6 +41,7 @@ namespace TimbiricheViews
                     lobby.BtnCloseWindow_Click();
                 }
             }
+            PlayerSingleton.Player = null;
             LoggerManager.CloseAndFlush();
         }
 

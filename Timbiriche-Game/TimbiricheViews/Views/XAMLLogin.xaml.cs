@@ -37,10 +37,10 @@ namespace TimbiricheViews.Views
 
         private void ChangeLanguage()
         {
-            string language = "";
             string spanishMXLanguage = "es-MX";
             string englishUSLanguage = "en";
-            
+            string language = "";
+
             if (lbLanguage.Content.Equals("Español"))
             {
                 language = englishUSLanguage;
@@ -95,7 +95,7 @@ namespace TimbiricheViews.Views
             lbIncorrectCredentials.Visibility = Visibility.Hidden;
         }
 
-        private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
+        private void RectangleChangeLanguage_Click(object sender, MouseButtonEventArgs e)
         {
             ChangeLanguage();            
         }
@@ -187,9 +187,8 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(tbxUsername.Text))
             {
                 tbxUsername.Text = (string) tbxUsername.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-                tbxUsername.Foreground = placeholderBrush;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                tbxUsername.Foreground = placeholderColor;
                 tbxUsername.FontFamily = new FontFamily(MAIN_FONT);
             }
         }
@@ -208,15 +207,50 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(pwBxPassword.Password))
             {
                 pwBxPassword.Password = (string)pwBxPassword.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-                pwBxPassword.Foreground = placeholderBrush;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                pwBxPassword.Foreground = placeholderColor;
+            }
+        }
+
+        private void TbxJoinByCode_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbxJoinByCode.Text == (string)tbxJoinByCode.Tag)
+            {
+                tbxJoinByCode.Text = string.Empty;
+                tbxJoinByCode.Foreground = Brushes.Black;
+            }
+        }
+
+        private void TbxJoinByCode_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxJoinByCode.Text))
+            {
+                tbxJoinByCode.Text = (string)tbxJoinByCode.Tag;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                tbxJoinByCode.Foreground = placeholderColor;
             }
         }
 
         private void BtnForgottenPassword_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLPasswordReset());
+        }
+
+        private void BtnJoin_Click(object sender, RoutedEventArgs e)
+        {
+            string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
+            Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
+            bool existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+            if (existLobby)
+            {
+                NavigationService.Navigate(new XAMLJoinGuest(lobbyCode));
+            } 
+            else
+            {
+                string title = "Lobby no encontrado";
+                string message = "El lobby al que estas intentando entrar no existe.";
+                EmergentWindows.CreateEmergentWindow(title, message);
+            }
         }
     }
 }

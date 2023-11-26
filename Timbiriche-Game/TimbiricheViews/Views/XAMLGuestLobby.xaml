@@ -1,0 +1,106 @@
+﻿<Page x:Class="TimbiricheViews.Views.XAMLGuestLobby"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimbiricheViews.Views"
+      xmlns:p="clr-namespace:TimbiricheViews.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
+      Title="XAMLGuestLobby">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="25" />
+                </Style>
+            </Style.Resources>
+        </Style>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="10" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+    </Page.Resources>
+
+    <Viewbox Stretch="Fill">
+
+
+        <Grid Height="770" Width="1200">
+            <Image Source="../Resources/lobyBackground.png" Stretch="Fill" Margin="0,0,0,427"/>
+            <Image Source="../resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
+
+            <Button x:Name="btnLobby" Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
+                        BorderBrush="Transparent" FontSize="20" Margin="248,38,223,689" Cursor="Hand"/>
+
+            <Grid>
+                <Rectangle Fill="#920808" RadiusX="25" RadiusY="25" Margin="364,662,548,64" />
+                <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
+                FontSize="20" Content="" Margin="373,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
+
+                <Rectangle x:Name="rectangleFirstPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="382,373,568,149" />
+                <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
+                 FontSize="120" Content="" Margin="383,373,0,0" Height="246" Width="250" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+
+            </Grid>
+
+            <Grid x:Name="gridMatchControlNotLeadPlayer" Margin="842,500,19,28" Visibility="Visible">
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#49BF36" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnInviteToLobby_Click"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,0,163" Click="BtnExit_Click" />
+            </Grid>
+
+            <Grid x:Name="gridSecondPlayer" Margin="78,246,912,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleSecondPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbSecondPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle x:Name="rectangleSecondPlayerColor"  Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbSecondPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                FontSize="70" Content="" Height="170" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+            </Grid>
+
+            <Grid x:Name="gridThirdPlayer" Margin="694,246,296,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleThirdPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbThirdPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle x:Name="rectangleThirdPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbThirdPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="70" Content="" Height="191" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
+            <Grid x:Name="gridFourthPlayer" Margin="951,246,39,288" Visibility="Collapsed">
+                <Rectangle x:Name="rectangleFourthPlayer" Fill="#083F92" RadiusX="25" RadiusY="25" Margin="0,200,0,0"/>
+                <Label x:Name="lbFourthPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
+                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Rectangle x:Name="rectangleFourthPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
+                <Label x:Name="lbFourthPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
+                    FontSize="70" Content="" Height="191" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,-20,0,0" />
+            </Grid>
+
+            <Grid Background="#59000000" x:Name="gridSelectColor" Visibility="Collapsed">
+                <Grid  Margin="170,237,170,211" >
+                    <Rectangle Fill="#DC1C95D1" Opacity="1" RadiusX="25" RadiusY="25" />
+                    <Label Content="{x:Static p:Resources.lbSelectColor}" Foreground="White" FontFamily="Titan One" FontSize="36" Margin="227,5,0,269" HorizontalAlignment="Left"/>
+                    <Image HorizontalAlignment="Left" Height="38" Margin="10,8,0,0" VerticalAlignment="Top" Width="38" Source="/Resources/close.png" MouseLeftButtonDown="ImgCloseGridColorSelection_Click" Cursor="Hand"/>
+                    <Separator Background="#FF05CDDE" Margin="20,46,20,240"></Separator>
+                    <Label Content="{x:Static p:Resources.lbSelectColorInstrucion}" Foreground="White" FontFamily="Inter" FontSize="24" FontWeight="Bold" Margin="20,73,571,211"/>
+
+                    <ScrollViewer  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="10,111,10,0" Height="201" VerticalAlignment="Top">
+                        <StackPanel x:Name="stackPanelColors" Orientation="Horizontal" Margin="0,0,0,25" Height="159" >
+                            <Rectangle x:Name="PlayerColorTemplate" Fill="#FF6C6868" Margin="5,0,0,0" RadiusX="20" RadiusY="20" Width="156" Height="157" MouseLeftButtonDown="RectangleColor_Click" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+            </Grid>
+
+        </Grid>
+    </Viewbox>
+</Page>

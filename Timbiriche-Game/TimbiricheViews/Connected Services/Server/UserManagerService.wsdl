@@ -406,6 +406,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ILobbyExistenceChecker_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -772,6 +801,12 @@
   <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerifyPlayerIsBannedResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCode" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCodeResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -1057,6 +1092,12 @@
     <wsdl:operation name="VerifyPlayerIsBanned">
       <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ILobbyExistenceChecker">
+    <wsdl:operation name="ExistLobbyCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" message="tns:ILobbyExistenceChecker_ExistLobbyCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse" message="tns:ILobbyExistenceChecker_ExistLobbyCode_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -1682,13 +1723,26 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILobbyExistenceChecker" type="tns:ILobbyExistenceChecker">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILobbyExistenceChecker_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ExistLobbyCode">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1697,7 +1751,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1706,7 +1760,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1715,7 +1769,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1724,7 +1778,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1733,7 +1787,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1742,7 +1796,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1751,7 +1805,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1760,7 +1814,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1778,7 +1832,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1787,7 +1841,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1796,7 +1850,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1805,7 +1859,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_ILobbyExistenceChecker" binding="tns:NetTcpBinding_ILobbyExistenceChecker">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

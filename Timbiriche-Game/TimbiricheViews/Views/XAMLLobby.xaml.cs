@@ -27,10 +27,12 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLLobby : Page, IOnlineUsersManagerCallback, IPlayerStylesManagerCallback
     {
-        private Server.Player playerLoggedIn = PlayerSingleton.Player;
+        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string ONLINE_STATUS_PLAYER_HEX_COLOR = "#61FF00";
         private const string OFFLINE_STATUS_PLAYER_HEX_COLOR = "#FF5A5E59";
+        private const string NOT_SELECTED_BUTTON_HEX_COLOR = "#FF13546C";
+        private const string SELECTED_BUTTON_HEX_COLOR = "#FF063343";
 
         public XAMLLobby()
         {
@@ -103,15 +105,15 @@ namespace TimbiricheViews.Views
         
         private void LoadDataPlayer()
         {
-            lbUsername.Content = playerLoggedIn.Username;
-            lbCoins.Content = playerLoggedIn.Coins;
-            LoadFaceBox(lbUserFaceBox, playerLoggedIn.IdStyleSelected, playerLoggedIn.Username);
+            lbUsername.Content = _playerLoggedIn.Username;
+            lbCoins.Content = _playerLoggedIn.Coins;
+            LoadFaceBox(lbUserFaceBox, _playerLoggedIn.IdStyleSelected, _playerLoggedIn.Username);
         }
 
         private void LoadPlayerFriends()
         {
             Server.FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
-            string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(playerLoggedIn.IdPlayer);
+            string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(_playerLoggedIn.IdPlayer);
             AddUsersToFriendsList(usernamePlayerFriends);
         }
 
@@ -135,7 +137,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.RegisterUserToOnlineUsers(playerLoggedIn.IdPlayer, playerLoggedIn.Username);
+            client.RegisterUserToOnlineUsers(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username);
         }
 
         public void NotifyUserLoggedIn(string username)
@@ -235,7 +237,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-            friendRequestManagerClient.DeleteFriend(playerLoggedIn.IdPlayer, playerLoggedIn.Username, usernameFriendToDelete);
+            friendRequestManagerClient.DeleteFriend(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameFriendToDelete);
         }
 
 
@@ -243,7 +245,8 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
+            client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
+            PlayerSingleton.Player = null;
             NavigationService.Navigate(new XAMLLogin());
         }
 
@@ -251,7 +254,8 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.UnregisterUserToOnlineUsers(playerLoggedIn.Username);
+            client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
+            PlayerSingleton.Player = null;
         }
 
         private void BtnFriendsMenu_Click(object sender, RoutedEventArgs e)
@@ -314,7 +318,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-            friendRequestManagerClient.AddToOnlineFriendshipDictionary(playerLoggedIn.Username);
+            friendRequestManagerClient.AddToOnlineFriendshipDictionary(_playerLoggedIn.Username);
         }
 
         private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
@@ -327,7 +331,7 @@ namespace TimbiricheViews.Views
             lbFriendRequestUsernameError.Visibility = Visibility.Collapsed;
             
             string usernamePlayerRequested = tbxUsernameSendRequest.Text.Trim();
-            int idPlayer = playerLoggedIn.IdPlayer;
+            int idPlayer = _playerLoggedIn.IdPlayer;
 
             if (ValidateSendRequest(idPlayer, usernamePlayerRequested))
             {
@@ -336,7 +340,7 @@ namespace TimbiricheViews.Views
 
                 InstanceContext context = new InstanceContext(this);
                 Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-                friendRequestManagerClient.SendFriendRequest(playerLoggedIn.Username, usernamePlayerRequested);
+                friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
 
                 EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
                     Properties.Resources.lbFriendRequestSent + " " + usernamePlayerRequested);
@@ -367,24 +371,20 @@ namespace TimbiricheViews.Views
 
         private void BtnFriends_Click(object sender, RoutedEventArgs e)
         {
-            const string NOT_SELECTED_BUTTON = "#FF063343";
-            const string SELECTED_BUTTON = "#FF13546C";
             scrollViewerFriends.Visibility = Visibility.Visible;
             scrollViewerFriendsRequest.Visibility = Visibility.Collapsed;
 
-            ChangeButtonColor(btnFriends, SELECTED_BUTTON);
-            ChangeButtonColor(btnFriendRequest, NOT_SELECTED_BUTTON);
+            ChangeButtonColor(btnFriends, SELECTED_BUTTON_HEX_COLOR);
+            ChangeButtonColor(btnFriendRequest, NOT_SELECTED_BUTTON_HEX_COLOR);
         }
 
         private void BtnFriendsRequest_Click(object sender, RoutedEventArgs e)
         {
-            const string NOT_SELECTED_BUTTON = "#FF063343";
-            const string SELECTED_BUTTON = "#FF13546C";
             scrollViewerFriendsRequest.Visibility = Visibility.Visible;
             scrollViewerFriends.Visibility = Visibility.Collapsed;
 
-            ChangeButtonColor(btnFriendRequest, SELECTED_BUTTON);
-            ChangeButtonColor(btnFriends, NOT_SELECTED_BUTTON);
+            ChangeButtonColor(btnFriendRequest, SELECTED_BUTTON_HEX_COLOR);
+            ChangeButtonColor(btnFriends, NOT_SELECTED_BUTTON_HEX_COLOR);
 
             stackPanelFriendsRequest.Children.Clear();
             string[] usernamePlayers = GetCurrentFriendRequests();
@@ -400,7 +400,7 @@ namespace TimbiricheViews.Views
         private string[] GetCurrentFriendRequests()
         {
             Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
-            string[] usernamePlayers = friendshipManagerClient.GetUsernamePlayersRequesters(playerLoggedIn.IdPlayer);
+            string[] usernamePlayers = friendshipManagerClient.GetUsernamePlayersRequesters(_playerLoggedIn.IdPlayer);
             if (usernamePlayers != null)
             {
                 return usernamePlayers;
@@ -450,14 +450,14 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
-            friendRequestManagerClient.AcceptFriendRequest(playerLoggedIn.IdPlayer, playerLoggedIn.Username, usernameSender);
+            friendRequestManagerClient.AcceptFriendRequest(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameSender);
         }
 
         private void RejectFriendRequest(string username)
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
-            friendRequestManagerClient.RejectFriendRequest(playerLoggedIn.IdPlayer, username);
+            friendRequestManagerClient.RejectFriendRequest(_playerLoggedIn.IdPlayer, username);
             RemoveFriendRequestFromStackPanel(username);
         }
 
@@ -514,18 +514,34 @@ namespace TimbiricheViews.Views
     public partial class XAMLLobby : Page, ILobbyManagerCallback
     {
         private string _lobbyCode;
+        private int _numberOfPlayersInLobby = 1;
 
         public void NotifyLobbyCreated(string lobbyCode)
         {
             _lobbyCode = lobbyCode;
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
-
+            ValidateStartOfMatch();
             ShowSelectPlayerColorGrid();
+        }
+
+        private void ValidateStartOfMatch()
+        {
+            // TODO: VALIDATE ALL PLAYERS HAVE SELECTED COLOR
+            const int INITIAL_NUMBER_OF_PLAYERS = 1;
+            if (_numberOfPlayersInLobby > INITIAL_NUMBER_OF_PLAYERS)
+            {
+                btnStartMatch.IsEnabled = true;
+            }
+            else
+            {
+                btnStartMatch.IsEnabled = false;
+            }
         }
 
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
+
             const int ONE_PLAYER_IN_LOBBY = 1;
             const int TWO_PLAYER_IN_LOBBY = 2;
             const int THREE_PLAYER_IN_LOBBY = 3;
@@ -550,11 +566,17 @@ namespace TimbiricheViews.Views
                 LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
+
+            _numberOfPlayersInLobby = ++numOfPlayersInLobby;
+            ValidateStartOfMatch();
         }
 
         public void NotifyPlayerLeftLobby()
         {
             throw new NotImplementedException();
+            // TODO: In addition to notifying that a player has left,
+            // must decrement the variable "numberOfPlayersInLobby" and then call the ValidateStartOfMatch() method
+            // to verify whether or not the match can be started.
         }
 
         public void NotifyPlayersInLobby(string lobbyCode, LobbyPlayer[] lobbyPlayers)
@@ -624,8 +646,8 @@ namespace TimbiricheViews.Views
             lobbyInformation.MatchDurationInMinutes = MATCH_DURATION_IN_MINUTES;
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = playerLoggedIn.IdStyleSelected;
+            lobbyPlayer.Username = _playerLoggedIn.Username;
+            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
@@ -642,8 +664,8 @@ namespace TimbiricheViews.Views
             string lobbyCode = tbxJoinByCode.Text.Trim();
 
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = playerLoggedIn.IdStyleSelected;
+            lobbyPlayer.Username = _playerLoggedIn.Username;
+            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
@@ -669,8 +691,8 @@ namespace TimbiricheViews.Views
         private (string, string) GetPlayerCustomization()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string playerHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(playerLoggedIn.IdColorSelected);
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(playerLoggedIn.IdStyleSelected);
+            string playerHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(_playerLoggedIn.IdColorSelected);
+            string playerStylePath = playerCustomizationManagerClient.GetStylePath(_playerLoggedIn.IdStyleSelected);
 
             return (playerHexadecimalColor, playerStylePath);
         }
@@ -691,7 +713,7 @@ namespace TimbiricheViews.Views
         private void GetMyColors()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            _myColors = playerCustomizationManagerClient.GetMyColors(playerLoggedIn.IdPlayer);
+            _myColors = playerCustomizationManagerClient.GetMyColors(_playerLoggedIn.IdPlayer);
 
             if (_myColors != null)
             {
@@ -738,9 +760,9 @@ namespace TimbiricheViews.Views
         private LobbyPlayer CreateLobbyPlayer()
         {
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = playerLoggedIn.Username;
-            lobbyPlayer.IdHexadecimalColor = playerLoggedIn.IdColorSelected;
-            lobbyPlayer.IdStylePath = playerLoggedIn.IdStyleSelected;
+            lobbyPlayer.Username = _playerLoggedIn.Username;
+            lobbyPlayer.IdHexadecimalColor = _playerLoggedIn.IdColorSelected;
+            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
             return lobbyPlayer;
         }
 
@@ -761,8 +783,8 @@ namespace TimbiricheViews.Views
             playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
 
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            playerCustomizationManagerClient.SelectMyColor(playerLoggedIn.IdPlayer, idColor);
-            playerLoggedIn.IdColorSelected = idColor;
+            playerCustomizationManagerClient.SelectMyColor(_playerLoggedIn.IdPlayer, idColor);
+            _playerLoggedIn.IdColorSelected = idColor;
 
             LobbyPlayer lobbyPlayer = CreateLobbyPlayer();            
             playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
@@ -887,7 +909,7 @@ namespace TimbiricheViews.Views
         private bool ValidatePlayerSelectColor()
         {
             bool isColorSelected = false;
-            if(playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
+            if(_playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
             {
                 isColorSelected = true;
             }
@@ -896,7 +918,7 @@ namespace TimbiricheViews.Views
 
         private bool VerifyPlayerHasColor(int idColor)
         {
-            int idPlayer = playerLoggedIn.IdPlayer;
+            int idPlayer = _playerLoggedIn.IdPlayer;
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             bool hasColor = playerCustomizationManagerClient.CheckColorForPlayer(idPlayer, idColor);
             return hasColor;

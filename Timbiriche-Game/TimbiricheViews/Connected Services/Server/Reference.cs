@@ -2022,4 +2022,51 @@ namespace TimbiricheViews.Server {
             return base.Channel.VerifyPlayerIsBannedAsync(idPlayer);
         }
     }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.ILobbyExistenceChecker")]
+    public interface ILobbyExistenceChecker {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse")]
+        bool ExistLobbyCode(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse")]
+        System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ILobbyExistenceCheckerChannel : TimbiricheViews.Server.ILobbyExistenceChecker, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class LobbyExistenceCheckerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.ILobbyExistenceChecker>, TimbiricheViews.Server.ILobbyExistenceChecker {
+        
+        public LobbyExistenceCheckerClient() {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyExistenceCheckerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool ExistLobbyCode(string lobbyCode) {
+            return base.Channel.ExistLobbyCode(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode) {
+            return base.Channel.ExistLobbyCodeAsync(lobbyCode);
+        }
+    }
 }

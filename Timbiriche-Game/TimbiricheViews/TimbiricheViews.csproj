@@ -119,6 +119,12 @@
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\XAMLJoinGuest.xaml.cs">
+      <DependentUpon>XAMLJoinGuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLGuestLobby.xaml.cs">
+      <DependentUpon>XAMLGuestLobby.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\XAMLMyProfile.xaml.cs">
       <DependentUpon>XAMLMyProfile.xaml</DependentUpon>
     </Compile>
@@ -182,6 +188,14 @@
     <Page Include="Views\XAMLGameBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLJoinGuest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\XAMLGuestLobby.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\XAMLMyProfile.xaml">
       <SubType>Designer</SubType>
