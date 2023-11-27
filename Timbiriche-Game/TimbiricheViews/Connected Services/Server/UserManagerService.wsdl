@@ -440,8 +440,9 @@
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUserManager_AddUser_InputMessage">
@@ -455,6 +456,9 @@
   </wsdl:message>
   <wsdl:message name="IUserManager_ValidateLoginCredentials_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateLoginCredentialsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q1:TimbiricheServerException" />
   </wsdl:message>
   <wsdl:message name="IUserManager_GetPlayerByIdPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayer" />
@@ -815,6 +819,7 @@
     <wsdl:operation name="ValidateLoginCredentials">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentials" message="tns:IUserManager_ValidateLoginCredentials_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse" message="tns:IUserManager_ValidateLoginCredentials_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerByIdPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" message="tns:IUserManager_GetPlayerByIdPlayer_InputMessage" />
@@ -1120,6 +1125,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetPlayerByIdPlayer">
       <soap12:operation soapAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" style="document" />

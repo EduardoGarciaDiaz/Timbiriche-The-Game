@@ -119,15 +119,28 @@ namespace TimbiricheViews.Views
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
+                    //TODO: log
                 }
-                /*catch (CommunicationException ex)
+                catch (FaultException<TimbiricheServerException> ex)
                 {
-                    //TODO: Show emergent window
+                    //TODO: Show emergent window and log
+                    Console.WriteLine("Upss... Ocurrió un error en la base de datos, por favor inténtelo de nuevo");
+                }
+                catch (FaultException ex)
+                {
+                    //TODO: Show emergent window and log
+                    Console.WriteLine("Upss... Ocurrió un error en la base de datos. Por favor inténtelo de nuevo");
+                    Console.WriteLine(ex.Message + " - " + ex.StackTrace);
+                }
+                catch (CommunicationException ex)
+                {
+                    //TODO: Show emergent window and log
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Show emergent window...Ups has ocurried an unexpected error. Please try again later
-                }*/
+                    //TODO: Show emergent window and log...Ups has ocurried an unexpected error. Please try again later
+                    Console.WriteLine("Upss... Ocurrió un error inesperado. Por favor, intentelo más tarde");
+                }
 
                 if (playerLogged != null)
                 {

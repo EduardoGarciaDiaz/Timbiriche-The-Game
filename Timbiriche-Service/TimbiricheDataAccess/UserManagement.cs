@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
+using System.Data.SqlClient;
+using System.ServiceModel;
+using TimbiricheDataAccess.Exceptions;
 
 namespace TimbiricheDataAccess
 {
@@ -102,25 +105,42 @@ namespace TimbiricheDataAccess
 
         public Players ValidateLoginCredentials(string username, string password)
         {
-            using (var context = new TimbiricheDBEntities())
+            Players playerData = null;
+            try
             {
-                var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
-            
-                if (playerData != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    PasswordHashManager passwordHashManager = new PasswordHashManager();
-                    var playerPassword = playerData.password;
-                    if (playerData.Accounts != null)
+                    playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+
+                    if (playerData != null)
                     {
-                        var accountEntry = playerData.Accounts;
-                    }
-                    if (passwordHashManager.VerifyPassword(password, playerPassword))
-                    {
-                        return playerData;
+                        PasswordHashManager passwordHashManager = new PasswordHashManager();
+                        var playerPassword = playerData.password;
+                        if (playerData.Accounts != null)
+                        {
+                            var accountEntry = playerData.Accounts;
+                        }
+                        if (passwordHashManager.VerifyPassword(password, playerPassword))
+                        {
+                            return playerData;
+                        }
                     }
                 }
-                 return null;
+            } 
+            catch (EntityException ex)
+            {
+                throw new DataAccessException(ex.Message);
             }
+            catch (SqlException ex)
+            {
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ex.Message);
+            }
+            return playerData;
+
         }
 
         public Players GetPlayerByIdPlayer(int idPlayer)

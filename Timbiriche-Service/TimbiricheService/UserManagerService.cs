@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -8,7 +10,9 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -74,38 +78,49 @@ namespace TimbiricheService
 
         public Player ValidateLoginCredentials(String username, String password)
         {
+            Player player = null;
             UserManagement dataAccess = new UserManagement();
-            Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
-            if (playerValidated != null)
+            try
             {
-                Accounts accountValidated = playerValidated.Accounts;
-                Account account = new Account
+                Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
+                if (playerValidated != null)
                 {
-                    IdAcccount = accountValidated.idAccount,
-                    Name = accountValidated.name,
-                    LastName = accountValidated.lastName,
-                    Surname = accountValidated.surname,
-                    Birthdate = accountValidated.birthdate
-                };
+                    Accounts accountValidated = playerValidated.Accounts;
+                    Account account = new Account
+                    {
+                        IdAcccount = accountValidated.idAccount,
+                        Name = accountValidated.name,
+                        LastName = accountValidated.lastName,
+                        Surname = accountValidated.surname,
+                        Birthdate = accountValidated.birthdate
+                    };
 
-                Player player = new Player
-                {
-                    IdPlayer = playerValidated.idPlayer,
-                    Username = playerValidated.username,
-                    Email = playerValidated.email,
-                    Password = playerValidated.password,
-                    Coins = (int)playerValidated.coins,
-                    Status = playerValidated.status,
-                    Salt = playerValidated.salt,
-                    IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
-                    IdStyleSelected = (int)playerValidated.idStyleSelected,
-                    AccountFK = account,
-                };
-
-                return player;
+                    player = new Player
+                    {
+                        IdPlayer = playerValidated.idPlayer,
+                        Username = playerValidated.username,
+                        Email = playerValidated.email,
+                        Password = playerValidated.password,
+                        Coins = (int)playerValidated.coins,
+                        Status = playerValidated.status,
+                        Salt = playerValidated.salt,
+                        IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                        IdStyleSelected = (int)playerValidated.idStyleSelected,
+                        AccountFK = account,
+                    };
+                }
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return null;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
+            return player;
         }
 
         public Player GetPlayerByIdPlayer(int idPlayer)

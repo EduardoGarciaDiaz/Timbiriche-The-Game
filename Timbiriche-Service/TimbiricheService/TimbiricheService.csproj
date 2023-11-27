@@ -41,6 +41,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
@@ -54,6 +55,7 @@
     <Compile Include="Email\Templates\IEmailTemplate.cs" />
     <Compile Include="Email\Templates\InvitationToLobbyTemplate.cs" />
     <Compile Include="Email\Templates\PasswordResetTemplate.cs" />
+    <Compile Include="Exceptions\ServerException.cs" />
     <Compile Include="FriendRequestManagerService.cs" />
     <Compile Include="IBanManager.cs" />
     <Compile Include="IEmailVerificationManager.cs" />
