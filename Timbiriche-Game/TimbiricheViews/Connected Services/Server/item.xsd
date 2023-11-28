@@ -74,6 +74,20 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="GetUsernameByIdPlayer">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUsernameByIdPlayerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUsernameByIdPlayerResult" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="RegisterUserToOnlineUsers">
     <xs:complexType>
       <xs:sequence>
@@ -822,6 +836,61 @@
       <xs:sequence>
         <xs:element minOccurs="0" name="ExistLobbyCodeResult" type="xs:boolean" />
       </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGlobalScores">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetGlobalScoresResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetGlobalScoresResult" nillable="true" type="q27:ArrayOfGlobalScore" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateWins">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateWinsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateWinsResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SubscribeToGlobalScoreRealTime">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usernameCurrentPlayer" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UnsubscribeToGlobalScoreRealTime">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="usernameCurrentPlayer" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateGlobalScore">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyGlobalScoreboardUpdated">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyGlobalScoreboardUpdatedResponse">
+    <xs:complexType>
+      <xs:sequence />
     </xs:complexType>
   </xs:element>
 </xs:schema>

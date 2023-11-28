@@ -42,6 +42,14 @@
           <Property Name="idPlayer" Type="int" />
           <Property Name="idPlayerFriend" Type="int" />
         </EntityType>
+        <EntityType Name="GlobalScores">
+          <Key>
+            <PropertyRef Name="idGlobalScore" />
+          </Key>
+          <Property Name="idGlobalScore" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="winsNumber" Type="int" />
+        </EntityType>
         <EntityType Name="PasswordResetTokens">
           <Key>
             <PropertyRef Name="idPasswordResetToken" />
@@ -207,6 +215,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_GlobalScores_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="GlobalScores" Type="Self.GlobalScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="GlobalScores">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Player_PlayerColors">
           <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
           <End Role="Players" Type="Self.Players" Multiplicity="*" />
@@ -272,6 +292,7 @@
           <EntitySet Name="Bans" EntityType="Self.Bans" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FriendShips" EntityType="Self.FriendShips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlobalScores" EntityType="Self.GlobalScores" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PasswordResetTokens" EntityType="Self.PasswordResetTokens" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PlayerColors" EntityType="Self.PlayerColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
@@ -309,6 +330,10 @@
           <AssociationSet Name="FK_FriendShips_Players" Association="Self.FK_FriendShips_Players">
             <End Role="Players" EntitySet="Players" />
             <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlobalScores_Players" Association="Self.FK_GlobalScores_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="GlobalScores" EntitySet="GlobalScores" />
           </AssociationSet>
           <AssociationSet Name="FK_Player_PlayerColors" Association="Self.FK_Player_PlayerColors">
             <End Role="Colors" EntitySet="Colors" />
@@ -371,6 +396,7 @@
           <NavigationProperty Name="Bans" Relationship="TimbiricheDBModel.FK_Bans_Players" FromRole="Players" ToRole="Bans" />
           <NavigationProperty Name="Reports" Relationship="TimbiricheDBModel.FK_Reports_PlayersReported" FromRole="Players" ToRole="Reports" />
           <NavigationProperty Name="Reports1" Relationship="TimbiricheDBModel.FK_Reports_PlayersReporter" FromRole="Players" ToRole="Reports" />
+          <NavigationProperty Name="GlobalScores" Relationship="TimbiricheDBModel.FK_GlobalScores_Players" FromRole="Players" ToRole="GlobalScores" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -446,6 +472,11 @@
           <AssociationSet Name="FK_Reports_PlayersReporter" Association="TimbiricheDBModel.FK_Reports_PlayersReporter">
             <End Role="Players" EntitySet="Players" />
             <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <EntitySet Name="GlobalScores" EntityType="TimbiricheDBModel.GlobalScores" />
+          <AssociationSet Name="FK_GlobalScores_Players" Association="TimbiricheDBModel.FK_GlobalScores_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="GlobalScores" EntitySet="GlobalScores" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Colors">
@@ -687,6 +718,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="GlobalScores">
+          <Key>
+            <PropertyRef Name="idGlobalScore" />
+          </Key>
+          <Property Name="idGlobalScore" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="winsNumber" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_GlobalScores_Players" FromRole="GlobalScores" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_GlobalScores_Players">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.GlobalScores" Role="GlobalScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="GlobalScores">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -796,6 +848,15 @@
                 <ScalarProperty Name="idPlayerReporter" ColumnName="idPlayerReporter" />
                 <ScalarProperty Name="idPlayerReported" ColumnName="idPlayerReported" />
                 <ScalarProperty Name="idReport" ColumnName="idReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlobalScores">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.GlobalScores">
+              <MappingFragment StoreEntitySet="GlobalScores">
+                <ScalarProperty Name="winsNumber" ColumnName="winsNumber" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idGlobalScore" ColumnName="idGlobalScore" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

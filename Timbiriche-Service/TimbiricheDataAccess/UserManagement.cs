@@ -103,6 +103,33 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
+        public int AddToGlobalScoreboards(GlobalScores globalScore)
+        {
+            int response = -1;
+            if (globalScore != null)
+            {
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var newGlobalScore = context.GlobalScores.Add(globalScore);
+                    try
+                    {
+                        response = context.SaveChanges();
+                    }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
+                    }
+                }
+            }
+            return response;
+        }
+
         public Players ValidateLoginCredentials(string username, string password)
         {
             Players playerData = null;

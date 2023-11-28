@@ -144,3 +144,5 @@ C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoF
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLJoinGuest.baml
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLGuestLobby.g.cs
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLGuestLobby.baml
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLGlobalScoreboard.g.cs
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Views\XAMLGlobalScoreboard.baml

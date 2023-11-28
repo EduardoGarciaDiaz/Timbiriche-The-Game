@@ -25,6 +25,7 @@ namespace TimbiricheDataAccess
             this.Bans = new HashSet<Bans>();
             this.Reports = new HashSet<Reports>();
             this.Reports1 = new HashSet<Reports>();
+            this.GlobalScores = new HashSet<GlobalScores>();
         }
     
         public int idPlayer { get; set; }
@@ -57,5 +58,7 @@ namespace TimbiricheDataAccess
         public virtual ICollection<Reports> Reports { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reports> Reports1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GlobalScores> GlobalScores { get; set; }
     }
 }

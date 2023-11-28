@@ -40,6 +40,11 @@ namespace TimbiricheViews
                     XAMLLobby lobby = (XAMLLobby)currentPage;
                     lobby.BtnCloseWindow_Click();
                 }
+                if (currentPage is XAMLGlobalScoreboard)
+                {
+                    XAMLGlobalScoreboard globalScoreboard = (XAMLGlobalScoreboard)currentPage;
+                    globalScoreboard.BtnCloseWindow_Click();
+                }
             }
             PlayerSingleton.Player = null;
             LoggerManager.CloseAndFlush();

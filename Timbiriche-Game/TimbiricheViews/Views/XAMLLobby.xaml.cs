@@ -88,20 +88,6 @@ namespace TimbiricheViews.Views
                 LoadFaceBox(lbFourthPlayerUsername, idStyle, username);
             }
         }
-
-        private Image CreateImageByPath(int idStyle)
-        {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, playerStylePath);
-
-            Image styleImage = new Image();
-            BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
-            styleImage.Source = bitmapImage;
-
-            return styleImage;
-        }
         
         private void LoadDataPlayer()
         {
@@ -128,9 +114,17 @@ namespace TimbiricheViews.Views
             }
             else
             {
-                Image styleImage = CreateImageByPath(idStyle);
+                string stylePath = GetPathByIdStyle(idStyle);
+                Image styleImage = Utilities.CreateImageByPath(stylePath);
                 lbFaceBox.Content = styleImage;
             }
+        }
+
+        private string GetPathByIdStyle(int idStyle)
+        {
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            string playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            return playerStylePath;
         }
 
         private void ShowAsActiveUser()
@@ -309,6 +303,11 @@ namespace TimbiricheViews.Views
                 SolidColorBrush placeholderBrush = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
                 tbxJoinByCode.Foreground = placeholderBrush;
             }
+        }
+
+        private void BtnScoreboard_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new XAMLGlobalScoreboard());
         }
     }
 

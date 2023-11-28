@@ -161,7 +161,6 @@ namespace TimbiricheViews.Views
                     lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }
             }
-            
         }
 
         private bool ValidatePlayerIsNotBanned(Server.Player player)

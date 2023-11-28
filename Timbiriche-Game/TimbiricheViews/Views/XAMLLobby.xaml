@@ -73,7 +73,13 @@
 
             <Grid x:Name="gridMatchCreation" Margin="842,500,19,28" Visibility="Visible">
                 <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Click="BtnCreateMatch_Click" Margin="0,99,0,0"/>
-                <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="0,0,0,163" Click="BtnJoinByCode_Click"/>
+                <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="26" Background="#49BF36" Cursor="Hand" Margin="0,0,84,163" Click="BtnJoinByCode_Click"/>
+                <Button Margin="260,0,0,163" Background="#FFFFD600" Height="79"  Click="BtnScoreboard_Click" Cursor="Hand">
+                    <Grid>
+                        <Image Source="/Resources/scoreboardIcon.png" Margin="15,5,14,18" />
+                        <TextBlock Text="Marcador" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" Margin="10,57,0,0" FontWeight="Bold" />
+                    </Grid>
+                </Button>
             </Grid>
 
             <Grid x:Name="gridMatchControl" Margin="842,500,19,28" Visibility="Collapsed">

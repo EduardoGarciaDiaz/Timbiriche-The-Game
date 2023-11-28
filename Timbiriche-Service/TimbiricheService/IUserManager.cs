@@ -24,6 +24,8 @@ namespace TimbiricheService
         bool ValidateUniqueIdentifierUser(String identifier);
         [OperationContract]
         int UpdateAccount(Account account);
+        [OperationContract]
+        string GetUsernameByIdPlayer(int idPlayer);
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]

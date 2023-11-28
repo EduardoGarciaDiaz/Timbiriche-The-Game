@@ -119,6 +119,9 @@
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\XAMLGlobalScoreboard.xaml.cs">
+      <DependentUpon>XAMLGlobalScoreboard.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\XAMLJoinGuest.xaml.cs">
       <DependentUpon>XAMLJoinGuest.xaml</DependentUpon>
     </Compile>
@@ -186,6 +189,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\XAMLGameBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLGlobalScoreboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -294,6 +301,9 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.BanInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.GlobalScore.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
@@ -446,6 +456,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scoreboardIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

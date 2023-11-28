@@ -50,6 +50,7 @@ namespace TimbiricheService
                 if  (rowsAffectedPlayerStyles > 0)
                 {
                     SetDefaultColors(newPlayer);
+                    AddNewPlayerToGlobalScores(newPlayer.idPlayer);
                 }
             }
             return rowsAffected;
@@ -74,6 +75,16 @@ namespace TimbiricheService
                 UserManagement dataAccess = new UserManagement();
                 dataAccess.AddPlayerColors(playerColor);
             }
+        }
+
+        private void AddNewPlayerToGlobalScores(int idPlayer)
+        {
+            const int DEFAULT_NUMBER_OF_WINS = 0;
+            UserManagement dataAccess = new UserManagement();
+            GlobalScores newScore = new GlobalScores();
+            newScore.idPlayer = idPlayer;
+            newScore.winsNumber = DEFAULT_NUMBER_OF_WINS;
+            dataAccess.AddToGlobalScoreboards(newScore);
         }
 
         public Player ValidateLoginCredentials(String username, String password)
@@ -178,6 +189,13 @@ namespace TimbiricheService
             int rowsAffected = dataAccess.UpdateAccount(editedAccount);
 
             return rowsAffected;
+        }
+
+        public string GetUsernameByIdPlayer(int idPlayer)
+        {
+            UserManagement dataAccess = new UserManagement();
+            string username = dataAccess.GetUsernameByIdPlayer(idPlayer);
+            return username;
         }
     }
 

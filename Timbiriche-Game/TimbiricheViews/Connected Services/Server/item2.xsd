@@ -94,4 +94,18 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="BanInformation" nillable="true" type="tns:BanInformation" />
+  <xs:complexType name="ArrayOfGlobalScore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GlobalScore" nillable="true" type="tns:GlobalScore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGlobalScore" nillable="true" type="tns:ArrayOfGlobalScore" />
+  <xs:complexType name="GlobalScore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdGlobalScore" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="WinsNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GlobalScore" nillable="true" type="tns:GlobalScore" />
 </xs:schema>

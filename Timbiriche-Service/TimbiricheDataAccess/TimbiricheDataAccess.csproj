@@ -86,6 +86,10 @@
     <Compile Include="FriendShips.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalScores.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalScoresManagement.cs" />
     <Compile Include="PasswordResetManagement.cs" />
     <Compile Include="PasswordResetTokens.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
