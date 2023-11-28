@@ -138,20 +138,6 @@ namespace TimbiricheDataAccess
                 using (var context = new TimbiricheDBEntities())
                 {
                     playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
-
-                    if (playerData != null)
-                    {
-                        PasswordHashManager passwordHashManager = new PasswordHashManager();
-                        var playerPassword = playerData.password;
-                        if (playerData.Accounts != null)
-                        {
-                            var accountEntry = playerData.Accounts;
-                        }
-                        if (passwordHashManager.VerifyPassword(password, playerPassword))
-                        {
-                            return playerData;
-                        }
-                    }
                 }
             } 
             catch (EntityException ex)
@@ -166,8 +152,24 @@ namespace TimbiricheDataAccess
             {
                 throw new DataAccessException(ex.Message);
             }
-            return playerData;
 
+            if (playerData != null)
+            {
+                PasswordHashManager passwordHashManager = new PasswordHashManager();
+                var playerPassword = playerData.password;
+
+                if (playerData.Accounts != null)
+                {
+                    var accountEntry = playerData.Accounts;
+                }
+
+                if (passwordHashManager.VerifyPassword(password, playerPassword))
+                {
+                    return playerData;
+                }
+            }
+
+            return playerData;
         }
 
         public Players GetPlayerByIdPlayer(int idPlayer)
@@ -183,6 +185,7 @@ namespace TimbiricheDataAccess
         public bool ExistUserIdenitifier(string identifier)
         {
             bool identifierExist = false;
+
             using(var context = new TimbiricheDBEntities())
             {
                 var players = (from p in context.Players
@@ -190,43 +193,51 @@ namespace TimbiricheDataAccess
                                select p).ToList();
                 identifierExist = players.Any();
             }
+
             return identifierExist;
         }
 
         public int GetIdPlayerByEmail(string email)
         {
             int idPlayer = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var query = from p in context.Players
                             where p.email == email
                             select p;
                 var player = query.SingleOrDefault();
+
                 if (player != null)
                 {
                     idPlayer = player.idPlayer;
                 }
             }
+
             return idPlayer;
         }
 
         public int GetIdPlayerByUsername(string username)
         {
             int idPlayer = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players
                     .FirstOrDefault(p => p.username == username);
+
                 if (player != null) {
                     idPlayer = player.idPlayer;
                 }
             }
+
             return idPlayer;
         }
 
         public string GetUsernameByIdPlayer(int idPlayer)
         {
             string username = string.Empty;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players
@@ -243,18 +254,23 @@ namespace TimbiricheDataAccess
 
         public int UpdateAccount(Accounts editedAccount)
         {
+            int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities()){
                 var account = context.Accounts.FirstOrDefault(a => a.idAccount == editedAccount.idAccount);
+
                 if (account != null)
                 {
                     account.name = editedAccount.name;
                     account.surname = editedAccount.surname;
                     account.lastName = editedAccount.lastName;
                     account.birthdate = editedAccount.birthdate;
-                    return context.SaveChanges();
+
+                    rowsAffected = context.SaveChanges();
                 }
             }
-            return -1;
+
+            return rowsAffected;
         }
     }
 }

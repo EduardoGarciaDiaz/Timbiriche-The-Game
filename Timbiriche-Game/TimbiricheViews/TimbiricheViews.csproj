@@ -112,6 +112,7 @@
     <Compile Include="Match\Timer.cs" />
     <Compile Include="Utils\EmergentWindows.cs" />
     <Compile Include="Utils\LoggerManager.cs" />
+    <Compile Include="Utils\SoundsUtilities.cs" />
     <Compile Include="Utils\ValidationUtilities.cs" />
     <Compile Include="Views\XAMLBan.xaml.cs">
       <DependentUpon>XAMLBan.xaml</DependentUpon>
@@ -459,6 +460,11 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\scoreboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Sounds\clic.wav" />
+    <Content Include="Resources\Sounds\clicLine.wav" />
+    <Content Include="Resources\Sounds\squareComplete.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

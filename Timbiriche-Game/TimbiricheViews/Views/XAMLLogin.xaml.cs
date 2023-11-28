@@ -114,7 +114,7 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    _logger.Error(ex.StackTrace);
+                    _logger.Error(ex.Message + "\n" + ex.StackTrace);
                 }
                 catch (TimeoutException ex)
                 {
@@ -124,22 +124,24 @@ namespace TimbiricheViews.Views
                 catch (FaultException<TimbiricheServerException> ex)
                 {
                     //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en la base de datos, por favor inténtelo de nuevo");
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
                 }
                 catch (FaultException ex)
                 {
                     //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en la base de datos. Por favor inténtelo de nuevo");
-                    Console.WriteLine(ex.Message + " - " + ex.StackTrace);
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
                 }
                 catch (CommunicationException ex)
                 {
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
                     //TODO: Show emergent window and log
+
                 }
                 catch (Exception ex)
                 {
                     //TODO: Show emergent window and log...Ups has ocurried an unexpected error. Please try again later
                     Console.WriteLine("Upss... Ocurrió un error inesperado. Por favor, intentelo más tarde");
+                    _logger.Fatal(ex.StackTrace);
                 }
 
                 if (playerLogged != null)

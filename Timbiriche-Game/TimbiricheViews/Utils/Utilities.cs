@@ -32,13 +32,19 @@ namespace TimbiricheViews.Utils
 
         public static Image CreateImageByPath(string imagePath)
         {
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, imagePath);
+            string absolutePath = BuildAbsolutePath(imagePath);
 
             Image styleImage = new Image();
             BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
             styleImage.Source = bitmapImage;
 
             return styleImage;
+        }
+
+        public static string BuildAbsolutePath(string relativePath)
+        {
+            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            return absolutePath;
         }
     }
 
