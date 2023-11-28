@@ -34,7 +34,9 @@ namespace TimbiricheService
         public int UpdateWins(int idPlayer)
         {
             GlobalScoresManagement dataAccess = new GlobalScoresManagement();
-            return dataAccess.UpdateWinsPlayer(idPlayer);
+            int response = dataAccess.UpdateWinsPlayer(idPlayer);
+            UpdateGlobalScore();
+            return response;
         }
     }
 

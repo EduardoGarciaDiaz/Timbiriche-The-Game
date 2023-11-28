@@ -19,7 +19,7 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-    public partial class XAMLVictory : Page, IGlobalScoreManagerCallback
+    public partial class XAMLVictory : Page
     {
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
@@ -110,10 +110,6 @@ namespace TimbiricheViews.Views
             {
                 Server.ScoreboardManagerClient scoreboardManagerClient = new Server.ScoreboardManagerClient();
                 scoreboardManagerClient.UpdateWins(_idPlayer);
-
-                InstanceContext context = new InstanceContext(this);
-                Server.GlobalScoreManagerClient globalScoreManagerClient = new Server.GlobalScoreManagerClient(context);
-                globalScoreManagerClient.UpdateGlobalScore();
             }
         }
 
@@ -158,8 +154,6 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public void NotifyGlobalScoreboardUpdated()
-        {
-        }
+        
     }
 }
