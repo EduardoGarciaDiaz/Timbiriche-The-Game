@@ -20,6 +20,7 @@ using System.Windows.Threading;
 using TimbiricheViews.Components.Match;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -33,10 +34,13 @@ namespace TimbiricheViews.Views
         const string HORIZONTAL_TYPE_LINE = "Horizontal";
         const string VERTICAL_TYPE_LINE = "Vertical";
 
+        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
+        private string _username;
         private bool _itsMyTurn;
         private string _lobbyCode;
         private string _playerHexadecimalColor;
         private string _playerStylePath;
+
 
 
         public XAMLGameBoard(string lobbyCode, string playerHexadecimalColor, string playerStylePath)
@@ -47,10 +51,11 @@ namespace TimbiricheViews.Views
             _lobbyCode = lobbyCode;
             _playerHexadecimalColor = playerHexadecimalColor;
             _playerStylePath = playerStylePath;
+            _username = _playerLoggedIn.Username;
 
             InstanceContext context = new InstanceContext(this);
             MatchManagerClient client = new MatchManagerClient(context);
-            client.RegisterToTheMatch(_lobbyCode, PlayerSingleton.Player.Username, playerHexadecimalColor);
+            client.RegisterToTheMatch(_lobbyCode, _username, playerHexadecimalColor);
         }
 
         private void InitializeGameBoard()
@@ -107,7 +112,9 @@ namespace TimbiricheViews.Views
 
             if (_itsMyTurn)
             {
-                int points = SetMovement(btnLine, _playerHexadecimalColor, _playerStylePath, _row, _column, typeLine);
+                SoundsUtilities.PlayButtonClicLineSound();
+                string stylePlayer = ChooseCorrectStyle(_playerStylePath, _username);
+                int points = SetMovement(btnLine, _playerHexadecimalColor, stylePlayer, _row, _column, typeLine);
 
                 InstanceContext context = new InstanceContext(this);
                 Server.MatchManagerClient client = new Server.MatchManagerClient(context);
@@ -119,9 +126,23 @@ namespace TimbiricheViews.Views
                 movement.EarnedPoints = points;
                 movement.HexadecimalColor = _playerHexadecimalColor;
                 movement.StylePath = _playerStylePath;
+                movement.Username = _username;
 
                 client.EndTurn(_lobbyCode, movement);
             }
+        }
+
+        private string ChooseCorrectStyle(string stylePath, string username)
+        {
+            const string DEFAULT_STYLE = "";
+            const int INDEX_FIRST_LETTER = 0;
+
+            string stylePlayer = stylePath;
+            if (stylePath == DEFAULT_STYLE)
+            {
+                stylePlayer = username[INDEX_FIRST_LETTER].ToString();
+            }
+            return stylePlayer;
         }
 
         private int SetMovement(Button btnLine, String colorPlayer, string stylePath, int row, int column, string typeLine)
@@ -231,21 +252,41 @@ namespace TimbiricheViews.Views
             Rectangle scoringPlayerColor = new Rectangle();
             scoringPlayerColor.Fill = colorBrush;
 
-            Image scoringPlayerImage = new Image();
-            // TODO: Utilities for transform Images
-            BitmapImage bitmapImage = new BitmapImage(new Uri(imageBoardPath, UriKind.RelativeOrAbsolute));
-            scoringPlayerImage.Source = bitmapImage;
-
             Grid containerGrid = new Grid();
             containerGrid.Children.Add(scoringPlayerColor);
-            containerGrid.Children.Add(scoringPlayerImage);
+            SetFaceBoxOnSquareCompleted(imageBoardPath, containerGrid);
 
-            Grid.SetZIndex(scoringPlayerColor, 0);
-            Grid.SetZIndex(scoringPlayerImage, 1);
             Grid.SetRow(containerGrid, row);
             Grid.SetColumn(containerGrid, column);
         
             gridGameBoard.Children.Add(containerGrid);
+
+            SoundsUtilities.PlaySquareCompleteSound();
+        }
+
+        private void SetFaceBoxOnSquareCompleted(string stylePath, Grid containerGrid)
+        {
+            const int DEFAULT_STYLE_LENGTH = 1;
+
+            if (stylePath.Length == DEFAULT_STYLE_LENGTH)
+            {
+                Label lbFacebox = CreateFaceBoxLabel();
+                lbFacebox.Content = stylePath;
+                containerGrid.Children.Add(lbFacebox);
+            }
+            else
+            {
+                Image styleImage = Utilities.CreateImageByPath(stylePath);
+                containerGrid.Children.Add(styleImage);
+            }
+        }
+
+        private Label CreateFaceBoxLabel()
+        {
+            Label lbFacebox= XamlReader.Parse(XamlWriter.Save(lbFaceboxTemplate)) as Label;
+            lbFacebox.IsEnabled = true;
+            lbFacebox.Visibility = Visibility.Visible;
+            return lbFacebox;
         }
     }
 
@@ -253,11 +294,13 @@ namespace TimbiricheViews.Views
     {
         private Match.Timer _matchTimer;
         private Match.Timer _turnTimer;
+        private DispatcherTimer _dispatchTimer;
 
         public void NotifyMovement(Movement movement)
         {
             Button btnLine = FindButtonByName(movement.TypeLine + "_" + movement.Row + "_" + movement.Column);
-            SetMovement(btnLine, movement.HexadecimalColor, movement.StylePath, movement.Row, movement.Column, movement.TypeLine);
+            string stylePlayer = ChooseCorrectStyle(movement.StylePath, movement.Username);
+            SetMovement(btnLine, movement.HexadecimalColor, stylePlayer, movement.Row, movement.Column, movement.TypeLine);
         }
 
         public void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username)
@@ -265,11 +308,11 @@ namespace TimbiricheViews.Views
             _matchTimer = new Match.Timer(matchDurationInMinutes * 60);
             _turnTimer = new Match.Timer(turnDurationInMinutes * 60);
 
-            DispatcherTimer dispatchTimer = new DispatcherTimer();
+            _dispatchTimer = new DispatcherTimer();
             TimeSpan.FromSeconds(1);
 
-            dispatchTimer.Tick += UpdateTimeLabels;
-            dispatchTimer.Start();
+            _dispatchTimer.Tick += UpdateTimeLabels;
+            _dispatchTimer.Start();
 
             _matchTimer.CountDownFinished += OnCountDownMatchFinished;
             _turnTimer.CountDownFinished += OnCountDownTurnFinished;
@@ -297,19 +340,19 @@ namespace TimbiricheViews.Views
 
             int numPlayers = scoreboard.Count();
 
-            SolidColorBrush brushFirstPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[0].Key.HexadecimalColor);
+            SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(scoreboard[0].Key.HexadecimalColor);
             tbxFirstPlaceUsername.Text = scoreboard[0].Key.Username;
             tbxFirstPlacePoints.Text = scoreboard[0].Value.ToString();
             borderFirstPlace.Background = brushFirstPlace;
 
-            SolidColorBrush brushSecondPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[1].Key.HexadecimalColor);
+            SolidColorBrush brushSecondPlace = Utilities.CreateColorFromHexadecimal(scoreboard[1].Key.HexadecimalColor);
             tbxSecondPlaceUsername.Text = scoreboard[1].Key.Username;
             tbxSecondPlacePoints.Text = scoreboard[1].Value.ToString();
             borderSecondPlace.Background = brushSecondPlace;
 
             if (numPlayers  > 2)
             {
-                SolidColorBrush brushThirdPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[2].Key.HexadecimalColor);
+                SolidColorBrush brushThirdPlace = Utilities.CreateColorFromHexadecimal(scoreboard[2].Key.HexadecimalColor);
                 gridThirdPlace.Visibility = Visibility.Visible;
                 tbxThirdPlaceUsername.Text = scoreboard[2].Key.Username;
                 tbxThirdPlacePoints.Text = scoreboard[2].Value.ToString();
@@ -318,7 +361,7 @@ namespace TimbiricheViews.Views
 
             if (numPlayers > 3)
             {
-                SolidColorBrush brushFourthPlace = (SolidColorBrush)new BrushConverter().ConvertFrom(scoreboard[3].Key.HexadecimalColor);
+                SolidColorBrush brushFourthPlace = Utilities.CreateColorFromHexadecimal(scoreboard[3].Key.HexadecimalColor);
                 gridFourthPlace.Visibility = Visibility.Visible;
                 tbxFourthPlaceUsername.Text = scoreboard[3].Key.Username;
                 tbxFourthPlacePoints.Text = scoreboard[3].Value.ToString();
@@ -330,6 +373,7 @@ namespace TimbiricheViews.Views
         {
             _turnTimer.Stop();
             _matchTimer.Stop();
+            _dispatchTimer.Stop();
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
 
@@ -363,7 +407,7 @@ namespace TimbiricheViews.Views
         private void UpdateTurn(string username)
         {
             lbTurnOfUsername.Content = username;
-            _itsMyTurn = (PlayerSingleton.Player.Username == username) ? true : false;
+            _itsMyTurn = (_username == username) ? true : false;
 
             _turnTimer.Reset();
         }
@@ -388,7 +432,7 @@ namespace TimbiricheViews.Views
         {
             if(tbxMessage.Text != null && tbxMessage.Text.Length != 0)
             {
-                string senderUsername = PlayerSingleton.Player.Username;
+                string senderUsername = _username;
                 string message = tbxMessage.Text;
                 bool isMessageReceived = false;
 

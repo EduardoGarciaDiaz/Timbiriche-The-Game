@@ -220,7 +220,7 @@
 
                 <Button x:Name="btnVerticalLineTemplate" Click="BtnLine_Click" Grid.Column="0" Content="" HorizontalAlignment="Left" VerticalAlignment="Center" Height="67" Width="8" Background="Transparent" BorderBrush="{x:Null}" Margin="-4,1.5,0,0" Visibility="Hidden" IsEnabled="False"/>
                 <Button x:Name="btnHorizontalLineTemplate" Click="BtnLine_Click" Grid.Row="0" Content=""  HorizontalAlignment="Center" VerticalAlignment="Top" Height="8" Width="66" Background="Transparent" BorderBrush="{x:Null}" Margin="0,-4,0,0" Visibility="Hidden" IsEnabled="False"/>
-
+                <Label x:Name="lbFaceboxTemplate" FontFamily="Inter" FontSize="50" Foreground="White" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,-3,0,0" Visibility="Collapsed" IsEnabled="False"></Label>
             </Grid>
 
             <Grid x:Name="gridChat" Margin="776,352,42,36">
@@ -243,7 +243,7 @@
                 <Button Background="Transparent" Margin="313,330,16,14" Click="BtnSendMessage_Click" Focusable="False" BorderBrush="Transparent"/>
                 <Rectangle Fill="White" Margin="21,330,76,14" RadiusX="18" RadiusY="18"/>
                 <TextBox x:Name="tbxMessage" FontFamily="Inter" FontSize="16"
-                    VerticalContentAlignment="Center" Margin="31,330,92,14" Background="Transparent" BorderBrush="Transparent"/>
+                    VerticalContentAlignment="Center" Margin="21,330,76,14" Background="Transparent" BorderBrush="Transparent"/>
             </Grid>
 
             <Grid x:Name="gridScoreboard" Margin="776,30,42,431">
@@ -322,7 +322,7 @@
 
                 <Rectangle Grid.Column="1" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,10,0"/>
                 <Image Grid.Column="1" Source="../Resources/TimerIcon.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,5,0,5" Width="34"/>
-                <Label x:Name="lbMatchTime" Grid.Column="1" FontFamily="Titan One" Foreground="White" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="48,0,0,0" Height="30" Width="63"></Label>
+                <Label x:Name="lbMatchTime" Grid.Column="1" FontFamily="Titan One" Foreground="White" FontSize="18" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="48,0,0,0" Height="30" Width="70"></Label>
 
                 <Rectangle Grid.Column="2" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>
                 <Label Grid.Column="2" FontFamily="Titan One" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Height="38" Width="162">TIMBIRICHE</Label>

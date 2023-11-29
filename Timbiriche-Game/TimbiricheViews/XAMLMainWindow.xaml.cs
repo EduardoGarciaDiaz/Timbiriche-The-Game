@@ -14,6 +14,7 @@ using System.Windows.Interop;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using TimbiricheViews.Player;
 using TimbiricheViews.Utils;
 using TimbiricheViews.Views;
 
@@ -39,7 +40,13 @@ namespace TimbiricheViews
                     XAMLLobby lobby = (XAMLLobby)currentPage;
                     lobby.BtnCloseWindow_Click();
                 }
+                if (currentPage is XAMLGlobalScoreboard)
+                {
+                    XAMLGlobalScoreboard globalScoreboard = (XAMLGlobalScoreboard)currentPage;
+                    globalScoreboard.BtnCloseWindow_Click();
+                }
             }
+            PlayerSingleton.Player = null;
             LoggerManager.CloseAndFlush();
         }
 

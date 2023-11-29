@@ -112,12 +112,22 @@
     <Compile Include="Match\Timer.cs" />
     <Compile Include="Utils\EmergentWindows.cs" />
     <Compile Include="Utils\LoggerManager.cs" />
+    <Compile Include="Utils\SoundsUtilities.cs" />
     <Compile Include="Utils\ValidationUtilities.cs" />
     <Compile Include="Views\XAMLBan.xaml.cs">
       <DependentUpon>XAMLBan.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLGlobalScoreboard.xaml.cs">
+      <DependentUpon>XAMLGlobalScoreboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLJoinGuest.xaml.cs">
+      <DependentUpon>XAMLJoinGuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\XAMLGuestLobby.xaml.cs">
+      <DependentUpon>XAMLGuestLobby.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\XAMLMyProfile.xaml.cs">
       <DependentUpon>XAMLMyProfile.xaml</DependentUpon>
@@ -182,6 +192,18 @@
     <Page Include="Views\XAMLGameBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLGlobalScoreboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\XAMLJoinGuest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\XAMLGuestLobby.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\XAMLMyProfile.xaml">
       <SubType>Designer</SubType>
@@ -276,7 +298,13 @@
     <None Include="Connected Services\Server\item4.xsd">
       <SubType>Designer</SubType>
     </None>
+    <None Include="Connected Services\Server\item5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.BanInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.GlobalScore.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
@@ -435,6 +463,14 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scoreboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\Sounds\clic.wav" />
+    <Content Include="Resources\Sounds\clicLine.wav" />
+    <Content Include="Resources\Sounds\squareComplete.wav" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

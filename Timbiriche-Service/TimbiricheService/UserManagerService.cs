@@ -1,5 +1,8 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
@@ -8,13 +11,17 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
+using TimbiricheService.Utils;
 
 namespace TimbiricheService
 {
     public partial class UserManagerService : IUserManager
     {
-        const int DEFAULT_ID_COLOR_SELECTED = 0;
+        private ILogger _logger = LoggerManager.GetLogger();
+        private const int DEFAULT_ID_COLOR_SELECTED = 0;
 
         public int AddUser(Player player)
         {
@@ -46,6 +53,7 @@ namespace TimbiricheService
                 if  (rowsAffectedPlayerStyles > 0)
                 {
                     SetDefaultColors(newPlayer);
+                    AddNewPlayerToGlobalScores(newPlayer.idPlayer);
                 }
             }
             return rowsAffected;
@@ -72,40 +80,61 @@ namespace TimbiricheService
             }
         }
 
+        private void AddNewPlayerToGlobalScores(int idPlayer)
+        {
+            const int DEFAULT_NUMBER_OF_WINS = 0;
+            UserManagement dataAccess = new UserManagement();
+            GlobalScores newScore = new GlobalScores();
+            newScore.idPlayer = idPlayer;
+            newScore.winsNumber = DEFAULT_NUMBER_OF_WINS;
+            dataAccess.AddToGlobalScoreboards(newScore);
+        }
+
         public Player ValidateLoginCredentials(String username, String password)
         {
+            Player player = null;
             UserManagement dataAccess = new UserManagement();
-            Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
-            if (playerValidated != null)
+            try
             {
-                Accounts accountValidated = playerValidated.Accounts;
-                Account account = new Account
+                Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
+                if (playerValidated != null)
                 {
-                    IdAcccount = accountValidated.idAccount,
-                    Name = accountValidated.name,
-                    LastName = accountValidated.lastName,
-                    Surname = accountValidated.surname,
-                    Birthdate = accountValidated.birthdate
-                };
+                    Accounts accountValidated = playerValidated.Accounts;
+                    Account account = new Account
+                    {
+                        IdAcccount = accountValidated.idAccount,
+                        Name = accountValidated.name,
+                        LastName = accountValidated.lastName,
+                        Surname = accountValidated.surname,
+                        Birthdate = accountValidated.birthdate
+                    };
 
-                Player player = new Player
-                {
-                    IdPlayer = playerValidated.idPlayer,
-                    Username = playerValidated.username,
-                    Email = playerValidated.email,
-                    Password = playerValidated.password,
-                    Coins = (int)playerValidated.coins,
-                    Status = playerValidated.status,
-                    Salt = playerValidated.salt,
-                    IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
-                    IdStyleSelected = (int)playerValidated.idStyleSelected,
-                    AccountFK = account,
-                };
-
-                return player;
+                    player = new Player
+                    {
+                        IdPlayer = playerValidated.idPlayer,
+                        Username = playerValidated.username,
+                        Email = playerValidated.email,
+                        Password = playerValidated.password,
+                        Coins = (int)playerValidated.coins,
+                        Status = playerValidated.status,
+                        Salt = playerValidated.salt,
+                        IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                        IdStyleSelected = (int)playerValidated.idStyleSelected,
+                        AccountFK = account,
+                    };
+                }
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return null;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
+            return player;
         }
 
         public Player GetPlayerByIdPlayer(int idPlayer)
@@ -163,6 +192,13 @@ namespace TimbiricheService
             int rowsAffected = dataAccess.UpdateAccount(editedAccount);
 
             return rowsAffected;
+        }
+
+        public string GetUsernameByIdPlayer(int idPlayer)
+        {
+            UserManagement dataAccess = new UserManagement();
+            string username = dataAccess.GetUsernameByIdPlayer(idPlayer);
+            return username;
         }
     }
 

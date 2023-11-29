@@ -6,6 +6,7 @@ using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -15,6 +16,7 @@ namespace TimbiricheService
         [OperationContract]
         int AddUser(Player player);
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         Player ValidateLoginCredentials(String username, String password);
         [OperationContract]
         Player GetPlayerByIdPlayer(int idPlayer);
@@ -22,6 +24,8 @@ namespace TimbiricheService
         bool ValidateUniqueIdentifierUser(String identifier);
         [OperationContract]
         int UpdateAccount(Account account);
+        [OperationContract]
+        string GetUsernameByIdPlayer(int idPlayer);
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]

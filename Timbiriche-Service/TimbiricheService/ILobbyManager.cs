@@ -8,6 +8,13 @@ using System.Runtime.Serialization;
 
 namespace TimbiricheService
 {
+    [ServiceContract]
+    public interface ILobbyExistenceChecker
+    {
+        [OperationContract]
+        bool ExistLobbyCode(string lobbyCode);
+    }
+
     [ServiceContract(CallbackContract = typeof(ILobbyManagerCallback))]
     public interface ILobbyManager
     {

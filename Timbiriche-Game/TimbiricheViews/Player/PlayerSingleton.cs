@@ -25,10 +25,7 @@ namespace TimbiricheViews.Player
 
             set
             {
-                if(_player == null)
-                {
-                    _player = value;
-                }
+                _player = value;
             }
         }
 

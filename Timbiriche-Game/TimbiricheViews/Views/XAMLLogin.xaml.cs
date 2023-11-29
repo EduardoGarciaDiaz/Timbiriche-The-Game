@@ -37,10 +37,10 @@ namespace TimbiricheViews.Views
 
         private void ChangeLanguage()
         {
-            string language = "";
             string spanishMXLanguage = "es-MX";
             string englishUSLanguage = "en";
-            
+            string language = "";
+
             if (lbLanguage.Content.Equals("Español"))
             {
                 language = englishUSLanguage;
@@ -95,7 +95,7 @@ namespace TimbiricheViews.Views
             lbIncorrectCredentials.Visibility = Visibility.Hidden;
         }
 
-        private void OnClickChangeLanguage(object sender, MouseButtonEventArgs e)
+        private void RectangleChangeLanguage_Click(object sender, MouseButtonEventArgs e)
         {
             ChangeLanguage();            
         }
@@ -109,25 +109,40 @@ namespace TimbiricheViews.Views
 
                 try
                 {
-                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text.Trim(), pwBxPassword.Password.Trim());
                 }
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    _logger.Error(ex.StackTrace);
+                    _logger.Error(ex.Message + "\n" + ex.StackTrace);
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
+                    //TODO: log
                 }
-                /*catch (CommunicationException ex)
+                catch (FaultException<TimbiricheServerException> ex)
                 {
-                    //TODO: Show emergent window
+                    //TODO: Show emergent window and log
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                }
+                catch (FaultException ex)
+                {
+                    //TODO: Show emergent window and log
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                }
+                catch (CommunicationException ex)
+                {
+                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                    //TODO: Show emergent window and log
+
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Show emergent window...Ups has ocurried an unexpected error. Please try again later
-                }*/
+                    //TODO: Show emergent window and log...Ups has ocurried an unexpected error. Please try again later
+                    Console.WriteLine("Upss... Ocurrió un error inesperado. Por favor, intentelo más tarde");
+                    _logger.Fatal(ex.StackTrace);
+                }
 
                 if (playerLogged != null)
                 {
@@ -148,7 +163,6 @@ namespace TimbiricheViews.Views
                     lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }
             }
-            
         }
 
         private bool ValidatePlayerIsNotBanned(Server.Player player)
@@ -187,9 +201,8 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(tbxUsername.Text))
             {
                 tbxUsername.Text = (string) tbxUsername.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-                tbxUsername.Foreground = placeholderBrush;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                tbxUsername.Foreground = placeholderColor;
                 tbxUsername.FontFamily = new FontFamily(MAIN_FONT);
             }
         }
@@ -208,15 +221,50 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(pwBxPassword.Password))
             {
                 pwBxPassword.Password = (string)pwBxPassword.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
-                pwBxPassword.Foreground = placeholderBrush;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                pwBxPassword.Foreground = placeholderColor;
+            }
+        }
+
+        private void TbxJoinByCode_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (tbxJoinByCode.Text == (string)tbxJoinByCode.Tag)
+            {
+                tbxJoinByCode.Text = string.Empty;
+                tbxJoinByCode.Foreground = Brushes.Black;
+            }
+        }
+
+        private void TbxJoinByCode_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbxJoinByCode.Text))
+            {
+                tbxJoinByCode.Text = (string)tbxJoinByCode.Tag;
+                SolidColorBrush placeholderColor = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
+                tbxJoinByCode.Foreground = placeholderColor;
             }
         }
 
         private void BtnForgottenPassword_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLPasswordReset());
+        }
+
+        private void BtnJoin_Click(object sender, RoutedEventArgs e)
+        {
+            string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
+            Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
+            bool existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+            if (existLobby)
+            {
+                NavigationService.Navigate(new XAMLJoinGuest(lobbyCode));
+            } 
+            else
+            {
+                string title = "Lobby no encontrado";
+                string message = "El lobby al que estas intentando entrar no existe.";
+                EmergentWindows.CreateEmergentWindow(title, message);
+            }
         }
     }
 }

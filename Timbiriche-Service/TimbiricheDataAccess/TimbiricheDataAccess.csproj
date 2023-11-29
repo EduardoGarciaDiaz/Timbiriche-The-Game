@@ -61,6 +61,7 @@
     </Reference>
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -80,10 +81,15 @@
     <Compile Include="Colors.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Exceptions\DataAccessException.cs" />
     <Compile Include="FriendRequestManagement.cs" />
     <Compile Include="FriendShips.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="GlobalScores.cs">
+      <DependentUpon>TimbiricheModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GlobalScoresManagement.cs" />
     <Compile Include="PasswordResetManagement.cs" />
     <Compile Include="PasswordResetTokens.cs">
       <DependentUpon>TimbiricheModel.tt</DependentUpon>

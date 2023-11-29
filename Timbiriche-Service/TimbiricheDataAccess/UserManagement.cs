@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
+using System.Data.SqlClient;
+using System.ServiceModel;
+using TimbiricheDataAccess.Exceptions;
 
 namespace TimbiricheDataAccess
 {
@@ -100,27 +103,73 @@ namespace TimbiricheDataAccess
             return -1;
         }
 
-        public Players ValidateLoginCredentials(string username, string password)
+        public int AddToGlobalScoreboards(GlobalScores globalScore)
         {
-            using (var context = new TimbiricheDBEntities())
+            int response = -1;
+            if (globalScore != null)
             {
-                var playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
-            
-                if (playerData != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    PasswordHashManager passwordHashManager = new PasswordHashManager();
-                    var playerPassword = playerData.password;
-                    if (playerData.Accounts != null)
+                    var newGlobalScore = context.GlobalScores.Add(globalScore);
+                    try
                     {
-                        var accountEntry = playerData.Accounts;
+                        response = context.SaveChanges();
                     }
-                    if (passwordHashManager.VerifyPassword(password, playerPassword))
+                    catch (DbEntityValidationException ex)
                     {
-                        return playerData;
+                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                        {
+                            foreach (var validationError in entityValidationErrors.ValidationErrors)
+                            {
+                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                            }
+                        }
                     }
                 }
-                 return null;
             }
+            return response;
+        }
+
+        public Players ValidateLoginCredentials(string username, string password)
+        {
+            Players playerData = null;
+            try
+            {
+                using (var context = new TimbiricheDBEntities())
+                {
+                    playerData = context.Players.Include("Accounts").SingleOrDefault(player => player.username == username);
+                }
+            } 
+            catch (EntityException ex)
+            {
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                throw new DataAccessException(ex.Message);
+            }
+
+            if (playerData != null)
+            {
+                PasswordHashManager passwordHashManager = new PasswordHashManager();
+                var playerPassword = playerData.password;
+
+                if (playerData.Accounts != null)
+                {
+                    var accountEntry = playerData.Accounts;
+                }
+
+                if (!passwordHashManager.VerifyPassword(password, playerPassword))
+                {
+                    playerData = null;
+                }
+            }
+
+            return playerData;
         }
 
         public Players GetPlayerByIdPlayer(int idPlayer)
@@ -136,6 +185,7 @@ namespace TimbiricheDataAccess
         public bool ExistUserIdenitifier(string identifier)
         {
             bool identifierExist = false;
+
             using(var context = new TimbiricheDBEntities())
             {
                 var players = (from p in context.Players
@@ -143,43 +193,51 @@ namespace TimbiricheDataAccess
                                select p).ToList();
                 identifierExist = players.Any();
             }
+
             return identifierExist;
         }
 
         public int GetIdPlayerByEmail(string email)
         {
             int idPlayer = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var query = from p in context.Players
                             where p.email == email
                             select p;
                 var player = query.SingleOrDefault();
+
                 if (player != null)
                 {
                     idPlayer = player.idPlayer;
                 }
             }
+
             return idPlayer;
         }
 
         public int GetIdPlayerByUsername(string username)
         {
             int idPlayer = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players
                     .FirstOrDefault(p => p.username == username);
+
                 if (player != null) {
                     idPlayer = player.idPlayer;
                 }
             }
+
             return idPlayer;
         }
 
         public string GetUsernameByIdPlayer(int idPlayer)
         {
             string username = string.Empty;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players
@@ -196,18 +254,23 @@ namespace TimbiricheDataAccess
 
         public int UpdateAccount(Accounts editedAccount)
         {
+            int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities()){
                 var account = context.Accounts.FirstOrDefault(a => a.idAccount == editedAccount.idAccount);
+
                 if (account != null)
                 {
                     account.name = editedAccount.name;
                     account.surname = editedAccount.surname;
                     account.lastName = editedAccount.lastName;
                     account.birthdate = editedAccount.birthdate;
-                    return context.SaveChanges();
+
+                    rowsAffected = context.SaveChanges();
                 }
             }
-            return -1;
+
+            return rowsAffected;
         }
     }
 }

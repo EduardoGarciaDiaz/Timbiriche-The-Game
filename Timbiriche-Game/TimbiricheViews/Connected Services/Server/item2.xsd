@@ -56,6 +56,7 @@
       <xs:element minOccurs="0" name="Row" type="xs:int" />
       <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="TypeLine" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="Movement" nillable="true" type="tns:Movement" />

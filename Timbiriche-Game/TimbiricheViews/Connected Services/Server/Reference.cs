@@ -313,6 +313,67 @@ namespace TimbiricheViews.Server {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+    [System.SerializableAttribute()]
+    public partial class TimbiricheServerException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string MessageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StackTraceField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Message {
+            get {
+                return this.MessageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.MessageField, value) != true)) {
+                    this.MessageField = value;
+                    this.RaisePropertyChanged("Message");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StackTrace {
+            get {
+                return this.StackTraceField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StackTraceField, value) != true)) {
+                    this.StackTraceField = value;
+                    this.RaisePropertyChanged("StackTrace");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="LobbyInformation", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
     [System.SerializableAttribute()]
     public partial class LobbyInformation : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -508,6 +569,9 @@ namespace TimbiricheViews.Server {
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string TypeLineField;
         
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string UsernameField;
+        
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
             get {
@@ -592,6 +656,19 @@ namespace TimbiricheViews.Server {
                 if ((object.ReferenceEquals(this.TypeLineField, value) != true)) {
                     this.TypeLineField = value;
                     this.RaisePropertyChanged("TypeLine");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string Username {
+            get {
+                return this.UsernameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.UsernameField, value) != true)) {
+                    this.UsernameField = value;
+                    this.RaisePropertyChanged("Username");
                 }
             }
         }
@@ -1050,6 +1127,8 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerException" +
+            "Fault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.Player ValidateLoginCredentials(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
@@ -1072,6 +1151,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/UpdateAccount", ReplyAction="http://tempuri.org/IUserManager/UpdateAccountResponse")]
         System.Threading.Tasks.Task<int> UpdateAccountAsync(TimbiricheViews.Server.Account account);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
+        string GetUsernameByIdPlayer(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
+        System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1139,6 +1224,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<int> UpdateAccountAsync(TimbiricheViews.Server.Account account) {
             return base.Channel.UpdateAccountAsync(account);
+        }
+        
+        public string GetUsernameByIdPlayer(int idPlayer) {
+            return base.Channel.GetUsernameByIdPlayer(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer) {
+            return base.Channel.GetUsernameByIdPlayerAsync(idPlayer);
         }
     }
     

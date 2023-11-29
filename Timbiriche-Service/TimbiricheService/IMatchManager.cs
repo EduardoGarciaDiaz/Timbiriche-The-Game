@@ -49,6 +49,7 @@ namespace TimbiricheService
         private int _earnedPoints;
         private string _hexadecimalColor;
         private string _stylePath;
+        private string _username;
 
         [DataMember]
         public string TypeLine { get { return _typeline; } set { _typeline = value; } }
@@ -62,5 +63,7 @@ namespace TimbiricheService
         public string HexadecimalColor { get {  return _hexadecimalColor; } set { _hexadecimalColor = value; } }
         [DataMember]
         public string StylePath { get { return _stylePath; } set { _stylePath = value; } }
+        [DataMember]
+        public string Username { get { return _username; } set { _username = value; } }
     }
 }

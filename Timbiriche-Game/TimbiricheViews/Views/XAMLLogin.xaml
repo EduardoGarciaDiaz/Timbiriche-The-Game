@@ -99,15 +99,16 @@
 
             <Label FontFamily="Inter" Foreground="White" HorizontalAlignment="Left" 
             VerticalAlignment="Top" FontSize="18" Content="{x:Static p:Resources.lbAnyCode}" Margin="338,421,0,0" Width="206" HorizontalContentAlignment="Center" Grid.Row="1"></Label>
-            <TextBox Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD" VerticalContentAlignment="Center" Margin="544,415,465,96" Grid.Row="1"/>
-            <Button Background="#7F92F6" Foreground="White" BorderThickness="0"
+            <TextBox x:Name="tbxJoinByCode" Text="{x:Static p:Resources.tbxExampleCode}" FontFamily="Titan One" FontSize="22" Foreground="#CDCDCD" VerticalContentAlignment="Center" Margin="544,415,465,96" Grid.Row="1"
+                     Tag="{x:Static p:Resources.tbxExampleCode}" GotFocus="TbxJoinByCode_GotFocus" LostFocus="TbxJoinByCode_LostFocus"/>
+            <Button Background="#7F92F6" Foreground="White" BorderThickness="0" Click="BtnJoin_Click"
             FontFamily="Titan One" FontSize="18" Content="{x:Static p:Resources.btnJoin}" Margin="740,415,360,96" Grid.Row="1" Cursor="Hand" ></Button>
 
             <Rectangle Fill="#359EFF" RadiusX="10" RadiusY="10" Margin="1061,395,30,66" Grid.Row="1" />
             <Image x:Name="imgUsaFlag" Visibility="Hidden" Source="/Resources/usaFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="57" Width="80" Margin="1077,404,0,0" Grid.Row="1"/>
             <Image x:Name="imgMexicoFlag" Visibility="Visible" Source="/Resources/mexicoFlag.png" HorizontalAlignment="Left" VerticalAlignment="Top" Height="59" Width="85" Margin="1077,402,0,0" Grid.Row="1"/>
             <Label Name="lbLanguage" Foreground="White" FontFamily="Titan One" HorizontalContentAlignment="Center" FontSize="18" Content="{x:Static p:Resources.lbLanguage}" Margin="1054,458,20,63" Grid.Row="1"></Label>
-            <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="OnClickChangeLanguage" Cursor="Hand" Margin="1061,395,30,66" Grid.Row="1" />
+            <Rectangle Fill="Transparent" RadiusX="10" RadiusY="10" MouseLeftButtonDown="RectangleChangeLanguage_Click" Cursor="Hand" Margin="1061,395,30,66" Grid.Row="1" />
             <Label x:Name="lbIncorrectCredentials" Content="{x:Static p:Resources.lbIncorrectCredentials}" Visibility="Collapsed" HorizontalAlignment="Left" Margin="416,208,0,0" Grid.Row="1" VerticalAlignment="Top" Width="374" FontFamily="Inter" FontSize="14" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFFF5959"/>
         </Grid>
     </Viewbox>

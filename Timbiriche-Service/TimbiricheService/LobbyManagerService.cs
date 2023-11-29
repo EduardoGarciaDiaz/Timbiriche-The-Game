@@ -8,6 +8,20 @@ using TimbiricheService.Match;
 
 namespace TimbiricheService
 {
+
+    public partial class UserManagerService : ILobbyExistenceChecker
+    {
+        public bool ExistLobbyCode(string lobbyCode)
+        {
+            bool existLobby = false;
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                existLobby = true;
+            }
+            return existLobby;
+        }
+    }
+
     public partial class UserManagerService : ILobbyManager
     {
         private static Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();

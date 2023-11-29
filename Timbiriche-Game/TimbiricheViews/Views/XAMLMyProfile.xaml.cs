@@ -31,10 +31,8 @@ namespace TimbiricheViews.Views
         private const string SELECTED_STROKE_STYLE_HEXADECIMAL = "#000000";
         private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
         private const string HEXADECIMAL_COLOR_BTN_NOT_PRESSED = "#1C95D1";
-        private SolidColorBrush colorButtonPressed = (SolidColorBrush)(new BrushConverter()
-            .ConvertFrom(HEXADECIMAL_COLOR_BTN_PRESSED));
-        private SolidColorBrush colorButtonNotPressed = (SolidColorBrush)(new BrushConverter()
-            .ConvertFrom(HEXADECIMAL_COLOR_BTN_NOT_PRESSED));
+        private SolidColorBrush colorButtonPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_PRESSED);
+        private SolidColorBrush colorButtonNotPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_NOT_PRESSED);
 
         public XAMLMyProfile()
         {
