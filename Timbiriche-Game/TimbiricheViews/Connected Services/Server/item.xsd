@@ -824,73 +824,62 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="ExistLobbyCode">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="ExistLobbyCodeResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element minOccurs="0" name="ExistLobbyCodeResult" type="xs:boolean" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGlobalScores">
-    <xs:complexType>
-      <xs:sequence />
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="GetGlobalScoresResponse">
-    <xs:complexType>
-      <xs:sequence>
-        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetGlobalScoresResult" nillable="true" type="q27:ArrayOfGlobalScore" />
-      </xs:sequence>
-    </xs:complexType>
-  </xs:element>
-  <xs:element name="UpdateWins">
+  <xs:element name="GetColors">
     <xs:complexType>
       <xs:sequence>
         <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateWinsResponse">
+  <xs:element name="GetColorsResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="UpdateWinsResult" type="xs:int" />
+        <xs:element xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetColorsResult" nillable="true" type="q27:ArrayOfShopColor" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="SubscribeToGlobalScoreRealTime">
+  <xs:element name="GetStyles">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="usernameCurrentPlayer" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UnsubscribeToGlobalScoreRealTime">
+  <xs:element name="GetStylesResponse">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="usernameCurrentPlayer" nillable="true" type="xs:string" />
+        <xs:element xmlns:q28="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="GetStylesResult" nillable="true" type="q28:ArrayOfShopStyle" />
       </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="UpdateGlobalScore">
+  <xs:element name="BuyColor">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q29="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="color" nillable="true" type="q29:ShopColor" />
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="NotifyGlobalScoreboardUpdated">
+  <xs:element name="BuyColorResponse">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element minOccurs="0" name="BuyColorResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
-  <xs:element name="NotifyGlobalScoreboardUpdatedResponse">
+  <xs:element name="BuyStyle">
     <xs:complexType>
-      <xs:sequence />
+      <xs:sequence>
+        <xs:element xmlns:q30="http://schemas.datacontract.org/2004/07/TimbiricheService" minOccurs="0" name="style" nillable="true" type="q30:ShopStyle" />
+        <xs:element minOccurs="0" name="idPlayer" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="BuyStyleResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="BuyStyleResult" type="xs:boolean" />
+      </xs:sequence>
     </xs:complexType>
   </xs:element>
 </xs:schema>

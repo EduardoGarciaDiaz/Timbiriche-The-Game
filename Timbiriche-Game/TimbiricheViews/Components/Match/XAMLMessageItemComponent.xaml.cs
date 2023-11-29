@@ -64,7 +64,6 @@ namespace TimbiricheViews.Components.Match
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
-            DateTime currentDateTime = DateTime.Now;
 
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);

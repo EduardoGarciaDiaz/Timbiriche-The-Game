@@ -41,19 +41,19 @@
             <Label  Content="{x:Static p:Resources.lbColors}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 FontSize="24" Margin="307,187,0,0" ></Label>
             <Grid Margin="307,229,304,336" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                    <Grid Width="82" Margin="0,10,15,15" Height="173">
-                        <Rectangle Fill="Red" Margin="0,0,0,95"  RadiusX="9" RadiusY="9"/>
-                        <Rectangle Fill="Green" Margin="0,95,0,0" RadiusX="9" RadiusY="9"/>
-                    </Grid>
-                    <Grid Width="82" Margin="0,10,15,15" Height="173">
-                        <Rectangle Fill="Red" Margin="0,0,0,95"  RadiusX="9" RadiusY="9"/>
-                    </Grid>
-                </StackPanel>
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,-15">
+                    <StackPanel Orientation="Horizontal" x:Name="stackPanelColors">
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
             <Label  Content="{x:Static p:Resources.lbStyles}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
-                FontSize="24" Margin="307,439,0,0" ></Label>
-
+                FontSize="24" Margin="307,451,0,0" ></Label>
+            <Grid Margin="307,493,304,72" Background="Transparent">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled" Margin="0,0,0,-15">
+                    <StackPanel Orientation="Horizontal" x:Name="stackPanelStyles">
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </Viewbox>
 </Page>

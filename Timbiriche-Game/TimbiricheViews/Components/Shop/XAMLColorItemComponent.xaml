@@ -4,8 +4,22 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:TimbiricheViews.Components.Shop"
-             mc:Ignorable="d" d:DesignWidth="79" Height="178">
+             mc:Ignorable="d" d:DesignWidth="78" Height="82">
     <Grid>
-        <Rectangle Fill="Red" Margin="0,0,0,95" Height="82" Width="78" RadiusX="9" RadiusY="9"/>
+        <Grid>
+            <Rectangle x:Name="rectangleColor" Fill="Red" Height="75" Width="75" RadiusX="9" RadiusY="9" Margin="2" MouseEnter="RectangleColor_MouseEnter"/>
+            <Grid x:Name="gridBuyColor" Visibility="Collapsed" MouseLeave="GridBuyColor_MouseLeave">
+                <Rectangle Fill="#59000000" Height="75" Width="75" RadiusX="9" RadiusY="9" Margin="2"/>
+                <Image Source="../../Resources/coins.png" Height="18" Width="18" HorizontalAlignment="Left" Margin="10,23,0,41" />
+                <Label x:Name="lbColorCost" Content="800" FontFamily="Titan One" Foreground="White" VerticalAlignment="Top" HorizontalAlignment="Left" HorizontalContentAlignment="Center" Margin="28,20,0,0"/>
+                <Rectangle Fill="#FFBB00" Margin="8,50,8,10" RadiusX="9" RadiusY="9"/>
+                <Button Content="Comprar" Margin="8,50,8,10" Background="Transparent" FontFamily="Titan One" Foreground="White" BorderBrush="Transparent" Click="BtnBuyColor_Click"/>
+            </Grid>
+
+            <Grid x:Name="gridOwnedColor" Visibility="Collapsed">
+                <Rectangle Fill="#59000000" Height="75" Width="75" RadiusX="9" RadiusY="9" Margin="2"/>
+                <Label  Content="Comprado" FontFamily="Titan One" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"/>
+            </Grid>
+        </Grid>
     </Grid>
 </UserControl>
