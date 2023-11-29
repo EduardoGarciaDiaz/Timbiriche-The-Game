@@ -163,9 +163,9 @@ namespace TimbiricheDataAccess
                     var accountEntry = playerData.Accounts;
                 }
 
-                if (passwordHashManager.VerifyPassword(password, playerPassword))
+                if (!passwordHashManager.VerifyPassword(password, playerPassword))
                 {
-                    return playerData;
+                    playerData = null;
                 }
             }
 

@@ -294,6 +294,7 @@ namespace TimbiricheViews.Views
     {
         private Match.Timer _matchTimer;
         private Match.Timer _turnTimer;
+        private DispatcherTimer _dispatchTimer;
 
         public void NotifyMovement(Movement movement)
         {
@@ -307,11 +308,11 @@ namespace TimbiricheViews.Views
             _matchTimer = new Match.Timer(matchDurationInMinutes * 60);
             _turnTimer = new Match.Timer(turnDurationInMinutes * 60);
 
-            DispatcherTimer dispatchTimer = new DispatcherTimer();
+            _dispatchTimer = new DispatcherTimer();
             TimeSpan.FromSeconds(1);
 
-            dispatchTimer.Tick += UpdateTimeLabels;
-            dispatchTimer.Start();
+            _dispatchTimer.Tick += UpdateTimeLabels;
+            _dispatchTimer.Start();
 
             _matchTimer.CountDownFinished += OnCountDownMatchFinished;
             _turnTimer.CountDownFinished += OnCountDownTurnFinished;
@@ -372,6 +373,7 @@ namespace TimbiricheViews.Views
         {
             _turnTimer.Stop();
             _matchTimer.Stop();
+            _dispatchTimer.Stop();
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
 

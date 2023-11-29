@@ -109,7 +109,7 @@ namespace TimbiricheViews.Views
 
                 try
                 {
-                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text, pwBxPassword.Password);
+                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text.Trim(), pwBxPassword.Password.Trim());
                 }
                 catch (EndpointNotFoundException ex)
                 {

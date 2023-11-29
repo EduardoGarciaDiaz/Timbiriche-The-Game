@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -13,12 +14,14 @@ using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
 using TimbiricheService.Exceptions;
+using TimbiricheService.Utils;
 
 namespace TimbiricheService
 {
     public partial class UserManagerService : IUserManager
     {
-        const int DEFAULT_ID_COLOR_SELECTED = 0;
+        private ILogger _logger = LoggerManager.GetLogger();
+        private const int DEFAULT_ID_COLOR_SELECTED = 0;
 
         public int AddUser(Player player)
         {
