@@ -89,8 +89,8 @@
     <Compile Include="Components\Shop\XAMLColorItemComponent.xaml.cs">
       <DependentUpon>XAMLColorItemComponent.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Components\Shop\XAMLColorWrapComponent.xaml.cs">
-      <DependentUpon>XAMLColorWrapComponent.xaml</DependentUpon>
+    <Compile Include="Components\Shop\XAMLStyleItemComponent.xaml.cs">
+      <DependentUpon>XAMLStyleItemComponent.xaml</DependentUpon>
     </Compile>
     <Compile Include="Components\XAMLFriendRequestItemComponent.xaml.cs">
       <DependentUpon>XAMLFriendRequestItemComponent.xaml</DependentUpon>
@@ -166,10 +166,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Components\Shop\XAMLColorItemComponent.xaml">
-      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="Components\Shop\XAMLColorWrapComponent.xaml">
+    <Page Include="Components\Shop\XAMLStyleItemComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,6 +316,12 @@
     <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerStyle.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopColor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopStyle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\Server\UserManagerService.wsdl" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -435,24 +441,6 @@
     <Resource Include="Resources\rejectFriendRequestIcon.png.png" />
   </ItemGroup>
   <ItemGroup>
-    <WCFMetadataStorage Include="Connected Services\Server\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\item.disco" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Connected Services\Server\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\messageReport.png" />
   </ItemGroup>
   <ItemGroup>
@@ -462,9 +450,19 @@
     <Resource Include="Resources\scoreboardIcon.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\Server\item.disco" />
+    <None Include="Connected Services\Server\configuration91.svcinfo" />
+    <None Include="Connected Services\Server\configuration.svcinfo" />
+    <None Include="Connected Services\Server\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
     <Content Include="Resources\Sounds\clic.wav" />
     <Content Include="Resources\Sounds\clicLine.wav" />
     <Content Include="Resources\Sounds\squareComplete.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Server\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

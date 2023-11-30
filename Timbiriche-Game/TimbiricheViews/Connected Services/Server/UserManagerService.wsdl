@@ -493,6 +493,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IShopManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -593,6 +622,12 @@
   <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinLobby" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
   </wsdl:message>
@@ -616,6 +651,12 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobbyResponse" />
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyStartOfMatch" />
@@ -902,6 +943,30 @@
   <wsdl:message name="IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyGlobalScoreboardUpdatedResponse" />
   </wsdl:message>
+  <wsdl:message name="IShopManager_GetColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetColors" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetStyles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStyles" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetStyles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColor" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyle" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyleResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -973,6 +1038,10 @@
     <wsdl:operation name="JoinLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
@@ -988,6 +1057,10 @@
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyStartOfMatch">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" message="tns:ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage" />
@@ -1225,6 +1298,24 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdatedResponse" message="tns:IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="IShopManager">
+    <wsdl:operation name="GetColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetColors" message="tns:IShopManager_GetColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetColorsResponse" message="tns:IShopManager_GetColors_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStyles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetStyles" message="tns:IShopManager_GetStyles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetStylesResponse" message="tns:IShopManager_GetStyles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyColor" message="tns:IShopManager_BuyColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyColorResponse" message="tns:IShopManager_BuyColor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyStyle" message="tns:IShopManager_BuyStyle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyStyleResponse" message="tns:IShopManager_BuyStyle_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IUserManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -1381,6 +1472,15 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExitLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
       <wsdl:input>
@@ -1410,6 +1510,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1926,13 +2035,53 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IShopManager" type="tns:IShopManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IShopManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetColors">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/GetColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStyles">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/GetStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1941,7 +2090,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1950,7 +2099,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1959,7 +2108,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1968,7 +2117,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1977,7 +2126,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1986,7 +2135,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1995,7 +2144,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2004,7 +2153,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2013,7 +2162,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2022,7 +2171,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2031,7 +2180,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2040,7 +2189,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2049,7 +2198,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2058,7 +2207,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2067,7 +2216,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2076,7 +2225,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IShopManager" binding="tns:NetTcpBinding_IShopManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

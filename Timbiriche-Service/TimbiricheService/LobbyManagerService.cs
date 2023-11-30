@@ -88,6 +88,48 @@ namespace TimbiricheService
             lobbies.Remove(lobbyCode);
         }
 
+        public void ExitLobby(String lobbyCode, String username)
+        {
+            List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
+            int hostIndex = 0;
+            int eliminatedPlayerIndex = hostIndex;
+
+            LobbyPlayer playerToEliminate = null;
+
+            foreach (LobbyPlayer player in players)
+            {
+                if (player.Username.Equals(username))
+                {
+                    playerToEliminate = player;
+                    break;
+                }
+                else
+                {
+                    eliminatedPlayerIndex++;
+                }
+            }
+
+            players.Remove(playerToEliminate);
+            lobbies[lobbyCode] = (lobbies[lobbyCode].Item1, players);
+
+            foreach (var player in players)
+            {
+                if (eliminatedPlayerIndex != hostIndex)
+                {
+                    player.CallbackChannel.NotifyPlayerLeftLobby(username);
+                }
+                else
+                {
+                    player.CallbackChannel.NotifyHostPlayerLeftLobby();
+                }
+            }
+
+            if(eliminatedPlayerIndex == hostIndex)
+            {
+                lobbies.Remove(lobbyCode);
+            }
+        }
+
         private string GenerateLobbyCode()
         {
             int length = 6;

@@ -128,12 +128,15 @@ namespace TimbiricheService
             if (lobbies.ContainsKey(lobbyCode))
             {
                 LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+                List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
+
                 if (auxiliarPlayer != null)
                 {
                     auxiliarPlayer.IdHexadecimalColor = lobbyPlayer.IdHexadecimalColor;
                     auxiliarPlayer.ColorCallbackChannel = currentUserCallbackChannel;
                 }
-                foreach (var colorSelector in lobbies[lobbyCode].Item2)
+
+                foreach (var colorSelector in players)
                 {
                     colorSelector.ColorCallbackChannel?.NotifyColorSelected(lobbyPlayer);
                 }
@@ -170,6 +173,7 @@ namespace TimbiricheService
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
+
                 foreach (var player in lobbyPlayers)
                 {
                     player.ColorCallbackChannel?.NotifyColorUnselected(idColor);
@@ -185,6 +189,13 @@ namespace TimbiricheService
             {
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
+
+            if (playersWithDefaultColorByLobby[lobbyCode].Count == 0)
+            {
+                playersWithDefaultColorByLobby.Remove(lobbyCode);
+            }
+
+
         }
 
         private bool IsColorSelected(string lobbyCode, int idColor)

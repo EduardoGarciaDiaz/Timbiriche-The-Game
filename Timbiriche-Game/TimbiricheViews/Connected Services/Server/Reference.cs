@@ -975,6 +975,224 @@ namespace TimbiricheViews.Server {
         }
     }
     
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShopColor", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class ShopColor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int ColorCostField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string ColorNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string HexadecimalCodeField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdColorField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool OwnedColorField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int ColorCost {
+            get {
+                return this.ColorCostField;
+            }
+            set {
+                if ((this.ColorCostField.Equals(value) != true)) {
+                    this.ColorCostField = value;
+                    this.RaisePropertyChanged("ColorCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string ColorName {
+            get {
+                return this.ColorNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ColorNameField, value) != true)) {
+                    this.ColorNameField = value;
+                    this.RaisePropertyChanged("ColorName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string HexadecimalCode {
+            get {
+                return this.HexadecimalCodeField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.HexadecimalCodeField, value) != true)) {
+                    this.HexadecimalCodeField = value;
+                    this.RaisePropertyChanged("HexadecimalCode");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdColor {
+            get {
+                return this.IdColorField;
+            }
+            set {
+                if ((this.IdColorField.Equals(value) != true)) {
+                    this.IdColorField = value;
+                    this.RaisePropertyChanged("IdColor");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool OwnedColor {
+            get {
+                return this.OwnedColorField;
+            }
+            set {
+                if ((this.OwnedColorField.Equals(value) != true)) {
+                    this.OwnedColorField = value;
+                    this.RaisePropertyChanged("OwnedColor");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="ShopStyle", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class ShopStyle : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdStyleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private bool OwnedStyleField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int StyleCostField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StyleNameField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string StylePathField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdStyle {
+            get {
+                return this.IdStyleField;
+            }
+            set {
+                if ((this.IdStyleField.Equals(value) != true)) {
+                    this.IdStyleField = value;
+                    this.RaisePropertyChanged("IdStyle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public bool OwnedStyle {
+            get {
+                return this.OwnedStyleField;
+            }
+            set {
+                if ((this.OwnedStyleField.Equals(value) != true)) {
+                    this.OwnedStyleField = value;
+                    this.RaisePropertyChanged("OwnedStyle");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int StyleCost {
+            get {
+                return this.StyleCostField;
+            }
+            set {
+                if ((this.StyleCostField.Equals(value) != true)) {
+                    this.StyleCostField = value;
+                    this.RaisePropertyChanged("StyleCost");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StyleName {
+            get {
+                return this.StyleNameField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StyleNameField, value) != true)) {
+                    this.StyleNameField = value;
+                    this.RaisePropertyChanged("StyleName");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string StylePath {
+            get {
+                return this.StylePathField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.StylePathField, value) != true)) {
+                    this.StylePathField = value;
+                    this.RaisePropertyChanged("StylePath");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IUserManager")]
     public interface IUserManager {
@@ -1265,6 +1483,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
         System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
+        void ExitLobby(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
+        System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1280,7 +1504,10 @@ namespace TimbiricheViews.Server {
         void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse")]
-        void NotifyPlayerLeftLobby();
+        void NotifyPlayerLeftLobby(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse")]
+        void NotifyHostPlayerLeftLobby();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch", ReplyAction="http://tempuri.org/ILobbyManager/NotifyStartOfMatchResponse")]
         void NotifyStartOfMatch();
@@ -1342,6 +1569,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
             return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
+        }
+        
+        public void ExitLobby(string lobbyCode, string username) {
+            base.Channel.ExitLobby(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username) {
+            return base.Channel.ExitLobbyAsync(lobbyCode, username);
         }
     }
     
@@ -2381,6 +2616,95 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task UpdateGlobalScoreAsync() {
             return base.Channel.UpdateGlobalScoreAsync();
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IShopManager")]
+    public interface IShopManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetColors", ReplyAction="http://tempuri.org/IShopManager/GetColorsResponse")]
+        TimbiricheViews.Server.ShopColor[] GetColors(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetColors", ReplyAction="http://tempuri.org/IShopManager/GetColorsResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.ShopColor[]> GetColorsAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetStyles", ReplyAction="http://tempuri.org/IShopManager/GetStylesResponse")]
+        TimbiricheViews.Server.ShopStyle[] GetStyles(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetStyles", ReplyAction="http://tempuri.org/IShopManager/GetStylesResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.ShopStyle[]> GetStylesAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyColor", ReplyAction="http://tempuri.org/IShopManager/BuyColorResponse")]
+        bool BuyColor(TimbiricheViews.Server.ShopColor color, int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyColor", ReplyAction="http://tempuri.org/IShopManager/BuyColorResponse")]
+        System.Threading.Tasks.Task<bool> BuyColorAsync(TimbiricheViews.Server.ShopColor color, int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyStyle", ReplyAction="http://tempuri.org/IShopManager/BuyStyleResponse")]
+        bool BuyStyle(TimbiricheViews.Server.ShopStyle style, int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyStyle", ReplyAction="http://tempuri.org/IShopManager/BuyStyleResponse")]
+        System.Threading.Tasks.Task<bool> BuyStyleAsync(TimbiricheViews.Server.ShopStyle style, int idPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IShopManagerChannel : TimbiricheViews.Server.IShopManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ShopManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IShopManager>, TimbiricheViews.Server.IShopManager {
+        
+        public ShopManagerClient() {
+        }
+        
+        public ShopManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ShopManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ShopManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ShopManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public TimbiricheViews.Server.ShopColor[] GetColors(int idPlayer) {
+            return base.Channel.GetColors(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.ShopColor[]> GetColorsAsync(int idPlayer) {
+            return base.Channel.GetColorsAsync(idPlayer);
+        }
+        
+        public TimbiricheViews.Server.ShopStyle[] GetStyles(int idPlayer) {
+            return base.Channel.GetStyles(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.ShopStyle[]> GetStylesAsync(int idPlayer) {
+            return base.Channel.GetStylesAsync(idPlayer);
+        }
+        
+        public bool BuyColor(TimbiricheViews.Server.ShopColor color, int idPlayer) {
+            return base.Channel.BuyColor(color, idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BuyColorAsync(TimbiricheViews.Server.ShopColor color, int idPlayer) {
+            return base.Channel.BuyColorAsync(color, idPlayer);
+        }
+        
+        public bool BuyStyle(TimbiricheViews.Server.ShopStyle style, int idPlayer) {
+            return base.Channel.BuyStyle(style, idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<bool> BuyStyleAsync(TimbiricheViews.Server.ShopStyle style, int idPlayer) {
+            return base.Channel.BuyStyleAsync(style, idPlayer);
         }
     }
 }
