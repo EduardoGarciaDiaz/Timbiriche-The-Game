@@ -189,6 +189,13 @@ namespace TimbiricheService
             {
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
+
+            if (playersWithDefaultColorByLobby[lobbyCode].Count == 0)
+            {
+                playersWithDefaultColorByLobby.Remove(lobbyCode);
+            }
+
+
         }
 
         private bool IsColorSelected(string lobbyCode, int idColor)
