@@ -622,6 +622,12 @@
   <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinLobby" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
   </wsdl:message>
@@ -645,6 +651,12 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobbyResponse" />
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyStartOfMatch" />
@@ -1026,6 +1038,10 @@
     <wsdl:operation name="JoinLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
@@ -1041,6 +1057,10 @@
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyStartOfMatch">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" message="tns:ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage" />
@@ -1452,6 +1472,15 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExitLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
       <wsdl:input>
@@ -1481,6 +1510,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

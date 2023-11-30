@@ -1483,6 +1483,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
         System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
+        void ExitLobby(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
+        System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1498,7 +1504,10 @@ namespace TimbiricheViews.Server {
         void NotifyPlayerJoinToLobby(TimbiricheViews.Server.LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse")]
-        void NotifyPlayerLeftLobby();
+        void NotifyPlayerLeftLobby(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse")]
+        void NotifyHostPlayerLeftLobby();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch", ReplyAction="http://tempuri.org/ILobbyManager/NotifyStartOfMatchResponse")]
         void NotifyStartOfMatch();
@@ -1560,6 +1569,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer) {
             return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
+        }
+        
+        public void ExitLobby(string lobbyCode, string username) {
+            base.Channel.ExitLobby(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username) {
+            return base.Channel.ExitLobbyAsync(lobbyCode, username);
         }
     }
     

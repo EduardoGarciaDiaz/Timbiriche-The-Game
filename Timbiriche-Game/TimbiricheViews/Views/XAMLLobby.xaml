@@ -85,13 +85,13 @@
             <Grid x:Name="gridMatchControl" Margin="842,500,19,28" Visibility="Collapsed">
                 <Button x:Name="btnStartMatch" Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnStartMatch_Click"/>
                 <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#359EFF" Cursor="Hand" Margin="237,0,0,163"/>
-                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163" Click="BtnExit_Click"/>
                 <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163" Click="BtnInviteToLobby_Click"/>
             </Grid>
 
             <Grid x:Name="gridMatchControlNotLeadPlayer" Margin="842,500,19,28" Visibility="Collapsed">
                 <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#49BF36" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0"/>
-                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,0,163"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,0,163" Click="BtnExit_Click"/>
             </Grid>
 
             <Grid x:Name="gridCodeDialog" Background="#1C95D1" Margin="336,264,402,284" Visibility="Collapsed">
