@@ -9,7 +9,6 @@ namespace TimbiricheViews.Player
 
     public static class PlayerSingleton
     {
-
         private static Server.Player _player;
 
         public static Server.Player Player
@@ -18,8 +17,9 @@ namespace TimbiricheViews.Player
             {
                 if(_player == null)
                 {
-                    throw new NullReferenceException("The Player instance has not been configured.");
+                    throw new ArgumentNullException("The Player instance has not been configured.");
                 }
+
                 return _player;
             }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection.Emit;
 using System.Runtime.Remoting.Contexts;
@@ -49,32 +50,31 @@ namespace TimbiricheViews.Views
             {
                 string email = tbxEmail.Text.Trim().ToLower();
                 string username = tbxUsername.Text.Trim();
-                if (!ValidateUniqueIdentifier(email, username))
+
+                if (!ValidateUniqueIdentifier(email, username) && VerifyEmailCode(email))
                 {
-                    if (VerifyEmailCode(email))
+                    try
                     {
-                        try
+                        Account newAccount = CreateNewAccount();
+                        Server.Player newPlayer = CreateNewPlayer(newAccount);
+                        Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                        int rowsAffected = userManagerClient.AddUser(newPlayer);
+
+                        if (rowsAffected > 0)
                         {
-                            Account newAccount = CreateNewAccount();
-                            Server.Player newPlayer = CreateNewPlayer(newAccount);
-                            Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                            int rowsAffected = userManagerClient.AddUser(newPlayer);
-                            if (rowsAffected > 0)
-                            {
-                                ShowAccountCreatedMessage();
-                                NavigationService.GoBack();
-                            }
-                            else
-                            {
-                                ShowCreateAccountFailMessage();
-                            }
+                            ShowAccountCreatedMessage();
+                            NavigationService.GoBack();
                         }
-                        catch (EndpointNotFoundException ex)
+                        else
                         {
-                            EmergentWindows.CreateConnectionFailedMessageWindow();
-                            // TODO: Log the excepction
+                            ShowCreateAccountFailMessage();
                         }
                     }
+                    catch (EndpointNotFoundException ex)
+                    {
+                        EmergentWindows.CreateConnectionFailedMessageWindow();
+                        // TODO: Log the excepction
+                    }                    
                 }
             }
         }
@@ -82,29 +82,36 @@ namespace TimbiricheViews.Views
         private bool VerifyEmailCode(string email)
         {
             bool isEmailVerified = false;
+
             if (SendEmail(email))
             {
                 XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification();
+
                 if (codeWindow.ShowDialog() == true)
                 {
                     isEmailVerified = true;
                 }
             }
+
             return isEmailVerified;
         }
 
         private bool SendEmail(string email)
         {
             bool isEmailSend = false;
+
             Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();
             // TODO: Try-Catch
             isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
+
             return isEmailSend;
         }
 
         private Account CreateNewAccount()
         {
-            DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
+            CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+            DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out DateTime birthdate);
+
             Account newAccount = new Account()
             {
                 Name = tbxName.Text.Trim(),
@@ -112,6 +119,7 @@ namespace TimbiricheViews.Views
                 Surname = tbxSurname.Text.Trim(),
                 Birthdate = birthdate
             };
+
             return newAccount;
         }
 
@@ -133,6 +141,7 @@ namespace TimbiricheViews.Views
                 IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
                 IdStyleSelected = DEFAULT_ID_STYLE_SELECTED,
             };
+
             return newPlayer;
         }
 
@@ -140,6 +149,7 @@ namespace TimbiricheViews.Views
         {
             string titleEmergentWindow = Properties.Resources.lbTitleAccountCreatedSuccess;
             string descriptionEmergentWindow = Properties.Resources.tbkDescriptionAccountCreatedSuccess;
+
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
@@ -147,6 +157,7 @@ namespace TimbiricheViews.Views
         {
             string titleEmergentWindow = Properties.Resources.lbTitleCreateAccountFail;
             string descriptionEmergentWindow = Properties.Resources.tbkDescriptionCreateAccountFail;
+
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
@@ -154,6 +165,7 @@ namespace TimbiricheViews.Views
         public bool ValidateUniqueIdentifier(string email, string username)
         {
             bool existUserIdentifier = false;
+
             try
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
@@ -173,14 +185,17 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 // TODO: Log the exception
             }
+
             return existUserIdentifier;
         }
 
         public bool ValidateFields()
         {
+            CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+            bool isValid = true;
+
             SetDefaultStyles();
             ValidatePasswordProperties();
-            bool isValid = true;
 
             if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text.Trim()))
             {
@@ -213,11 +228,12 @@ namespace TimbiricheViews.Views
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
-            if (!DateTime.TryParse(dpBirthdate.Text, out _))
+            if (!DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out _))
             {
                 dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
                 isValid = false;
             }
+
             return isValid;
         }
 

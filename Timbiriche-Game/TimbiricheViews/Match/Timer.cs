@@ -9,10 +9,10 @@ namespace TimbiricheViews.Match
 {
     public class Timer
     {
-        private int _initialSeconds;
+        private readonly int _initialSeconds;
         private int _seconds;
         private bool _isRunning;
-        private System.Timers.Timer timer;
+        private readonly System.Timers.Timer timer;
 
         public event EventHandler CountDownFinished;
 
@@ -72,5 +72,4 @@ namespace TimbiricheViews.Match
             CountDownFinished?.Invoke(this, EventArgs.Empty);
         }
     }
-
 }

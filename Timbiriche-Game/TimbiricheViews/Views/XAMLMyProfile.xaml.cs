@@ -27,8 +27,8 @@ namespace TimbiricheViews.Views
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
         private PlayerStyle[] _myStyles;
         private string _initialPlayerNameLetter;
+        const int ID_DEFAULT_STYLE = 1;
         private string HEXADECIMAL_RECTANGLE_COLOR = "#FF6C6868";
-        private const string SELECTED_STROKE_STYLE_HEXADECIMAL = "#000000";
         private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
         private const string HEXADECIMAL_COLOR_BTN_NOT_PRESSED = "#1C95D1";
         private SolidColorBrush colorButtonPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_PRESSED);
@@ -50,14 +50,15 @@ namespace TimbiricheViews.Views
             const int INDEX_FIRST_LETTER = 0;
             lbUsername.Content = playerLoggedIn.Username;
             _initialPlayerNameLetter = playerLoggedIn.Username[INDEX_FIRST_LETTER].ToString();
+
             GetMyStyles();
         }
 
         private void GetMyStyles()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
             _myStyles = playerCustomizationManagerClient.GetMyStyles(playerLoggedIn.IdPlayer);
+
             if (_myStyles != null)
             {
                 SetMyStyles();
@@ -65,13 +66,14 @@ namespace TimbiricheViews.Views
             else
             {
                 Console.WriteLine("The player doesn't have styles related");
+                // TODO: Log with Warning
             }
         }
 
         private void SetMyStyles()
         {
             SetDefaultStyleFacebox();
-            const int ID_DEFAULT_STYLE = 1;
+
             foreach (PlayerStyle playerStyle in _myStyles)
             {
                 if(playerStyle.IdStyle != ID_DEFAULT_STYLE)
@@ -84,7 +86,6 @@ namespace TimbiricheViews.Views
 
         private void SetDefaultStyleFacebox()
         {
-            const int ID_DEFAULT_STYLE = 1;
             Grid gridPlayerStyle = XamlReader.Parse(XamlWriter.Save(gridPlayerStyleTemplate)) as Grid;
             gridPlayerStyle.Name = "gridStylePlayer" + "_" + ID_DEFAULT_STYLE;
             gridPlayerStyle.MouseLeftButtonDown += GridStyle_Click;
@@ -136,10 +137,12 @@ namespace TimbiricheViews.Views
         private bool IsCurrentStyle(int idStyle)
         {
             bool isCurrentStyleSelected = false;
+
             if (idStyle == playerLoggedIn.IdStyleSelected)
             {
                 isCurrentStyleSelected = true;
             }
+
             return isCurrentStyleSelected;
         }
 
@@ -151,31 +154,27 @@ namespace TimbiricheViews.Views
             backgroundRectangle.Fill = colorBackground;
             backgroundRectangle.IsEnabled = false;
             backgroundRectangle.Visibility = Visibility.Visible;
+
             return backgroundRectangle;
         }
 
         private Label CreateLabelPlayerStyle(int idStyle)
         {
-            Image styleImage = CreateImageByPath(idStyle);
+            Image styleImage = CreateImageByIdStyle(idStyle);
 
             Label lbStyle = XamlReader.Parse(XamlWriter.Save(lbPlayerStyleTemplate)) as Label;
-
             lbStyle.Name = "lbPlayerStyle" + "_" + idStyle;
             lbStyle.Content = styleImage;
             lbStyle.Visibility = Visibility.Visible;
+
             return lbStyle;
         }
 
-        private Image CreateImageByPath(int idStyle)
+        private Image CreateImageByIdStyle(int idStyle)
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
             string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
-
-            Image styleImage = new Image();
-            BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
-            styleImage.Source = bitmapImage;
+            Image styleImage = Utilities.CreateImageByPath(stylePath);
 
             return styleImage;
         }
@@ -186,6 +185,7 @@ namespace TimbiricheViews.Views
             gridCustomizeCharacter.Visibility = Visibility.Collapsed;
             btnProfile.Background = colorButtonPressed;
             btnCharacter.Background = colorButtonNotPressed;
+
             LoadPersonalDataPlayer();
         }
 
@@ -221,11 +221,13 @@ namespace TimbiricheViews.Views
         {
             const int INDEX_BACKGORUND_RECTANGLE = 2;
             const int SIZE_STYLE_SELECTED = 175;
+
             Rectangle rectangleSelected = gridSelected.Children[INDEX_BACKGORUND_RECTANGLE] as Rectangle;
             gridSelected.Width = SIZE_STYLE_SELECTED;
             gridSelected.Height = SIZE_STYLE_SELECTED;
             rectangleSelected.Width = SIZE_STYLE_SELECTED;
             rectangleSelected.Height = SIZE_STYLE_SELECTED;
+
             ClearOtherStylesSelections(gridSelected);
         }
 
@@ -234,6 +236,7 @@ namespace TimbiricheViews.Views
             const int INDEX_BACKGORUND_RECTANGLE = 2;
             const int SIZE_STYLE_NOT_SELECTED = 150;
             const string GRID_STYLE_TEMPLATE = "gridPlayerStyleTemplate";
+
             foreach (Grid gridStylePlayer in wrapPanelPlayerStyles.Children)
             {
                 if (gridStylePlayer.Name != gridSelected.Name && !gridStylePlayer.Name.Equals(GRID_STYLE_TEMPLATE))
@@ -278,10 +281,12 @@ namespace TimbiricheViews.Views
                 try
                 {
                     Account editedAccount = CreateEditedAccount();
+
                     if (HasDifferenteData(editedAccount))
                     {
                         Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
                         int rowsAffected = userManagerClient.UpdateAccount(editedAccount);
+
                         if (rowsAffected > 0)
                         {
                             ShowAccountModifiedMessage();
@@ -304,6 +309,7 @@ namespace TimbiricheViews.Views
         private Account CreateEditedAccount()
         {
             DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
+
             Account editedAccount = new Account()
             {
                 IdAcccount = playerLoggedIn.AccountFK.IdAcccount,
@@ -312,6 +318,7 @@ namespace TimbiricheViews.Views
                 Surname = tbxSurname.Text.Trim(),
                 Birthdate = birthdate
             };
+
             return editedAccount;
         }
 
@@ -319,6 +326,7 @@ namespace TimbiricheViews.Views
         {
             string titleEmergentWindow = "Cuenta modificada";
             string descriptionEmergentWindow = "Se ha modificado con éxito";
+
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
@@ -326,6 +334,7 @@ namespace TimbiricheViews.Views
         {
             string titleEmergentWindow = "Error al modificar";
             string descriptionEmergentWindow = "No fue posible realizar los cambios, por favor intenta de nuevo";
+
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
@@ -338,33 +347,38 @@ namespace TimbiricheViews.Views
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
             if (!DateTime.TryParse(dpBirthdate.Text, out _))
             {
                 dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
+
                 isValid = false;
             }
+
             return isValid;
         }
 
         private bool HasDifferenteData(Account editedAccount)
         {
             bool isDifferent = true;
+
             if (playerLoggedIn.AccountFK.Name == editedAccount.Name &&
                     playerLoggedIn.AccountFK.LastName == editedAccount.LastName &&
                     playerLoggedIn.AccountFK.Surname == editedAccount.Surname &&
-                    playerLoggedIn.AccountFK.Birthdate == editedAccount.Birthdate
-                )
+                    playerLoggedIn.AccountFK.Birthdate == editedAccount.Birthdate)
             {
                 isDifferent = false;
             }
+
             return isDifferent;
         }
 

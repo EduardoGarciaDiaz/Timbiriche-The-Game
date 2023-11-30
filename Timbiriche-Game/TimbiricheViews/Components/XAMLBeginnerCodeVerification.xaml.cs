@@ -22,6 +22,7 @@ namespace TimbiricheViews.Components
         public XAMLBeginnerCodeVerification()
         {
             InitializeComponent();
+
             _mainWindow = Application.Current.MainWindow;
             InitializeComponent();
             ConfigureEmergentWindow();
@@ -30,6 +31,7 @@ namespace TimbiricheViews.Components
         private void ConfigureEmergentWindow()
         {
             this.Owner = _mainWindow;
+
             SetSizeWindow();
             SetCenterWindow();
         }
@@ -42,8 +44,8 @@ namespace TimbiricheViews.Components
 
         private void SetCenterWindow()
         {
-            double centerX = _mainWindow.Left + (_mainWindow.Width - _mainWindow.Width) / 2;
-            double centerY = _mainWindow.Top + (_mainWindow.Height - _mainWindow.Height) / 2;
+            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
+            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
             this.Left = centerX;
             this.Top = centerY;
         }
@@ -51,6 +53,7 @@ namespace TimbiricheViews.Components
         public bool ValidateCorrectCode()
         {
             SetDefaultStyles();
+
             bool isCorrectCode = false;
             string codeEntered = tbxCode.Text.Trim().ToUpper();
 
@@ -66,6 +69,7 @@ namespace TimbiricheViews.Components
             {
                 isCorrectCode = true;
             }
+
             return isCorrectCode;
         }
 

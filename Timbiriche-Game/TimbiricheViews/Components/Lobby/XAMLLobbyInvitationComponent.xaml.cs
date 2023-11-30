@@ -25,6 +25,7 @@ namespace TimbiricheViews.Components.Lobby
         public XAMLLobbyInvitationComponent(string lobbyCode)
         {
             InitializeComponent();
+
             _mainWindow = Application.Current.MainWindow;
             _lobbyCode = lobbyCode;
             ConfigureEmergentWindow();
@@ -46,8 +47,8 @@ namespace TimbiricheViews.Components.Lobby
 
         private void SetCenterWindow()
         {
-            double centerX = _mainWindow.Left + (_mainWindow.Width - _mainWindow.Width) / 2;
-            double centerY = _mainWindow.Top + (_mainWindow.Height - _mainWindow.Height) / 2;
+            double centerX = _mainWindow.Left + (_mainWindow.Width - this.Width) / 2;
+            double centerY = _mainWindow.Top + (_mainWindow.Height - this.Height) / 2;
             this.Left = centerX;
             this.Top = centerY;
         }

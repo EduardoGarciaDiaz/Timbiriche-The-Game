@@ -8,11 +8,11 @@ using TimbiricheViews.Components.Lobby;
 
 namespace TimbiricheViews.Utils
 {
-    public class EmergentWindows
+    public static class EmergentWindows
     {
         public static void CreateEmergentWindow(string titleEmergentWindow, string descriptionEmergentWindow)
         {
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+            _ = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
@@ -22,7 +22,8 @@ namespace TimbiricheViews.Utils
         {
             string titleEmergentWindow = Properties.Resources.lbConnectionFailed;
             string descriptionEmergentWindow = Properties.Resources.tbkConnectionFailedDetails;
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+
+            _ = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
@@ -32,7 +33,8 @@ namespace TimbiricheViews.Utils
         {
             string titleEmergentWindow = Properties.Resources.lbTimeOutExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkTimeOutExceptionDescription;
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+
+            _ = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );

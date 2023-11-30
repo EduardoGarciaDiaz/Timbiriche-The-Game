@@ -20,11 +20,13 @@ namespace TimbiricheViews.Components
         private const string BTN_ACCEPT = "Accept";
         private const string BTN_REJECT = "Reject";
         private string _username;
+
         public event EventHandler<ButtonClickEventArgs> ButtonClicked;
 
         public XAMLFriendRequestItemComponent(string username)
         {  
             InitializeComponent();
+
             _username = username;
             lbUsername.Content = username;
         }
@@ -44,6 +46,7 @@ namespace TimbiricheViews.Components
     {
         public string ButtonName { get; private set; }
         public string Username { get; private set; }
+
         public ButtonClickEventArgs(string buttonName, string username)
         {
             ButtonName = buttonName;

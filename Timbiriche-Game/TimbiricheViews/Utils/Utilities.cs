@@ -13,20 +13,21 @@ using Path = System.IO.Path;
 
 namespace TimbiricheViews.Utils
 {
-    public class Utilities
+    public static class Utilities
     {
         public static SolidColorBrush CreateColorFromHexadecimal(string hexadecimalColor)
         {
             SolidColorBrush solidColorBrush = null;
+
             try
             {
                 solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexadecimalColor));
-
             }
             catch (FormatException ex)
             {
                 // TODO: Log:
             }
+
             return solidColorBrush;
         }
 
@@ -47,5 +48,4 @@ namespace TimbiricheViews.Utils
             return absolutePath;
         }
     }
-
 }

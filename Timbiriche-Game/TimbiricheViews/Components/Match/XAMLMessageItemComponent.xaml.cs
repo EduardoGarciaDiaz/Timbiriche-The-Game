@@ -19,11 +19,12 @@ namespace TimbiricheViews.Components.Match
 {
     public partial class XAMLMessageItemComponent : UserControl
     {
-        private int _idSenderPlayer;
+        private readonly int _idSenderPlayer;
 
         public XAMLMessageItemComponent(string senderUsername, string message, bool isMessageReceived, int idSenderPlayer)
         {          
             InitializeComponent();
+
             tbkSenderUsername.Text = senderUsername;
             tbkMessage.Text = message;
 
@@ -58,13 +59,11 @@ namespace TimbiricheViews.Components.Match
         public void NotifyReportCompleted()
         {
             Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
-
         }
 
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
-            DateTime currentDateTime = DateTime.Now;
 
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);

@@ -26,6 +26,7 @@ namespace TimbiricheViews.Components
         public XAMLActiveUserItemControl(string username)
         {  
             InitializeComponent();
+
             _username = username;
             lbUsername.Content = _username;
         }
