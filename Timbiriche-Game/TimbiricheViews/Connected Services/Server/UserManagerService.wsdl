@@ -406,6 +406,93 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ILobbyExistenceChecker_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IScoreboardManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IGlobalScoreManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsp:Policy wsu:Id="NetTcpBinding_IShopManager_policy">
     <wsp:ExactlyOne>
       <wsp:All>
@@ -535,6 +622,12 @@
   <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinLobby" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
   </wsdl:message>
@@ -558,6 +651,12 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobbyResponse" />
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyStartOfMatch" />
@@ -811,6 +910,39 @@
   <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerifyPlayerIsBannedResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCode" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGlobalScores" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGlobalScoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_UpdateWins_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWins" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_UpdateWins_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWinsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_SubscribeToGlobalScoreRealTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToGlobalScoreRealTime" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_UnsubscribeToGlobalScoreRealTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeToGlobalScoreRealTime" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_UpdateGlobalScore_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGlobalScore" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_NotifyGlobalScoreboardUpdated_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyGlobalScoreboardUpdated" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyGlobalScoreboardUpdatedResponse" />
+  </wsdl:message>
   <wsdl:message name="IShopManager_GetColors_InputMessage">
     <wsdl:part name="parameters" element="tns:GetColors" />
   </wsdl:message>
@@ -906,6 +1038,10 @@
     <wsdl:operation name="JoinLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
@@ -921,6 +1057,10 @@
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyStartOfMatch">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" message="tns:ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage" />
@@ -1127,6 +1267,37 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="ILobbyExistenceChecker">
+    <wsdl:operation name="ExistLobbyCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" message="tns:ILobbyExistenceChecker_ExistLobbyCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse" message="tns:ILobbyExistenceChecker_ExistLobbyCode_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IScoreboardManager">
+    <wsdl:operation name="GetGlobalScores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScores" message="tns:IScoreboardManager_GetGlobalScores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse" message="tns:IScoreboardManager_GetGlobalScores_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWins">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWins" message="tns:IScoreboardManager_UpdateWins_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsResponse" message="tns:IScoreboardManager_UpdateWins_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGlobalScoreManager">
+    <wsdl:operation name="SubscribeToGlobalScoreRealTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime" message="tns:IGlobalScoreManager_SubscribeToGlobalScoreRealTime_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeToGlobalScoreRealTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime" message="tns:IGlobalScoreManager_UnsubscribeToGlobalScoreRealTime_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGlobalScore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore" message="tns:IGlobalScoreManager_UpdateGlobalScore_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyGlobalScoreboardUpdated">
+      <wsdl:output wsaw:Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdated" message="tns:IGlobalScoreManager_NotifyGlobalScoreboardUpdated_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdatedResponse" message="tns:IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:portType name="IShopManager">
     <wsdl:operation name="GetColors">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetColors" message="tns:IShopManager_GetColors_InputMessage" />
@@ -1301,6 +1472,15 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExitLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
       <wsdl:input>
@@ -1330,6 +1510,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyPlayerLeftLobby">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -1780,6 +1969,72 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILobbyExistenceChecker" type="tns:ILobbyExistenceChecker">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILobbyExistenceChecker_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ExistLobbyCode">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IScoreboardManager" type="tns:IScoreboardManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IScoreboardManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetGlobalScores">
+      <soap12:operation soapAction="http://tempuri.org/IScoreboardManager/GetGlobalScores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWins">
+      <soap12:operation soapAction="http://tempuri.org/IScoreboardManager/UpdateWins" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IGlobalScoreManager" type="tns:IGlobalScoreManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IGlobalScoreManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SubscribeToGlobalScoreRealTime">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeToGlobalScoreRealTime">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGlobalScore">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyGlobalScoreboardUpdated">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IShopManager" type="tns:IShopManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IShopManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -1826,7 +2081,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1835,7 +2090,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1844,7 +2099,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1853,7 +2108,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1862,7 +2117,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1871,7 +2126,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1880,7 +2135,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1889,7 +2144,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1898,7 +2153,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1916,7 +2171,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1925,7 +2180,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1934,7 +2189,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1943,7 +2198,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1952,7 +2207,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1961,7 +2216,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -1970,7 +2225,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

@@ -540,42 +540,66 @@ namespace TimbiricheViews.Views
 
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
-
-            const int ONE_PLAYER_IN_LOBBY = 1;
-            const int TWO_PLAYER_IN_LOBBY = 2;
-            const int THREE_PLAYER_IN_LOBBY = 3;
-
-            if (numOfPlayersInLobby == ONE_PLAYER_IN_LOBBY)
+            if (gridSecondPlayer.Visibility == Visibility.Collapsed)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
+                return;
             }
 
-            if (numOfPlayersInLobby == TWO_PLAYER_IN_LOBBY)
+            if (gridThirdPlayer.Visibility == Visibility.Collapsed)
             {
                 lbThirdPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
+                return;
             }
 
-            if (numOfPlayersInLobby == THREE_PLAYER_IN_LOBBY)
+            if (gridFourthPlayer.Visibility == Visibility.Collapsed)
             {
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
+                return;
             }
 
             _numberOfPlayersInLobby = ++numOfPlayersInLobby;
             ValidateStartOfMatch();
         }
 
-        public void NotifyPlayerLeftLobby()
+        public void NotifyPlayerLeftLobby(String username)
         {
-            throw new NotImplementedException();
+            String secondPlayerUsername = (String) lbSecondPlayerUsername.Content;
+            String thirdPlayerUsername = (String)lbThirdPlayerUsername.Content;
+            String fourthPlayerUsername = (String)lbFourthPlayerUsername.Content;
+
+            if (username.Equals(secondPlayerUsername))
+            {
+                gridSecondPlayer.Visibility = Visibility.Collapsed;
+            }
+
+            if (username.Equals(thirdPlayerUsername))
+            {
+                gridThirdPlayer.Visibility = Visibility.Collapsed;
+            }
+
+            if (username.Equals(fourthPlayerUsername))
+            {
+                gridFourthPlayer.Visibility = Visibility.Collapsed;
+            }
+
+            _numberOfPlayersInLobby--;
+            ValidateStartOfMatch();
             // TODO: In addition to notifying that a player has left,
             // must decrement the variable "numberOfPlayersInLobby" and then call the ValidateStartOfMatch() method
             // to verify whether or not the match can be started.
+        }
+
+        public void NotifyHostPlayerLeftLobby()
+        {
+            Utils.EmergentWindows.CreateEmergentWindow("Lobby Eliminado", "El host salio del lobby. Regresaras al menú principal.");
+            NavigationService.Navigate(new XAMLLobby());
         }
 
         public void NotifyPlayersInLobby(string lobbyCode, LobbyPlayer[] lobbyPlayers)
@@ -588,6 +612,7 @@ namespace TimbiricheViews.Views
             const int SECOND_PLAYER_ID = 0;
             const int THIRD_PLAYER_ID = 1;
             const int FOURTH_PLAYER_ID = 2;
+
 
             if (numPlayersInLobby > SECOND_PLAYER_ID)
             {
@@ -685,6 +710,18 @@ namespace TimbiricheViews.Views
         private void BtnInviteToLobby_Click(object sender, RoutedEventArgs e)
         {
             EmergentWindows.CreateLobbyInvitationWindow(_lobbyCode);
+        }
+
+        private void BtnExit_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
+            lobbyManagerClient.ExitLobby(_lobbyCode, PlayerSingleton.Player.Username);
+
+            PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
+            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+
+            NavigationService.Navigate(new XAMLLobby());
         }
 
         private (string, string) GetPlayerCustomization()
