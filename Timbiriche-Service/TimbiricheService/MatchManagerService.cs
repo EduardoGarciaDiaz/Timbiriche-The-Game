@@ -97,7 +97,6 @@ namespace TimbiricheService
                         Console.WriteLine($"Fault Exception: {ex.Message}");
                         Console.WriteLine($"Detail: {ex.StackTrace}");
                     }
-
                 }
             }
         }
@@ -142,7 +141,6 @@ namespace TimbiricheService
                     player.MatchCallbackChannel.NotifyFirstTurn(lobbyInformation.MatchDurationInMinutes, lobbyInformation.TurnDurationInMinutes,
                                                                 match.GetTurnPlayer().Username);
                     player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
-
                 }
             }
         }

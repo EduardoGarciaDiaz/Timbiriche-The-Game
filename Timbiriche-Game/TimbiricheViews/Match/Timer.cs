@@ -27,8 +27,8 @@ namespace TimbiricheViews.Match
 
         public string GetTime()
         {
-            int minutes = _seconds / 60;
-            int remainingSeconds = _seconds % 60;
+            float minutes = _seconds / 60;
+            float remainingSeconds = _seconds % 60;
 
             return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
         }

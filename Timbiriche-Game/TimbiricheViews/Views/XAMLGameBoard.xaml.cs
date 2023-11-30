@@ -303,10 +303,10 @@ namespace TimbiricheViews.Views
             SetMovement(btnLine, movement.HexadecimalColor, stylePlayer, movement.Row, movement.Column, movement.TypeLine);
         }
 
-        public void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username)
+        public void NotifyFirstTurn(float matchDurationInMinutes, float turnDurationInMinutes, string username)
         {
-            _matchTimer = new Match.Timer(matchDurationInMinutes * 60);
-            _turnTimer = new Match.Timer(turnDurationInMinutes * 60);
+            _matchTimer = new Match.Timer((int)(matchDurationInMinutes * 60));
+            _turnTimer = new Match.Timer((int)(turnDurationInMinutes * 60));
 
             _dispatchTimer = new DispatcherTimer();
             TimeSpan.FromSeconds(1);

@@ -181,6 +181,21 @@
                 </Grid>
             </Grid>
 
+            <Grid Background="#59000000" x:Name="gridMatchSettings" Visibility="Collapsed">
+                <Grid  Margin="170,237,170,211" >
+                    <Rectangle Fill="#DC1C95D1" Opacity="1" RadiusX="25" RadiusY="25" HorizontalAlignment="Left" Width="658" Margin="97,2,0,-2" />
+                    <Label Content="{x:Static p:Resources.lbMatchSettings}" Foreground="White" FontFamily="Titan One" FontSize="36" Margin="0,8,0,266" HorizontalAlignment="Center"/>
+                    <Image HorizontalAlignment="Left" Height="38" Margin="105,14,0,0" VerticalAlignment="Top" Width="38" Source="/Resources/close.png" MouseLeftButtonDown="ImgCloseMatchSettings_Click" Cursor="Hand"/>
+                    <Separator Background="#FF05CDDE" Margin="140,46,138,240"></Separator>
+                    <Label Content="{x:Static p:Resources.lbMatchSettingTimeInstruction }" Foreground="White" FontFamily="Inter" FontSize="24" FontWeight="Bold" Margin="0,73,0,211" HorizontalAlignment="Center" Width="820" VerticalContentAlignment="Center" HorizontalContentAlignment="Center"/>
+                    <Button x:Name ="BtnAcceptSettings" Content="{x:Static p:Resources.btnAccept}" HorizontalAlignment="Left" Margin="334,231,0,0" VerticalAlignment="Top" Height="64" Width="188" FontFamily="Titan One" Foreground="White" Background="#FF3F54C3" BorderBrush="{x:Null}" FontSize="27" Click="BtnAcceptSettings_Click" Cursor="Hand"/>
+                    <Button x:Name="BtnIncrementTime" Content="&gt;" Padding="4 -7 0 0" Margin="588,136,208,0" VerticalAlignment="Top" Height="62" FontFamily="Inter" FontSize="50" BorderBrush="{x:Null}" Background="#8C2C2A2A" Foreground="White" VerticalContentAlignment="Center" FontWeight="Bold" Click="BtnIncrementTime_Click" Cursor="Hand"/>
+                    <Button x:Name="BtnDecrementTime" Content="&lt;" Padding="0 -7 4 0" HorizontalAlignment="Left" Margin="208,136,0,0" VerticalAlignment="Top" Height="62" Width="64" FontFamily="Inter" FontSize="50" BorderBrush="{x:Null}" Background="#8C2C2A2A" Foreground="White" VerticalContentAlignment="Center" FontWeight="Bold" Click="BtnDecrementTime_Click" Cursor="Hand"/>
+                    <Label x:Name="lbMatchTime" Margin="0,143,0,133" Foreground="White" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontFamily="Titan One" FontSize="34" Width="312"></Label>
+
+                </Grid>
+            </Grid>
+
         </Grid>
     </Viewbox>
 </Page>

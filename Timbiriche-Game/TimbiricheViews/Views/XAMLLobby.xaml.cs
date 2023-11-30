@@ -527,8 +527,9 @@ namespace TimbiricheViews.Views
             _lobbyCode = lobbyCode;
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
-            ValidateStartOfMatch();
+
             ShowSelectPlayerColorGrid();
+            ValidateStartOfMatch();  
         }
 
         private void ValidateStartOfMatch()
@@ -668,21 +669,8 @@ namespace TimbiricheViews.Views
         }
 
         private void BtnCreateMatch_Click(object sender, RoutedEventArgs e)
-        {
-            const int MATCH_DURATION_IN_MINUTES = 1;
-            const int TURN_DURATION_IN_MINUTES = 1;
-
-            LobbyInformation lobbyInformation = new LobbyInformation();
-            lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
-            lobbyInformation.MatchDurationInMinutes = MATCH_DURATION_IN_MINUTES;
-
-            LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = _playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
-
-            InstanceContext context = new InstanceContext(this);
-            LobbyManagerClient client = new LobbyManagerClient(context);
-            client.CreateLobby(lobbyInformation, lobbyPlayer);
+        { 
+            ConfigureMatch();
         }
 
         private void BtnJoinByCode_Click(object sender, RoutedEventArgs e)
@@ -997,5 +985,96 @@ namespace TimbiricheViews.Views
             StablishOcuppiedColors(ocuppedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
         }   
+    }
+
+    public partial class XAMLLobby : Page
+    {
+        private const float DEFAULT_MATCH_DURATION_IN_MINUTES = 5;
+        private const float MAXIMIUN_MATCH_DURATION_IN_MINUTES = 20;
+        private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 2;
+
+        private float _matchDurationInMinutes = DEFAULT_MATCH_DURATION_IN_MINUTES;
+
+        private void ConfigureMatch()
+        {
+            ShowMatchSettingsGrid();
+        }
+
+        private void ShowMatchSettingsGrid()
+        {
+            lbMatchTime.Content = _matchDurationInMinutes;
+            gridMatchSettings.Visibility = Visibility.Visible;
+        }
+
+        private void BtnAcceptSettings_Click(object sender, RoutedEventArgs e)
+        {
+            _matchDurationInMinutes = (float)lbMatchTime.Content;
+            gridMatchSettings.Visibility = Visibility.Collapsed;
+
+            ConfigureMatchSettings();
+        }
+
+        private void ConfigureMatchSettings()
+        {
+            LobbyInformation lobbyInformation = ConfigureLobbyInformation();
+            LobbyPlayer lobbyPlayer = ConfigureLobbyPlayer();
+
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient client = new LobbyManagerClient(context);
+            client.CreateLobby(lobbyInformation, lobbyPlayer);
+        }
+
+        private LobbyInformation ConfigureLobbyInformation()
+        {
+            const float TURN_DURATION_IN_MINUTES = 0.5F;
+
+            LobbyInformation lobbyInformation = new LobbyInformation();
+            lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
+            lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
+
+            return lobbyInformation;
+        }
+
+        private LobbyPlayer ConfigureLobbyPlayer()
+        {
+            LobbyPlayer lobbyPlayer = new LobbyPlayer();
+            lobbyPlayer.Username = _playerLoggedIn.Username;
+            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+
+            return lobbyPlayer;
+        }
+
+        private void BtnIncrementTime_Click(object sender, RoutedEventArgs e)
+        {
+            IncrementMatchDuration();
+        }
+
+        private void IncrementMatchDuration()
+        {
+            if (_matchDurationInMinutes < MAXIMIUN_MATCH_DURATION_IN_MINUTES)
+            {
+                _matchDurationInMinutes++;
+                lbMatchTime.Content = _matchDurationInMinutes;
+            }
+        }
+
+        private void BtnDecrementTime_Click(object sender, RoutedEventArgs e)
+        {
+            DecrementMatchDuration();
+        }
+
+        private void DecrementMatchDuration()
+        {
+            if (_matchDurationInMinutes > MINIMIUN_MATCH_DURATION_IN_MINUTES)
+            {
+                _matchDurationInMinutes--;
+                lbMatchTime.Content = _matchDurationInMinutes;
+            }
+        }
+
+        private void ImgCloseMatchSettings_Click(object sender, RoutedEventArgs e)
+        {
+            gridMatchSettings.Visibility = Visibility.Collapsed;
+        }
     }
 }

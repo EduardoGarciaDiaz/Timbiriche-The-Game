@@ -30,7 +30,7 @@ namespace TimbiricheViews.Components
             _mainWindow = Application.Current.MainWindow;
             lbTitleEmergentWindow.Content = title;
             tbkDescriptionEmergentWindow.Text = description;
-            
+
             ConfigureEmergentWindow();
             this.ShowDialog();
         }

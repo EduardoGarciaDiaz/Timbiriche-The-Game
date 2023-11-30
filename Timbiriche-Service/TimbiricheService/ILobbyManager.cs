@@ -81,15 +81,14 @@ namespace TimbiricheService
     [DataContract]
     public class LobbyInformation
     {
-        private int _matchDurationInMinutes;
-        private int _turnDurationInMinutes;
+        private float _matchDurationInMinutes;
+        private float _turnDurationInMinutes;
         private int _status;
 
         [DataMember]
-        public int MatchDurationInMinutes { get {  return _matchDurationInMinutes; } set { _matchDurationInMinutes = value; } }
+        public float MatchDurationInMinutes { get {  return _matchDurationInMinutes; } set { _matchDurationInMinutes = value; } }
         [DataMember]
-        public int TurnDurationInMinutes { get { return _turnDurationInMinutes; } set { _turnDurationInMinutes = value; } }
-        public int Status { get { return _status; } set { _status = value; } }
+        public float TurnDurationInMinutes { get { return _turnDurationInMinutes; } set { _turnDurationInMinutes = value; } }
     }
 }
 

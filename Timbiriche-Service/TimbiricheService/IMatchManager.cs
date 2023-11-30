@@ -31,7 +31,7 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyMovement(Movement movement);
         [OperationContract]
-        void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username);
+        void NotifyFirstTurn(float matchDurationInMinutes, float turnDurationInMinutes, string username);
         [OperationContract]
         void NotifyNewScoreboard(List<KeyValuePair<LobbyPlayer, int>> scoreboard);
         [OperationContract]

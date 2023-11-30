@@ -19,13 +19,16 @@ namespace TimbiricheViews.Utils
         {
             SolidColorBrush solidColorBrush = null;
 
-            try
+            if (hexadecimalColor != null)
             {
-                solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexadecimalColor));
-            }
-            catch (FormatException ex)
-            {
-                // TODO: Log:
+                try
+                {
+                    solidColorBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(hexadecimalColor));
+                }
+                catch (FormatException ex)
+                {
+                    // TODO: Log:
+                }
             }
 
             return solidColorBrush;
@@ -45,6 +48,7 @@ namespace TimbiricheViews.Utils
         public static string BuildAbsolutePath(string relativePath)
         {
             string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+
             return absolutePath;
         }
     }

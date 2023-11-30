@@ -382,10 +382,10 @@ namespace TimbiricheViews.Server {
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int MatchDurationInMinutesField;
+        private float MatchDurationInMinutesField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int TurnDurationInMinutesField;
+        private float TurnDurationInMinutesField;
         
         [global::System.ComponentModel.BrowsableAttribute(false)]
         public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
@@ -398,7 +398,7 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int MatchDurationInMinutes {
+        public float MatchDurationInMinutes {
             get {
                 return this.MatchDurationInMinutesField;
             }
@@ -411,7 +411,7 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int TurnDurationInMinutes {
+        public float TurnDurationInMinutes {
             get {
                 return this.TurnDurationInMinutesField;
             }
@@ -1625,7 +1625,7 @@ namespace TimbiricheViews.Server {
         void NotifyMovement(TimbiricheViews.Server.Movement movement);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyFirstTurn", ReplyAction="http://tempuri.org/IMatchManager/NotifyFirstTurnResponse")]
-        void NotifyFirstTurn(int matchDurationInMinutes, int turnDurationInMinutes, string username);
+        void NotifyFirstTurn(float matchDurationInMinutes, float turnDurationInMinutes, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse")]
         void NotifyNewScoreboard(System.Collections.Generic.KeyValuePair<TimbiricheViews.Server.LobbyPlayer, int>[] scoreboard);

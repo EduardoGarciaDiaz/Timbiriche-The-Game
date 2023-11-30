@@ -377,8 +377,8 @@
   <xs:element name="NotifyFirstTurn">
     <xs:complexType>
       <xs:sequence>
-        <xs:element minOccurs="0" name="matchDurationInMinutes" type="xs:int" />
-        <xs:element minOccurs="0" name="turnDurationInMinutes" type="xs:int" />
+        <xs:element minOccurs="0" name="matchDurationInMinutes" type="xs:float" />
+        <xs:element minOccurs="0" name="turnDurationInMinutes" type="xs:float" />
         <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
       </xs:sequence>
     </xs:complexType>

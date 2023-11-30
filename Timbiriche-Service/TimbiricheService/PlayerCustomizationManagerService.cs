@@ -26,25 +26,29 @@ namespace TimbiricheService
 
                 myColors.Add(playerColorAuxiliar);
             }
+
             return myColors;
         }
 
         public string GetHexadecimalColors(int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
-            string hexadecimalColor = dataAccess.GetHexadecimalColorByIdColor(idColor);            
+            string hexadecimalColor = dataAccess.GetHexadecimalColorByIdColor(idColor);    
+            
             return hexadecimalColor;
         }
 
         public int SelectMyColor(int idPlayer, int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+
             return dataAccess.UpdateMyColorSelected(idPlayer, idColor);
         }
 
         public bool CheckColorForPlayer(int idPlayer, int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+
             return dataAccess.SearchInMyColors(idPlayer, idColor);
         }
 
@@ -63,6 +67,7 @@ namespace TimbiricheService
 
                 myStyles.Add(playerStyleAxiliar);
             }
+
             return myStyles;
         }
 
@@ -70,12 +75,14 @@ namespace TimbiricheService
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
             string stylePath = dataAccess.GetStylePathByIdStyle(idStyle);
+
             return stylePath;
         }
 
         public int SelectMyStyle(int idPlayer, int idStyle)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
+
             return dataAccess.UpdateMyStyleSelected(idPlayer, idStyle);
         }
     }
@@ -88,6 +95,7 @@ namespace TimbiricheService
         public void SubscribeColorToColorsSelected(string lobbyCode)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
+
             if (LobbyExists(lobbyCode))
             {
                 List<LobbyPlayer> playersColorSelection = lobbies[lobbyCode].Item2;
@@ -120,6 +128,7 @@ namespace TimbiricheService
             {
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();
             }
+
             playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
         }
 
@@ -157,6 +166,7 @@ namespace TimbiricheService
         private LobbyPlayer GetLobbyPlayerByUsername(string lobbyCode, string username)
         {
             List<LobbyPlayer> lobbyPlayerList = GetLobbyPlayersList(lobbyCode);
+
             return lobbyPlayerList.Find(player => player.Username == username);
         }
 
@@ -194,8 +204,6 @@ namespace TimbiricheService
             {
                 playersWithDefaultColorByLobby.Remove(lobbyCode);
             }
-
-
         }
 
         private bool IsColorSelected(string lobbyCode, int idColor)
@@ -223,6 +231,7 @@ namespace TimbiricheService
             {
                 doesLobbyExist = true;
             }
+
             return doesLobbyExist;
         }
     }
@@ -236,6 +245,7 @@ namespace TimbiricheService
             {
                 IPlayerStylesManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerStylesManagerCallback>();
                 LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+
                 if (auxiliarPlayer != null)
                 {
                     auxiliarPlayer.StyleCallbackChannel = currentUserCallbackChannel;
@@ -248,9 +258,11 @@ namespace TimbiricheService
             if (lobbies.ContainsKey(lobbyCode))
             {
                 LobbyPlayer auxiliarPlayer = GetLobbyPlayerByUsername(lobbyCode, lobbyPlayer.Username);
+
                 if (auxiliarPlayer != null)
                 {
                     auxiliarPlayer.IdStylePath = lobbyPlayer.IdStylePath;
+
                     foreach (var colorSelector in lobbies[lobbyCode].Item2)
                     {
                         colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);

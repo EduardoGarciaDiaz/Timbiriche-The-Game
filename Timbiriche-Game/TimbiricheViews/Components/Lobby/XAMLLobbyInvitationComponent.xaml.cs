@@ -17,7 +17,7 @@ namespace TimbiricheViews.Components.Lobby
 {
     public partial class XAMLLobbyInvitationComponent : Window
     {
-        const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
+        private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
 
         private Window _mainWindow;
         private string _lobbyCode;
@@ -28,6 +28,7 @@ namespace TimbiricheViews.Components.Lobby
 
             _mainWindow = Application.Current.MainWindow;
             _lobbyCode = lobbyCode;
+
             ConfigureEmergentWindow();
         }
 
