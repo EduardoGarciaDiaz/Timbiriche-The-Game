@@ -813,6 +813,18 @@
   <wsdl:message name="IShopManager_GetStyles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStylesResponse" />
   </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColor" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyle" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyleResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -1108,6 +1120,14 @@
     <wsdl:operation name="GetStyles">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetStyles" message="tns:IShopManager_GetStyles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetStylesResponse" message="tns:IShopManager_GetStyles_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyColor" message="tns:IShopManager_BuyColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyColorResponse" message="tns:IShopManager_BuyColor_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyStyle" message="tns:IShopManager_BuyStyle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyStyleResponse" message="tns:IShopManager_BuyStyle_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
@@ -1747,6 +1767,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetStyles">
       <soap12:operation soapAction="http://tempuri.org/IShopManager/GetStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyStyle" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

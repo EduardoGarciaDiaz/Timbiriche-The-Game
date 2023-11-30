@@ -106,6 +106,7 @@
       <xs:element minOccurs="0" name="ColorName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="HexadecimalCode" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="IdColor" type="xs:int" />
+      <xs:element minOccurs="0" name="OwnedColor" type="xs:boolean" />
     </xs:sequence>
   </xs:complexType>
   <xs:element name="ShopColor" nillable="true" type="tns:ShopColor" />
@@ -118,6 +119,7 @@
   <xs:complexType name="ShopStyle">
     <xs:sequence>
       <xs:element minOccurs="0" name="IdStyle" type="xs:int" />
+      <xs:element minOccurs="0" name="OwnedStyle" type="xs:boolean" />
       <xs:element minOccurs="0" name="StyleCost" type="xs:int" />
       <xs:element minOccurs="0" name="StyleName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />

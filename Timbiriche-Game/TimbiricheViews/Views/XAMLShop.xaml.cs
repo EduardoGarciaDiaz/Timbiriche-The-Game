@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Components.Shop;
+using TimbiricheViews.Player;
 
 namespace TimbiricheViews.Views
 {
@@ -22,26 +23,34 @@ namespace TimbiricheViews.Views
         {
             InitializeComponent();
             LoadColors();
+            LoadStyles();
+            LoadCoins();
+        }
+
+        private void LoadCoins()
+        {
+            lbCoins.Content = PlayerSingleton.Player.Coins;
         }
 
         private void LoadColors()
         {
             Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
-            Server.ShopColor[] colors = shopManagerClient.GetColors();
+            Server.ShopColor[] colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
 
             foreach(var color in colors)
             {
-                AgregarElemento(color);
+                AddColorItem(color);
             }
         }
 
-        private void AgregarElemento(Server.ShopColor color)
+        private void AddColorItem(Server.ShopColor color)
         {
             var lastGrid = stackPanelColors.Children.OfType<Grid>().LastOrDefault();
 
             if (lastGrid != null && lastGrid.Children.Count < 2)
             {
-                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color, 2);
+                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color);
+                colorItemComponent.Margin = new Thickness(0, 95, 0, 0);
                 lastGrid.Children.Add(colorItemComponent);
             }
             else
@@ -53,12 +62,49 @@ namespace TimbiricheViews.Views
                     Margin = new Thickness(0, 10, 15, 15)
                 };
 
-                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color, 1);
+                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color);
+                colorItemComponent.Margin = new Thickness(0, 0, 0, 95);
                 newGrid.Children.Add(colorItemComponent);
                 stackPanelColors.Children.Add(newGrid);
             }
         }
 
+        private void LoadStyles()
+        {
+            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+            Server.ShopStyle[] styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
+
+            foreach (var style in styles)
+            {
+                AddStyleItem(style);
+            }
+        }
+
+        private void AddStyleItem(Server.ShopStyle style)
+        {
+            var lastGrid = stackPanelStyles.Children.OfType<Grid>().LastOrDefault();
+
+            if (lastGrid != null && lastGrid.Children.Count < 2)
+            {
+                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style);
+                styleItemComponent.Margin = new Thickness(0, 95, 0, 0);
+                lastGrid.Children.Add(styleItemComponent);
+            }
+            else
+            {
+                var newGrid = new Grid
+                {
+                    Width = 82,
+                    Height = 173,
+                    Margin = new Thickness(0, 10, 15, 15)
+                };
+
+                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style);
+                styleItemComponent.Margin = new Thickness(0, 0, 0, 95);
+                newGrid.Children.Add(styleItemComponent);
+                stackPanelStyles.Children.Add(newGrid);
+            }
+        }
 
         private void BtnLobby_Click(object sender, RoutedEventArgs e)
         {

@@ -67,3 +67,5 @@ C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\
 C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.csproj.CopyComplete
 C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.exe
 C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\TimbiricheViews.pdb
+C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Components\Shop\XAMLStyleItemComponent.g.cs
+C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\Components\Shop\XAMLStyleItemComponent.baml
