@@ -9,6 +9,9 @@ FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLEmergentWindow.xaml;;
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLBan.xaml;;
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLGameBoard.xaml;;
+FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLGlobalScoreboard.xaml;;
+FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLJoinGuest.xaml;;
+FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLGuestLobby.xaml;;
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLMyProfile.xaml;;
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLPasswordReset.xaml;;
 FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\XAMLShop.xaml;;

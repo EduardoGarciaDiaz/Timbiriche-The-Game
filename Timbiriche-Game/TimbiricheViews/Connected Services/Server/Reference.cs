@@ -900,6 +900,83 @@ namespace TimbiricheViews.Server {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="GlobalScore", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
+    [System.SerializableAttribute()]
+    public partial class GlobalScore : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdGlobalScoreField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int IdPlayerField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private int WinsNumberField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdGlobalScore {
+            get {
+                return this.IdGlobalScoreField;
+            }
+            set {
+                if ((this.IdGlobalScoreField.Equals(value) != true)) {
+                    this.IdGlobalScoreField = value;
+                    this.RaisePropertyChanged("IdGlobalScore");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int IdPlayer {
+            get {
+                return this.IdPlayerField;
+            }
+            set {
+                if ((this.IdPlayerField.Equals(value) != true)) {
+                    this.IdPlayerField = value;
+                    this.RaisePropertyChanged("IdPlayer");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public int WinsNumber {
+            get {
+                return this.WinsNumberField;
+            }
+            set {
+                if ((this.WinsNumberField.Equals(value) != true)) {
+                    this.WinsNumberField = value;
+                    this.RaisePropertyChanged("WinsNumber");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
     [System.Runtime.Serialization.DataContractAttribute(Name="ShopColor", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService")]
     [System.SerializableAttribute()]
     public partial class ShopColor : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
@@ -2331,6 +2408,197 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> VerifyPlayerIsBannedAsync(int idPlayer) {
             return base.Channel.VerifyPlayerIsBannedAsync(idPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.ILobbyExistenceChecker")]
+    public interface ILobbyExistenceChecker {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse")]
+        bool ExistLobbyCode(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse")]
+        System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface ILobbyExistenceCheckerChannel : TimbiricheViews.Server.ILobbyExistenceChecker, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class LobbyExistenceCheckerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.ILobbyExistenceChecker>, TimbiricheViews.Server.ILobbyExistenceChecker {
+        
+        public LobbyExistenceCheckerClient() {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyExistenceCheckerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public LobbyExistenceCheckerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public bool ExistLobbyCode(string lobbyCode) {
+            return base.Channel.ExistLobbyCode(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode) {
+            return base.Channel.ExistLobbyCodeAsync(lobbyCode);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IScoreboardManager")]
+    public interface IScoreboardManager {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
+        TimbiricheViews.Server.GlobalScore[] GetGlobalScores();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
+        System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/UpdateWins", ReplyAction="http://tempuri.org/IScoreboardManager/UpdateWinsResponse")]
+        int UpdateWins(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/UpdateWins", ReplyAction="http://tempuri.org/IScoreboardManager/UpdateWinsResponse")]
+        System.Threading.Tasks.Task<int> UpdateWinsAsync(int idPlayer);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IScoreboardManagerChannel : TimbiricheViews.Server.IScoreboardManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class ScoreboardManagerClient : System.ServiceModel.ClientBase<TimbiricheViews.Server.IScoreboardManager>, TimbiricheViews.Server.IScoreboardManager {
+        
+        public ScoreboardManagerClient() {
+        }
+        
+        public ScoreboardManagerClient(string endpointConfigurationName) : 
+                base(endpointConfigurationName) {
+        }
+        
+        public ScoreboardManagerClient(string endpointConfigurationName, string remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ScoreboardManagerClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(endpointConfigurationName, remoteAddress) {
+        }
+        
+        public ScoreboardManagerClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(binding, remoteAddress) {
+        }
+        
+        public TimbiricheViews.Server.GlobalScore[] GetGlobalScores() {
+            return base.Channel.GetGlobalScores();
+        }
+        
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync() {
+            return base.Channel.GetGlobalScoresAsync();
+        }
+        
+        public int UpdateWins(int idPlayer) {
+            return base.Channel.UpdateWins(idPlayer);
+        }
+        
+        public System.Threading.Tasks.Task<int> UpdateWinsAsync(int idPlayer) {
+            return base.Channel.UpdateWinsAsync(idPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IGlobalScoreManager", CallbackContract=typeof(TimbiricheViews.Server.IGlobalScoreManagerCallback))]
+    public interface IGlobalScoreManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime")]
+        void SubscribeToGlobalScoreRealTime(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime")]
+        System.Threading.Tasks.Task SubscribeToGlobalScoreRealTimeAsync(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime")]
+        void UnsubscribeToGlobalScoreRealTime(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime")]
+        System.Threading.Tasks.Task UnsubscribeToGlobalScoreRealTimeAsync(string usernameCurrentPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore")]
+        void UpdateGlobalScore();
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore")]
+        System.Threading.Tasks.Task UpdateGlobalScoreAsync();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IGlobalScoreManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdated", ReplyAction="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdatedResponse")]
+        void NotifyGlobalScoreboardUpdated();
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IGlobalScoreManagerChannel : TimbiricheViews.Server.IGlobalScoreManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class GlobalScoreManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IGlobalScoreManager>, TimbiricheViews.Server.IGlobalScoreManager {
+        
+        public GlobalScoreManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public GlobalScoreManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public GlobalScoreManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public GlobalScoreManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public GlobalScoreManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void SubscribeToGlobalScoreRealTime(string usernameCurrentPlayer) {
+            base.Channel.SubscribeToGlobalScoreRealTime(usernameCurrentPlayer);
+        }
+        
+        public System.Threading.Tasks.Task SubscribeToGlobalScoreRealTimeAsync(string usernameCurrentPlayer) {
+            return base.Channel.SubscribeToGlobalScoreRealTimeAsync(usernameCurrentPlayer);
+        }
+        
+        public void UnsubscribeToGlobalScoreRealTime(string usernameCurrentPlayer) {
+            base.Channel.UnsubscribeToGlobalScoreRealTime(usernameCurrentPlayer);
+        }
+        
+        public System.Threading.Tasks.Task UnsubscribeToGlobalScoreRealTimeAsync(string usernameCurrentPlayer) {
+            return base.Channel.UnsubscribeToGlobalScoreRealTimeAsync(usernameCurrentPlayer);
+        }
+        
+        public void UpdateGlobalScore() {
+            base.Channel.UpdateGlobalScore();
+        }
+        
+        public System.Threading.Tasks.Task UpdateGlobalScoreAsync() {
+            return base.Channel.UpdateGlobalScoreAsync();
         }
     }
     
