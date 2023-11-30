@@ -40,7 +40,14 @@ namespace TimbiricheViews.Views
             ShowAsActiveUser();
             LoadDataPlayer();
             LoadPlayerFriends();
+            RestartSelectedColor();
             this.Loaded += Lobby_Loaded;
+        }
+
+        private void RestartSelectedColor()
+        {
+            int defaultColor = 0;
+            PlayerSingleton.Player.IdColorSelected = defaultColor;
         }
 
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
@@ -540,6 +547,9 @@ namespace TimbiricheViews.Views
 
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
+            _numberOfPlayersInLobby = ++numOfPlayersInLobby;
+            ValidateStartOfMatch();
+
             if (gridSecondPlayer.Visibility == Visibility.Collapsed)
             {
                 lbSecondPlayerUsername.Content = lobbyPlayer.Username;
@@ -563,9 +573,6 @@ namespace TimbiricheViews.Views
                 gridFourthPlayer.Visibility = Visibility.Visible;
                 return;
             }
-
-            _numberOfPlayersInLobby = ++numOfPlayersInLobby;
-            ValidateStartOfMatch();
         }
 
         public void NotifyPlayerLeftLobby(String username)
@@ -720,6 +727,9 @@ namespace TimbiricheViews.Views
 
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
             playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+
+            int defaultColor = 0;
+            PlayerSingleton.Player.IdColorSelected = defaultColor;
 
             NavigationService.Navigate(new XAMLLobby());
         }

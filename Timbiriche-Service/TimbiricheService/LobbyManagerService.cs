@@ -90,7 +90,6 @@ namespace TimbiricheService
 
         public void ExitLobby(String lobbyCode, String username)
         {
-            Console.WriteLine("Entre");
             List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
             int hostIndex = 0;
             int eliminatedPlayerIndex = hostIndex;
@@ -102,7 +101,6 @@ namespace TimbiricheService
                 if (player.Username.Equals(username))
                 {
                     playerToEliminate = player;
-                    Console.WriteLine("Jugador encontrado");
                     break;
                 }
                 else
@@ -119,8 +117,6 @@ namespace TimbiricheService
                 if (eliminatedPlayerIndex != hostIndex)
                 {
                     player.CallbackChannel.NotifyPlayerLeftLobby(username);
-                    Console.WriteLine(player.Username + " notificado");
-
                 }
                 else
                 {
