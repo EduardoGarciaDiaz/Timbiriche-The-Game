@@ -38,6 +38,7 @@ namespace TimbiricheViews.Views
         private void DpBirthdate_Loaded(object sender, RoutedEventArgs e)
         {
             const int YEARS_AGO_ALLOWED = -3;
+
             if (sender is DatePicker datePicker)
             {
                 datePicker.DisplayDateEnd = DateTime.Today.AddYears(YEARS_AGO_ALLOWED);
@@ -169,11 +170,13 @@ namespace TimbiricheViews.Views
             try
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+
                 if (userManagerClient.ValidateUniqueIdentifierUser(email))
                 {
                     existUserIdentifier = true;
                     lbExistentEmail.Visibility = Visibility.Visible;
                 }
+
                 if (userManagerClient.ValidateUniqueIdentifierUser(username))
                 {
                     existUserIdentifier = true;
@@ -203,12 +206,14 @@ namespace TimbiricheViews.Views
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
             if (!ValidationUtilities.IsValidEmail(tbxEmail.Text.Trim()))
             {
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
@@ -216,18 +221,21 @@ namespace TimbiricheViews.Views
                 ImgEmailErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
             if (!ValidationUtilities.IsValidUsername(tbxUsername.Text.Trim()))
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
             if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password.Trim()))
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
                 isValid = false;
             }
+
             if (!DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out _))
             {
                 dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
@@ -269,18 +277,22 @@ namespace TimbiricheViews.Views
             {
                 lbPasswordLengthInstruction.Foreground = Brushes.GreenYellow;
             }
+
             if (ValidationUtilities.IsValidSymbol(pwBxPassword.Password))
             {
                 lbPasswordSymbolInstruction.Foreground = Brushes.GreenYellow;
             }
+
             if (ValidationUtilities.IsValidCapitalLetter(pwBxPassword.Password))
             {
                 lbPasswordCapitalLetterInstruction.Foreground = Brushes.GreenYellow;
             }
+
             if (ValidationUtilities.IsValidLowerLetter(pwBxPassword.Password))
             {
                 lbPasswordLowerLetterInstruction.Foreground = Brushes.GreenYellow;
             }
+
             if (ValidationUtilities.IsValidNumber(pwBxPassword.Password))
             {
                 lbPasswordNumberInstruction.Foreground = Brushes.GreenYellow;

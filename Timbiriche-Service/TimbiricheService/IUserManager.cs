@@ -26,6 +26,8 @@ namespace TimbiricheService
         int UpdateAccount(Account account);
         [OperationContract]
         string GetUsernameByIdPlayer(int idPlayer);
+        [OperationContract]
+        bool ValidateIsUserAlreadyOnline(string username);
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]

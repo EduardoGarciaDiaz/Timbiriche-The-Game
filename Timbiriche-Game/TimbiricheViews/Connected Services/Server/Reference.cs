@@ -1234,6 +1234,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
         System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
+        bool ValidateIsUserAlreadyOnline(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
+        System.Threading.Tasks.Task<bool> ValidateIsUserAlreadyOnlineAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1309,6 +1315,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer) {
             return base.Channel.GetUsernameByIdPlayerAsync(idPlayer);
+        }
+        
+        public bool ValidateIsUserAlreadyOnline(string username) {
+            return base.Channel.ValidateIsUserAlreadyOnline(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidateIsUserAlreadyOnlineAsync(string username) {
+            return base.Channel.ValidateIsUserAlreadyOnlineAsync(username);
         }
     }
     
