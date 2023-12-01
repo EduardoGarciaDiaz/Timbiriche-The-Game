@@ -16,51 +16,54 @@ namespace TimbiricheDataAccess
     {
         public int AddUser(Players player)
         {
+            int rowsAffected = -1;
             PasswordHashManager passwordHashManager = new PasswordHashManager();
             player.password = passwordHashManager.HashPassword(player.password);
             player.salt = passwordHashManager.Salt;
 
             Accounts account = null;
-            if (player != null)
+            if (player != null && player.Accounts != null)
             {
                 account = player.Accounts;
 
-            }
-            if (account != null)
-            {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    var newAccount = context.Accounts.Add(account);
-                    var newPlayer = context.Players.Add(player);
+                    context.Accounts.Add(account);
+                    context.Players.Add(player);
+
                     try
                     {
-                        return context.SaveChanges();
-                    } 
+                        rowsAffected = context.SaveChanges();
+                    }
                     catch (DbEntityValidationException ex)
                     {
                         foreach (var entityValidationErrors in ex.EntityValidationErrors)
                         {
                             foreach (var validationError in entityValidationErrors.ValidationErrors)
                             {
-                                Console.WriteLine($"Entity: { entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: { validationError.ErrorMessage}" );
+                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
                             }
                         }
                     }
                 }
             }
-            return -1;
+            
+            return rowsAffected;
         }
 
         public int AddPlayerStyles(PlayerStyles playerStyle)
         {
+            int rowsAffected = -1;
+
             if (playerStyle != null)
             {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    var newPlayerStyle = context.PlayerStyles.Add(playerStyle);
+                    context.PlayerStyles.Add(playerStyle);
+
                     try
                     {
-                        return context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
                     }
                     catch (DbEntityValidationException ex)
                     {
@@ -74,19 +77,22 @@ namespace TimbiricheDataAccess
                     }
                 }
             }
-            return -1;
+
+            return rowsAffected;
         }
 
         public int AddPlayerColors(PlayerColors playerColor)
         {
+            int rowsAffected = -1;
             if (playerColor != null)
             {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    var newPlayerColor = context.PlayerColors.Add(playerColor);
+                    context.PlayerColors.Add(playerColor);
+
                     try
                     {
-                        return context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
                     }
                     catch (DbEntityValidationException ex)
                     {
@@ -100,20 +106,23 @@ namespace TimbiricheDataAccess
                     }
                 }
             }
-            return -1;
+
+            return rowsAffected;
         }
 
         public int AddToGlobalScoreboards(GlobalScores globalScore)
         {
-            int response = -1;
+            int rowsAffected = -1;
+
             if (globalScore != null)
             {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    var newGlobalScore = context.GlobalScores.Add(globalScore);
+                    context.GlobalScores.Add(globalScore);
+
                     try
                     {
-                        response = context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
                     }
                     catch (DbEntityValidationException ex)
                     {
@@ -127,12 +136,13 @@ namespace TimbiricheDataAccess
                     }
                 }
             }
-            return response;
+            return rowsAffected;
         }
 
         public Players ValidateLoginCredentials(string username, string password)
         {
             Players playerData = null;
+
             try
             {
                 using (var context = new TimbiricheDBEntities())

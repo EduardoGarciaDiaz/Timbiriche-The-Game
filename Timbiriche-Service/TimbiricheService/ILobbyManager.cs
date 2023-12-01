@@ -28,6 +28,7 @@ namespace TimbiricheService
         void ExitLobby(String lobbyCode, String username);
     }
 
+    [ServiceContract]
     public interface ILobbyManagerCallback
     {
         [OperationContract]
@@ -51,44 +52,35 @@ namespace TimbiricheService
     [DataContract]
     public class LobbyPlayer
     {
-        private string _username;
-        private int _idStylePath;
-        private int _idHexadecimalColor;
-        private string _stylePath;
-        private string _hexadecimalColor;
-        private ILobbyManagerCallback _callbackChannel;
-        private IMatchManagerCallback _matchManagerCallback;
-        private IPlayerColorsManagerCallback _colorManagerCallback;
-        private IPlayerStylesManagerCallback _styleManagerCallback;
+        [DataMember]
+        public string Username { get; set; }
 
         [DataMember]
-        public string Username { get { return _username; } set { _username = value; } }
-        [DataMember]
-        public int IdStylePath { get { return _idStylePath; } set { _idStylePath = value; } }
-        [DataMember]
-        public int IdHexadecimalColor { get { return _idHexadecimalColor; } set { _idHexadecimalColor = value; } }
-        [DataMember]
-        public string StylePath { get { return _stylePath; } set { _stylePath = value; } }
-        [DataMember]
-        public string HexadecimalColor { get { return _hexadecimalColor; } set { _hexadecimalColor = value; } }
-        public ILobbyManagerCallback CallbackChannel { get { return _callbackChannel;  } set { _callbackChannel = value; } }
-        public IMatchManagerCallback MatchCallbackChannel { get { return _matchManagerCallback; } set { _matchManagerCallback = value; } }
-        public IPlayerColorsManagerCallback ColorCallbackChannel { get { return _colorManagerCallback; } set { _colorManagerCallback = value; } }
-        public IPlayerStylesManagerCallback StyleCallbackChannel { get { return _styleManagerCallback; } set { _styleManagerCallback = value; } }
+        public int IdStylePath { get; set; }
 
+        [DataMember]
+        public int IdHexadecimalColor { get; set; }
+
+        [DataMember]
+        public string StylePath { get; set; }
+
+        [DataMember]
+        public string HexadecimalColor { get; set; }
+
+        public ILobbyManagerCallback CallbackChannel { get; set; }
+        public IMatchManagerCallback MatchCallbackChannel { get; set; }
+        public IPlayerColorsManagerCallback ColorCallbackChannel { get; set; }
+        public IPlayerStylesManagerCallback StyleCallbackChannel { get; set; }
     }
 
     [DataContract]
     public class LobbyInformation
     {
-        private float _matchDurationInMinutes;
-        private float _turnDurationInMinutes;
-        private int _status;
+        [DataMember]
+        public float MatchDurationInMinutes { get; set; }
 
         [DataMember]
-        public float MatchDurationInMinutes { get {  return _matchDurationInMinutes; } set { _matchDurationInMinutes = value; } }
-        [DataMember]
-        public float TurnDurationInMinutes { get { return _turnDurationInMinutes; } set { _turnDurationInMinutes = value; } }
+        public float TurnDurationInMinutes { get; set; }
     }
 }
 

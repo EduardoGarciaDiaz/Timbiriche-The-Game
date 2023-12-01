@@ -121,9 +121,7 @@ namespace TimbiricheService
         }
 
         private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
-        {
-            int idColor = lobbyPlayer.IdHexadecimalColor;
-            
+        {            
             if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
                 playersWithDefaultColorByLobby[lobbyCode] = new List<IPlayerColorsManagerCallback>();

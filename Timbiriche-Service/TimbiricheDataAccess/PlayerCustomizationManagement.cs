@@ -16,56 +16,58 @@ namespace TimbiricheDataAccess
                 var myColors = (from pc in context.PlayerColors
                                 where pc.idPlayer == idPlayer
                                 select pc).ToList();
-                if (myColors != null )
-                {
-                    return myColors;
-                }
-                return null;
+                
+                 return myColors;
             }
         }
 
         public string GetHexadecimalColorByIdColor(int idColor)
         {
+            string hexadecimalColor = null;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var colorEntity = context.Colors.Where(c => c.idColor == idColor).FirstOrDefault<Colors>();
 
                 if (colorEntity != null)
                 {
-                    string hexadecimalColor = colorEntity.hexadecimalCode;
-                    return hexadecimalColor;
+                    hexadecimalColor = colorEntity.hexadecimalCode;
                 }
-                return null;
+
+                return hexadecimalColor;
             }
         }
 
         public int UpdateMyColorSelected(int idPlayer, int idColor)
         {
             int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players.Find(idPlayer);
                 player.idColorSelected = idColor;
                 rowsAffected = context.SaveChanges();
             }
+
             return rowsAffected;
         }
 
         public bool SearchInMyColors(int idPlayer, int idColor)
         {
             bool hasColor = false;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var playerColor = (from pc in context.PlayerColors
                                 where pc.idPlayer == idPlayer && pc.idColor == idColor
                                 select pc).ToList();
 
-
-                if (playerColor != null && playerColor.Count > 0)
+                if (playerColor.Count > 0)
                 {
                     hasColor = true;
                 }
             }
+
             return hasColor;
         }
 
@@ -76,38 +78,40 @@ namespace TimbiricheDataAccess
                 var myStyles = (from ps in context.PlayerStyles
                                 where ps.idPlayer == idPlayer
                                 select ps).ToList();
-                if (myStyles != null)
-                {
-                    return myStyles;
-                }
-                return null;
+
+                return myStyles;
             }
         }
 
         public string GetStylePathByIdStyle(int idStyle)
         {
+            string stylePath = null;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var styleEntity = context.Styles.Where(s => s.idStyle == idStyle).FirstOrDefault<Styles>();
 
                 if (styleEntity != null)
                 {
-                    string stylePath = styleEntity.path;
-                    return stylePath;
+                    stylePath = styleEntity.path;
                 }
-                return null;
+
+                return stylePath;
             }
         }
 
         public int UpdateMyStyleSelected(int idPlayer, int idStyle)
         {
             int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var player = context.Players.Find(idPlayer);
                 player.idStyleSelected = idStyle;
+
                 rowsAffected = context.SaveChanges();
             }
+
             return rowsAffected;
         }
     }

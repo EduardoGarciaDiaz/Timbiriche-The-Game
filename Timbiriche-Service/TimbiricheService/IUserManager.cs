@@ -53,61 +53,54 @@ namespace TimbiricheService
     [DataContract]
     public class Account
     {
-        private int _idAccount;
-        private string _name;
-        private string _lastName;
-        private string _surname;
-        private DateTime _birthdate;
+        [DataMember]
+        public int IdAccount { get; set; }
 
         [DataMember]
-        public int IdAcccount { get { return _idAccount; } set { _idAccount = value; } }
+        public string Name { get; set; }
+
         [DataMember]
-        public string Name { get { return _name; } set { _name = value; } }
+        public string LastName { get; set; }
+
         [DataMember]
-        public string LastName { get { return _lastName; } set { _lastName = value; } }
+        public string Surname { get; set; }
+
         [DataMember]
-        public string Surname { get { return _surname; } set { _surname = value; } }
-        [DataMember]
-        public DateTime Birthdate { get { return _birthdate; } set { _birthdate = value; } }
+        public DateTime Birthdate { get; set; }
     }
 
     [DataContract]
-
     public class Player
     {
-
-        private int _idPlayer;
-        private string _username;
-        private string _email;
-        private string _password;
-        private int _coins;
-        private string _status;
-        private string _salt;
-        private int _idColorSelected;
-        private int _idStyleSelected;
-        private Account _accountFK;
+        [DataMember]
+        public int IdPlayer { get; set; }
 
         [DataMember]
-        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
-        [DataMember]
-        public string Username { get { return _username; } set { _username = value; } }
-        [DataMember]
-        public string Email { get { return _email; } set { _email = value; } }
-        [DataMember]
-        public string Password { get { return _password; } set { _password = value; } }
-        [DataMember]
-        public int Coins { get { return _coins; } set { _coins = value; } }
-        [DataMember]
-        public string Status { get { return _status; } set { _status = value; } }
-        [DataMember]
-        public string Salt { get { return _salt; } set { _salt = value; } }
-        [DataMember]
-        public int IdColorSelected { get { return _idColorSelected; } set { _idColorSelected = value; } }
-        [DataMember]
-        public int IdStyleSelected { get { return _idStyleSelected; } set { _idStyleSelected = value; } }
-        [DataMember]
-        public Account AccountFK { get { return _accountFK; } set { _accountFK = value; } }
+        public string Username { get; set; }
 
+        [DataMember]
+        public string Email { get; set; }
+
+        [DataMember]
+        public string Password { get; set; }
+
+        [DataMember]
+        public int Coins { get; set; }
+
+        [DataMember]
+        public string Status { get; set; }
+
+        [DataMember]
+        public string Salt { get; set; }
+
+        [DataMember]
+        public int IdColorSelected { get; set; }
+
+        [DataMember]
+        public int IdStyleSelected { get; set; }
+
+        [DataMember]
+        public Account AccountFK { get; set; }
     }
 
 }

@@ -69,30 +69,26 @@ namespace TimbiricheService
     [DataContract]
     public class PlayerColor
     {
-        private int _idPlayerColors;
-        private int _idPlayer;
-        private int _idColor;
+        [DataMember]
+        public int IdPlayerColors { get; set; }
 
         [DataMember]
-        public int IdPlayerColors { get { return _idPlayerColors; } set { _idPlayerColors = value; } }
+        public int IdPlayer { get; set; }
+
         [DataMember]
-        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
-        [DataMember]
-        public int IdColor { get { return _idColor; } set { _idColor = value; } }
+        public int IdColor { get; set; }
     }
 
     [DataContract]
     public class PlayerStyle
     {
-        private int _idPlayerStyle;
-        private int _idPlayer;
-        private int _idStyle;
+        [DataMember]
+        public int IdPlayerStyle { get; set; }
 
         [DataMember]
-        public int IdPlayerStyle { get { return _idPlayerStyle; } set { _idPlayerStyle = value; } }
+        public int IdPlayer { get; set; }
+
         [DataMember]
-        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
-        [DataMember]
-        public int IdStyle { get { return _idStyle; } set { _idStyle = value; } }
+        public int IdStyle { get; set; }
     }
 }

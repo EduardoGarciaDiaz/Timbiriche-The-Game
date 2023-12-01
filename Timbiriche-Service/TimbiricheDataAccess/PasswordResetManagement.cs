@@ -21,7 +21,8 @@ namespace TimbiricheDataAccess
 
             using (var context = new TimbiricheDBEntities())
             {
-                var newPasswordResetToken = context.PasswordResetTokens.Add(passwordResetToken);
+                context.PasswordResetTokens.Add(passwordResetToken);
+
                 try
                 {
                     rowsAffected = context.SaveChanges();
@@ -38,6 +39,7 @@ namespace TimbiricheDataAccess
                     }
                 }
             }
+
             return rowsAffected > 0;
         }
 
@@ -49,6 +51,7 @@ namespace TimbiricheDataAccess
                             where p.token == token && p.idPlayer == playerId
                             select p;
                 PasswordResetTokens passwordResetToken = query.SingleOrDefault();
+
                 return passwordResetToken;
             }
         }
@@ -63,6 +66,7 @@ namespace TimbiricheDataAccess
 
                 var playerFound = query.FirstOrDefault();
                 int rowsAffected = 0;
+
                 if(playerFound != null)
                 {
                     Utils.PasswordHashManager passwordHashManager = new Utils.PasswordHashManager();
@@ -70,6 +74,7 @@ namespace TimbiricheDataAccess
                     playerFound.salt = passwordHashManager.Salt;
                     rowsAffected = context.SaveChanges();
                 }
+
                 return rowsAffected > 0;
             }
         }

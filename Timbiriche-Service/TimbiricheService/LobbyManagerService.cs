@@ -24,7 +24,7 @@ namespace TimbiricheService
 
     public partial class UserManagerService : ILobbyManager
     {
-        private static Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
+        private static readonly Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
 
         public void CreateLobby(LobbyInformation lobbyInformation, LobbyPlayer lobbyPlayer)
         {

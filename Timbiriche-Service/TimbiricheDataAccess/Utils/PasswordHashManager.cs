@@ -9,14 +9,13 @@ namespace TimbiricheDataAccess.Utils
 {
     public class PasswordHashManager
     {
-        string _salt;
-
-        public string Salt { get { return _salt; } set { _salt = value; } }
+        public string Salt { get; set; }
 
         public string HashPassword(String password)
         {
-            _salt = BCrypt.Net.BCrypt.GenerateSalt();
-            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, _salt);
+            Salt = BCrypt.Net.BCrypt.GenerateSalt();
+            string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, Salt);
+
             return hashedPassword;
         }
 
@@ -24,6 +23,5 @@ namespace TimbiricheDataAccess.Utils
         {
             return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
         }
-
     }
 }

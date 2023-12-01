@@ -19,6 +19,7 @@ namespace TimbiricheService
         {
             string token = GenerateTokenNumbersAndLetters();
             SaveOnSecureString(token);
+
             EmailSender emailSender = new EmailSender(new EmailVerificationTemplate());
             bool isEmailSend = emailSender.SendEmail(email, token);
 
@@ -27,15 +28,20 @@ namespace TimbiricheService
 
         private string GenerateTokenNumbersAndLetters()
         {
-            string confirmationCode = string.Empty;
             const int CODE_LENGTH = 8;
             const string VALID_CHARACTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
             Random random = new Random();
+            StringBuilder confirmationCodeBuilder = new StringBuilder();
+            string confirmationCode = string.Empty;
+
             for (int i = 0; i < CODE_LENGTH; i++)
             {
                 int index = random.Next(VALID_CHARACTERS.Length);
-                confirmationCode += VALID_CHARACTERS[index];
+                confirmationCodeBuilder.Append(VALID_CHARACTERS[index]);
             }
+
+            confirmationCode = confirmationCodeBuilder.ToString();
+
             return confirmationCode;
         }
 
@@ -48,12 +54,12 @@ namespace TimbiricheService
             }
         }
 
-        public bool VerifyEmailToken(string tokenReceived)
+        public bool VerifyEmailToken(string token)
         {
             bool isTokenValid = false;
-            string token = new NetworkCredential(string.Empty, _secureToken).Password;
+            string tokenNetworkCredential = new NetworkCredential(string.Empty, _secureToken).Password;
 
-            if (tokenReceived.Equals(token))
+            if (token.Equals(tokenNetworkCredential))
             {
                 _secureToken.Dispose();
                 isTokenValid = true;
