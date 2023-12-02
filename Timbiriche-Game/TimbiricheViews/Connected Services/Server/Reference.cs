@@ -1517,6 +1517,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
         System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse")]
+        void ExpulsePlayerFromLobby(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse")]
+        System.Threading.Tasks.Task ExpulsePlayerFromLobbyAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1545,6 +1551,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse")]
         void NotifyLobbyDoesNotExist();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobbyResponse")]
+        void NotifyExpulsedFromLobby();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1605,6 +1614,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username) {
             return base.Channel.ExitLobbyAsync(lobbyCode, username);
+        }
+        
+        public void ExpulsePlayerFromLobby(string lobbyCode, string username) {
+            base.Channel.ExpulsePlayerFromLobby(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task ExpulsePlayerFromLobbyAsync(string lobbyCode, string username) {
+            return base.Channel.ExpulsePlayerFromLobbyAsync(lobbyCode, username);
         }
     }
     

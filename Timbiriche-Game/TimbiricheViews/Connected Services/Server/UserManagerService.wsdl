@@ -640,6 +640,12 @@
   <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
   </wsdl:message>
@@ -687,6 +693,12 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobbyResponse" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_RegisterToTheMatch_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterToTheMatch" />
@@ -1074,6 +1086,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" message="tns:ILobbyManager_ExpulsePlayerFromLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse" message="tns:ILobbyManager_ExpulsePlayerFromLobby_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
@@ -1105,6 +1121,10 @@
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" message="tns:ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobbyResponse" message="tns:ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IMatchManager">
@@ -1541,6 +1561,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
       <wsdl:input>
@@ -1606,6 +1635,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

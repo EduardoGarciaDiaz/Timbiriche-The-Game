@@ -141,6 +141,10 @@
                        MouseLeftButtonDown="LbFourthPlayer_Click"/>
             </Grid>
 
+            <Grid x:Name="gridOptionsSecondPlayer" Margin="78,142,912,529" Visibility="Collapsed" Background="Transparent"/>
+            <Grid x:Name="gridOptionsThirdPlayer"  Margin="694,142,296,529" Visibility="Collapsed" Background="Transparent"/>
+            <Grid x:Name="gridOptionsFourthPlayer" Margin="951,143,39,529" Visibility="Collapsed" Background="Transparent"/>
+
             <Grid x:Name="gridFriendsMenu" Visibility="Collapsed" Margin="15,13,890,19">
                 <Rectangle Fill="#1C95D1" Opacity="0.85" RadiusX="25" RadiusY="25" />
                 <Button Background="#063343" Foreground="White" 
@@ -202,10 +206,6 @@
 
                 </Grid>
             </Grid>
-
-            <Grid x:Name="gridOptionsSecondPlayer" Margin="78,142,912,529" Visibility="Collapsed" Background="Transparent"/>
-            <Grid x:Name="gridOptionsThirdPlayer"  Margin="694,142,296,529" Visibility="Collapsed" Background="Transparent"/>
-            <Grid x:Name="gridOptionsFourthPlayer" Margin="951,143,39,529" Visibility="Collapsed" Background="Transparent"/>
 
         </Grid>
     </Viewbox>

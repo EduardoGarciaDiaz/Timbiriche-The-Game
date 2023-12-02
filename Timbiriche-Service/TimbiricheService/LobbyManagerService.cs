@@ -24,6 +24,7 @@ namespace TimbiricheService
 
     public partial class UserManagerService : ILobbyManager
     {
+        private readonly object locker = new object();
         private static readonly Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
 
         public void CreateLobby(LobbyInformation lobbyInformation, LobbyPlayer lobbyPlayer)
@@ -90,6 +91,16 @@ namespace TimbiricheService
 
         public void ExitLobby(String lobbyCode, String username)
         {
+            PerformExitLobby(lobbyCode, username, false);
+        }
+
+        public void ExpulsePlayerFromLobby(string lobbyCode, string username)
+        {
+            PerformExitLobby(lobbyCode, username, true);
+        }
+
+        private void PerformExitLobby(String lobbyCode, String username, bool isExpulsed)
+        {
             List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
             int hostIndex = 0;
             int eliminatedPlayerIndex = hostIndex;
@@ -109,6 +120,11 @@ namespace TimbiricheService
                 }
             }
 
+            if (isExpulsed)
+            {
+                playerToEliminate.CallbackChannel.NotifyExpulsedFromLobby();
+            }
+
             players.Remove(playerToEliminate);
             lobbies[lobbyCode] = (lobbies[lobbyCode].Item1, players);
 
@@ -124,7 +140,7 @@ namespace TimbiricheService
                 }
             }
 
-            if(eliminatedPlayerIndex == hostIndex)
+            if (eliminatedPlayerIndex == hostIndex)
             {
                 lobbies.Remove(lobbyCode);
             }

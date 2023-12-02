@@ -287,6 +287,15 @@ namespace TimbiricheViews.Views
 
             return (playerHexadecimalColor, playerStylePath);
         }
+
+        public void NotifyExpulsedFromLobby()
+        {
+            string title = "Has sido expulsado";
+            string message = "El host te ha sacado de la sala.";
+            EmergentWindows.CreateEmergentWindowNoModal(title, message);
+
+            NavigationService.Navigate(new XAMLLogin());
+        }
     }
 
     public partial class XAMLGuestLobby : Page, IPlayerColorsManagerCallback

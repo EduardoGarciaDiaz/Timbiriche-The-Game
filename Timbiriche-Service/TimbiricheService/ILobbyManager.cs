@@ -23,9 +23,11 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void StartMatch(string lobbyCode);
         [OperationContract(IsOneWay = true)]
-        void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer);
+        void JoinLobby(string lobbyCode, LobbyPlayer lobbyPlayer);
         [OperationContract]
-        void ExitLobby(String lobbyCode, String username);
+        void ExitLobby(string lobbyCode, string username);
+        [OperationContract]
+        void ExpulsePlayerFromLobby(string lobbyCode, string username);
     }
 
     [ServiceContract]
@@ -38,7 +40,7 @@ namespace TimbiricheService
         [OperationContract]
         void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby);
         [OperationContract]
-        void NotifyPlayerLeftLobby(String username);
+        void NotifyPlayerLeftLobby(string username);
         [OperationContract]
         void NotifyHostPlayerLeftLobby();
         [OperationContract]
@@ -47,6 +49,8 @@ namespace TimbiricheService
         void NotifyLobbyIsFull();
         [OperationContract]
         void NotifyLobbyDoesNotExist();
+        [OperationContract]
+        void NotifyExpulsedFromLobby();
     }
 
     [DataContract]

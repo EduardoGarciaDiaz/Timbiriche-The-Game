@@ -75,9 +75,10 @@ namespace TimbiricheService
 
         private void VerifyBanNeedFromLobby(string lobbyCode, int idPlayerReported, DateTime startDate)
         {
+            int maximumNumberOfReportsOnLobby = 2;
             int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
 
-            if (numberOfReports >= 1) //Change num of reports to 2
+            if (numberOfReports >= maximumNumberOfReportsOnLobby)
             {
                 BanPlayer(idPlayerReported, startDate);
                 List<LobbyPlayer> lobbyPlayers = lobbies[lobbyCode].Item2;
@@ -103,9 +104,10 @@ namespace TimbiricheService
 
         private void VerifyBanNeed(int idPlayerReported, DateTime startDate)
         {
+            int maximumNumberOfReportsOnMatch = 3;
             int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
 
-            if (numberOfReports >= 1) //Change num of reports to 3
+            if (numberOfReports >= maximumNumberOfReportsOnMatch)
             {
                 BanPlayer(idPlayerReported, startDate);
             }

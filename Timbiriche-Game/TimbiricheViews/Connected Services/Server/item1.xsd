@@ -247,6 +247,19 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="ExpulsePlayerFromLobby">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="ExpulsePlayerFromLobbyResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="NotifyLobbyCreated">
     <xs:complexType>
       <xs:sequence>
@@ -333,6 +346,16 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyLobbyDoesNotExistResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyExpulsedFromLobby">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyExpulsedFromLobbyResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
