@@ -50,12 +50,14 @@ namespace TimbiricheService
             if (rowsAffected > 0)
             {
                 int rowsAffectedPlayerStyles = SetDefaultStyle(newPlayer);
+
                 if  (rowsAffectedPlayerStyles > 0)
                 {
                     SetDefaultColors(newPlayer);
                     AddNewPlayerToGlobalScores(newPlayer.idPlayer);
                 }
             }
+
             return rowsAffected;
         }
 

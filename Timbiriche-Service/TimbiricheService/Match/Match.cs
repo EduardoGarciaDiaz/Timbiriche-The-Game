@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TimbiricheService.Match
 {
     public class Match
     {
-        LobbyInformation _lobbyInformation;
-        List<LobbyPlayer> _players;
-        Queue<LobbyPlayer> _turns;
-        Dictionary<LobbyPlayer, int> _scoreboard;
-        Dictionary<string, bool> _connectedPlayers;
+        private LobbyInformation _lobbyInformation;
+        private List<LobbyPlayer> _players;
+        private Queue<LobbyPlayer> _turns;
+        private Dictionary<LobbyPlayer, int> _scoreboard;
+        private Dictionary<string, bool> _connectedPlayers;
+        private int _numberOfPlayers;
 
         public Match(LobbyInformation lobbyInformation, List<LobbyPlayer> players)
         {
@@ -21,6 +23,7 @@ namespace TimbiricheService.Match
             InitializeRandomTurns();
             InitializeScoreboard();
             InitializePlayersConnected();
+            InitializeNumberOfPlayers();
         }
 
         public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
@@ -58,6 +61,11 @@ namespace TimbiricheService.Match
             {
                 _scoreboard[player] += points;
             }
+        }
+
+        private void InitializeNumberOfPlayers()
+        {
+            _numberOfPlayers = _players.Count;
         }
 
         private void InitializeRandomTurns()
@@ -123,7 +131,8 @@ namespace TimbiricheService.Match
         }
 
         public void DeletePlayerFromMatch(LobbyPlayer player)
-        {   
+        {
+            _numberOfPlayers--;
             _players.Remove(player);
             _scoreboard.Remove(player);
 
@@ -149,7 +158,27 @@ namespace TimbiricheService.Match
 
         public int GetNumberOfPlayerInMatch()
         {
-            return _players.Count;
+            return _numberOfPlayers;
+        }
+
+        public void DisconnectPlayerFromMatch()
+        {
+            _numberOfPlayers--;
+        }
+
+        public LobbyPlayer GetLobbyPlayerByUsername(String username)
+        {
+            LobbyPlayer lobbyPlayer = null;
+
+            foreach(LobbyPlayer player in _players)
+            {
+                if(player.Username == username)
+                {
+                    lobbyPlayer = player;
+                }
+            }
+
+            return lobbyPlayer; 
         }
     }
 }

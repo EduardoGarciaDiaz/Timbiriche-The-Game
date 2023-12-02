@@ -23,9 +23,12 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void StartMatch(string lobbyCode);
         [OperationContract(IsOneWay = true)]
-        void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer);
+        void JoinLobby(string lobbyCode, LobbyPlayer lobbyPlayer);
+        [OperationContract(IsOneWay = true)]
+        void JoinLobbyAsHost(string lobbyCode);
+
         [OperationContract]
-        void ExitLobby(String lobbyCode, String username);
+        void ExitLobby(string lobbyCode, string username);
     }
 
     public interface ILobbyManagerCallback

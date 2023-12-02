@@ -41,6 +41,17 @@ namespace TimbiricheService
             currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
         }
 
+        public void JoinLobbyAsHost(string lobbyCode)
+        {
+            ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
+            List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
+            LobbyPlayer hostPlayer = players[0];
+
+            hostPlayer.CallbackChannel = currentUserCallbackChannel;
+
+            currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+        }
+
         public void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer)
         {
             ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();

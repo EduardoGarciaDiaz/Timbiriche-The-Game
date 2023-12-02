@@ -379,7 +379,7 @@ namespace TimbiricheViews.Views
 
             if (parentWindow != null)
             {
-                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(scoreboard, coinsEarned));
+                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(_lobbyCode, scoreboard, coinsEarned));
             }
         }
 
