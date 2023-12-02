@@ -92,6 +92,9 @@
     <Compile Include="Components\Shop\XAMLStyleItemComponent.xaml.cs">
       <DependentUpon>XAMLStyleItemComponent.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Components\XAMLOptionsPlayerComponent.xaml.cs">
+      <DependentUpon>XAMLOptionsPlayerComponent.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Components\XAMLFriendRequestItemComponent.xaml.cs">
       <DependentUpon>XAMLFriendRequestItemComponent.xaml</DependentUpon>
     </Compile>
@@ -172,6 +175,10 @@
     <Page Include="Components\Shop\XAMLStyleItemComponent.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\XAMLOptionsPlayerComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Components\XAMLFriendRequestItemComponent.xaml">
       <Generator>MSBuild:Compile</Generator>

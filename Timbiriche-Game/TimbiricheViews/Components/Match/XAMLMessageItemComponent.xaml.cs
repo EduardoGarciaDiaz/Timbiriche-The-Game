@@ -51,14 +51,19 @@ namespace TimbiricheViews.Components.Match
 
     public partial class XAMLMessageItemComponent : Server.IBanManagerCallback
     {
+        public void NotifyReportCompleted()
+        {
+            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+        }
+
         public void NotifyPlayerAlreadyReported()
         {
             Utils.EmergentWindows.CreateEmergentWindow("Jugador ya reportado", "Ya has reportado a este jugador.");
         }
 
-        public void NotifyReportCompleted()
+        public void NotifyPlayerBanned(int idPlayerBanned)
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+            Utils.EmergentWindows.CreateEmergentWindow("Has sido baneado", "En cuanto termines la partida, saldrás del juego");
         }
 
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)

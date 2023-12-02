@@ -14,8 +14,8 @@ namespace TimbiricheService.Match
         Dictionary<LobbyPlayer, int> _scoreboard;
         Dictionary<string, bool> _connectedPlayers;
 
-        public LobbyInformation LobbyInformation { get; set; }
-        public List<LobbyPlayer> Players { get; set; }
+        public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
+        public List<LobbyPlayer> Players { get { return _players; } set { _players = value; } }
 
         public Match(LobbyInformation lobbyInformation, List<LobbyPlayer> players)
         {

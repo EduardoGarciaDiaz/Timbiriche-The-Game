@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.Text;
@@ -11,6 +12,23 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IBanManager
     {
+        public void RegisterToBansNotifications(string lobbyCode, string username)
+        {
+            IBanManagerCallback currentBanUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
+
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
+
+                LobbyPlayer playerToUpdate = playersInLobby.FirstOrDefault(player => player.Username == username);
+
+                if (playerToUpdate != null)
+                {
+                    playerToUpdate.BanManagerChannel = currentBanUserCallbackChannel;
+                }
+            }
+        }
+
         public void ReportMessage(int idPlayerReported, int idPlayerReporter)
         {
             IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
@@ -29,6 +47,52 @@ namespace TimbiricheService
             else
             {
                 currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+            }
+        }
+
+        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter)
+        {
+            if (idPlayerReported > 0)
+            {
+                IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
+                if (VerifyUniqueReport(idPlayerReported, idPlayerReporter))
+                {
+                    DateTime currentDateTime = DateTime.Now;
+                    bool reportCreated = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
+
+                    if (reportCreated)
+                    {
+                        VerifyBanNeedFromLobby(lobbyCode, idPlayerReported, currentDateTime);
+                        currentUserCallbackChannel.NotifyReportCompleted();
+                    }
+                }
+                else
+                {
+                    currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                }
+            }
+        }
+
+        private void VerifyBanNeedFromLobby(string lobbyCode, int idPlayerReported, DateTime startDate)
+        {
+            int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
+
+            if (numberOfReports >= 1) //Change num of reports to 2
+            {
+                BanPlayer(idPlayerReported, startDate);
+                List<LobbyPlayer> lobbyPlayers = lobbies[lobbyCode].Item2;
+
+                UserManagement dataAccess = new UserManagement();
+                string username = dataAccess.GetUsernameByIdPlayer(idPlayerReported);
+
+                foreach(LobbyPlayer player in lobbyPlayers)
+                {
+                    if (player.Username == username)
+                    {
+                        player.BanManagerChannel.NotifyPlayerBanned(idPlayerReported);
+                        break;
+                    }
+                }
             }
         }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data.Common;
 using System.Linq;
+using System.Runtime.Remoting.Contexts;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,6 @@ using TimbiricheViews.Components.Lobby;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using Path = System.IO.Path;
 
 namespace TimbiricheViews.Views
 {
@@ -95,7 +95,7 @@ namespace TimbiricheViews.Views
                 LoadFaceBox(lbFourthPlayerUsername, idStyle, username);
             }
         }
-        
+
         private void LoadDataPlayer()
         {
             lbUsername.Content = _playerLoggedIn.Username;
@@ -162,7 +162,7 @@ namespace TimbiricheViews.Views
 
         private void ChangeStatusFriends(string[] onlineUsernames, bool isOnline)
         {
-            foreach(string onlineUsername in onlineUsernames)
+            foreach (string onlineUsername in onlineUsernames)
             {
                 ChangeStatusPlayer(onlineUsername, isOnline);
             }
@@ -203,7 +203,7 @@ namespace TimbiricheViews.Views
         {
             foreach (var username in onlineUsernames)
             {
-                AddUserToFriendsList(username,  OFFLINE_STATUS_PLAYER_HEX_COLOR);
+                AddUserToFriendsList(username, OFFLINE_STATUS_PLAYER_HEX_COLOR);
             }
         }
 
@@ -315,6 +315,126 @@ namespace TimbiricheViews.Views
         private void BtnScoreboard_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLGlobalScoreboard());
+        }
+    }
+
+    public partial class XAMLLobby : Page, IBanManagerCallback
+    {
+        private void RegisterToBansNotifications(string lobbyCode)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
+            banManagerClient.RegisterToBansNotifications(lobbyCode, _playerLoggedIn.Username);
+        }
+
+        private void LbSecondPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridOptionsSecondPlayer.Children.Count < 2)
+            {
+                gridOptionsSecondPlayer.Children.Clear();
+                string secondPlayerUsername = (string)lbSecondPlayerUsername.Content;
+                XAMLOptionsPlayerComponent optionsPlayerComponent = ConfigureOptionsPlayerComponent(secondPlayerUsername);
+
+                gridOptionsSecondPlayer.Children.Add(optionsPlayerComponent);
+                gridOptionsSecondPlayer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void LbThirdPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridOptionsThirdPlayer.Children.Count < 2)
+            {
+                gridOptionsThirdPlayer.Children.Clear();
+                string thirdPlayerUsername = (string)lbThirdPlayerUsername.Content;
+                XAMLOptionsPlayerComponent optionsPlayerComponent = ConfigureOptionsPlayerComponent(thirdPlayerUsername);
+
+                gridOptionsThirdPlayer.Children.Add(optionsPlayerComponent);
+                gridOptionsThirdPlayer.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void LbFourthPlayer_Click(object sender, RoutedEventArgs e)
+        {
+            if (gridOptionsFourthPlayer.Children.Count < 2)
+            {
+                gridOptionsFourthPlayer.Children.Clear();
+                string fourthPlayerUsername = (string)lbFourthPlayerUsername.Content;
+                XAMLOptionsPlayerComponent optionsPlayerComponent = ConfigureOptionsPlayerComponent(fourthPlayerUsername);
+
+                gridOptionsFourthPlayer.Children.Add(optionsPlayerComponent);
+                gridOptionsFourthPlayer.Visibility = Visibility.Visible;
+            }
+            
+        }
+
+        private XAMLOptionsPlayerComponent ConfigureOptionsPlayerComponent(string username)
+        {
+            bool isHost = false;
+            XAMLOptionsPlayerComponent optionsPlayerComponent;
+
+           
+            optionsPlayerComponent = CreateOptionsPlayerComponent(isHost, username);
+            
+
+            return optionsPlayerComponent;
+        }
+
+        private XAMLOptionsPlayerComponent CreateOptionsPlayerComponent(bool isHost, string username)
+        {
+            XAMLOptionsPlayerComponent optionsPlayerComponent = new XAMLOptionsPlayerComponent(isHost, username);
+            optionsPlayerComponent.ButtonClicked += BtnOptionPlayer_Click;
+
+            return optionsPlayerComponent;
+        }
+
+        private void BtnOptionPlayer_Click(object sender, ButtonClickEventArgs e)
+        {
+            const string BTN_REPORT = "Report";
+            if (e.ButtonName.Equals(BTN_REPORT))
+            {
+                ReportPlayer(e.Username);
+            }
+        }
+
+        private void ReportPlayer(string username)
+        {
+            InstanceContext context = new InstanceContext(this);
+            BanManagerClient banManagerClient = new BanManagerClient(context);
+            UserManagerClient userManagerClient = new UserManagerClient();
+
+            int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
+            int idPlayerReported = userManagerClient.GetIdPlayerByUsername(username);
+
+            if (idPlayerReported > 0)
+            {
+                banManagerClient.ReportPlayer(_lobbyCode, idPlayerReported, idPlayerReporter);
+            } 
+            else
+            {
+                Utils.EmergentWindows.CreateEmergentWindow("Lo lamentamos", "No se puede banear a un jugador invitado.");
+            }
+        }
+
+        public void NotifyReportCompleted()
+        {
+            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+        }
+
+        public void NotifyPlayerAlreadyReported()
+        {
+            Utils.EmergentWindows.CreateEmergentWindow("Jugador ya reportado", "Ya has reportado a este jugador.");
+        }
+
+        public void NotifyPlayerBanned(int idPlayerBanned)
+        {
+            ExitBanned(idPlayerBanned);
+            Utils.EmergentWindows.CreateEmergentWindowNoModal("Has sido baneado", "Has acumulado el máximo de reportes permitidos. Se restringirá tu cuenta por un tiempo establecido.");
+        }
+
+        private void ExitBanned(int idPlayerBanned)
+        {
+            ExitCurrentLobby(PlayerSingleton.Player.Username);
+            NavigationService.Navigate(new XAMLBan(idPlayerBanned));
         }
     }
 
@@ -576,25 +696,31 @@ namespace TimbiricheViews.Views
             }
         }
 
-        public void NotifyPlayerLeftLobby(String username)
+        public void NotifyPlayerLeftLobby(string username)
         {
-            String secondPlayerUsername = (String) lbSecondPlayerUsername.Content;
-            String thirdPlayerUsername = (String)lbThirdPlayerUsername.Content;
-            String fourthPlayerUsername = (String)lbFourthPlayerUsername.Content;
+            string secondPlayerUsername = (string) lbSecondPlayerUsername.Content;
+            string thirdPlayerUsername = (string)lbThirdPlayerUsername.Content;
+            string fourthPlayerUsername = (string)lbFourthPlayerUsername.Content;
 
             if (username.Equals(secondPlayerUsername))
             {
                 gridSecondPlayer.Visibility = Visibility.Collapsed;
+                gridOptionsSecondPlayer.Children.Clear();
+                gridOptionsSecondPlayer.Visibility = Visibility.Collapsed;
             }
 
             if (username.Equals(thirdPlayerUsername))
             {
                 gridThirdPlayer.Visibility = Visibility.Collapsed;
+                gridOptionsThirdPlayer.Children.Clear();
+                gridOptionsThirdPlayer.Visibility = Visibility.Collapsed;
             }
 
             if (username.Equals(fourthPlayerUsername))
             {
                 gridFourthPlayer.Visibility = Visibility.Collapsed;
+                gridOptionsFourthPlayer.Children.Clear();
+                gridOptionsFourthPlayer.Visibility = Visibility.Collapsed;
             }
 
             _numberOfPlayersInLobby--;
@@ -709,17 +835,33 @@ namespace TimbiricheViews.Views
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
+            ExitToLobby();
+        }
+
+        private void ExitToLobby()
+        {
+            ExitCurrentLobby( PlayerSingleton.Player.Username);
+            ReestablishSelectedColor();
+
+            NavigationService.Navigate(new XAMLLobby());
+        }
+
+        private void ExitCurrentLobby(string username)
+        {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
-            lobbyManagerClient.ExitLobby(_lobbyCode, PlayerSingleton.Player.Username);
+            lobbyManagerClient.ExitLobby(_lobbyCode, username);
+        }
 
+        private void ReestablishSelectedColor()
+        {
+            int defaultColor = 0;
+
+            InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
             playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
 
-            int defaultColor = 0;
             PlayerSingleton.Player.IdColorSelected = defaultColor;
-
-            NavigationService.Navigate(new XAMLLobby());
         }
 
         private (string, string) GetPlayerCustomization()
@@ -887,13 +1029,17 @@ namespace TimbiricheViews.Views
             if (lbSecondPlayerUsername.Content.Equals(username))
             {
                 rectangleSecondPlayerColor.Fill = colorPlayer;
-            } else if (lbThirdPlayerUsername.Content.Equals(username))
+                rectangleSecondPlayerUsernameColor.Fill = colorPlayer;
+            } 
+            else if (lbThirdPlayerUsername.Content.Equals(username))
             {
                 rectangleThirdPlayerColor.Fill = colorPlayer;
+                rectangleThirdPlayerUsernameColor.Fill = colorPlayer;
             }
             else if (lbFourthPlayerUsername.Content.Equals(username))
             {
                 rectangleFourthPlayerColor.Fill = colorPlayer;
+                rectangleFourthPlayerUsernameColor.Fill = colorPlayer;
             }
         }
 
@@ -930,6 +1076,7 @@ namespace TimbiricheViews.Views
         private void UpdatePlayerColor(Rectangle rectangleSelected)
         {
             rectangleFirstPlayerColor.Fill = rectangleSelected.Fill;
+            rectangleFirstPlayerUsernameColor.Fill = rectangleSelected.Fill;
         }
 
         private void ImgCloseGridColorSelection_Click(object sender, RoutedEventArgs e)
@@ -966,6 +1113,7 @@ namespace TimbiricheViews.Views
             if (idSelectedColor == DEFAULT_SELECTED_COLOR)
             {
                 rectangleFirstPlayerColor.Fill = PlayerColorTemplate.Fill;
+                rectangleFirstPlayerUsernameColor.Fill = PlayerColorTemplate.Fill;
             }
             else
             {
@@ -984,7 +1132,8 @@ namespace TimbiricheViews.Views
         {
             StablishOcuppiedColors(ocuppedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
-        }   
+            RegisterToBansNotifications(_lobbyCode);
+        }
     }
 
     public partial class XAMLLobby : Page

@@ -173,8 +173,7 @@ namespace TimbiricheViews.Views
                 isAdmittedPlayer = false;
                 GoToPlayerBannedPage(playerLogged);
             }
-
-            if (isPlayerAlreadyOnline)
+            else if (isPlayerAlreadyOnline)
             {
                 isAdmittedPlayer = false;
                 ShowPlayerAlreadyOnlineMessage();

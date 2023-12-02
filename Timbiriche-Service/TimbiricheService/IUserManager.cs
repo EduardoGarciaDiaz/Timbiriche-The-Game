@@ -28,6 +28,8 @@ namespace TimbiricheService
         string GetUsernameByIdPlayer(int idPlayer);
         [OperationContract]
         bool ValidateIsUserAlreadyOnline(string username);
+        [OperationContract]
+        int GetIdPlayerByUsername(string username);
     }
 
     [ServiceContract(CallbackContract = typeof(IUserManagerCallback))]

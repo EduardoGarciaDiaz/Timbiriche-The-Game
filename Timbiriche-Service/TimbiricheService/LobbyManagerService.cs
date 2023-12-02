@@ -50,7 +50,7 @@ namespace TimbiricheService
             {
                 List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
 
-                if(playersInLobby.Count < 5)
+                if(playersInLobby.Count < 4)
                 {                          
                     int numOfPlayersInLobby = playersInLobby.Count;
 

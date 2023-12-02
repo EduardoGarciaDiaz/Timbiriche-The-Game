@@ -12,10 +12,22 @@ namespace TimbiricheViews.Utils
     {
         public static void CreateEmergentWindow(string titleEmergentWindow, string descriptionEmergentWindow)
         {
-            _ = new XAMLEmergentWindow(
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
+
+            emergentWindow.ShowDialog();
+        }
+
+        public static void CreateEmergentWindowNoModal(string titleEmergentWindow, string descriptionEmergentWindow)
+        {
+            XAMLEmergentWindow emergentWindowNoModal = new XAMLEmergentWindow(
+                titleEmergentWindow,
+                descriptionEmergentWindow
+            );
+
+            emergentWindowNoModal.Show();
         }
 
         public static void CreateConnectionFailedMessageWindow()
@@ -23,10 +35,12 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbConnectionFailed;
             string descriptionEmergentWindow = Properties.Resources.tbkConnectionFailedDetails;
 
-            _ = new XAMLEmergentWindow(
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
+
+            emergentWindow.ShowDialog();
         }
 
         public static void CreateTimeOutMessageWindow()
@@ -34,15 +48,18 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbTimeOutExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkTimeOutExceptionDescription;
 
-            _ = new XAMLEmergentWindow(
+            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
                 titleEmergentWindow,
                 descriptionEmergentWindow
             );
+
+            emergentWindow.ShowDialog();
         }
 
         public static void CreateLobbyInvitationWindow(string lobbyCode)
         {
             XAMLLobbyInvitationComponent lobbyInvitationComponent = new XAMLLobbyInvitationComponent(lobbyCode);
+
             lobbyInvitationComponent.Show();
         }
     }

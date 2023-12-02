@@ -312,7 +312,7 @@ namespace TimbiricheViews.Views
 
             Account editedAccount = new Account()
             {
-                IdAcccount = playerLoggedIn.AccountFK.IdAcccount,
+                IdAccount = playerLoggedIn.AccountFK.IdAccount,
                 Name = tbxName.Text.Trim(),
                 LastName = tbxLastName.Text.Trim(),
                 Surname = tbxSurname.Text.Trim(),

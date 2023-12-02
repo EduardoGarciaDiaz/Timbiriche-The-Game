@@ -71,6 +71,7 @@ namespace TimbiricheService
         public IMatchManagerCallback MatchCallbackChannel { get; set; }
         public IPlayerColorsManagerCallback ColorCallbackChannel { get; set; }
         public IPlayerStylesManagerCallback StyleCallbackChannel { get; set; }
+        public IBanManagerCallback BanManagerChannel { get; set; }
     }
 
     [DataContract]

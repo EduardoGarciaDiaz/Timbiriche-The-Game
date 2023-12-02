@@ -248,6 +248,8 @@ namespace TimbiricheViews.Views
             string title = "Lobby lleno";
             string message = "El lobby al que estas intentando entrar esta lleno.";
             EmergentWindows.CreateEmergentWindow(title, message);
+
+            NavigationService.Navigate(new XAMLLogin());
         }
 
         public void NotifyLobbyDoesNotExist()
@@ -425,13 +427,17 @@ namespace TimbiricheViews.Views
             if (lbSecondPlayerUsername.Content.Equals(username))
             {
                 rectangleSecondPlayerColor.Fill = colorPlayer;
-            } else if (lbThirdPlayerUsername.Content.Equals(username))
+                rectangleSecondPlayerUsernameColor.Fill = colorPlayer;
+            }
+            else if (lbThirdPlayerUsername.Content.Equals(username))
             {
                 rectangleThirdPlayerColor.Fill = colorPlayer;
+                rectangleThirdPlayerUsernameColor.Fill = colorPlayer;
             }
             else if (lbFourthPlayerUsername.Content.Equals(username))
             {
                 rectangleFourthPlayerColor.Fill = colorPlayer;
+                rectangleFourthPlayerUsernameColor.Fill = colorPlayer;
             }
         }
 
@@ -468,6 +474,7 @@ namespace TimbiricheViews.Views
         private void UpdatePlayerColor(Rectangle rectangleSelected)
         {
             rectangleFirstPlayerColor.Fill = rectangleSelected.Fill;
+            rectangleFirstPlayerUsernameColor.Fill = rectangleSelected.Fill;
         }
 
         private void ImgCloseGridColorSelection_Click(object sender, RoutedEventArgs e)
@@ -509,6 +516,7 @@ namespace TimbiricheViews.Views
             if (idSelectedColor == DEFAULT_SELECTED_COLOR)
             {
                 rectangleFirstPlayerColor.Fill = PlayerColorTemplate.Fill;
+                rectangleFirstPlayerUsernameColor.Fill = PlayerColorTemplate.Fill;
             }
             else
             {

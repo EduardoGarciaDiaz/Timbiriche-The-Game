@@ -110,7 +110,7 @@ namespace TimbiricheService
                     Accounts accountValidated = playerValidated.Accounts;
                     Account account = new Account
                     {
-                        IdAcccount = accountValidated.idAccount,
+                        IdAccount = accountValidated.idAccount,
                         Name = accountValidated.name,
                         LastName = accountValidated.lastName,
                         Surname = accountValidated.surname,
@@ -192,7 +192,7 @@ namespace TimbiricheService
         public int UpdateAccount(Account account)
         {
             Accounts editedAccount = new Accounts();
-            editedAccount.idAccount = account.IdAcccount;
+            editedAccount.idAccount = account.IdAccount;
             editedAccount.name = account.Name;
             editedAccount.lastName = account.LastName;
             editedAccount.surname = account.Surname;
@@ -222,6 +222,14 @@ namespace TimbiricheService
             }
 
             return isAlreadyOnline;
+        }
+
+        public int GetIdPlayerByUsername(string username)
+        {
+            UserManagement dataAccess = new UserManagement();
+            int idPlayer = dataAccess.GetIdPlayerByUsername(username);
+
+            return idPlayer;
         }
     }
 

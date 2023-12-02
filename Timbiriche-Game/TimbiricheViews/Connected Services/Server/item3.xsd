@@ -18,7 +18,7 @@
   <xs:complexType name="Account">
     <xs:sequence>
       <xs:element minOccurs="0" name="Birthdate" type="xs:dateTime" />
-      <xs:element minOccurs="0" name="IdAcccount" type="xs:int" />
+      <xs:element minOccurs="0" name="IdAccount" type="xs:int" />
       <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
       <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />

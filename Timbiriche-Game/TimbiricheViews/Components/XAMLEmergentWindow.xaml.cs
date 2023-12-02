@@ -32,7 +32,7 @@ namespace TimbiricheViews.Components
             tbkDescriptionEmergentWindow.Text = description;
 
             ConfigureEmergentWindow();
-            this.ShowDialog();
+
         }
 
         private void ConfigureEmergentWindow()
