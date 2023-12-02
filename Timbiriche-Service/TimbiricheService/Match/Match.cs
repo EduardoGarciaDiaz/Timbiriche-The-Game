@@ -82,6 +82,7 @@ namespace TimbiricheService.Match
         {
             int initialPoints = 0;
             _scoreboard = new Dictionary<LobbyPlayer, int>();
+
             foreach(LobbyPlayer player in _players)
             {
                 _scoreboard.Add(player, initialPoints);
@@ -91,6 +92,7 @@ namespace TimbiricheService.Match
         private void InitializePlayersConnected()
         {
             _connectedPlayers = new Dictionary<string, bool>();
+
             foreach (LobbyPlayer player in _players)
             {
                 _connectedPlayers.Add(player.Username, false);
@@ -118,6 +120,36 @@ namespace TimbiricheService.Match
             {
                 _connectedPlayers[username] = true;
             }
+        }
+
+        public void DeletePlayerFromMatch(LobbyPlayer player)
+        {   
+            _players.Remove(player);
+            _scoreboard.Remove(player);
+
+            DeletePlayerFromTurns(player);
+        }
+
+        private void DeletePlayerFromTurns(LobbyPlayer player)
+        {
+            Queue<LobbyPlayer> newTurns = new Queue<LobbyPlayer>();
+
+            while(_turns.Count > 0)
+            {
+                LobbyPlayer actualPlayer = _turns.Dequeue();
+
+                if(actualPlayer != player)
+                {
+                    newTurns.Enqueue(actualPlayer);
+                }
+            }
+
+            _turns = newTurns;
+        }
+
+        public int GetNumberOfPlayerInMatch()
+        {
+            return _players.Count;
         }
     }
 }

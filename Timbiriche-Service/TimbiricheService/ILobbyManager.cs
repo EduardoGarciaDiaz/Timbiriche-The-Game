@@ -76,6 +76,25 @@ namespace TimbiricheService
         public IPlayerColorsManagerCallback ColorCallbackChannel { get { return _colorManagerCallback; } set { _colorManagerCallback = value; } }
         public IPlayerStylesManagerCallback StyleCallbackChannel { get { return _styleManagerCallback; } set { _styleManagerCallback = value; } }
 
+        public override bool Equals(object obj)
+        {
+            if(obj == null || GetType() != obj.GetType())
+            {
+                return false;
+            }
+            else
+            {
+                LobbyPlayer otherPlayer = (LobbyPlayer)obj;
+                return Username == otherPlayer.Username && IdStylePath == otherPlayer.IdStylePath && 
+                    IdHexadecimalColor == otherPlayer.IdHexadecimalColor && StylePath == otherPlayer.StylePath &&
+                    HexadecimalColor == otherPlayer.HexadecimalColor;
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     [DataContract]

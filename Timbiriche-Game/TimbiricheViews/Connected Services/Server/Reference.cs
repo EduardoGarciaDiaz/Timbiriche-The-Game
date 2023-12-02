@@ -1613,6 +1613,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
         System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/LeftMatch")]
+        void LeftMatch(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/LeftMatch")]
+        System.Threading.Tasks.Task LeftMatchAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1635,6 +1641,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
         void NotifyNewMessage(string senderUsername, string message, int idSenderPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatchResponse")]
+        void NotifyPlayerLeftMatch();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatchResponse")]
+        void NotifyOnlyPlayerInMatch();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1703,6 +1715,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer) {
             return base.Channel.SendMessageToLobbyAsync(lobbyCode, senderUsername, message, idSenderPlayer);
+        }
+        
+        public void LeftMatch(string lobbyCode, string username) {
+            base.Channel.LeftMatch(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task LeftMatchAsync(string lobbyCode, string username) {
+            return base.Channel.LeftMatchAsync(lobbyCode, username);
         }
     }
     

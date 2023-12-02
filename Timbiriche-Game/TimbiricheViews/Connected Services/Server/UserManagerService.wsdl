@@ -691,6 +691,9 @@
   <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_LeftMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeftMatch" />
+  </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewTurn_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewTurn" />
   </wsdl:message>
@@ -726,6 +729,18 @@
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewMessage_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatchResponse" />
   </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendEmailToken" />
@@ -1091,6 +1106,9 @@
     <wsdl:operation name="SendMessageToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/LeftMatch" message="tns:IMatchManager_LeftMatch_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewTurn">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurn" message="tns:IMatchManager_NotifyNewTurn_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurnResponse" message="tns:IMatchManager_NotifyNewTurn_InputCallbackMessage" />
@@ -1114,6 +1132,14 @@
     <wsdl:operation name="NotifyNewMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessageResponse" message="tns:IMatchManager_NotifyNewMessage_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" message="tns:IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatchResponse" message="tns:IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatchResponse" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IEmailVerificationManager">
@@ -1587,6 +1613,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/LeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewTurn">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewTurn" style="document" />
       <wsdl:input>
@@ -1634,6 +1666,24 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyNewMessage">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2081,7 +2131,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2090,7 +2140,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2099,7 +2149,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2108,7 +2158,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2117,7 +2167,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2126,7 +2176,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2135,7 +2185,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2144,7 +2194,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2153,7 +2203,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2162,7 +2212,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2171,7 +2221,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2180,7 +2230,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2189,7 +2239,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2198,7 +2248,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2207,7 +2257,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2216,7 +2266,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2225,7 +2275,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2234,7 +2284,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

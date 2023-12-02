@@ -41,6 +41,7 @@ namespace TimbiricheViews.Views
             LoadDataPlayer();
             LoadPlayerFriends();
             RestartSelectedColor();
+
             this.Loaded += Lobby_Loaded;
         }
 

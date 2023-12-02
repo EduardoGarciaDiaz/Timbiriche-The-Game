@@ -350,6 +350,14 @@
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+  <xs:element name="LeftMatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="lobbyCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="username" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
   <xs:element name="NotifyNewTurn">
     <xs:complexType>
       <xs:sequence>
@@ -423,6 +431,26 @@
     </xs:complexType>
   </xs:element>
   <xs:element name="NotifyNewMessageResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerLeftMatch">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyPlayerLeftMatchResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyOnlyPlayerInMatch">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyOnlyPlayerInMatchResponse">
     <xs:complexType>
       <xs:sequence />
     </xs:complexType>
