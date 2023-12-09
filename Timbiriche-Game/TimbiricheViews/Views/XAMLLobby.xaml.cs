@@ -40,14 +40,53 @@ namespace TimbiricheViews.Views
             ShowAsActiveUser();
             LoadDataPlayer();
             LoadPlayerFriends();
-            RestartSelectedColor();
+
+            bool isRematch = false;
+            RestartSelectedColor(isRematch);
+
             this.Loaded += Lobby_Loaded;
         }
 
-        private void RestartSelectedColor()
+        public XAMLLobby(string lobbyCode, bool isHost)
+        {
+            InitializeComponent();
+
+            _lobbyCode = lobbyCode;
+
+            LoadDataPlayer();
+            LoadPlayerFriends();
+
+            bool isRematch = true;
+            RestartSelectedColor(isRematch);
+            ConfigureRematch(isHost);
+        }
+
+        private void ConfigureRematch(bool isHost)
+        {
+
+            if (isHost)
+            {
+                InstanceContext context = new InstanceContext(this);
+                LobbyManagerClient client = new LobbyManagerClient(context);
+                client.JoinLobbyAsHost(_lobbyCode);
+            }
+            else
+            {
+                JoinLobbyByLobbyCode(_lobbyCode);
+            }
+        }
+
+        private void RestartSelectedColor(bool isRematch)
         {
             int defaultColor = 0;
             PlayerSingleton.Player.IdColorSelected = defaultColor;
+
+            if (isRematch)
+            {
+                InstanceContext context = new InstanceContext(this);
+                PlayerColorsManagerClient client = new PlayerColorsManagerClient(context);
+                client.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+            }
         }
 
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
@@ -817,6 +856,17 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
         }
 
+        private void JoinLobbyByLobbyCode(String lobbyCode)
+        {
+            LobbyPlayer lobbyPlayer = new LobbyPlayer();
+            lobbyPlayer.Username = _playerLoggedIn.Username;
+            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+
+            InstanceContext context = new InstanceContext(this);
+            LobbyManagerClient client = new LobbyManagerClient(context);
+            client.JoinLobby(lobbyCode, lobbyPlayer);
+        }
+
         public void NotifyExpulsedFromLobby()
         {
             string title = "Has sido expulsado";
@@ -840,13 +890,7 @@ namespace TimbiricheViews.Views
         {
             string lobbyCode = tbxJoinByCode.Text.Trim();
 
-            LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = _playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
-
-            InstanceContext context = new InstanceContext(this);
-            LobbyManagerClient client = new LobbyManagerClient(context);
-            client.JoinLobby(lobbyCode, lobbyPlayer);
+            JoinLobbyByLobbyCode(lobbyCode);
         }
 
         private void BtnStartMatch_Click(object sender, RoutedEventArgs e)
@@ -1218,7 +1262,9 @@ namespace TimbiricheViews.Views
 
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
-            lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
+            //lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
+            lobbyInformation.MatchDurationInMinutes = 0.5F;
+
 
             return lobbyInformation;
         }

@@ -21,6 +21,8 @@ namespace TimbiricheService
         void EndMatch(string lobbyCode);
         [OperationContract(IsOneWay = true)]
         void SendMessageToLobby(string lobbyCode, string senderUsername, string message, int idSenderPlayer);
+        [OperationContract(IsOneWay = true)]
+        void LeftMatch(string lobbyCode, string username);
     }
 
     [ServiceContract]
@@ -38,6 +40,10 @@ namespace TimbiricheService
         void NotifyEndOfTheMatch(List<KeyValuePair<LobbyPlayer, int>> scoreboard, int coinsEarned);
         [OperationContract]
         void NotifyNewMessage(string senderUsername, string message, int idSenderPlayer);
+        [OperationContract]
+        void NotifyPlayerLeftMatch();
+        [OperationContract]
+        void NotifyOnlyPlayerInMatch();
     }
 
     [DataContract]

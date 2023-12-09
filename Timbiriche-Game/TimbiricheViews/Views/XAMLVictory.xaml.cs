@@ -23,16 +23,18 @@ namespace TimbiricheViews.Views
     {
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
+        private string _lobbyCode;
         private string _playerUsername;
         private int _coinsEarned;
         private int _idPlayer;
 
-        public XAMLVictory(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
+        public XAMLVictory(string lobbyCode, KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
         {
             InitializeComponent();
             _scoreboard = scoreboard;
             _coinsEarned = coinsEarned;
             _playerUsername = _playerLoggedIn.Username;
+            _lobbyCode = lobbyCode;
             _idPlayer = _playerLoggedIn.IdPlayer;
             InitializeVictoryPage();
         }
@@ -133,15 +135,40 @@ namespace TimbiricheViews.Views
 
             return isPlayerBanned;
         }
+    }
+
+    public partial class XAMLVictory : IRematchManagerCallback
+    {
+        public void NotifyRematch(string lobbyCode)
+        {
+            bool isHost = false;
+
+            NavigationService.Navigate(new XAMLLobby(lobbyCode, isHost));
+        }
+
+        public void NotifyHostOfRematch(string lobbyCode)
+        {
+            bool isHost = true;
+
+            NavigationService.Navigate(new XAMLLobby(lobbyCode, isHost));
+        }
+
+        private void BtnRematch_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            RematchManagerClient client = new RematchManagerClient(context);
+            client.Rematch(_lobbyCode, _playerUsername);
+        }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            //TODO: Exit lobby
-            bool isPlayerBanned = true;
-            if (_idPlayer != 0)
-            {
-                isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
-            }
+
+            InstanceContext context = new InstanceContext(this);
+            RematchManagerClient client = new RematchManagerClient(context);
+            client.NotRematch(_lobbyCode);
+
+            bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
+
 
             if (isPlayerBanned)
             {
@@ -153,7 +180,5 @@ namespace TimbiricheViews.Views
                 NavigationService.Navigate(new XAMLLobby());
             }
         }
-
-        
     }
 }

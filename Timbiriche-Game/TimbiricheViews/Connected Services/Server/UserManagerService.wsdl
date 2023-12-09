@@ -522,6 +522,35 @@
       </wsp:All>
     </wsp:ExactlyOne>
   </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IRematchManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
+                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
+                </msf:WindowsTransportSecurity>
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
@@ -634,6 +663,9 @@
   <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:JoinLobby" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_JoinLobbyAsHost_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyAsHost" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_ExitLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:ExitLobby" />
   </wsdl:message>
@@ -715,6 +747,9 @@
   <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
   </wsdl:message>
+  <wsdl:message name="IMatchManager_LeftMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeftMatch" />
+  </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewTurn_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewTurn" />
   </wsdl:message>
@@ -750,6 +785,18 @@
   </wsdl:message>
   <wsdl:message name="IMatchManager_NotifyNewMessage_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatchResponse" />
   </wsdl:message>
   <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
     <wsdl:part name="parameters" element="tns:SendEmailToken" />
@@ -1003,6 +1050,24 @@
   <wsdl:message name="IShopManager_BuyStyle_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuyStyleResponse" />
   </wsdl:message>
+  <wsdl:message name="IRematchManager_NotRematch_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_Rematch_InputMessage">
+    <wsdl:part name="parameters" element="tns:Rematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyRematch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyRematch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyRematchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyHostOfRematch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostOfRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyHostOfRematch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostOfRematchResponse" />
+  </wsdl:message>
   <wsdl:portType name="IUserManager">
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
@@ -1082,6 +1147,9 @@
     <wsdl:operation name="JoinLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="JoinLobbyAsHost">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobbyAsHost" message="tns:ILobbyManager_JoinLobbyAsHost_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ExitLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
@@ -1143,6 +1211,9 @@
     <wsdl:operation name="SendMessageToLobby">
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/LeftMatch" message="tns:IMatchManager_LeftMatch_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewTurn">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurn" message="tns:IMatchManager_NotifyNewTurn_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurnResponse" message="tns:IMatchManager_NotifyNewTurn_InputCallbackMessage" />
@@ -1166,6 +1237,14 @@
     <wsdl:operation name="NotifyNewMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessageResponse" message="tns:IMatchManager_NotifyNewMessage_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" message="tns:IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatchResponse" message="tns:IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatchResponse" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IEmailVerificationManager">
@@ -1378,6 +1457,22 @@
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyStyleResponse" message="tns:IShopManager_BuyStyle_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
+  <wsdl:portType name="IRematchManager">
+    <wsdl:operation name="NotRematch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotRematch" message="tns:IRematchManager_NotRematch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Rematch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/Rematch" message="tns:IRematchManager_Rematch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyRematch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRematchManager/NotifyRematch" message="tns:IRematchManager_NotifyRematch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotifyRematchResponse" message="tns:IRematchManager_NotifyRematch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostOfRematch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRematchManager/NotifyHostOfRematch" message="tns:IRematchManager_NotifyHostOfRematch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotifyHostOfRematchResponse" message="tns:IRematchManager_NotifyHostOfRematch_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
   <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IUserManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
@@ -1552,6 +1647,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="JoinLobbyAsHost">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/JoinLobbyAsHost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="ExitLobby">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExitLobby" style="document" />
       <wsdl:input>
@@ -1685,6 +1786,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/LeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewTurn">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewTurn" style="document" />
       <wsdl:input>
@@ -1732,6 +1839,24 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyNewMessage">
       <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2194,13 +2319,47 @@
       </wsdl:output>
     </wsdl:operation>
   </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IRematchManager" type="tns:IRematchManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IRematchManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="NotRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Rematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/Rematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotifyRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostOfRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotifyHostOfRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
       <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2209,7 +2368,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2218,7 +2377,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2227,7 +2386,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2236,7 +2395,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2245,7 +2404,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2254,7 +2413,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2263,7 +2422,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2272,7 +2431,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2281,7 +2440,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2290,7 +2449,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2299,7 +2458,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2308,7 +2467,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2317,7 +2476,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2326,7 +2485,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2335,7 +2494,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2344,7 +2503,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2353,7 +2512,16 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+        </Identity>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IRematchManager" binding="tns:NetTcpBinding_IRematchManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

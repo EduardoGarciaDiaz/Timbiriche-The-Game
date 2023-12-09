@@ -235,7 +235,7 @@
                         </StackPanel>
                     </ScrollViewer>
                 </Grid>
-                
+
                 <Line Fill="#00FFD1" Stroke="#00FFD1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="345" 
                     Height="2" StrokeThickness="5.6" X2="500" Margin="21,317,0,0" />
                 <Rectangle Fill="#0094FF" RadiusX="20" RadiusY="20" Margin="313,330,16,14"/>
@@ -266,7 +266,7 @@
                             </Grid>
                         </Border>
                     </Grid>
-                    
+
                     <Grid>
                         <TextBlock Text="2°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
                             Foreground="#E3E4E5" FontSize="30"/>
@@ -279,7 +279,7 @@
                             </Grid>
                         </Border>
                     </Grid>
-                    
+
                     <Grid x:Name="gridThirdPlace" Visibility="Collapsed">
                         <TextBlock Text="3°" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,12,297,0" FontFamily="Titan One" 
                             Foreground="#CD5715" FontSize="30"/>
@@ -318,7 +318,7 @@
                 </Grid.ColumnDefinitions>
 
                 <Rectangle Grid.Column="0" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40"/>
-                <Image Grid.Column="0" Source="../Resources/optionsIcon.png" Margin="5" />
+                <Image Grid.Column="0" Source="../Resources/optionsIcon.png" Margin="5" MouseEnter="ImageExitMenu_MouseEnter"/>
 
                 <Rectangle Grid.Column="1" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,10,0"/>
                 <Image Grid.Column="1" Source="../Resources/TimerIcon.png" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="18,5,0,5" Width="34"/>
@@ -334,6 +334,12 @@
 
             </Grid>
 
+            <Grid x:Name="gridExitMenu" Visibility="Visible" Height="88" Width="113" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeave="GridExitMenu_MouseLeave" Margin="68,30,0,0" >
+                <Border Background="#FF1C95D1" BorderThickness="1" CornerRadius="0, 15, 15, 15" />
+                <Button Content="Salir de la partida" Margin="7,0,7,0" Background="#8C1C95D1" BorderBrush="{x:Null}" FontFamily="Inter" 
+                    Foreground="White" Cursor="Hand" FontSize="11" VerticalAlignment="Center" VerticalContentAlignment="Center"
+                    Click="BtnExitMatch_Click"/>
+            </Grid>
 
         </Grid>
 

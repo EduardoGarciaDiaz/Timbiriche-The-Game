@@ -88,6 +88,7 @@
     <Compile Include="InvitationManagerService.cs" />
     <Compile Include="IPasswordReset.cs" />
     <Compile Include="IPlayerCustomizationManager.cs" />
+    <Compile Include="IRematchManager.cs" />
     <Compile Include="IScoreboardManager.cs" />
     <Compile Include="IShopManager.cs" />
     <Compile Include="IUserManager.cs" />
@@ -98,6 +99,7 @@
     <Compile Include="PasswordResetService.cs" />
     <Compile Include="PlayerCustomizationManagerService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RematchManagerService.cs" />
     <Compile Include="ScoreboardManagerService.cs" />
     <Compile Include="ShopManagerService.cs" />
     <Compile Include="UserManagerService.cs" />

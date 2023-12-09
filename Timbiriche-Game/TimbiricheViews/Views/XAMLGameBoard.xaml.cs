@@ -330,7 +330,7 @@ namespace TimbiricheViews.Views
 
         public void NotifyNewScoreboard(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard)
         {
-            if(stackPanelScoreboard.Visibility == Visibility.Collapsed)
+            if (stackPanelScoreboard.Visibility == Visibility.Collapsed)
             {
                 stackPanelScoreboard.Visibility = Visibility.Visible;
             }
@@ -379,7 +379,7 @@ namespace TimbiricheViews.Views
 
             if (parentWindow != null)
             {
-                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(scoreboard, coinsEarned));
+                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(_lobbyCode, scoreboard, coinsEarned));
             }
         }
 
@@ -391,6 +391,18 @@ namespace TimbiricheViews.Views
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
+        }
+
+        public void NotifyPlayerLeftMatch()
+        {
+            gridThirdPlace.Visibility = Visibility.Collapsed;
+            gridFourthPlace.Visibility = Visibility.Collapsed;
+        }
+
+        public void NotifyOnlyPlayerInMatch()
+        {
+            Utils.EmergentWindows.CreateEmergentWindow("Unico Jugador", "Eres el unico jugador en la partida. Regresaras al lobby.");
+            LeftMatch();
         }
 
         private Button FindButtonByName(string name)
@@ -428,6 +440,20 @@ namespace TimbiricheViews.Views
             client.EndMatch(_lobbyCode);
         }
 
+        private void LeftMatch()
+        {
+            _turnTimer.Stop();
+            _matchTimer.Stop();
+            _dispatchTimer.Stop();
+
+            XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
+
+            if (parentWindow != null)
+            {
+                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
+            }
+        }
+
         private void BtnSendMessage_Click(object sender, RoutedEventArgs e)
         {
             if(tbxMessage.Text != null && tbxMessage.Text.Length != 0)
@@ -448,6 +474,26 @@ namespace TimbiricheViews.Views
                 Server.MatchManagerClient client = new Server.MatchManagerClient(context);
                 client.SendMessageToLobby(_lobbyCode, senderUsername, message, idSenderPlayer);
             }
+        }
+
+        private void BtnExitMatch_Click(object sender, RoutedEventArgs e)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.MatchManagerClient client = new Server.MatchManagerClient(context);
+            client.LeftMatch(_lobbyCode, PlayerSingleton.Player.Username);
+
+            LeftMatch();
+        }
+
+
+        private void ImageExitMenu_MouseEnter(object sender, MouseEventArgs e)
+        {
+            gridExitMenu.Visibility = Visibility.Visible;
+        }
+
+        private void GridExitMenu_MouseLeave(object sender, MouseEventArgs e)
+        {
+            gridExitMenu.Visibility = Visibility.Collapsed;
         }
     }
 }

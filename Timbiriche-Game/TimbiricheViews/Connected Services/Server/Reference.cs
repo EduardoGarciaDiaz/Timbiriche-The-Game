@@ -1512,6 +1512,12 @@ namespace TimbiricheViews.Server {
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobby")]
         System.Threading.Tasks.Task JoinLobbyAsync(string lobbyCode, TimbiricheViews.Server.LobbyPlayer lobbyPlayer);
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobbyAsHost")]
+        void JoinLobbyAsHost(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/ILobbyManager/JoinLobbyAsHost")]
+        System.Threading.Tasks.Task JoinLobbyAsHostAsync(string lobbyCode);
+        
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
         void ExitLobby(string lobbyCode, string username);
         
@@ -1608,6 +1614,14 @@ namespace TimbiricheViews.Server {
             return base.Channel.JoinLobbyAsync(lobbyCode, lobbyPlayer);
         }
         
+        public void JoinLobbyAsHost(string lobbyCode) {
+            base.Channel.JoinLobbyAsHost(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task JoinLobbyAsHostAsync(string lobbyCode) {
+            return base.Channel.JoinLobbyAsHostAsync(lobbyCode);
+        }
+        
         public void ExitLobby(string lobbyCode, string username) {
             base.Channel.ExitLobby(lobbyCode, username);
         }
@@ -1658,6 +1672,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/SendMessageToLobby")]
         System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/LeftMatch")]
+        void LeftMatch(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IMatchManager/LeftMatch")]
+        System.Threading.Tasks.Task LeftMatchAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1680,6 +1700,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyNewMessage", ReplyAction="http://tempuri.org/IMatchManager/NotifyNewMessageResponse")]
         void NotifyNewMessage(string senderUsername, string message, int idSenderPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatchResponse")]
+        void NotifyPlayerLeftMatch();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch", ReplyAction="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatchResponse")]
+        void NotifyOnlyPlayerInMatch();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1748,6 +1774,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task SendMessageToLobbyAsync(string lobbyCode, string senderUsername, string message, int idSenderPlayer) {
             return base.Channel.SendMessageToLobbyAsync(lobbyCode, senderUsername, message, idSenderPlayer);
+        }
+        
+        public void LeftMatch(string lobbyCode, string username) {
+            base.Channel.LeftMatch(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task LeftMatchAsync(string lobbyCode, string username) {
+            return base.Channel.LeftMatchAsync(lobbyCode, username);
         }
     }
     
@@ -2781,6 +2815,78 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> BuyStyleAsync(TimbiricheViews.Server.ShopStyle style, int idPlayer) {
             return base.Channel.BuyStyleAsync(style, idPlayer);
+        }
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IRematchManager", CallbackContract=typeof(TimbiricheViews.Server.IRematchManagerCallback))]
+    public interface IRematchManager {
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRematchManager/NotRematch")]
+        void NotRematch(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRematchManager/NotRematch")]
+        System.Threading.Tasks.Task NotRematchAsync(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRematchManager/Rematch")]
+        void Rematch(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IRematchManager/Rematch")]
+        System.Threading.Tasks.Task RematchAsync(string lobbyCode, string username);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IRematchManagerCallback {
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRematchManager/NotifyRematch", ReplyAction="http://tempuri.org/IRematchManager/NotifyRematchResponse")]
+        void NotifyRematch(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IRematchManager/NotifyHostOfRematch", ReplyAction="http://tempuri.org/IRematchManager/NotifyHostOfRematchResponse")]
+        void NotifyHostOfRematch(string lobbyCode);
+    }
+    
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public interface IRematchManagerChannel : TimbiricheViews.Server.IRematchManager, System.ServiceModel.IClientChannel {
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    public partial class RematchManagerClient : System.ServiceModel.DuplexClientBase<TimbiricheViews.Server.IRematchManager>, TimbiricheViews.Server.IRematchManager {
+        
+        public RematchManagerClient(System.ServiceModel.InstanceContext callbackInstance) : 
+                base(callbackInstance) {
+        }
+        
+        public RematchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName) : 
+                base(callbackInstance, endpointConfigurationName) {
+        }
+        
+        public RematchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, string remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public RematchManagerClient(System.ServiceModel.InstanceContext callbackInstance, string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, endpointConfigurationName, remoteAddress) {
+        }
+        
+        public RematchManagerClient(System.ServiceModel.InstanceContext callbackInstance, System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+                base(callbackInstance, binding, remoteAddress) {
+        }
+        
+        public void NotRematch(string lobbyCode) {
+            base.Channel.NotRematch(lobbyCode);
+        }
+        
+        public System.Threading.Tasks.Task NotRematchAsync(string lobbyCode) {
+            return base.Channel.NotRematchAsync(lobbyCode);
+        }
+        
+        public void Rematch(string lobbyCode, string username) {
+            base.Channel.Rematch(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task RematchAsync(string lobbyCode, string username) {
+            return base.Channel.RematchAsync(lobbyCode, username);
         }
     }
 }

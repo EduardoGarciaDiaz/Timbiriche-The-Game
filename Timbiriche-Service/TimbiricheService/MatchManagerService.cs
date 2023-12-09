@@ -110,12 +110,42 @@ namespace TimbiricheService
         {
             Match.Match match = matches[lobbyCode];
 
-            foreach (var player in match.Players)
+            foreach (LobbyPlayer player in match.Players)
             {
                 if (player.Username != senderUsername)
                 {
                     player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
                 }
+            }
+        }
+
+        public void LeftMatch(string lobbyCode, string username)
+        {
+            Match.Match match = matches[lobbyCode];
+            LobbyPlayer playerToDelete = null;
+            bool isPlayerOnDuty = (match.GetTurnPlayer().Username == username) ? true : false;
+
+            foreach (LobbyPlayer player in match.Players)
+            {
+                if (player.Username == username)
+                {
+                    playerToDelete = player;
+                }
+            }
+
+            match.DeletePlayerFromMatch(playerToDelete);
+            matches[lobbyCode] = match;
+
+            if(match.GetNumberOfPlayerInMatch() == 1)
+            {
+                LobbyPlayer player = match.Players.FirstOrDefault();
+                player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
+
+                matches.Remove(lobbyCode);
+            }
+            else
+            {
+                NotifyPlayerNumberUpdate(match, isPlayerOnDuty);
             }
         }
 
@@ -132,6 +162,23 @@ namespace TimbiricheService
             }
 
             matches[lobbyCode] = match;
+        }
+
+        private void NotifyPlayerNumberUpdate(Match.Match match, bool isPlayerOnDuty)
+        {
+            LobbyPlayer newTurnPlayer = match.GetTurnPlayer();
+            List<KeyValuePair<LobbyPlayer, int>> scoreboard = match.GetScoreboard();
+
+            foreach (LobbyPlayer player in match.Players)
+            {
+                player.MatchCallbackChannel.NotifyPlayerLeftMatch();
+                player.MatchCallbackChannel.NotifyNewScoreboard(scoreboard);
+
+                if (isPlayerOnDuty)
+                {
+                    player.MatchCallbackChannel.NotifyNewTurn(newTurnPlayer.Username);
+                }
+            }
         }
 
         private void TryStartMatchIfAllConnected(string lobbyCode)

@@ -2,17 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace TimbiricheService.Match
 {
     public class Match
     {
-        LobbyInformation _lobbyInformation;
-        List<LobbyPlayer> _players;
-        Queue<LobbyPlayer> _turns;
-        Dictionary<LobbyPlayer, int> _scoreboard;
-        Dictionary<string, bool> _connectedPlayers;
+        private LobbyInformation _lobbyInformation;
+        private List<LobbyPlayer> _players;
+        private Queue<LobbyPlayer> _turns;
+        private Dictionary<LobbyPlayer, int> _scoreboard;
+        private Dictionary<string, bool> _connectedPlayers;
+        private int _numberOfPlayers;
 
         public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
         public List<LobbyPlayer> Players { get { return _players; } set { _players = value; } }
@@ -24,6 +26,7 @@ namespace TimbiricheService.Match
             InitializeRandomTurns();
             InitializeScoreboard();
             InitializePlayersConnected();
+            InitializeNumberOfPlayers();
         }
 
         public LobbyPlayer GetTurnPlayer()
@@ -60,6 +63,11 @@ namespace TimbiricheService.Match
             }
         }
 
+        private void InitializeNumberOfPlayers()
+        {
+            _numberOfPlayers = _players.Count;
+        }
+
         private void InitializeRandomTurns()
         {
             List<LobbyPlayer> RandomTurns = new List<LobbyPlayer>(_players);
@@ -82,6 +90,7 @@ namespace TimbiricheService.Match
         {
             int initialPoints = 0;
             _scoreboard = new Dictionary<LobbyPlayer, int>();
+
             foreach(LobbyPlayer player in _players)
             {
                 _scoreboard.Add(player, initialPoints);
@@ -91,6 +100,7 @@ namespace TimbiricheService.Match
         private void InitializePlayersConnected()
         {
             _connectedPlayers = new Dictionary<string, bool>();
+
             foreach (LobbyPlayer player in _players)
             {
                 _connectedPlayers.Add(player.Username, false);
@@ -118,6 +128,57 @@ namespace TimbiricheService.Match
             {
                 _connectedPlayers[username] = true;
             }
+        }
+
+        public void DeletePlayerFromMatch(LobbyPlayer player)
+        {
+            _numberOfPlayers--;
+            _players.Remove(player);
+            _scoreboard.Remove(player);
+
+            DeletePlayerFromTurns(player);
+        }
+
+        private void DeletePlayerFromTurns(LobbyPlayer player)
+        {
+            Queue<LobbyPlayer> newTurns = new Queue<LobbyPlayer>();
+
+            while(_turns.Count > 0)
+            {
+                LobbyPlayer actualPlayer = _turns.Dequeue();
+
+                if(actualPlayer != player)
+                {
+                    newTurns.Enqueue(actualPlayer);
+                }
+            }
+
+            _turns = newTurns;
+        }
+
+        public int GetNumberOfPlayerInMatch()
+        {
+            return _numberOfPlayers;
+        }
+
+        public void DisconnectPlayerFromMatch()
+        {
+            _numberOfPlayers--;
+        }
+
+        public LobbyPlayer GetLobbyPlayerByUsername(String username)
+        {
+            LobbyPlayer lobbyPlayer = null;
+
+            foreach(LobbyPlayer player in _players)
+            {
+                if(player.Username == username)
+                {
+                    lobbyPlayer = player;
+                }
+            }
+
+            return lobbyPlayer; 
         }
     }
 }
