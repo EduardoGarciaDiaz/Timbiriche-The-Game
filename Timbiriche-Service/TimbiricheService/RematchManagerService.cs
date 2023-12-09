@@ -25,8 +25,6 @@ namespace TimbiricheService
             Match.Match match = matches[lobbyCode];
             IRematchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IRematchManagerCallback>();
 
-            LobbyPlayer playerToRematch = match.GetLobbyPlayerByUsername(username);
-
             match.DisconnectPlayerFromMatch();
 
             if (!lobbies.ContainsKey(lobbyCode))
@@ -44,12 +42,15 @@ namespace TimbiricheService
 
         private void CreateRematchLobby(string lobbyCode, string username)
         {
+            const int DEFAULT_SELECTED_COLOR = 0;
             Match.Match match = matches[lobbyCode];
             LobbyInformation lobbyInformation = match.LobbyInformation;
             
             List<LobbyPlayer> players = new List<LobbyPlayer>();
-            players.Add(match.GetLobbyPlayerByUsername(username));
+            LobbyPlayer hostPlayer = match.GetLobbyPlayerByUsername(username);
+            hostPlayer.IdHexadecimalColor = DEFAULT_SELECTED_COLOR;
 
+            players.Add(hostPlayer);
             lobbies.Add(lobbyCode, (lobbyInformation, players));
         }
 
