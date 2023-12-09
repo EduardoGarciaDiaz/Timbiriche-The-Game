@@ -25,43 +25,38 @@ namespace TimbiricheService
     [DataContract]
     public class ShopColor
     {
-        private int _idColor;
-        private string _colorName;
-        private string _hexadecimalCode;
-        private int _colorCost;
-        private bool _ownedColor;
+        [DataMember]
+        public int IdColor { get; set; }
 
         [DataMember]
-        public int IdColor { get { return _idColor; } set { _idColor = value; } }
+        public string ColorName { get; set; }
+
         [DataMember]
-        public string ColorName { get { return _colorName; } set { _colorName = value; } }
+        public string HexadecimalCode { get; set; }
+
         [DataMember]
-        public string HexadecimalCode { get { return _hexadecimalCode; } set { _hexadecimalCode = value; } }
+        public int ColorCost { get; set; }
+
         [DataMember]
-        public int ColorCost { get { return _colorCost; } set { _colorCost = value; } }
-        [DataMember]
-        public bool OwnedColor { get { return _ownedColor; } set { _ownedColor = value; } }
+        public bool OwnedColor { get; set; }
     }
 
     [DataContract]
     public class ShopStyle
     {
-        private int _idStyle;
-        private string _styleName;
-        private string _stylePath;
-        private int _styleCost;
-        private bool _ownedStyle;
+        [DataMember]
+        public int IdStyle { get; set; }
 
         [DataMember]
-        public int IdStyle { get { return _idStyle; } set { _idStyle = value; } }
+        public string StyleName { get; set; }
+
         [DataMember]
-        public string StyleName { get { return _styleName; } set { _styleName = value; } }
+        public string StylePath { get; set; }
+
         [DataMember]
-        public string StylePath { get { return _stylePath; } set { _stylePath = value; } }
+        public int StyleCost { get; set; }
+
         [DataMember]
-        public int StyleCost { get { return _styleCost; } set { _styleCost = value; } }
-        [DataMember]
-        public bool OwnedStyle { get { return _ownedStyle; } set { _ownedStyle = value;} }
+        public bool OwnedStyle { get; set; }
     }
-
 }

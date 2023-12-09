@@ -55,10 +55,15 @@ namespace TimbiricheService
                 match.ScorePointsToPlayer(playerScoringPoints, earnedPoints);
                 matches[lobbyCode] = match;
 
-                foreach (LobbyPlayer player in match.Players)
+                //foreach (LobbyPlayer player in match.Players)
+                //{
+                //    player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
+                //    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                //}
+                foreach (var playerCallbackChannel in match.Players.Select(player => player.MatchCallbackChannel))
                 {
-                    player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
-                    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                    playerCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
+                    playerCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
                 }
             }
             else

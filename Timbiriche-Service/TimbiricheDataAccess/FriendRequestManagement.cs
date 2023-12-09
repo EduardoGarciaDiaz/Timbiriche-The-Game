@@ -44,7 +44,7 @@ namespace TimbiricheDataAccess
 
                 using (var context = new TimbiricheDBEntities())
                 {
-                    var newFriendship = context.FriendShips.Add(fsiendShip);
+                    context.FriendShips.Add(fsiendShip);
                     try
                     {
                         return context.SaveChanges();
@@ -62,6 +62,7 @@ namespace TimbiricheDataAccess
 
                 }
             }
+
             return -1;
         }
 

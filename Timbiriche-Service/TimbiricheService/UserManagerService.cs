@@ -67,6 +67,7 @@ namespace TimbiricheService
             playerStyle.idPlayer = newPlayer.idPlayer;
             playerStyle.idStyle = 1;
             UserManagement dataAccess = new UserManagement();
+
             return dataAccess.AddPlayerStyles(playerStyle);
         }
 
@@ -74,10 +75,12 @@ namespace TimbiricheService
         {
             PlayerColors playerColor = new PlayerColors();
             playerColor.idPlayer = newPlayer.idPlayer;
+
             for (int i = 1 ; i < 5 ; i++)
             {
                 playerColor.idColor = i;
                 UserManagement dataAccess = new UserManagement();
+
                 dataAccess.AddPlayerColors(playerColor);
             }
         }
@@ -89,6 +92,7 @@ namespace TimbiricheService
             GlobalScores newScore = new GlobalScores();
             newScore.idPlayer = idPlayer;
             newScore.winsNumber = DEFAULT_NUMBER_OF_WINS;
+
             dataAccess.AddToGlobalScoreboards(newScore);
         }
 
@@ -96,15 +100,17 @@ namespace TimbiricheService
         {
             Player player = null;
             UserManagement dataAccess = new UserManagement();
+
             try
             {
                 Players playerValidated = dataAccess.ValidateLoginCredentials(username, password);
+
                 if (playerValidated != null)
                 {
                     Accounts accountValidated = playerValidated.Accounts;
                     Account account = new Account
                     {
-                        IdAcccount = accountValidated.idAccount,
+                        IdAccount = accountValidated.idAccount,
                         Name = accountValidated.name,
                         LastName = accountValidated.lastName,
                         Surname = accountValidated.surname,
@@ -136,6 +142,7 @@ namespace TimbiricheService
 
                 throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
+
             return player;
         }
 
@@ -178,13 +185,14 @@ namespace TimbiricheService
         public bool ValidateUniqueIdentifierUser(String identifier)
         {
             UserManagement dataAccess = new UserManagement();
+
             return dataAccess.ExistUserIdenitifier(identifier);
         }
 
         public int UpdateAccount(Account account)
         {
             Accounts editedAccount = new Accounts();
-            editedAccount.idAccount = account.IdAcccount;
+            editedAccount.idAccount = account.IdAccount;
             editedAccount.name = account.Name;
             editedAccount.lastName = account.LastName;
             editedAccount.surname = account.Surname;
@@ -200,7 +208,28 @@ namespace TimbiricheService
         {
             UserManagement dataAccess = new UserManagement();
             string username = dataAccess.GetUsernameByIdPlayer(idPlayer);
+
             return username;
+        }
+
+        public bool ValidateIsUserAlreadyOnline(string username)
+        {
+            bool isAlreadyOnline = true;
+
+            if (!onlineUsers.ContainsKey(username))
+            {
+                isAlreadyOnline = false;
+            }
+
+            return isAlreadyOnline;
+        }
+
+        public int GetIdPlayerByUsername(string username)
+        {
+            UserManagement dataAccess = new UserManagement();
+            int idPlayer = dataAccess.GetIdPlayerByUsername(username);
+
+            return idPlayer;
         }
     }
 

@@ -16,6 +16,9 @@ namespace TimbiricheService.Match
         private Dictionary<string, bool> _connectedPlayers;
         private int _numberOfPlayers;
 
+        public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
+        public List<LobbyPlayer> Players { get { return _players; } set { _players = value; } }
+
         public Match(LobbyInformation lobbyInformation, List<LobbyPlayer> players)
         {
             _lobbyInformation = lobbyInformation;
@@ -25,9 +28,6 @@ namespace TimbiricheService.Match
             InitializePlayersConnected();
             InitializeNumberOfPlayers();
         }
-
-        public LobbyInformation LobbyInformation { get { return _lobbyInformation; } set { _lobbyInformation = value; } }
-        public List<LobbyPlayer> Players { get { return _players; } set { _players = value; } }
 
         public LobbyPlayer GetTurnPlayer()
         {

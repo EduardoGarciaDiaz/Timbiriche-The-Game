@@ -215,7 +215,7 @@ namespace TimbiricheViews.Server {
         private System.DateTime BirthdateField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
-        private int IdAcccountField;
+        private int IdAccountField;
         
         [System.Runtime.Serialization.OptionalFieldAttribute()]
         private string LastNameField;
@@ -250,14 +250,14 @@ namespace TimbiricheViews.Server {
         }
         
         [System.Runtime.Serialization.DataMemberAttribute()]
-        public int IdAcccount {
+        public int IdAccount {
             get {
-                return this.IdAcccountField;
+                return this.IdAccountField;
             }
             set {
-                if ((this.IdAcccountField.Equals(value) != true)) {
-                    this.IdAcccountField = value;
-                    this.RaisePropertyChanged("IdAcccount");
+                if ((this.IdAccountField.Equals(value) != true)) {
+                    this.IdAccountField = value;
+                    this.RaisePropertyChanged("IdAccount");
                 }
             }
         }
@@ -1234,6 +1234,18 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
         System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
+        bool ValidateIsUserAlreadyOnline(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
+        System.Threading.Tasks.Task<bool> ValidateIsUserAlreadyOnlineAsync(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername", ReplyAction="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse")]
+        int GetIdPlayerByUsername(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername", ReplyAction="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse")]
+        System.Threading.Tasks.Task<int> GetIdPlayerByUsernameAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1309,6 +1321,22 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer) {
             return base.Channel.GetUsernameByIdPlayerAsync(idPlayer);
+        }
+        
+        public bool ValidateIsUserAlreadyOnline(string username) {
+            return base.Channel.ValidateIsUserAlreadyOnline(username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ValidateIsUserAlreadyOnlineAsync(string username) {
+            return base.Channel.ValidateIsUserAlreadyOnlineAsync(username);
+        }
+        
+        public int GetIdPlayerByUsername(string username) {
+            return base.Channel.GetIdPlayerByUsername(username);
+        }
+        
+        public System.Threading.Tasks.Task<int> GetIdPlayerByUsernameAsync(string username) {
+            return base.Channel.GetIdPlayerByUsernameAsync(username);
         }
     }
     
@@ -1495,6 +1523,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExitLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExitLobbyResponse")]
         System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse")]
+        void ExpulsePlayerFromLobby(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse")]
+        System.Threading.Tasks.Task ExpulsePlayerFromLobbyAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1523,6 +1557,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist", ReplyAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse")]
         void NotifyLobbyDoesNotExist();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby", ReplyAction="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobbyResponse")]
+        void NotifyExpulsedFromLobby();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1591,6 +1628,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task ExitLobbyAsync(string lobbyCode, string username) {
             return base.Channel.ExitLobbyAsync(lobbyCode, username);
+        }
+        
+        public void ExpulsePlayerFromLobby(string lobbyCode, string username) {
+            base.Channel.ExpulsePlayerFromLobby(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task ExpulsePlayerFromLobbyAsync(string lobbyCode, string username) {
+            return base.Channel.ExpulsePlayerFromLobbyAsync(lobbyCode, username);
         }
     }
     
@@ -2347,11 +2392,23 @@ namespace TimbiricheViews.Server {
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="Server.IBanManager", CallbackContract=typeof(TimbiricheViews.Server.IBanManagerCallback))]
     public interface IBanManager {
         
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/RegisterToBansNotifications")]
+        void RegisterToBansNotifications(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/RegisterToBansNotifications")]
+        System.Threading.Tasks.Task RegisterToBansNotificationsAsync(string lobbyCode, string username);
+        
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
         void ReportMessage(int idPlayerReported, int idPlayerReporter);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
         System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportPlayer")]
+        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportPlayer")]
+        System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2362,6 +2419,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported", ReplyAction="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReportedResponse")]
         void NotifyPlayerAlreadyReported();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanManager/NotifyPlayerBanned", ReplyAction="http://tempuri.org/IBanManager/NotifyPlayerBannedResponse")]
+        void NotifyPlayerBanned(int idPlayerBanned);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2392,12 +2452,28 @@ namespace TimbiricheViews.Server {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
+        public void RegisterToBansNotifications(string lobbyCode, string username) {
+            base.Channel.RegisterToBansNotifications(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task RegisterToBansNotificationsAsync(string lobbyCode, string username) {
+            return base.Channel.RegisterToBansNotificationsAsync(lobbyCode, username);
+        }
+        
         public void ReportMessage(int idPlayerReported, int idPlayerReporter) {
             base.Channel.ReportMessage(idPlayerReported, idPlayerReporter);
         }
         
         public System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter) {
             return base.Channel.ReportMessageAsync(idPlayerReported, idPlayerReporter);
+        }
+        
+        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter) {
+            base.Channel.ReportPlayer(lobbyCode, idPlayerReported, idPlayerReporter);
+        }
+        
+        public System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter) {
+            return base.Channel.ReportPlayerAsync(lobbyCode, idPlayerReported, idPlayerReporter);
         }
     }
     

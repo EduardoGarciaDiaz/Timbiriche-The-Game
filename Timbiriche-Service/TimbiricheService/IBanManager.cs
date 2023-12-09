@@ -12,7 +12,11 @@ namespace TimbiricheService
     public interface IBanManager
     {
         [OperationContract(IsOneWay = true)]
-        void ReportMessage(int idPlayerReported, int idPlayerReporter); 
+        void RegisterToBansNotifications(string lobbyCode, string username);
+        [OperationContract(IsOneWay = true)]
+        void ReportMessage(int idPlayerReported, int idPlayerReporter);
+        [OperationContract(IsOneWay = true)]
+        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter);
     }
 
     [ServiceContract]
@@ -22,6 +26,8 @@ namespace TimbiricheService
         void NotifyReportCompleted();
         [OperationContract]
         void NotifyPlayerAlreadyReported();
+        [OperationContract]
+        void NotifyPlayerBanned(int idPlayerBanned);
     }
 
     [ServiceContract]
@@ -37,7 +43,7 @@ namespace TimbiricheService
     public class BanInformation
     {
         private DateTime _endDate;
-        private String _banStatus;
+        private string _banStatus;
 
         [DataMember]
         public DateTime EndDate { get { return _endDate; } set { _endDate = value; } }

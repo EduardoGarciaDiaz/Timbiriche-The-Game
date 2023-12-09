@@ -69,7 +69,7 @@ namespace TimbiricheViews.Views
             string username = tbxUsername.Text.Trim();
             if (ValidateFields())
             {
-                if (IsUniqueIdentifier(username))
+                if (IsUniqueIdentifier(username)) //TODO: Validate the guest with same username
                 {
                     JoinToLobby(username);
                 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Numerics;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace TimbiricheService
             List<string> playerFriends;
             FriendRequestManagement dataAccess = new FriendRequestManagement();
             playerFriends = dataAccess.GetFriends(idPlayer);
+
             return playerFriends;
         }
 
@@ -24,18 +26,20 @@ namespace TimbiricheService
             bool isFriendRequestValid = false;
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
-
             int idPlayerRequested = userDataAccess.GetIdPlayerByUsername(usernamePlayerRequested);
+
             if (idPlayerRequested < 1)
             {
                 return false;
             }
+
             if (idPlayerSender == idPlayerRequested)
             {
                 return false;
             }
 
             bool hasRelation = friendRequestDataAccess.VerifyFriendship(idPlayerSender, idPlayerRequested);
+
             if (!hasRelation)
             {
                 isFriendRequestValid = true;
@@ -49,12 +53,13 @@ namespace TimbiricheService
             int rowsAffected = -1;
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
-
             int idPlayerRequested = userDataAccess.GetIdPlayerByUsername(usernamePlayerRequested);
+
             if (idPlayerRequested > 0) 
             {
                 rowsAffected = friendRequestDataAccess.AddRequestFriendship(idPlayerSender, idPlayerRequested);
             }
+
             return rowsAffected;
         }
 
@@ -64,6 +69,7 @@ namespace TimbiricheService
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
             UserManagement userDataAccess = new UserManagement();
             List<int> playersRequestersId = friendRequestDataAccess.GetPlayerIdOfFriendRequesters(idPlayer);
+
             if (playersRequestersId != null)
             {
                 foreach (int idRequester in playersRequestersId)
@@ -71,13 +77,14 @@ namespace TimbiricheService
                     usernamePlayers.Add(userDataAccess.GetUsernameByIdPlayer(idRequester));
                 }
             }
+
             return usernamePlayers;
         }
     }
 
     public partial class UserManagerService : IFriendRequestManager 
     {
-        public static Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
+        public static readonly Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
 
         public void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer)
         {
@@ -126,16 +133,15 @@ namespace TimbiricheService
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
             int idPlayerAccepted = userDataAccess.GetIdPlayerByUsername(username);
-            int rowsAffected = friendRequestDataAccess.DeleteFriendRequest(idCurrentPlayer, idPlayerAccepted);
+            friendRequestDataAccess.DeleteFriendRequest(idCurrentPlayer, idPlayerAccepted);
         }
 
         public void DeleteFriend(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted)
         {
-            int rowsAffected = -1;
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
             int idPlayerFriend = userDataAccess.GetIdPlayerByUsername(usernameFriendDeleted);
-            rowsAffected = friendRequestDataAccess.DeleteFriendship(idCurrentPlayer, idPlayerFriend);
+            int rowsAffected = friendRequestDataAccess.DeleteFriendship(idCurrentPlayer, idPlayerFriend);
 
             if (rowsAffected > 0)
             {

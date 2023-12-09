@@ -24,7 +24,8 @@ namespace TimbiricheService
 
     public partial class UserManagerService : ILobbyManager
     {
-        private static Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
+        private readonly object locker = new object();
+        private static readonly Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
 
         public void CreateLobby(LobbyInformation lobbyInformation, LobbyPlayer lobbyPlayer)
         {
@@ -61,7 +62,7 @@ namespace TimbiricheService
             {
                 List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
 
-                if(playersInLobby.Count < 5)
+                if(playersInLobby.Count < 4)
                 {                          
                     int numOfPlayersInLobby = playersInLobby.Count;
 
@@ -101,6 +102,16 @@ namespace TimbiricheService
 
         public void ExitLobby(String lobbyCode, String username)
         {
+            PerformExitLobby(lobbyCode, username, false);
+        }
+
+        public void ExpulsePlayerFromLobby(string lobbyCode, string username)
+        {
+            PerformExitLobby(lobbyCode, username, true);
+        }
+
+        private void PerformExitLobby(String lobbyCode, String username, bool isExpulsed)
+        {
             List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
             int hostIndex = 0;
             int eliminatedPlayerIndex = hostIndex;
@@ -120,6 +131,11 @@ namespace TimbiricheService
                 }
             }
 
+            if (isExpulsed)
+            {
+                playerToEliminate.CallbackChannel.NotifyExpulsedFromLobby();
+            }
+
             players.Remove(playerToEliminate);
             lobbies[lobbyCode] = (lobbies[lobbyCode].Item1, players);
 
@@ -135,7 +151,7 @@ namespace TimbiricheService
                 }
             }
 
-            if(eliminatedPlayerIndex == hostIndex)
+            if (eliminatedPlayerIndex == hostIndex)
             {
                 lobbies.Remove(lobbyCode);
             }

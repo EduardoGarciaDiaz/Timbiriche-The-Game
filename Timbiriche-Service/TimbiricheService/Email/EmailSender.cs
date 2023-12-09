@@ -11,7 +11,7 @@ namespace TimbiricheService.Email
 {
     public class EmailSender
     {
-        private IEmailTemplate _emailTemplate;
+        private readonly IEmailTemplate _emailTemplate;
 
         public EmailSender(IEmailTemplate emailTemplate)
         {

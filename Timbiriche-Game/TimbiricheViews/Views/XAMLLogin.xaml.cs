@@ -85,6 +85,7 @@ namespace TimbiricheViews.Views
                 pwBxPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
                 isValid = false;
             }
+
             return isValid;
         }
 
@@ -146,13 +147,9 @@ namespace TimbiricheViews.Views
 
                 if (playerLogged != null)
                 {
-                    bool isPlayerBanned = ValidatePlayerIsNotBanned(playerLogged);
+                    bool isAdmitedPlayer = ValidateIsAdmitedPlayer(playerLogged);
 
-                    if (isPlayerBanned)
-                    {
-                        NavigationService.Navigate(new XAMLBan(playerLogged.IdPlayer));
-                    }
-                    else
+                    if (isAdmitedPlayer)
                     {
                         PlayerSingleton.Player = playerLogged;
                         NavigationService.Navigate(new XAMLLobby());
@@ -163,6 +160,26 @@ namespace TimbiricheViews.Views
                     lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }
             }
+        }
+
+        private bool ValidateIsAdmitedPlayer(Server.Player playerLogged)
+        {
+            bool isAdmittedPlayer = true;
+            bool isPlayerBanned = ValidatePlayerIsNotBanned(playerLogged);
+            bool isPlayerAlreadyOnline = ValidateIsPlayerAlreadyOnline(playerLogged.Username);
+
+            if (isPlayerBanned)
+            {
+                isAdmittedPlayer = false;
+                GoToPlayerBannedPage(playerLogged);
+            }
+            else if (isPlayerAlreadyOnline)
+            {
+                isAdmittedPlayer = false;
+                ShowPlayerAlreadyOnlineMessage();
+            }
+
+            return isAdmittedPlayer;
         }
 
         private bool ValidatePlayerIsNotBanned(Server.Player player)
@@ -179,6 +196,29 @@ namespace TimbiricheViews.Views
             return isPlayerBanned;
         }
 
+        private bool ValidateIsPlayerAlreadyOnline(string username)
+        {
+            bool isAlreadyOnline = true;
+
+            UserManagerClient userManagerClient = new UserManagerClient();
+            isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
+
+            return isAlreadyOnline;
+        }
+
+        private void GoToPlayerBannedPage(Server.Player playerLogged)
+        {
+            NavigationService.Navigate(new XAMLBan(playerLogged.IdPlayer));
+        }
+
+        private void ShowPlayerAlreadyOnlineMessage()
+        {
+            string titleEmergentWindow = "Hay una sesión iniciada";
+            string descriptionEmergentWindow = "Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este";
+
+            EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
+        }
+
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new XAMLUserForm());
@@ -186,7 +226,6 @@ namespace TimbiricheViews.Views
 
         private void TbxUsername_GotFocus(object sender, RoutedEventArgs e)
         {
-            
             if (tbxUsername.Text == (string)tbxUsername.Tag) 
             {
                 tbxUsername.Text = string.Empty;
@@ -255,6 +294,7 @@ namespace TimbiricheViews.Views
             string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
             Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
             bool existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+
             if (existLobby)
             {
                 NavigationService.Navigate(new XAMLJoinGuest(lobbyCode));
@@ -263,6 +303,7 @@ namespace TimbiricheViews.Views
             {
                 string title = "Lobby no encontrado";
                 string message = "El lobby al que estas intentando entrar no existe.";
+
                 EmergentWindows.CreateEmergentWindow(title, message);
             }
         }

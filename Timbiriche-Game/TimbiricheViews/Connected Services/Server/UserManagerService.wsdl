@@ -600,6 +600,18 @@
   <wsdl:message name="IUserManager_GetUsernameByIdPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernameByIdPlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnline" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIdPlayerByUsername" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIdPlayerByUsernameResponse" />
+  </wsdl:message>
   <wsdl:message name="IOnlineUsersManager_RegisterUserToOnlineUsers_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUserToOnlineUsers" />
   </wsdl:message>
@@ -660,6 +672,12 @@
   <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
   </wsdl:message>
@@ -707,6 +725,12 @@
   </wsdl:message>
   <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobbyResponse" />
   </wsdl:message>
   <wsdl:message name="IMatchManager_RegisterToTheMatch_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterToTheMatch" />
@@ -930,8 +954,14 @@
   <wsdl:message name="IFriendRequestManager_NotifyDeletedFriend_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyDeletedFriendResponse" />
   </wsdl:message>
+  <wsdl:message name="IBanManager_RegisterToBansNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterToBansNotifications" />
+  </wsdl:message>
   <wsdl:message name="IBanManager_ReportMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:ReportMessage" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_ReportPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportPlayer" />
   </wsdl:message>
   <wsdl:message name="IBanManager_NotifyReportCompleted_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyReportCompleted" />
@@ -944,6 +974,12 @@
   </wsdl:message>
   <wsdl:message name="IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyPlayerAlreadyReportedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerBanned_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerBanned" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerBanned_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerBannedResponse" />
   </wsdl:message>
   <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_InputMessage">
     <wsdl:part name="parameters" element="tns:VerifyBanEndDate" />
@@ -1058,6 +1094,14 @@
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer" message="tns:IUserManager_GetUsernameByIdPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse" message="tns:IUserManager_GetUsernameByIdPlayer_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ValidateIsUserAlreadyOnline">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline" message="tns:IUserManager_ValidateIsUserAlreadyOnline_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse" message="tns:IUserManager_ValidateIsUserAlreadyOnline_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdPlayerByUsername">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername" message="tns:IUserManager_GetIdPlayerByUsername_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse" message="tns:IUserManager_GetIdPlayerByUsername_OutputMessage" />
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IOnlineUsersManager">
     <wsdl:operation name="RegisterUserToOnlineUsers">
@@ -1110,6 +1154,10 @@
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" message="tns:ILobbyManager_ExpulsePlayerFromLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse" message="tns:ILobbyManager_ExpulsePlayerFromLobby_OutputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
@@ -1141,6 +1189,10 @@
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" message="tns:ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobbyResponse" message="tns:ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IMatchManager">
@@ -1324,8 +1376,14 @@
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IBanManager">
+    <wsdl:operation name="RegisterToBansNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/RegisterToBansNotifications" message="tns:IBanManager_RegisterToBansNotifications_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="ReportMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/ReportMessage" message="tns:IBanManager_ReportMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/ReportPlayer" message="tns:IBanManager_ReportPlayer_InputMessage" />
     </wsdl:operation>
     <wsdl:operation name="NotifyReportCompleted">
       <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyReportCompleted" message="tns:IBanManager_NotifyReportCompleted_OutputCallbackMessage" />
@@ -1334,6 +1392,10 @@
     <wsdl:operation name="NotifyPlayerAlreadyReported">
       <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" message="tns:IBanManager_NotifyPlayerAlreadyReported_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReportedResponse" message="tns:IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerBanned">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerBanned" message="tns:IBanManager_NotifyPlayerBanned_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerBannedResponse" message="tns:IBanManager_NotifyPlayerBanned_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IBanVerifierManager">
@@ -1471,6 +1533,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ValidateIsUserAlreadyOnline">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdPlayerByUsername">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/GetIdPlayerByUsername" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:binding name="NetTcpBinding_IOnlineUsersManager" type="tns:IOnlineUsersManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IOnlineUsersManager_policy" />
@@ -1582,6 +1662,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="NotifyLobbyCreated">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
       <wsdl:input>
@@ -1647,6 +1736,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyLobbyDoesNotExist">
       <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2047,8 +2145,20 @@
   <wsdl:binding name="NetTcpBinding_IBanManager" type="tns:IBanManager">
     <wsp:PolicyReference URI="#NetTcpBinding_IBanManager_policy" />
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="RegisterToBansNotifications">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/RegisterToBansNotifications" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="ReportMessage">
       <soap12:operation soapAction="http://tempuri.org/IBanManager/ReportMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ReportPlayer">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/ReportPlayer" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -2064,6 +2174,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyPlayerAlreadyReported">
       <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerBanned">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyPlayerBanned" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
