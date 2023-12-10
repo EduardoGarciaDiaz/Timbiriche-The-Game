@@ -18,22 +18,30 @@ namespace TimbiricheDataAccess
                 List<GlobalScores> globalScores = (from globalScore in context.GlobalScores
                                                    orderby globalScore.winsNumber descending
                                                    select globalScore).ToList();
+                
                 return globalScores;
             }
         }
 
         public int UpdateWinsPlayer(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            int rowsAffected = -1;
+
+            if (idPlayer > 0)
             {
-                GlobalScores globalScorePlayer = (from globalScore in context.GlobalScores
-                                             where globalScore.idPlayer == idPlayer
-                                                   select globalScore).FirstOrDefault<GlobalScores>();
-                int winsNumber = (int)globalScorePlayer.winsNumber;
-                winsNumber++;
-                globalScorePlayer.winsNumber = winsNumber;
-                return context.SaveChanges();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    GlobalScores globalScorePlayer = (from globalScore in context.GlobalScores
+                                                      where globalScore.idPlayer == idPlayer
+                                                      select globalScore).FirstOrDefault<GlobalScores>();
+                    int winsNumber = (int)globalScorePlayer.winsNumber;
+                    winsNumber++;
+                    globalScorePlayer.winsNumber = winsNumber;
+                    rowsAffected = context.SaveChanges();
+                }
             }
+
+            return rowsAffected;
         }
     }
 }
