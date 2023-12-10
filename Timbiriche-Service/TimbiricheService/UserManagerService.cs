@@ -158,6 +158,7 @@ namespace TimbiricheService
                 Accounts accountValidated = playerFromDataBase.Accounts;
                 Account account = new Account
                 {
+                    IdAccount = accountValidated.idAccount,
                     Name = accountValidated.name,
                     LastName = accountValidated.lastName,
                     Surname = accountValidated.surname,

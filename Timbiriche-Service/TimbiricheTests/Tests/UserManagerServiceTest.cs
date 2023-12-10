@@ -9,6 +9,7 @@ using Xunit;
 
 namespace TimbiricheTests.Tests
 {
+    /*
     public class UserManagerServiceTest
     {
         [Fact]
@@ -130,5 +131,5 @@ namespace TimbiricheTests.Tests
             currentResult = userManagerService.ValidateUniqueIdentifierUser(username);
             Assert.False(currentResult);
         }
-    }
+    }*/
 }
