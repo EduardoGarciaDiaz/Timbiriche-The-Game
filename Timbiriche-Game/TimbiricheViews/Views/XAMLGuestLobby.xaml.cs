@@ -208,7 +208,8 @@ namespace TimbiricheViews.Views
 
         public void NotifyHostPlayerLeftLobby()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Lobby Eliminado", "El host salio del lobby. Regresaras al inicio de sesión.");
+            Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbHostLeftLobbyTitle ,
+                Properties.Resources.tbkHostLeftLobbyDescription);
             NavigationService.Navigate(new XAMLLogin());
         }
 
@@ -245,18 +246,14 @@ namespace TimbiricheViews.Views
 
         public void NotifyLobbyIsFull()
         {
-            string title = "Lobby lleno";
-            string message = "El lobby al que estas intentando entrar esta lleno.";
-            EmergentWindows.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateLobbyIsFullMessageWindow();
 
             NavigationService.Navigate(new XAMLLogin());
         }
 
         public void NotifyLobbyDoesNotExist()
         {
-            string title = "Lobby no encontrado";
-            string message = "El lobby al que estas intentando entrar no existe.";
-            EmergentWindows.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateLobbyNotFoundMessageWindow();
         }
 
         public void NotifyStartOfMatch()
@@ -290,8 +287,8 @@ namespace TimbiricheViews.Views
 
         public void NotifyExpulsedFromLobby()
         {
-            string title = "Has sido expulsado";
-            string message = "El host te ha sacado de la sala.";
+            string title = Properties.Resources.lbExpulsedTilte;
+            string message = Properties.Resources.tbkExpulsedDescription;
             EmergentWindows.CreateEmergentWindowNoModal(title, message);
 
             NavigationService.Navigate(new XAMLLogin());

@@ -466,8 +466,16 @@ namespace TimbiricheViews.Views
             } 
             else
             {
-                Utils.EmergentWindows.CreateEmergentWindow("Lo lamentamos", "No se puede banear a un jugador invitado.");
+                ShowCantExpulsePlayerMessage();
             }
+        }
+
+        private void ShowCantExpulsePlayerMessage()
+        {
+            string title = Properties.Resources.lbCantExpulsePlayerTitle;
+            string description = Properties.Resources.tbkCantExpulsePlayerDescription; 
+
+            EmergentWindows.CreateEmergentWindowNoModal(title, description);
         }
 
         private void ExpulsePlayer(string username)
@@ -478,18 +486,18 @@ namespace TimbiricheViews.Views
 
         public void NotifyReportCompleted()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+            EmergentWindows.CreateSuccesfulReportMessageWindow();
         }
 
         public void NotifyPlayerAlreadyReported()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Jugador ya reportado", "Ya has reportado a este jugador.");
+            EmergentWindows.CreateReportedPlayerMessageWindow();
         }
 
         public void NotifyPlayerBanned(int idPlayerBanned)
         {
             ExitBanned(idPlayerBanned);
-            Utils.EmergentWindows.CreateEmergentWindowNoModal("Has sido baneado", "Has acumulado el máximo de reportes permitidos. Se restringirá tu cuenta por un tiempo establecido.");
+            EmergentWindows.CreateBannedPlayerMessageWindow();
         }
 
         private void ExitBanned(int idPlayerBanned)
@@ -537,7 +545,7 @@ namespace TimbiricheViews.Views
             else
             {
                 EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
-                    "No fue posible enviar la solictud de amistad, inténtelo de nuevo");
+                    Properties.Resources.tbkFriendRequestErrorDescription);
             }
 
         }
@@ -787,14 +795,12 @@ namespace TimbiricheViews.Views
 
             _numberOfPlayersInLobby--;
             ValidateStartOfMatch();
-            // TODO: In addition to notifying that a player has left,
-            // must decrement the variable "numberOfPlayersInLobby" and then call the ValidateStartOfMatch() method
-            // to verify whether or not the match can be started.
         }
 
         public void NotifyHostPlayerLeftLobby()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Lobby Eliminado", "El host salio del lobby. Regresaras al menú principal.");
+            EmergentWindows.CreateHostLeftLobbyMessageWindow();
+
             NavigationService.Navigate(new XAMLLobby());
         }
 
@@ -838,16 +844,12 @@ namespace TimbiricheViews.Views
 
         public void NotifyLobbyIsFull()
         {
-            string title = "Lobby lleno";
-            string message = "El lobby al que estas intentando entrar esta lleno.";
-            EmergentWindows.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateLobbyIsFullMessageWindow();
         }
 
         public void NotifyLobbyDoesNotExist()
         {
-            string title = "Lobby no encontrado";
-            string message = "El lobby al que estas intentando entrar no existe.";
-            EmergentWindows.CreateEmergentWindow(title, message);
+            EmergentWindows.CreateLobbyNotFoundMessageWindow();
         }
 
         public void NotifyStartOfMatch()
@@ -869,8 +871,8 @@ namespace TimbiricheViews.Views
 
         public void NotifyExpulsedFromLobby()
         {
-            string title = "Has sido expulsado";
-            string message = "El host te ha sacado de la sala.";
+            string title = Properties.Resources.lbExpulsedTilte; ;
+            string message = Properties.Resources.tbkExpulsedDescription; ;
             EmergentWindows.CreateEmergentWindowNoModal(title, message);
 
             NavigationService.Navigate(new XAMLLobby());
@@ -1262,9 +1264,7 @@ namespace TimbiricheViews.Views
 
             LobbyInformation lobbyInformation = new LobbyInformation();
             lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
-            //lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
-            lobbyInformation.MatchDurationInMinutes = 0.5F;
-
+            lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
 
             return lobbyInformation;
         }

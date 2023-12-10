@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components.Match
 {
@@ -53,17 +54,17 @@ namespace TimbiricheViews.Components.Match
     {
         public void NotifyReportCompleted()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+            EmergentWindows.CreateSuccesfulReportMessageWindow();
         }
 
         public void NotifyPlayerAlreadyReported()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Jugador ya reportado", "Ya has reportado a este jugador.");
+            EmergentWindows.CreateReportedPlayerMessageWindow();
         }
 
         public void NotifyPlayerBanned(int idPlayerBanned)
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Has sido baneado", "En cuanto termines la partida, saldrás del juego");
+            EmergentWindows.CreateBannedPlayerMessageWindow();
         }
 
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)

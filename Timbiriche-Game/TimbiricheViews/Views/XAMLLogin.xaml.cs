@@ -115,34 +115,30 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    _logger.Error(ex.Message + "\n" + ex.StackTrace);
+                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
-                    //TODO: log
+                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
                 }
                 catch (FaultException<TimbiricheServerException> ex)
                 {
-                    //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
                 }
                 catch (FaultException ex)
                 {
-                    //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                    EmergentWindows.CreateServerErrorMessageWindow();
                 }
                 catch (CommunicationException ex)
                 {
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
-                    //TODO: Show emergent window and log
-
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Show emergent window and log...Ups has ocurried an unexpected error. Please try again later
-                    Console.WriteLine("Upss... Ocurrió un error inesperado. Por favor, intentelo más tarde");
-                    _logger.Fatal(ex.StackTrace);
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
                 }
 
                 if (playerLogged != null)
@@ -213,8 +209,8 @@ namespace TimbiricheViews.Views
 
         private void ShowPlayerAlreadyOnlineMessage()
         {
-            string titleEmergentWindow = "Hay una sesión iniciada";
-            string descriptionEmergentWindow = "Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este";
+            string titleEmergentWindow = Properties.Resources.lbExistentSessionTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkExistentSessionDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
@@ -301,10 +297,7 @@ namespace TimbiricheViews.Views
             } 
             else
             {
-                string title = "Lobby no encontrado";
-                string message = "El lobby al que estas intentando entrar no existe.";
-
-                EmergentWindows.CreateEmergentWindow(title, message);
+                EmergentWindows.CreateLobbyNotFoundMessageWindow();
             }
         }
     }

@@ -134,6 +134,8 @@ namespace TimbiricheService
             }
             catch (DataAccessException ex)
             {
+                _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+
                 TimbiricheServerException exceptionResponse = new TimbiricheServerException
                 {
                     Message = ex.Message,

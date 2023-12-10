@@ -328,7 +328,7 @@
                 <Label Grid.Column="2" FontFamily="Titan One" Foreground="White" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Height="38" Width="162">TIMBIRICHE</Label>
 
                 <Rectangle Grid.Column="3" RadiusX="15" RadiusY="15" VerticalAlignment="Center" Fill="#8C1C95D1" Height="40" Margin="10,0,0,0"/>
-                <Label Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top">Turno de</Label>
+                <Label Grid.Column="3" Content="{x:Static p:Resources.lbTurnOf}" FontFamily="Titan One" Foreground="White" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Top"></Label>
                 <Label x:Name="lbTurnOfUsername" Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="12" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="16,0,0,3"></Label>
                 <Label x:Name="lbTurnTime" Grid.Column="3" FontFamily="Titan One" Foreground="White" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,6,2"></Label>
 
@@ -336,7 +336,7 @@
 
             <Grid x:Name="gridExitMenu" Visibility="Visible" Height="88" Width="113" HorizontalAlignment="Left" VerticalAlignment="Top" MouseLeave="GridExitMenu_MouseLeave" Margin="68,30,0,0" >
                 <Border Background="#FF1C95D1" BorderThickness="1" CornerRadius="0, 15, 15, 15" />
-                <Button Content="Salir de la partida" Margin="7,0,7,0" Background="#8C1C95D1" BorderBrush="{x:Null}" FontFamily="Inter" 
+                <Button Content="{x:Static p:Resources.btnExit}" Margin="7,0,7,0" Background="#8C1C95D1" BorderBrush="{x:Null}" FontFamily="Inter" 
                     Foreground="White" Cursor="Hand" FontSize="11" VerticalAlignment="Center" VerticalContentAlignment="Center"
                     Click="BtnExitMatch_Click"/>
             </Grid>
