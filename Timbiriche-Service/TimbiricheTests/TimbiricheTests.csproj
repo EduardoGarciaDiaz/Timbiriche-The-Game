@@ -91,6 +91,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\PasswordHashManagerTest.cs" />
     <Compile Include="Tests\UserManagerServiceTest.cs" />
+    <Compile Include="UnitTestsDataAccess\ShopManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\UserManagementTest.cs" />
   </ItemGroup>
   <ItemGroup>
