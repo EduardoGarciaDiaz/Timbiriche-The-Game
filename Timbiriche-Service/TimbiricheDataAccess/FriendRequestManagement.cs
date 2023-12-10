@@ -19,6 +19,7 @@ namespace TimbiricheDataAccess
         public bool VerifyFriendship(int idPlayerSender, int idPlayerRequested)
         {
             bool hasRelation = false;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var fsiendship = (from fs in context.FriendShips
@@ -30,11 +31,14 @@ namespace TimbiricheDataAccess
 
                 hasRelation = fsiendship.Any();
             }
+
             return hasRelation;
         }
 
         public int AddRequestFriendship(int idPlayerSender, int idPlayerRequested)
         {
+            int rowsAffected = -1;
+
             if (idPlayerSender > 0 && idPlayerRequested > 0)
             {
                 FriendShips fsiendShip = new FriendShips();
@@ -47,7 +51,7 @@ namespace TimbiricheDataAccess
                     context.FriendShips.Add(fsiendShip);
                     try
                     {
-                        return context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
                     }
                     catch (DbEntityValidationException ex)
                     {
@@ -63,7 +67,7 @@ namespace TimbiricheDataAccess
                 }
             }
 
-            return -1;
+            return rowsAffected;
         }
 
         public bool IsFriend(int idPlayer, int idPlayerFriend)
@@ -106,6 +110,8 @@ namespace TimbiricheDataAccess
 
         public int UpdateFriendRequestToAccepted(int idCurrentPlayer, int idPlayerAccepted)
         {
+            int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var friendship = context.FriendShips.FirstOrDefault(fs =>
@@ -115,35 +121,39 @@ namespace TimbiricheDataAccess
 
                 if (friendship != null)
                 {
-                    friendship.statusFriendship = STATUS_FRIEND; 
-                    return context.SaveChanges(); 
+                    friendship.statusFriendship = STATUS_FRIEND;
+                    rowsAffected = context.SaveChanges(); 
                 }
-
-                return -1;
             }
+
+            return rowsAffected;
         }
 
-        public int DeleteFriendRequest(int idCurrentPlayer, int idPlayerAccepted)
+        public int DeleteFriendRequest(int idCurrentPlayer, int idPlayerRejected)
         {
+            int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var friendship = context.FriendShips.FirstOrDefault(fs =>
-                    (fs.idPlayer == idPlayerAccepted && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
-                    || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerAccepted && fs.statusFriendship == STATUS_REQUEST)
+                    (fs.idPlayer == idPlayerRejected && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
+                    || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerRejected && fs.statusFriendship == STATUS_REQUEST)
                 );
 
                 if (friendship != null)
                 {
                     context.FriendShips.Remove(friendship);
-                    return context.SaveChanges();
+                    rowsAffected = context.SaveChanges();
                 }
-
-                return -1;
             }
+
+            return rowsAffected;
         }
 
         public int DeleteFriendship(int idCurrentPlayer, int idPlayerFriend)
         {
+            int rowsAffected = -1;
+
             using (var context = new TimbiricheDBEntities())
             {
                 var friendship = context.FriendShips.FirstOrDefault(fs =>
@@ -154,10 +164,11 @@ namespace TimbiricheDataAccess
                 if (friendship != null)
                 {
                     context.FriendShips.Remove(friendship);
-                    return context.SaveChanges();
+                    rowsAffected = context.SaveChanges();
                 }
-                return -1;
             }
+
+            return rowsAffected;
         }
 
         public List<string> GetFriends(int idPlayer)

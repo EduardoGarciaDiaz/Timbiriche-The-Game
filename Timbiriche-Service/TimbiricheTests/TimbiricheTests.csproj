@@ -92,7 +92,9 @@
     <Compile Include="Tests\PasswordHashManagerTest.cs" />
     <Compile Include="Tests\UserManagerServiceTest.cs" />
     <Compile Include="UnitTestsDataAccess\CoinsManagementTest.cs" />
+    <Compile Include="UnitTestsDataAccess\FriendRequestManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\GlobalScoreManagementTest.cs" />
+    <Compile Include="UnitTestsDataAccess\PlayerCustomizationManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\UserManagementTest.cs" />
   </ItemGroup>
   <ItemGroup>

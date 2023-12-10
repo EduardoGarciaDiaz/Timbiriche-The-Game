@@ -42,12 +42,16 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            if (idPlayer > 0)
             {
-                var player = context.Players.Find(idPlayer);
-                player.idColorSelected = idColor;
-                rowsAffected = context.SaveChanges();
-            }
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var player = context.Players.Find(idPlayer);
+                    player.idColorSelected = idColor;
+
+                    rowsAffected = context.SaveChanges();
+                }
+            }            
 
             return rowsAffected;
         }
@@ -104,14 +108,17 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            if (idPlayer > 0)
             {
-                var player = context.Players.Find(idPlayer);
-                player.idStyleSelected = idStyle;
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var player = context.Players.Find(idPlayer);
+                    player.idStyleSelected = idStyle;
 
-                rowsAffected = context.SaveChanges();
+                    rowsAffected = context.SaveChanges();
+                }
             }
-
+                
             return rowsAffected;
         }
     }

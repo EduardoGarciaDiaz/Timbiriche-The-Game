@@ -129,6 +129,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
             Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest"
             && a.lastName == "JhonMercuryLastNameTest" && a.surname == "JhonLopezSurnameTest");
 
+            Accounts accountUpdatedToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTestHAVETODELETE");
+
             context.Players.RemoveRange(playersToDelete);
             if (accountToDelete != null)
             {
@@ -137,6 +139,10 @@ namespace TimbiricheTests.UnitTestsDataAccess
             if (generalAccountToDelete != null)
             {
                 context.Accounts.Remove(generalAccountToDelete);
+            }
+            if (accountUpdatedToDelete != null)
+            {
+                context.Accounts.Remove(accountUpdatedToDelete);
             }
         }
 
@@ -464,13 +470,13 @@ namespace TimbiricheTests.UnitTestsDataAccess
             UserManagement userManagement = new UserManagement();
             int expectedResult = 1;
 
-            int idAccount = _configuration.IdTestPlayer;
+            int idAccount = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
             Accounts editedAccount = new Accounts
             {
-                idAccount = idAccount, 
+                idAccount = idAccount,
                 name = "JhonNameTest",
-                surname = "JhonLopezSurnameTest",
                 lastName = "JhonMercuryLastNameTest",
+                surname = "JhonLopezSurnameTest",
                 birthdate = DateTime.Now
             };
 
@@ -487,7 +493,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
             Accounts editedAccount = new Accounts
             {
-                idAccount = 0,
+                idAccount = -1,
                 name = "UpdatedName",
                 surname = "UpdatedSurname",
                 lastName = "UpdatedLastName",
