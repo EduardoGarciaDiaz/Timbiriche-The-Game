@@ -19,6 +19,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
     public class ConfigurationUserManagementTests : IDisposable
     {
         private ILogger _logger = LoggerManager.GetLogger();
+
         public ConfigurationUserManagementTests()
         {
             try
@@ -39,6 +40,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
             }
         }
 
+        public int IdTestPlayer { get; set; }
+
         private void CreateTestUser()
         {
             using (var context = new TimbiricheDBEntities())
@@ -48,6 +51,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 UpdatePasswordAndSalt(newPlayerTest);
 
                 context.SaveChanges();
+                IdTestPlayer = newPlayerTest.idPlayer;
             }
         }
 
@@ -118,12 +122,22 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 .Where(p => usernamesToDelete.Contains(p.username) && emailsToDelete.Contains(p.email))
                 .ToList();
 
-            var accountsToDelete = context.Accounts
-                .Where(a => usernamesToDelete.Contains(a.name) && emailsToDelete.Contains(a.lastName) && emailsToDelete.Contains(a.surname))
-                .ToList();
+            Accounts accountToDelete = context.Accounts.FirstOrDefault(a => a.name == "NameTestX0101"
+            && a.lastName == "LastNameTestX0101" && a.surname == "SurnameTestX0101");
+
+
+            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest"
+            && a.lastName == "JhonMercuryLastNameTest" && a.surname == "JhonLopezSurnameTest");
 
             context.Players.RemoveRange(playersToDelete);
-            context.Accounts.RemoveRange(accountsToDelete);
+            if (accountToDelete != null)
+            {
+                context.Accounts.Remove(accountToDelete);
+            }
+            if (generalAccountToDelete != null)
+            {
+                context.Accounts.Remove(generalAccountToDelete);
+            }
         }
 
         private void DeletePlayerStyles(TimbiricheDBEntities context)
@@ -272,7 +286,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
             int expectedResult = 1;
             PlayerStyles playerStyle = new PlayerStyles();
 
-            int idPlayer = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idPlayer = _configuration.IdTestPlayer;
             playerStyle.idStyle = 1;
             playerStyle.idPlayer = idPlayer;
 
@@ -300,7 +314,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
             int expectedResult = 1;
 
             PlayerColors playerColor = new PlayerColors();
-            int idPlayer = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idPlayer = _configuration.IdTestPlayer;
             playerColor.idColor = 1;
             playerColor.idPlayer = idPlayer;
 
@@ -329,7 +343,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
             int expectedResult = 1;
 
             GlobalScores globalScore = new GlobalScores();
-            int idPlayer = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idPlayer = _configuration.IdTestPlayer;
             globalScore.idPlayer = idPlayer;
             globalScore.winsNumber = 0;
 
@@ -355,7 +369,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         {
             UserManagement userManagement = new UserManagement();
             Players expectedResult = new Players{username = "JhonUsernameTest02"};
-            int idPlayer = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idPlayer = _configuration.IdTestPlayer;
 
             Players currentResult = userManagement.GetPlayerByIdPlayer(idPlayer);
 
@@ -424,7 +438,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         public void TestGetUsernameByIdPlayerSuccess()
         {
             UserManagement userManagement = new UserManagement();
-            int idPlayer = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idPlayer = _configuration.IdTestPlayer;
             string expectedResult = "JhonUsernameTest02"; 
 
             string currentResult = userManagement.GetUsernameByIdPlayer(idPlayer);
@@ -443,19 +457,20 @@ namespace TimbiricheTests.UnitTestsDataAccess
             Assert.Equal(expectedResult, currentResult);
         }
 
+        
         [Fact]
         public void TestUpdateAccountSuccess()
         {
             UserManagement userManagement = new UserManagement();
             int expectedResult = 1;
 
-            int idAccount = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
+            int idAccount = _configuration.IdTestPlayer;
             Accounts editedAccount = new Accounts
             {
                 idAccount = idAccount, 
-                name = "UpdatedName",
-                surname = "UpdatedSurname",
-                lastName = "UpdatedLastName",
+                name = "JhonNameTest",
+                surname = "JhonLopezSurnameTest",
+                lastName = "JhonMercuryLastNameTest",
                 birthdate = DateTime.Now
             };
 

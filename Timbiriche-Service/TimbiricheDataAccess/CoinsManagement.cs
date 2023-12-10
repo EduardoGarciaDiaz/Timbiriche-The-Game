@@ -10,7 +10,7 @@ namespace TimbiricheDataAccess
     {
         public int UpdateCoins(string username, int coinsEarned)
         {
-            int rowsAffected = 0;
+            int rowsAffected = -1;
 
             using (var context = new TimbiricheDBEntities())
             {
@@ -20,7 +20,6 @@ namespace TimbiricheDataAccess
                 {
                     player.coins += coinsEarned;
                     rowsAffected = context.SaveChanges();
-                
                 }
             }
 
