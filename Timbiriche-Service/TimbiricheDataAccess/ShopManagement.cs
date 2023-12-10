@@ -63,14 +63,20 @@ namespace TimbiricheDataAccess
         {
             using (var context = new TimbiricheDBEntities())
             {
-                PlayerColors playerColors = new PlayerColors
-                {
-                    idPlayer = idPlayer,
-                    idColor = idColor
-                };
+                int rowsAffected = 0;
+                Colors colorToBuy = context.Colors.Find(idColor);
 
-                context.PlayerColors.Add(playerColors);
-                int rowsAffected = context.SaveChanges();
+                if(colorToBuy != null)
+                {
+                    PlayerColors playerColors = new PlayerColors
+                    {
+                        idPlayer = idPlayer,
+                        idColor = idColor
+                    };
+
+                    context.PlayerColors.Add(playerColors);
+                    rowsAffected = context.SaveChanges();
+                }
 
                 return rowsAffected > 0;
             }
@@ -80,14 +86,20 @@ namespace TimbiricheDataAccess
         {
             using (var context = new TimbiricheDBEntities())
             {
-                PlayerStyles playerStyles = new PlayerStyles
-                {
-                    idPlayer = idPlayer,
-                    idStyle = idStyle
-                };
+                int rowsAffected = 0;
+                Styles styleToBuy = context.Styles.Find(idStyle);
 
-                context.PlayerStyles.Add(playerStyles);
-                int rowsAffected = context.SaveChanges();
+                if(styleToBuy != null)
+                {
+                    PlayerStyles playerStyles = new PlayerStyles
+                    {
+                        idPlayer = idPlayer,
+                        idStyle = idStyle
+                    };
+
+                    context.PlayerStyles.Add(playerStyles);
+                    rowsAffected = context.SaveChanges();
+                }
 
                 return rowsAffected > 0;
             }
@@ -100,7 +112,7 @@ namespace TimbiricheDataAccess
                 int rowsAffected = 0;
                 var player = context.Players.FirstOrDefault(p => p.idPlayer == idPlayer);
 
-                if(player != null)
+                if(player != null && player.coins > coinsToSubstract)
                 {
                     player.coins -= coinsToSubstract;
 

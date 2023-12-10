@@ -1,6 +1,7 @@
 ﻿using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
             try
             {
                 CreateTestUser();
+                AddPlayerColor();
+                AddPlayerStyle();
             }
             catch (SqlException ex)
             {
@@ -73,6 +76,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 username = "JhonUsernameTest02",
                 email = "jhonemailtest@gmail.com",
                 password = "My7_ScrT3Pa5s_W0r6",
+                coins = 20,
                 Accounts = newAccountTest
             });
 
@@ -86,6 +90,34 @@ namespace TimbiricheTests.UnitTestsDataAccess
             newPlayerTest.salt = passwordHashManager.Salt;
         }
 
+        private void AddPlayerColor()
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                PlayerColors playerColor = new PlayerColors();
+                playerColor.idColor = 1;
+                playerColor.idPlayer = IdTestPlayer;
+
+                context.PlayerColors.Add(playerColor);
+
+                context.SaveChanges();
+            }
+        }
+
+        private void AddPlayerStyle()
+        {
+            using (var context = new TimbiricheDBEntities())
+            {
+                PlayerStyles playerStyle = new PlayerStyles();
+                playerStyle.idStyle = 1;
+                playerStyle.idPlayer = IdTestPlayer;
+
+                context.PlayerStyles.Add(playerStyle);
+
+                context.SaveChanges();
+            }
+        }
+
         public void Dispose()
         {
             try
@@ -93,6 +125,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 using (var context = new TimbiricheDBEntities())
                 {
                     DeletePlayersAndAccounts(context);
+                    DeletePlayerColor(context);
+                    DeletePlayerStyle(context);
 
                     context.SaveChanges();
                 }
@@ -110,8 +144,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
         private void DeletePlayersAndAccounts(TimbiricheDBEntities context)
         {
-            var usernamesToDelete = new List<string> { "UsernameTest01", "JhonUsernameTest02" };
-            var emailsToDelete = new List<string> { "emailTimbiricheTest01@gmail.com", "jhonemailtest@gmail.com" };
+            var usernamesToDelete = new List<string> { "JhonUsernameTest02" };
+            var emailsToDelete = new List<string> {"jhonemailtest@gmail.com" };
 
             var playersToDelete = context.Players
                 .Where(p => usernamesToDelete.Contains(p.username) && emailsToDelete.Contains(p.email))
@@ -134,31 +168,155 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 context.Accounts.Remove(generalAccountToDelete);
             }
         }
+
+        private void DeletePlayerColor(TimbiricheDBEntities context)
+        {
+            var playerColorToDelete = context.PlayerColors.Where(pc => pc.idPlayer == IdTestPlayer);
+
+            context.PlayerColors.RemoveRange(playerColorToDelete);
+
+            context.SaveChanges();
+        }
+
+        private void DeletePlayerStyle(TimbiricheDBEntities context)
+        {
+            var playerStyleToDelete = context.PlayerStyles.Where(ps => ps.idPlayer == IdTestPlayer);
+
+            context.PlayerStyles.RemoveRange(playerStyleToDelete);
+
+            context.SaveChanges();
+        }
     }
 
-    public class ShopManagementTest
+    public class ShopManagementTest : IClassFixture<ConfigurationShopManagementTests>
     {
+        private readonly ConfigurationShopManagementTests _configuration;
+
+        public ShopManagementTest(ConfigurationShopManagementTests configuration)
+        {
+            _configuration = configuration;
+        }
+
         [Fact]
-        public void TestGetColorsSuccess()
+        public void TestGetColorsSuccess() //Just Success?
         {
             List<Colors> colors = ShopManagement.GetColors();
 
-            Assert.NotNull(colors);
             Assert.True(colors.Count > 0);
         }
 
         [Fact]
         public void TestGetPlayerColorsSuccess()
         {
-            // Arrange
-            int validPlayerId = 1;
+            int playerId = _configuration.IdTestPlayer;
 
-            // Act
-            var playerColors = ShopManagement.GetPlayerColors(validPlayerId);
+            List<PlayerColors> playerColors = ShopManagement.GetPlayerColors(playerId);
 
-            // Assert
-            Assert.NotNull(playerColors);
-            Assert.True(playerColors.Count >= 0); // Modify this based on your business logic
+            Assert.True(playerColors.Count == 1);
+        }
+
+        [Fact]
+        public void TestGetPlayerColorsFail()
+        {
+            int invalidPlayerId = -1;
+
+            List<PlayerColors> playerColors = ShopManagement.GetPlayerColors(invalidPlayerId);
+
+            Assert.True(playerColors.Count == 0);
+        }
+
+        [Fact]
+        public void TestGetStylesSuccess()
+        {
+            var styles = ShopManagement.GetStyles();
+
+            Assert.True(styles.Count > 0);
+        }
+
+        [Fact]
+        public void TestGetPlayerStylesSuccess()
+        {
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            List<PlayerStyles> playerStyles = ShopManagement.GetPlayerStyles(validPlayerId);
+
+            Assert.True(playerStyles.Count == 1);
+        }
+
+        [Fact]
+        public void TestGetPlayerStylesFail()
+        {
+            int invalidPlayerId = -1;
+
+            List <PlayerStyles> playerStyles = ShopManagement.GetPlayerStyles(invalidPlayerId);
+
+            Assert.True(playerStyles.Count == 0);
+        }
+
+        [Fact]
+        public void TestBuyColorSuccess()
+        {
+            int validColorId = 2;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            bool result = ShopManagement.BuyColor(validColorId, validPlayerId);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestBuyColorFail()
+        {
+            int invalidColorId = -1;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            bool result = ShopManagement.BuyColor(invalidColorId, validPlayerId);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void TestBuyStyleSuccess()
+        {
+            int validStyleId = 2;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            bool result = ShopManagement.BuyStyle(validStyleId, validPlayerId);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestBuyStyleFail()
+        {
+            int invalidStyleId = -1;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            bool result = ShopManagement.BuyStyle(invalidStyleId, validPlayerId);
+
+            Assert.False(result);
+        }
+
+        [Fact]
+        public void TestSubstractPlayerCoinsSuccess()
+        {
+            int coinsToSubtract = 10;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            bool result = ShopManagement.SubstractPlayerCoins(validPlayerId, coinsToSubtract);
+
+            Assert.True(result);
+        }
+
+        [Fact]
+        public void TestSubstractPlayerCoinsFail()
+        {
+            int coinsToSubtract = 30;
+            int validPlayerId = _configuration.IdTestPlayer;
+
+            var result = ShopManagement.SubstractPlayerCoins(validPlayerId, coinsToSubtract);
+
+            Assert.False(result);
         }
     }
 }

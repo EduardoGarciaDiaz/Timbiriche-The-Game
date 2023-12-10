@@ -91,6 +91,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\PasswordHashManagerTest.cs" />
     <Compile Include="Tests\UserManagerServiceTest.cs" />
+    <Compile Include="UnitTestsDataAccess\BanManagementTest.cs" />
+    <Compile Include="UnitTestsDataAccess\PasswordResetManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\ShopManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\CoinsManagementTest.cs" />
     <Compile Include="UnitTestsDataAccess\FriendRequestManagementTest.cs" />
