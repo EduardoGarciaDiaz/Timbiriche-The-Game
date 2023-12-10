@@ -69,9 +69,11 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
         private void AddToGlobalScore()
         {
-            GlobalScores globalScore = new GlobalScores();
-            globalScore.idPlayer = IdTestPlayer;
-            globalScore.winsNumber = 0;
+            GlobalScores globalScore = new GlobalScores
+            {
+                idPlayer = IdTestPlayer,
+                winsNumber = 0
+            };
 
             using (var context = new TimbiricheDBEntities())
             {
@@ -89,7 +91,6 @@ namespace TimbiricheTests.UnitTestsDataAccess
                 email = "jhonemailtest04@gmail.com",
                 password = "My7_ScrT3Pa5s_W0r6",
                 coins = 0,
-
                 Accounts = newAccountTest
             });
 
@@ -111,7 +112,6 @@ namespace TimbiricheTests.UnitTestsDataAccess
             catch (SqlException ex)
             {
                 _logger.Error("SQLException on CoinsManagementTest: " + ex.Message);
-
             }
             catch (EntityException ex)
             {
