@@ -28,15 +28,15 @@ namespace TimbiricheTests.UnitTestsDataAccess
             }
             catch (SqlException ex)
             {
-                _logger.Error("SQLException on UserManagementTest: " + ex.Message);
+                _logger.Error("SQLException on PasswordResetManagementTest: " + ex.Message);
             }
             catch (EntityException ex)
             {
-                _logger.Error("Entity Exception on UserManagementTest: " + ex.Message);
+                _logger.Error("Entity Exception on PasswordResetManagementTest: " + ex.Message);
             }
             catch (Exception ex)
             {
-                _logger.Error("Unexpected Exception on UserManagementTest: " + ex.Message + ": \n" + ex.StackTrace);
+                _logger.Error("Unexpected Exception on PasswordResetManagementTest: " + ex.Message + ": \n" + ex.StackTrace);
             }
         }
 
@@ -59,7 +59,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         {
             var newAccountTest = context.Accounts.Add(new Accounts()
             {
-                name = "JhonNameTest",
+                name = "JhonNameTest100",
                 lastName = "JhonMercuryLastNameTest",
                 surname = "JhonLopezSurnameTest",
                 birthdate = DateTime.Now
@@ -72,8 +72,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
         {
             var newPlayerTest = context.Players.Add(new Players()
             {
-                username = "JhonUsernameTest02",
-                email = "jhonemailtest@gmail.com",
+                username = "JhonNameTest100",
+                email = "jhonemailtest100@gmail.com",
                 password = "My7_ScrT3Pa5s_W0r6",
                 coins = 20,
                 Accounts = newAccountTest
@@ -111,45 +111,36 @@ namespace TimbiricheTests.UnitTestsDataAccess
             {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    DeletePlayersAndAccounts(context);
                     DeleteTokens(context);
+                    DeletePlayersAndAccounts(context);
 
                     context.SaveChanges();
                 }
             }
             catch (SqlException ex)
             {
-                _logger.Error("SQLException on UserManagementTest: " + ex.Message);
+                _logger.Error("SQLException on PasswordResetManagementTest: " + ex.Message);
 
             }
             catch (EntityException ex)
             {
-                _logger.Error("EntityException on UserManagementTest: " + ex.Message);
+                _logger.Error("EntityException on PasswordResetManagementTest: " + ex.Message);
             }
         }
 
         private void DeletePlayersAndAccounts(TimbiricheDBEntities context)
         {
-            var usernamesToDelete = new List<string> { "JhonUsernameTest02" };
-            var emailsToDelete = new List<string> { "jhonemailtest@gmail.com" };
+            var usernamesToDelete = new List<string> { "JhonNameTest100" };
+            var emailsToDelete = new List<string> { "jhonemailtest100@gmail.com" };
 
             var playersToDelete = context.Players
                 .Where(p => usernamesToDelete.Contains(p.username) && emailsToDelete.Contains(p.email))
                 .ToList();
 
-            Accounts accountToDelete = context.Accounts.FirstOrDefault(a => a.name == "NameTestX0101"
-            && a.lastName == "LastNameTestX0101" && a.surname == "SurnameTestX0101");
-
-
-            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest"
+            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest100"
             && a.lastName == "JhonMercuryLastNameTest" && a.surname == "JhonLopezSurnameTest");
 
             context.Players.RemoveRange(playersToDelete);
-
-            if (accountToDelete != null)
-            {
-                context.Accounts.Remove(accountToDelete);
-            }
 
             if (generalAccountToDelete != null)
             {
