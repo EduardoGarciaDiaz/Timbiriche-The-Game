@@ -22,10 +22,8 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-
     public partial class XAMLLogin : Page
     {
-        private ILogger _logger = LoggerManager.GetLogger();
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string MAIN_FONT = "Titan One";
         private const string SECONDARY_FONT = "Inter";
@@ -115,12 +113,12 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+                    HandlerException.HandleErrorException(ex);
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
-                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+                    HandlerException.HandleErrorException(ex);
                 }
                 catch (FaultException<TimbiricheServerException> ex)
                 {
@@ -133,12 +131,12 @@ namespace TimbiricheViews.Views
                 catch (CommunicationException ex)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
-                    _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+                    HandlerException.HandleErrorException(ex);
                 }
                 catch (Exception ex)
                 {
                     EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
+                    HandlerException.HandleFatalException(ex);
                 }
 
                 if (playerLogged != null)
