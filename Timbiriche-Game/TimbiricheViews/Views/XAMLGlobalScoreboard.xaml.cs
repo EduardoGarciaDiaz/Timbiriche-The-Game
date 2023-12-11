@@ -51,35 +51,26 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
         }
 
@@ -96,35 +87,26 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
         }
 
@@ -139,41 +121,31 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
         }
 
@@ -249,41 +221,31 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
 
             return username;

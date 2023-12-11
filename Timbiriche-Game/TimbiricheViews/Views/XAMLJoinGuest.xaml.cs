@@ -115,21 +115,15 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
