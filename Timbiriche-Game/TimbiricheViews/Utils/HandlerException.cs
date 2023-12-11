@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Navigation;
+using TimbiricheViews.Views;
 
 namespace TimbiricheViews.Utils
 {
@@ -11,14 +13,16 @@ namespace TimbiricheViews.Utils
     {
         private static readonly ILogger _logger = LoggerManager.GetLogger();
 
-        public static void HandleErrorException(Exception ex)
+        public static void HandleErrorException(Exception ex, NavigationService navigationService)
         {
             _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+            navigationService.Navigate(new XAMLLogin());
         }
 
-        public static void HandleFatalException(Exception ex)
+        public static void HandleFatalException(Exception ex, NavigationService navigationService)
         {
             _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
+            navigationService.Navigate(new XAMLLogin());
         }
     }
 }
