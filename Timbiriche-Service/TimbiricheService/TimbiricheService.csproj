@@ -104,6 +104,7 @@
     <Compile Include="ShopManagerService.cs" />
     <Compile Include="UserManagerService.cs" />
     <Compile Include="Utils\LoggerManager.cs" />
+    <Compile Include="Utils\ServerUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

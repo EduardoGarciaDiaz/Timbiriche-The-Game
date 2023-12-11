@@ -11,6 +11,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
+using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
@@ -20,18 +21,20 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-    /// <summary>
-    /// Lógica de interacción para XAMLGlobalScoreboard.xaml
-    /// </summary>
     public partial class XAMLGlobalScoreboard : Page, IGlobalScoreManagerCallback
     {
         private GlobalScore[] _globalScores;
-        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
+        private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private const string IDENTIFIER_CURRENT_PLAYER_HEX_COLOR = "#FF232B9B";
 
         public XAMLGlobalScoreboard()
         {
             InitializeComponent();
+            this.Loaded += GlobalScoreboard_Loaded;
+        }
+
+        private void GlobalScoreboard_Loaded(object sender, RoutedEventArgs e)
+        {
             SuscribeToGlobalScoreboard();
         }
 
@@ -39,30 +42,154 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.GlobalScoreManagerClient globalScoreManagerClient = new Server.GlobalScoreManagerClient(context);
-            globalScoreManagerClient.SubscribeToGlobalScoreRealTime(_playerLoggedIn.Username);
+
+            try
+            {
+                globalScoreManagerClient.SubscribeToGlobalScoreRealTime(_playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         private void UnsuscribeToGlobalScoreboard()
         {
             InstanceContext context = new InstanceContext(this);
             Server.GlobalScoreManagerClient globalScoreManagerClient = new Server.GlobalScoreManagerClient(context);
-            globalScoreManagerClient.UnsubscribeToGlobalScoreRealTime(_playerLoggedIn.Username);
+
+            try
+            {
+                globalScoreManagerClient.UnsubscribeToGlobalScoreRealTime(_playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         private void GetAllScorePlayers()
         {
             Server.ScoreboardManagerClient scoreboardManagerClient = new Server.ScoreboardManagerClient();
-            _globalScores = scoreboardManagerClient.GetGlobalScores();
+            try
+            {
+                _globalScores = scoreboardManagerClient.GetGlobalScores(PlayerSingleton.Player.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         private void SetScores()
         {
             int position = 1;
-            foreach(GlobalScore score in _globalScores)
+
+            if (_globalScores != null)
             {
-                Grid gridScorePlayer = CloneScorePlayerGrid(score, position);
-                stackPanelScoreboard.Children.Add(gridScorePlayer);
-                position++;
+                foreach (GlobalScore score in _globalScores)
+                {
+                    Grid gridScorePlayer = CloneScorePlayerGrid(score, position);
+                    stackPanelScoreboard.Children.Add(gridScorePlayer);
+
+                    position++;
+                }
             }
         }
 
@@ -92,6 +219,7 @@ namespace TimbiricheViews.Views
             {
                 gridScorePlayer.Background = Utilities.CreateColorFromHexadecimal(IDENTIFIER_CURRENT_PLAYER_HEX_COLOR);
             }
+
             return gridScorePlayer;
         }
 
@@ -104,19 +232,66 @@ namespace TimbiricheViews.Views
         private Label FindLabel(Grid gridForSearch, string name)
         {
             Label lbFound = gridForSearch.FindName(name) as Label;
+
             return lbFound;
         }
 
         private string GetUsernamePlayerById(int idPlayer)
         {
+            string username = string.Empty;
             UserManagerClient userManagerClient = new UserManagerClient();
-            string username = userManagerClient.GetUsernameByIdPlayer(idPlayer);
+            try
+            {
+                username = userManagerClient.GetUsernameByIdPlayer(idPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+
             return username;
         }
 
         private void ImgBack_Click(object sender, MouseButtonEventArgs e)
         {
             UnsuscribeToGlobalScoreboard();
+
             NavigationService.GoBack();
         }
 

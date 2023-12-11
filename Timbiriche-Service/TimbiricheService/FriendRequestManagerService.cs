@@ -157,5 +157,10 @@ namespace TimbiricheService
                 onlineFriendship[usernameTarget].NotifyDeletedFriend(usernameDeletedFriend);
             }
         }
+
+        public void RemoveFromOnlineFriendshipDictionary(string username)
+        {
+            onlineFriendship.Remove(username);
+        }
     }
 }

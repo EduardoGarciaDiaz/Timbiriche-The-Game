@@ -582,6 +582,9 @@
   <wsdl:message name="IUserManager_GetPlayerByIdPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayerResponse" />
   </wsdl:message>
+  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q2:TimbiricheServerException" />
+  </wsdl:message>
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUser" />
   </wsdl:message>
@@ -936,6 +939,9 @@
   <wsdl:message name="IFriendRequestManager_DeleteFriend_InputMessage">
     <wsdl:part name="parameters" element="tns:DeleteFriend" />
   </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_RemoveFromOnlineFriendshipDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFromOnlineFriendshipDictionary" />
+  </wsdl:message>
   <wsdl:message name="IFriendRequestManager_NotifyNewFriendRequest_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyNewFriendRequest" />
   </wsdl:message>
@@ -1004,6 +1010,9 @@
   </wsdl:message>
   <wsdl:message name="IScoreboardManager_GetGlobalScores_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGlobalScoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q3:TimbiricheServerException" />
   </wsdl:message>
   <wsdl:message name="IScoreboardManager_UpdateWins_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateWins" />
@@ -1081,6 +1090,7 @@
     <wsdl:operation name="GetPlayerByIdPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" message="tns:IUserManager_GetPlayerByIdPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse" message="tns:IUserManager_GetPlayerByIdPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" message="tns:IUserManager_ValidateUniqueIdentifierUser_InputMessage" />
@@ -1362,6 +1372,9 @@
     <wsdl:operation name="DeleteFriend">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/DeleteFriend" message="tns:IFriendRequestManager_DeleteFriend_InputMessage" />
     </wsdl:operation>
+    <wsdl:operation name="RemoveFromOnlineFriendshipDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary" message="tns:IFriendRequestManager_RemoveFromOnlineFriendshipDictionary_InputMessage" />
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewFriendRequest">
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequest" message="tns:IFriendRequestManager_NotifyNewFriendRequest_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequestResponse" message="tns:IFriendRequestManager_NotifyNewFriendRequest_InputCallbackMessage" />
@@ -1418,6 +1431,7 @@
     <wsdl:operation name="GetGlobalScores">
       <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScores" message="tns:IScoreboardManager_GetGlobalScores_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse" message="tns:IScoreboardManager_GetGlobalScores_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateWins">
       <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWins" message="tns:IScoreboardManager_UpdateWins_InputMessage" />
@@ -1505,6 +1519,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
       <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" style="document" />
@@ -2114,6 +2131,12 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="RemoveFromOnlineFriendshipDictionary">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
     <wsdl:operation name="NotifyNewFriendRequest">
       <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequest" style="document" />
       <wsdl:input>
@@ -2237,6 +2260,9 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="UpdateWins">
       <soap12:operation soapAction="http://tempuri.org/IScoreboardManager/UpdateWins" style="document" />
@@ -2359,7 +2385,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2368,7 +2394,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2377,7 +2403,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2386,7 +2412,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2395,7 +2421,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2404,7 +2430,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2413,7 +2439,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2422,7 +2448,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2431,7 +2457,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2440,7 +2466,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2449,7 +2475,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2458,7 +2484,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2467,7 +2493,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2476,7 +2502,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2485,7 +2511,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2494,7 +2520,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2503,7 +2529,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2512,7 +2538,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2521,7 +2547,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
+          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>

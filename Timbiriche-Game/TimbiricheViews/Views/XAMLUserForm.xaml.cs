@@ -51,6 +51,7 @@ namespace TimbiricheViews.Views
             {
                 string email = tbxEmail.Text.Trim().ToLower();
                 string username = tbxUsername.Text.Trim();
+                int rowsAffected = -1;
 
                 if (!ValidateUniqueIdentifier(email, username) && VerifyEmailCode(email))
                 {
@@ -59,23 +60,46 @@ namespace TimbiricheViews.Views
                         Account newAccount = CreateNewAccount();
                         Server.Player newPlayer = CreateNewPlayer(newAccount);
                         Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                        int rowsAffected = userManagerClient.AddUser(newPlayer);
-
-                        if (rowsAffected > 0)
-                        {
-                            ShowAccountCreatedMessage();
-                            NavigationService.GoBack();
-                        }
-                        else
-                        {
-                            ShowCreateAccountFailMessage();
-                        }
+                        rowsAffected = userManagerClient.AddUser(newPlayer);
                     }
                     catch (EndpointNotFoundException ex)
                     {
                         EmergentWindows.CreateConnectionFailedMessageWindow();
-                        // TODO: Log the excepction
-                    }                    
+                        HandlerException.HandleErrorException(ex);
+                    }
+                    catch (TimeoutException ex)
+                    {
+                        EmergentWindows.CreateTimeOutMessageWindow();
+                        HandlerException.HandleErrorException(ex);
+                    }
+                    catch (FaultException<TimbiricheServerException> ex)
+                    {
+                        EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    }
+                    catch (FaultException ex)
+                    {
+                        EmergentWindows.CreateServerErrorMessageWindow();
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        EmergentWindows.CreateServerErrorMessageWindow();
+                        HandlerException.HandleErrorException(ex);
+                    }
+                    catch (Exception ex)
+                    {
+                        EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                        HandlerException.HandleFatalException(ex);
+                    }
+
+                    if (rowsAffected > 0)
+                    {
+                        ShowAccountCreatedMessage();
+                        NavigationService.GoBack();
+                    }
+                    else
+                    {
+                        ShowCreateAccountFailMessage();
+                    }
                 }
             }
         }
@@ -102,8 +126,38 @@ namespace TimbiricheViews.Views
             bool isEmailSend = false;
 
             Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();
-            // TODO: Try-Catch
-            isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
+            try
+            {
+                isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+            }
 
             return isEmailSend;
         }
@@ -186,7 +240,30 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                // TODO: Log the exception
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
             }
 
             return existUserIdentifier;
@@ -204,6 +281,7 @@ namespace TimbiricheViews.Views
             {
                 tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
 
@@ -211,6 +289,7 @@ namespace TimbiricheViews.Views
             {
                 tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
 
@@ -219,6 +298,7 @@ namespace TimbiricheViews.Views
                 tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
                 lbEmailError.Visibility = Visibility.Visible;
                 ImgEmailErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
 
@@ -226,6 +306,7 @@ namespace TimbiricheViews.Views
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
 
@@ -233,12 +314,14 @@ namespace TimbiricheViews.Views
             {
                 pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
 
             if (!DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out _))
             {
                 dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
+
                 isValid = false;
             }
 

@@ -195,7 +195,38 @@ namespace TimbiricheViews.Views
             bool isAlreadyOnline = true;
 
             UserManagerClient userManagerClient = new UserManagerClient();
-            isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
+            try
+            {
+                isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+            }
 
             return isAlreadyOnline;
         }
@@ -285,9 +316,42 @@ namespace TimbiricheViews.Views
 
         private void BtnJoin_Click(object sender, RoutedEventArgs e)
         {
+            bool existLobby = false;
             string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
             Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
-            bool existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+
+            try
+            {
+                existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+            }
 
             if (existLobby)
             {

@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -13,7 +14,8 @@ namespace TimbiricheService
     public interface IScoreboardManager
     {
         [OperationContract]
-        List<GlobalScore> GetGlobalScores();
+        [FaultContract(typeof(TimbiricheServerException))]
+        List<GlobalScore> GetGlobalScores(string username);
         [OperationContract]
         int UpdateWins(int idPlayer);
     }
