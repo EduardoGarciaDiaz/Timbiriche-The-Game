@@ -59,18 +59,19 @@ namespace TimbiricheViews.Views
                     {
                         Account newAccount = CreateNewAccount();
                         Server.Player newPlayer = CreateNewPlayer(newAccount);
+
                         Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
                         rowsAffected = userManagerClient.AddUser(newPlayer);
                     }
                     catch (EndpointNotFoundException ex)
                     {
                         EmergentWindows.CreateConnectionFailedMessageWindow();
-                        HandlerException.HandleErrorException(ex);
+                        HandlerException.HandleErrorException(ex, NavigationService);
                     }
                     catch (TimeoutException ex)
                     {
                         EmergentWindows.CreateTimeOutMessageWindow();
-                        HandlerException.HandleErrorException(ex);
+                        HandlerException.HandleErrorException(ex, NavigationService);
                     }
                     catch (FaultException<TimbiricheServerException> ex)
                     {
@@ -83,12 +84,12 @@ namespace TimbiricheViews.Views
                     catch (CommunicationException ex)
                     {
                         EmergentWindows.CreateServerErrorMessageWindow();
-                        HandlerException.HandleErrorException(ex);
+                        HandlerException.HandleErrorException(ex, NavigationService);
                     }
                     catch (Exception ex)
                     {
                         EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                        HandlerException.HandleFatalException(ex);
+                        HandlerException.HandleFatalException(ex, NavigationService);
                     }
 
                     if (rowsAffected > 0)
@@ -133,12 +134,12 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
@@ -151,12 +152,12 @@ namespace TimbiricheViews.Views
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerException.HandleFatalException(ex);
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
 
             return isEmailSend;
@@ -240,12 +241,12 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
@@ -258,12 +259,12 @@ namespace TimbiricheViews.Views
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerException.HandleFatalException(ex);
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
 
             return existUserIdentifier;

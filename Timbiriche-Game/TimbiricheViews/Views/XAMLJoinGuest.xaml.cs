@@ -67,6 +67,7 @@ namespace TimbiricheViews.Views
         private void BtnReady_Click(object sender, RoutedEventArgs e)
         {
             string username = tbxUsername.Text.Trim();
+
             if (ValidateFields())
             {
                 if (IsUniqueIdentifier(username)) //TODO: Validate the guest with same username
@@ -85,6 +86,7 @@ namespace TimbiricheViews.Views
             {
                 tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
+
                 isValid = false;
             }
             return isValid;
@@ -112,8 +114,38 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                // TODO: Log the exception
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+
             return isUsernameUnique;
         }
 

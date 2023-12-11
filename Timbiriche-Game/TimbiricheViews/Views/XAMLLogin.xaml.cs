@@ -113,12 +113,12 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerException.HandleErrorException(ex);
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerException.HandleErrorException(ex);
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (FaultException<TimbiricheServerException> ex)
                 {
@@ -131,12 +131,12 @@ namespace TimbiricheViews.Views
                 catch (CommunicationException ex)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerException.HandleErrorException(ex);
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
                     EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerException.HandleFatalException(ex);
+                    HandlerException.HandleFatalException(ex, NavigationService);
                 }
 
                 if (playerLogged != null)
@@ -202,12 +202,12 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
@@ -220,12 +220,12 @@ namespace TimbiricheViews.Views
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerException.HandleFatalException(ex);
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
 
             return isAlreadyOnline;
@@ -327,12 +327,12 @@ namespace TimbiricheViews.Views
             catch (EndpointNotFoundException ex)
             {
                 EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (TimeoutException ex)
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (FaultException<TimbiricheServerException> ex)
             {
@@ -345,12 +345,12 @@ namespace TimbiricheViews.Views
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerException.HandleErrorException(ex);
+                HandlerException.HandleErrorException(ex, NavigationService);
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerException.HandleFatalException(ex);
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
 
             if (existLobby)
