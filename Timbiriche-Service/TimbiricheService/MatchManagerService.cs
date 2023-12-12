@@ -135,7 +135,6 @@ namespace TimbiricheService
             try
             {
                 coinsManagement.UpdateCoins(username, coinsEarned);
-
             }
             catch (DataAccessException ex)
             {

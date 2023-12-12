@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Utils;
 using TimbiricheService.Match;
 
 namespace TimbiricheService
@@ -14,17 +15,18 @@ namespace TimbiricheService
         public bool ExistLobbyCode(string lobbyCode)
         {
             bool existLobby = false;
+
             if (lobbies.ContainsKey(lobbyCode))
             {
                 existLobby = true;
             }
+
             return existLobby;
         }
     }
 
     public partial class UserManagerService : ILobbyManager
     {
-        private readonly object locker = new object();
         private static readonly Dictionary<string, (LobbyInformation, List<LobbyPlayer>)> lobbies = new Dictionary<string, (LobbyInformation, List<LobbyPlayer>)>();
 
         public void CreateLobby(LobbyInformation lobbyInformation, LobbyPlayer lobbyPlayer)
@@ -32,14 +34,24 @@ namespace TimbiricheService
             ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
             lobbyPlayer.CallbackChannel = currentUserCallbackChannel;
 
-            List<LobbyPlayer> players = new List<LobbyPlayer>();
-            players.Add(lobbyPlayer);
+            List<LobbyPlayer> players = new List<LobbyPlayer>
+            {
+                lobbyPlayer
+            };
 
             string lobbyCode = GenerateLobbyCode(); 
 
             lobbies.Add(lobbyCode, (lobbyInformation, players));
 
-            currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+            try
+            {
+                currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+            }
+            catch (CommunicationException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                PerformExitLobby(lobbyCode, lobbyPlayer.Username, false);
+            }
         }
 
         public void JoinLobbyAsHost(string lobbyCode)
@@ -50,7 +62,15 @@ namespace TimbiricheService
 
             hostPlayer.CallbackChannel = currentUserCallbackChannel;
 
-            currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+            try
+            {
+                currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+            }
+            catch (CommunicationException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                PerformExitLobby(lobbyCode, hostPlayer.Username, false);
+            }
         }
 
         public void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer)
@@ -58,30 +78,48 @@ namespace TimbiricheService
             ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
             lobbyPlayer.CallbackChannel = currentUserCallbackChannel;
 
-            if (lobbies.ContainsKey(lobbyCode))
+            try
             {
-                List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
-
-                if(playersInLobby.Count < 4)
-                {                          
+                if (lobbies.ContainsKey(lobbyCode))
+                {
+                    List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
                     int numOfPlayersInLobby = playersInLobby.Count;
 
-                    foreach(var player in playersInLobby)
+                    if (numOfPlayersInLobby < 4)
                     {
-                        player.CallbackChannel.NotifyPlayerJoinToLobby(lobbyPlayer, numOfPlayersInLobby);
+                        lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(lobbyCode, playersInLobby);
+                        playersInLobby.Add(lobbyPlayer);
+                        NotifyPlayerJoinToLobby(playersInLobby, lobbyPlayer, numOfPlayersInLobby, lobbyCode);
                     }
-
-                    lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(lobbyCode, playersInLobby);
-                    playersInLobby.Add(lobbyPlayer);
+                    else
+                    {
+                        lobbyPlayer.CallbackChannel.NotifyLobbyIsFull();
+                    }
                 }
                 else
                 {
-                    lobbyPlayer.CallbackChannel.NotifyLobbyIsFull();
+                    lobbyPlayer.CallbackChannel.NotifyLobbyDoesNotExist();
                 }
             }
-            else
+            catch (CommunicationException ex)
             {
-                lobbyPlayer.CallbackChannel.NotifyLobbyDoesNotExist();
+                HandlerException.HandleErrorException(ex);
+            }
+        }
+
+        private void NotifyPlayerJoinToLobby(List<LobbyPlayer> playersInLobby, LobbyPlayer playerEntering, int numOfPlayersInLobby, string lobbyCode)
+        {
+            foreach (var player in playersInLobby.ToList())
+            {
+                try
+                {
+                    player.CallbackChannel.NotifyPlayerJoinToLobby(playerEntering, numOfPlayersInLobby);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    PerformExitLobby(lobbyCode, player.Username, false);
+                }
             }
         }
 
@@ -92,9 +130,18 @@ namespace TimbiricheService
 
             matches.Add(lobbyCode, new Match.Match(lobbyInformation, players));
 
-            foreach(var player in players)
+            foreach(var player in players.ToList())
             {
-                player.CallbackChannel.NotifyStartOfMatch();
+                try
+                {
+                    player.CallbackChannel.NotifyStartOfMatch();
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    PerformExitLobby(lobbyCode, player.Username, false);
+                    DeletePlayerFromMatch(lobbyCode, player.Username);
+                }
             }
 
             lobbies.Remove(lobbyCode);
@@ -110,13 +157,22 @@ namespace TimbiricheService
             PerformExitLobby(lobbyCode, username, true);
         }
 
+        private void DeletePlayerFromMatch(string lobbyCode, string username)
+        {
+            Match.Match match = matches[lobbyCode];
+            LobbyPlayer player = match.GetLobbyPlayerByUsername(username);
+            match.DeletePlayerFromMatch(player);
+            matches[lobbyCode] = match;
+        }
+
         private void PerformExitLobby(String lobbyCode, String username, bool isExpulsed)
         {
             List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
+            LobbyPlayer playerToEliminate = null;
+
             int hostIndex = 0;
             int eliminatedPlayerIndex = hostIndex;
 
-            LobbyPlayer playerToEliminate = null;
 
             foreach (LobbyPlayer player in players)
             {
@@ -133,27 +189,54 @@ namespace TimbiricheService
 
             if (isExpulsed)
             {
-                playerToEliminate.CallbackChannel.NotifyExpulsedFromLobby();
+                ManagePlayerExpulsed(playerToEliminate);
             }
 
             players.Remove(playerToEliminate);
             lobbies[lobbyCode] = (lobbies[lobbyCode].Item1, players);
 
-            foreach (var player in players)
-            {
-                if (eliminatedPlayerIndex != hostIndex)
-                {
-                    player.CallbackChannel.NotifyPlayerLeftLobby(username);
-                }
-                else
-                {
-                    player.CallbackChannel.NotifyHostPlayerLeftLobby();
-                }
-            }
+            NotifyPlayerLeftLobby(players, username, eliminatedPlayerIndex, lobbyCode, isExpulsed);
 
             if (eliminatedPlayerIndex == hostIndex)
             {
                 lobbies.Remove(lobbyCode);
+            }
+        }
+
+        private void ManagePlayerExpulsed(LobbyPlayer playerToEliminate)
+        {
+            try
+            {
+                playerToEliminate.CallbackChannel.NotifyExpulsedFromLobby();
+            }
+            catch (CommunicationException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+            }
+        }
+
+        private void NotifyPlayerLeftLobby(List<LobbyPlayer> players, string username, int eliminatedPlayerIndex, string lobbyCode, bool isExpulsed)
+        {
+            int hostIndex = 0;
+
+            foreach (var player in players.ToList())
+            {
+                try
+                {
+                    if (eliminatedPlayerIndex != hostIndex)
+                    {
+                        player.CallbackChannel.NotifyPlayerLeftLobby(username);
+                    }
+                    else
+                    {
+                        player.CallbackChannel.NotifyHostPlayerLeftLobby();
+                    }
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    PerformExitLobby(lobbyCode, username, isExpulsed);
+                }
             }
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -27,15 +28,23 @@ namespace TimbiricheService
 
             match.DisconnectPlayerFromMatch();
 
-            if (!lobbies.ContainsKey(lobbyCode))
+            try
             {
-                CreateRematchLobby(lobbyCode, username);   
-                currentUserCallbackChannel.NotifyHostOfRematch(lobbyCode);
+                if (!lobbies.ContainsKey(lobbyCode))
+                {
+                    CreateRematchLobby(lobbyCode, username);
+                    currentUserCallbackChannel.NotifyHostOfRematch(lobbyCode);
+                }
+                else
+                {
+                    currentUserCallbackChannel.NotifyRematch(lobbyCode);
+                }
             }
-            else
+            catch (CommunicationException ex)
             {
-                currentUserCallbackChannel.NotifyRematch(lobbyCode);
+                HandlerException.HandleErrorException(ex);
             }
+
 
             TryRemoveMatchFromMatches(lobbyCode);
         }

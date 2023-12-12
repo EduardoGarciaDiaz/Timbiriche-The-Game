@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -29,40 +33,20 @@ namespace TimbiricheService
             }
         }
 
-        public void ReportMessage(int idPlayerReported, int idPlayerReporter)
+        public void ReportMessage(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername)
         {
             IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
 
-            if (VerifyUniqueReport(idPlayerReported, idPlayerReporter))
+            try
             {
-                DateTime currentDateTime = DateTime.Now;
-                bool reportCreated = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
-
-                if (reportCreated)
-                {
-                    VerifyBanNeed(idPlayerReported, currentDateTime);
-                    currentUserCallbackChannel.NotifyReportCompleted();
-                }
-            }
-            else
-            {
-                currentUserCallbackChannel.NotifyPlayerAlreadyReported();
-            }
-        }
-
-        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter)
-        {
-            if (idPlayerReported > 0)
-            {
-                IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
                 if (VerifyUniqueReport(idPlayerReported, idPlayerReporter))
                 {
                     DateTime currentDateTime = DateTime.Now;
-                    bool reportCreated = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
+                    bool reportCreated = CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
 
                     if (reportCreated)
                     {
-                        VerifyBanNeedFromLobby(lobbyCode, idPlayerReported, currentDateTime);
+                        VerifyBanNeed(idPlayerReported, currentDateTime);
                         currentUserCallbackChannel.NotifyReportCompleted();
                     }
                 }
@@ -71,60 +55,180 @@ namespace TimbiricheService
                     currentUserCallbackChannel.NotifyPlayerAlreadyReported();
                 }
             }
+            catch (CommunicationException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                LeftMatch(lobbyCode, reporterUsername);
+            }
         }
 
-        private void VerifyBanNeedFromLobby(string lobbyCode, int idPlayerReported, DateTime startDate)
+        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername)
         {
-            int maximumNumberOfReportsOnLobby = 2;
-            int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
-
-            if (numberOfReports >= maximumNumberOfReportsOnLobby)
+            if (idPlayerReported > 0)
             {
-                BanPlayer(idPlayerReported, startDate);
-                List<LobbyPlayer> lobbyPlayers = lobbies[lobbyCode].Item2;
+                IBanManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IBanManagerCallback>();
 
-                UserManagement dataAccess = new UserManagement();
-                string username = dataAccess.GetUsernameByIdPlayer(idPlayerReported);
-
-                foreach(LobbyPlayer player in lobbyPlayers)
+                try
                 {
-                    if (player.Username == username)
+                    if (VerifyUniqueReport(idPlayerReported, idPlayerReporter))
                     {
-                        player.BanManagerChannel.NotifyPlayerBanned(idPlayerReported);
-                        break;
+                        DateTime currentDateTime = DateTime.Now;
+                        bool reportCreated = CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
+
+                        if (reportCreated)
+                        {
+                            VerifyBanNeedFromLobby(lobbyCode, idPlayerReported, currentDateTime);
+                            currentUserCallbackChannel.NotifyReportCompleted();
+                        }
                     }
+                    else
+                    {
+                        currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                    }
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    PerformExitLobby(lobbyCode, reporterUsername, false);
                 }
             }
         }
 
+        private bool CreateReport(int idPlayerReported, int idPlayerReporter, DateTime currentDateTime)
+        {
+            try
+            {
+                return BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
+
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
+        }
+
+        private void VerifyBanNeedFromLobby(string lobbyCode, int idPlayerReported, DateTime startDate)
+        {
+            try
+            {
+                int maximumNumberOfReportsOnLobby = 2;
+                int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
+
+                if (numberOfReports >= maximumNumberOfReportsOnLobby)
+                {
+                    BanPlayer(idPlayerReported, startDate);
+                    List<LobbyPlayer> lobbyPlayers = lobbies[lobbyCode].Item2;
+
+                    UserManagement dataAccess = new UserManagement();
+                    string username = dataAccess.GetUsernameByIdPlayer(idPlayerReported);
+
+                    NotifyPlayerBanned(lobbyCode, lobbyPlayers, username, idPlayerReported);
+                }
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
+        }
+
+        private void NotifyPlayerBanned(string lobbyCode, List<LobbyPlayer> lobbyPlayers, string username, int idPlayerReported)
+        {
+            foreach (LobbyPlayer player in lobbyPlayers.ToList())
+            {
+                if (player.Username == username)
+                {
+                    try
+                    {
+                        player.BanManagerChannel.NotifyPlayerBanned(idPlayerReported);
+                        break;
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        PerformExitLobby(lobbyCode, player.Username, false);
+                    }
+                }
+            }            
+        }
+
         private bool VerifyUniqueReport(int idPlayerReported, int idPlayerReporter)
         {
-            return BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
+            try
+            {
+                return BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         private void VerifyBanNeed(int idPlayerReported, DateTime startDate)
         {
-            int maximumNumberOfReportsOnMatch = 3;
-            int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
-
-            if (numberOfReports >= maximumNumberOfReportsOnMatch)
+            try
             {
-                BanPlayer(idPlayerReported, startDate);
-            }
+                int maximumNumberOfReportsOnMatch = 3;
+                int numberOfReports = BanManagement.GetNumberOfReportsByIdPlayerReported(idPlayerReported);
 
+                if (numberOfReports >= maximumNumberOfReportsOnMatch)
+                {
+                    BanPlayer(idPlayerReported, startDate);
+                }
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         private void BanPlayer(int idPlayerReported, DateTime startDate)
         {
-            int numberOfBans = BanManagement.GetNumberOfBansByIdPlayer(idPlayerReported);
-            DateTime endDate = CalculateBanEndDate(startDate, numberOfBans);
-            
-            bool isPlayerBanned = BanManagement.CreateBan(idPlayerReported, startDate, endDate);
-
-            if (isPlayerBanned)
+            try
             {
-                BanManagement.ClearReportsByIdPlayer(idPlayerReported);
-                BanManagement.UpdatePlayerStatus(idPlayerReported, "Banned");
+                int numberOfBans = BanManagement.GetNumberOfBansByIdPlayer(idPlayerReported);
+                DateTime endDate = CalculateBanEndDate(startDate, numberOfBans);
+
+                bool isPlayerBanned = BanManagement.CreateBan(idPlayerReported, startDate, endDate);
+
+                if (isPlayerBanned)
+                {
+                    BanManagement.ClearReportsByIdPlayer(idPlayerReported);
+                    BanManagement.UpdatePlayerStatus(idPlayerReported, "Banned");
+                }
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
         }
 
@@ -178,26 +282,53 @@ namespace TimbiricheService
     {
         public BanInformation VerifyBanEndDate(int idPlayer)
         {
-            DateTime endDate = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
-            DateTime currentDateTime = DateTime.Now;
-
-            BanInformation banInformation = new BanInformation();
-            banInformation.EndDate = endDate;
-            banInformation.BanStatus = "Active";
-
-            if (currentDateTime >= endDate)
+            try
             {
-                BanManagement.UpdatePlayerStatus(idPlayer, "Not-Banned");
-                banInformation.BanStatus = "Inactive";
-            }
+                DateTime endDate = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
+                DateTime currentDateTime = DateTime.Now;
 
-            return banInformation;
+                BanInformation banInformation = new BanInformation();
+                banInformation.EndDate = endDate;
+                banInformation.BanStatus = "Active";
+
+                if (currentDateTime >= endDate)
+                {
+                    BanManagement.UpdatePlayerStatus(idPlayer, "Not-Banned");
+                    banInformation.BanStatus = "Inactive";
+                }
+
+                return banInformation;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public bool VerifyPlayerIsBanned(int idPlayer)
         {
-            string playerStatus = BanManagement.GetPlayerStatusByIdPlayer(idPlayer);
-            return playerStatus.Equals("Banned");
+            try
+            {
+                string playerStatus = BanManagement.GetPlayerStatusByIdPlayer(idPlayer);
+
+                return playerStatus.Equals("Banned");
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 }
