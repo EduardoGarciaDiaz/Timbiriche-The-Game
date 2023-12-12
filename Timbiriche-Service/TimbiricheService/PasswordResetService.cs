@@ -56,6 +56,7 @@ namespace TimbiricheService
         {
             bool tokenGenerated = false;
             int playerId = GetPlayerIdByEmail(email);
+            
             if (playerId != 0)
             {
                 DateTime creationDateTime = DateTime.Now;
@@ -69,6 +70,7 @@ namespace TimbiricheService
 
                 tokenGenerated = PasswordResetManagement.AddToken(passwordResetTokens);
             }
+
             return tokenGenerated;
         }
 
@@ -76,6 +78,7 @@ namespace TimbiricheService
         {
             Random random = new Random();
             int token = random.Next(000000, 999999);
+
             return token;
         }
 

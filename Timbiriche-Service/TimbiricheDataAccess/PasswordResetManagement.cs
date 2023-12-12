@@ -14,29 +14,13 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = 0;
 
-            if (passwordResetToken == null)
+            if (passwordResetToken != null)
             {
-                return false;
-            }
-
-            using (var context = new TimbiricheDBEntities())
-            {
-                context.PasswordResetTokens.Add(passwordResetToken);
-
-                try
+                using (var context = new TimbiricheDBEntities())
                 {
+                    context.PasswordResetTokens.Add(passwordResetToken);
+
                     rowsAffected = context.SaveChanges();
-                }
-                catch (DbEntityValidationException ex)
-                {
-                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                    {
-                        foreach (var validationError in entityValidationErrors.ValidationErrors)
-                        {
-                            Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}," +
-                                $" Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
-                        }
-                    }
                 }
             }
 
@@ -50,6 +34,7 @@ namespace TimbiricheDataAccess
                 var query = from p in context.PasswordResetTokens
                             where p.token == token && p.idPlayer == playerId
                             select p;
+
                 PasswordResetTokens passwordResetToken = query.SingleOrDefault();
 
                 return passwordResetToken;
@@ -78,6 +63,5 @@ namespace TimbiricheDataAccess
                 return rowsAffected > 0;
             }
         }
-
     }
 }

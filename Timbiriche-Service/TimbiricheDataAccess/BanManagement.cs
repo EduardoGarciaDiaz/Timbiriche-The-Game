@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,15 +16,21 @@ namespace TimbiricheDataAccess
 
             using (var context = new TimbiricheDBEntities())
             {
-                var newReport = new Reports
-                {
-                    idPlayerReported = idPlayerReported,
-                    idPlayerReporter = idPlayerReporter,
-                    reportDate = reportDate
-                };
+                var playerReported = context.Players.Find(idPlayerReported);
+                var playerReporter = context.Players.Find(idPlayerReporter);
 
-                context.Reports.Add(newReport);
-                rowsAffected = context.SaveChanges();
+                if(playerReported != null && playerReporter != null)
+                {
+                    var newReport = new Reports
+                    {
+                        idPlayerReported = idPlayerReported,
+                        idPlayerReporter = idPlayerReporter,
+                        reportDate = reportDate
+                    };
+
+                    context.Reports.Add(newReport);
+                    rowsAffected = context.SaveChanges();
+                }            
             }
 
             return rowsAffected > 0;
@@ -31,23 +38,39 @@ namespace TimbiricheDataAccess
 
         public static bool VerifyUniqueReport(int idPlayerReported, int idPlayerReporter)
         {
+            bool isUniqueReport = false;
+
             using (var context = new TimbiricheDBEntities())
             {
-                var query = context.Reports
-                    .Where(r => r.idPlayerReported == idPlayerReported)
-                    .Where(r => r.idPlayerReporter == idPlayerReporter);
+                var playerReported = context.Players.Find(idPlayerReported);
+                var playerReporter = context.Players.Find(idPlayerReporter);
 
-                return query.Count() < 1;
+                if (playerReported != null && playerReporter != null)
+                {
+                    var query = context.Reports
+                        .Where(r => r.idPlayerReported == idPlayerReported)
+                        .Where(r => r.idPlayerReporter == idPlayerReporter);
+
+                    isUniqueReport = (query.Count() == 1) ? true : false;
+                }
+
+                return isUniqueReport;
             }
         }
 
         public static int GetNumberOfReportsByIdPlayerReported(int idPlayerReported)
         {
+            int numberOfReports = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
-                int numberOfReports = context.Reports
-                    .Where(r => r.idPlayerReported == idPlayerReported)
-                    .Count();
+                var playerReported = context.Players.Find(idPlayerReported);
+
+                if(playerReported != null){
+                    numberOfReports = context.Reports
+                        .Where(r => r.idPlayerReported == idPlayerReported)
+                        .Count();
+                }
 
                 return numberOfReports;
             }
@@ -55,11 +78,18 @@ namespace TimbiricheDataAccess
 
         public static int GetNumberOfBansByIdPlayer(int idPlayer)
         {
+            int numberOfBans = 0;
+
             using (var context = new TimbiricheDBEntities())
             {
-                int numberOfBans = context.Bans
-                    .Where(b => b.idBannedPlayer == idPlayer)
-                    .Count();
+                var player = context.Players.Find(idPlayer);
+
+                if (player != null)
+                {
+                    numberOfBans = context.Bans
+                        .Where(b => b.idBannedPlayer == idPlayer)
+                        .Count();
+                }
 
                 return numberOfBans;
             }
@@ -71,15 +101,20 @@ namespace TimbiricheDataAccess
 
             using (var context = new TimbiricheDBEntities())
             {
-                var newBan = new Bans
-                {
-                    idBannedPlayer = idPlayer,
-                    startDate = startDate,
-                    endDate = endDate
-                };
+                var player = context.Players.Find(idPlayer);
 
-                context.Bans.Add(newBan);
-                rowsAffected = context.SaveChanges();
+                if (player != null)
+                {
+                    var newBan = new Bans
+                    {
+                        idBannedPlayer = idPlayer,
+                        startDate = startDate,
+                        endDate = endDate
+                    };
+
+                    context.Bans.Add(newBan);
+                    rowsAffected = context.SaveChanges();
+                }
             }
 
             return rowsAffected > 0;
@@ -91,11 +126,16 @@ namespace TimbiricheDataAccess
 
             using (var context = new TimbiricheDBEntities())
             {
-                var reportsToRemove = context.Reports
-                    .Where(r => r.idPlayerReported == idPlayer);
+                var player = context.Players.Find(idPlayer);
 
-                context.Reports.RemoveRange(reportsToRemove);
-                rowsAffected = context.SaveChanges();
+                if (player != null)
+                {
+                    var reportsToRemove = context.Reports
+                                        .Where(r => r.idPlayerReported == idPlayer);
+
+                    context.Reports.RemoveRange(reportsToRemove);
+                    rowsAffected = context.SaveChanges();
+                }
             }
 
             return rowsAffected > 0;
@@ -121,14 +161,23 @@ namespace TimbiricheDataAccess
 
         public static DateTime GetBanEndDateByIdPlayer(int idPlayer)
         {
+            DateTime banEndDate = DateTime.MinValue;
+
             using (var context = new TimbiricheDBEntities())
             {
-                var banEndDate = context.Bans
-                    .Where(b => b.idBannedPlayer == idPlayer)
-                    .OrderByDescending(b => b.startDate)
-                    .FirstOrDefault();
+                var playerToUpdate = context.Players.Find(idPlayer);
 
-                return (DateTime) banEndDate.endDate;
+                if (playerToUpdate != null)
+                {
+                    var ban = context.Bans
+                        .Where(b => b.idBannedPlayer == idPlayer)
+                        .OrderByDescending(b => b.startDate)
+                        .FirstOrDefault();
+
+                    banEndDate = (DateTime)ban.endDate;
+                }
+
+                return banEndDate;
             }
         }
 
