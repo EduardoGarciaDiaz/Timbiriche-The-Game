@@ -15,7 +15,7 @@ namespace TimbiricheService
     {
         [OperationContract]
         [FaultContract(typeof(TimbiricheServerException))]
-        List<GlobalScore> GetGlobalScores(string username);
+        List<GlobalScore> GetGlobalScores();
         [OperationContract]
         int UpdateWins(int idPlayer);
     }

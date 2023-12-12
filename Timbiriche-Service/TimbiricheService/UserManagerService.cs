@@ -263,7 +263,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    UnregisterUserToOnlineUsers(username);
                 }
 
                 foreach (var user in onlineUsers)
@@ -277,7 +277,7 @@ namespace TimbiricheService
                         catch (CommunicationException ex)
                         {
                             HandlerException.HandleErrorException(ex);
-                            // TODO: Manage channels
+                            UnregisterUserToOnlineUsers(username);
                         }
                     }
                 }
@@ -311,7 +311,7 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        UnregisterUserToOnlineUsers(username);
                     }
                 }
             }

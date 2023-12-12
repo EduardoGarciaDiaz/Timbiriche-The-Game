@@ -108,7 +108,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
                 }
             }
         }
@@ -139,7 +139,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemoveFromOnlineFriendshipDictionary(usernameTarget);
                 }
             }
         }
@@ -149,6 +149,7 @@ namespace TimbiricheService
             UserManagement userDataAccess = new UserManagement();
             FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
             int idPlayerAccepted = userDataAccess.GetIdPlayerByUsername(username);
+
             friendRequestDataAccess.DeleteFriendRequest(idCurrentPlayer, idPlayerAccepted);
         }
 
@@ -177,7 +178,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemoveFromOnlineFriendshipDictionary(usernameTarget);
                 }
             }
         }

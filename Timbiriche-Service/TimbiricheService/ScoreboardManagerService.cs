@@ -14,7 +14,7 @@ namespace TimbiricheService
 
     public partial class UserManagerService : IScoreboardManager
     {
-        public List<GlobalScore> GetGlobalScores(string username)
+        public List<GlobalScore> GetGlobalScores()
         {
             GlobalScoresManagement dataAccess = new GlobalScoresManagement();
             List<GlobalScore> globalScores = new List<GlobalScore>();
@@ -37,10 +37,6 @@ namespace TimbiricheService
             }
             catch (DataAccessException ex)
             {
-                _logger.Error(ex.Source + " - " + ex.Message + "\n" + ex.StackTrace + "\n");
-
-                DeletePlayerFromOnlineUsersDictionary(username);
-
                 TimbiricheServerException exceptionResponse = new TimbiricheServerException
                 {
                     Message = ex.Message,
@@ -53,11 +49,14 @@ namespace TimbiricheService
             return globalScores;
         }
 
+
+
         public int UpdateWins(int idPlayer)
         {
             GlobalScoresManagement dataAccess = new GlobalScoresManagement();
             int response = dataAccess.UpdateWinsPlayer(idPlayer);
             UpdateGlobalScore();
+
             return response;
         }
     }
@@ -72,6 +71,7 @@ namespace TimbiricheService
             {
                 IGlobalScoreManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IGlobalScoreManagerCallback>();
                 globalScoreRealTime.Add(usernameCurrentPlayer, currentUserCallbackChannel);
+
                 try
                 {
                     currentUserCallbackChannel.NotifyGlobalScoreboardUpdated();
@@ -79,7 +79,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    UnsubscribeToGlobalScoreRealTime(usernameCurrentPlayer);
                 }
             }
         }
@@ -104,7 +104,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    UnsubscribeToGlobalScoreRealTime(user.Key);
                 }
             }
         }

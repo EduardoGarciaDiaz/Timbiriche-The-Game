@@ -107,7 +107,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                 }
             }
         }
@@ -161,7 +161,7 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                     }
                 }
             }
@@ -180,7 +180,7 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
                     }
                 }
             }
@@ -198,12 +198,31 @@ namespace TimbiricheService
             return lobbies[lobbyCode].Item2;
         }
 
+
+        private LobbyPlayer GetLobbyPlayer(string lobbyCode, string username)
+        {
+            List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
+            return lobbyPlayers.FirstOrDefault(player => player.Username == username);
+        }
+
         public void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
             int idColor = lobbyPlayer.IdHexadecimalColor;
-            int emptyDictionaryCount = 0;
             
+            InformColorUnselected(lobbyCode, idColor);
+
+            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+        }
+
+        private void InformColorUnselected(string lobbyCode, int idColor)
+        {
+            InformColorUnselectedToDefaultColors(lobbyCode, idColor);
+            InformColorUnselectedToNonDefaultColor(lobbyCode, idColor);
+        }
+
+        private void InformColorUnselectedToNonDefaultColor(string lobbyCode, int idColor)
+        {
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
@@ -217,12 +236,15 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, player.ColorCallbackChannel);
                     }
                 }
             }
-            
-            foreach(var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode])
+        }
+
+        private void InformColorUnselectedToDefaultColors(string lobbyCode, int idColor)
+        {
+            foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode])
             {
                 try
                 {
@@ -231,14 +253,28 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
                 }
             }
+        }
 
+        private void RemovePlayerAndDictionaryFromDefaultColors(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
+            DeletePlayerFromDefaultColorsDictionary(lobbyCode, currentUserCallbackChannel);
+            DeleteDefaultColorsDictionary(lobbyCode);
+        }
+
+        private void DeletePlayerFromDefaultColorsDictionary(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
             if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
             {
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
+        }
+
+        private void DeleteDefaultColorsDictionary(string lobbyCode)
+        {
+            int emptyDictionaryCount = 0;
 
             if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
             {
@@ -303,16 +339,16 @@ namespace TimbiricheService
                 {
                     auxiliarPlayer.IdStylePath = lobbyPlayer.IdStylePath;
 
-                    foreach (var colorSelector in lobbies[lobbyCode].Item2)
+                    foreach (var styleSelector in lobbies[lobbyCode].Item2.ToList())
                     {
                         try
                         {
-                            colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                            styleSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
                         }
                         catch (CommunicationException ex)
                         {
                             HandlerException.HandleErrorException(ex);
-                            // TODO: Manage channels
+                            styleSelector.StyleCallbackChannel = null;
                         }
                     }
                 }

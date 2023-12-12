@@ -15,8 +15,7 @@ namespace TimbiricheService
 
         private void DeletePlayerFromOnlineUsersDictionary(string username)
         {
-            onlineUsers.Remove(username);
-            UnregisterUserToOnlineUsers(username);
+            
         }
 
         private void DeletePlayerFromGlobalScoreRealTimeDictionary(string username)
