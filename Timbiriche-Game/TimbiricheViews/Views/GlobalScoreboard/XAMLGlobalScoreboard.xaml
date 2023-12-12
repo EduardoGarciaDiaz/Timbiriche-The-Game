@@ -11,7 +11,7 @@
 
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">
-            <Image Source="../Resources/shopBackground.png" Stretch="Fill" />
+            <Image Source="/Resources/shopBackground.png" Stretch="Fill" />
 
             <Image x:Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png" Cursor="Hand" MouseLeftButtonDown="ImgBack_Click"/>
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White"  Content="Timbiriche" Margin="294,30,0,0" />

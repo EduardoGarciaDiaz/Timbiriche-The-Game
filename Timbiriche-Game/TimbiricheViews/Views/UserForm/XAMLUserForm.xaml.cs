@@ -22,7 +22,6 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-
     public partial class XAMLUserForm : Page
     {
         public XAMLUserForm()

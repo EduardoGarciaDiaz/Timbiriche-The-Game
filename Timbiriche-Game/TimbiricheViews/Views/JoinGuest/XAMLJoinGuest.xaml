@@ -70,7 +70,7 @@
                 <ImageBrush ImageSource="/Resources/backgroundGame.png"/>
             </Grid.Background>
 
-            <Image Source="../Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="487" Width="511" Margin="337,108,0,0" Grid.RowSpan="2"/>
+            <Image Source="/Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="487" Width="511" Margin="337,108,0,0" Grid.RowSpan="2"/>
 
             <TextBlock Text="{x:Static p:Resources.lbTemporaryUserNameInstruction}" Margin="437,36,437,436" TextWrapping="WrapWithOverflow" Foreground="White" FontFamily="Inter" FontSize="18" TextAlignment="Center" Grid.Row="1"/>
 

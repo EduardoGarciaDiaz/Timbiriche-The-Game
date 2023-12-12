@@ -31,14 +31,14 @@
 
 
         <Grid Height="770" Width="1200">
-            <Image Source="../Resources/lobyBackground.png" Stretch="Fill" Margin="0,0,0,427"/>
-            <Image Source="../resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
+            <Image Source="/Resources/lobyBackground.png" Stretch="Fill" Margin="0,0,0,427"/>
+            <Image Source="/resources/lobyFloor.png" Stretch="Fill" Margin="0,348,0,0"/>
 
-            <Image x:Name="imgFriendsMenu" Source="../Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675" Width="86"/>
+            <Image x:Name="imgFriendsMenu" Source="/Resources/friends.png" Stretch="Fill" Margin="15,13,1097,675" Width="86"/>
             <Button x:Name="btnFriendsMenu" Background="Transparent" BorderBrush="Transparent" Margin="15,13,1097,659" Click="BtnFriendsMenu_Click" Cursor="Hand" />
             <Label x:Name="lbFriends" Content="{x:Static p:Resources.lbFriends}" HorizontalAlignment="Left" Margin="29,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
 
-            <Image Source="../Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
+            <Image Source="/Resources/profile.png" Stretch="Fill" Margin="1106,13,8,677"/>
             <Button x:Name="btnMyProfile" Background="Transparent" BorderBrush="Transparent" Margin="1105,9,7,663" Click="BtnMyProfile_Click" Cursor="Hand" />
             <Label  Content="{x:Static p:Resources.lbMyProfile}"  HorizontalAlignment="Left" Margin="1117,84,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
 
@@ -48,7 +48,7 @@
             <Button x:Name="btnShop" Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
             BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand" Click="BtnShop_Click"/>
 
-            <Image Source="../Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
+            <Image Source="/Resources/coins.png" Stretch="Fill" Margin="33,636,1132,99" Width="35" Height="35" />
 
             <Label  FontFamily="Inter" Foreground="White" FontSize="24"
                                HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,632,1111,0">x</Label>
@@ -61,7 +61,7 @@
                 <Label x:Name="lbUsername" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
                 FontSize="20" Content="" Margin="373,667,0,0" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
+                <Image Source="/Resources/shadow.png" Stretch="Fill" Margin="364,584,550,116" />
 
                 <Rectangle x:Name="rectangleFirstPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="382,373,568,149" />
                 <Label x:Name="lbUserFaceBox" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" 
@@ -110,7 +110,7 @@
                 <Rectangle Fill="#9E000000" RadiusX="25" RadiusY="25" Margin="0,200,0,0" />
                 <Label x:Name="lbSecondPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
-                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Image Source="/Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
                 <Rectangle x:Name="rectangleSecondPlayerColor"  Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65"/>
                 <Label x:Name="lbSecondPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                 FontSize="100" Content="" Height="170" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"
@@ -122,7 +122,7 @@
                 <Rectangle Fill="#9E000000" RadiusX="25" RadiusY="25" Margin="0,200,0,0" />
                 <Label x:Name="lbThirdPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
-                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Image Source="/Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
                 <Rectangle x:Name="rectangleThirdPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbThirdPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="100" Content="" Height="171" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
@@ -134,7 +134,7 @@
                 <Rectangle Fill="#9E000000" RadiusX="25" RadiusY="25" Margin="0,200,0,0" />
                 <Label x:Name="lbFourthPlayerUsername" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="20" Content="" Width="270" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="0,200,0,0"/>
-                <Image Source="../Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
+                <Image Source="/Resources/shadow.png" Stretch="Fill" Margin="0,150,0,45" />
                 <Rectangle x:Name="rectangleFourthPlayerColor" Fill="#FF6C6868" RadiusX="25" RadiusY="25" Margin="20,0,20,65" />
                 <Label x:Name="lbFourthPlayerFaceBox" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Inter" 
                     FontSize="100" Content="" Height="171" Width="170" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" 
