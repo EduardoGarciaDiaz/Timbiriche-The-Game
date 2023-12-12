@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Server;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -21,16 +23,54 @@ namespace TimbiricheViews.Views
         public XAMLBan(int idPlayerBanned)
         {
             InitializeComponent();
+            VerifyBanEndDate(idPlayerBanned);
+        }
 
+        private void VerifyBanEndDate(int idPlayerBanned)
+        {
             Server.BanVerifierManagerClient banManagerClient = new Server.BanVerifierManagerClient();
-            Server.BanInformation banInformation = banManagerClient.VerifyBanEndDate(idPlayerBanned);
 
-            string formattedDateTime = banInformation.EndDate.ToString("dd MMMM yyyy HH:mm");
-            lbBanEndDate.Content = formattedDateTime;
-
-            if (banInformation.BanStatus.Equals("Inactive"))
+            try
             {
-                gridBanFinished.Visibility = Visibility.Visible;
+                Server.BanInformation banInformation = banManagerClient.VerifyBanEndDate(idPlayerBanned);
+
+                string formattedDateTime = banInformation.EndDate.ToString("dd MMMM yyyy HH:mm");
+                lbBanEndDate.Content = formattedDateTime;
+
+                if (banInformation.BanStatus.Equals("Inactive"))
+                {
+                    gridBanFinished.Visibility = Visibility.Visible;
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
         }
 

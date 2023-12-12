@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
@@ -59,9 +61,45 @@ namespace TimbiricheViews.Views
 
         private void BtnSendToken_Click(object sender, RoutedEventArgs e)
         {
-            _email = tbxEmail.Text;
+            _email = tbxEmail.Text.Trim();
+            bool isResetTokenSent = false;
             Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
-            bool isResetTokenSent = passwordResetClient.SendResetToken(_email);
+
+            try
+            {
+                isResetTokenSent = passwordResetClient.SendResetToken(_email);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
             if (isResetTokenSent)
             {
                 gridEmailConfirmation.Visibility = Visibility.Collapsed;
@@ -71,8 +109,44 @@ namespace TimbiricheViews.Views
 
         private void BtnVerifyToken_Click(object sender, RoutedEventArgs e)
         {
+            bool isTokenValid = false;
             Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
-            bool isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text));
+
+            try
+            {
+                isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text.Trim()));
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
             if (isTokenValid)
             {
                 gridCodeConfirmation.Visibility = Visibility.Collapsed;
@@ -85,8 +159,44 @@ namespace TimbiricheViews.Views
             if (ValidatePassword())
             {
                 string password = pwBxNewPassword.Password.Trim();
+                bool isPasswordRessetted = false;
                 Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
-                bool isPasswordRessetted = passwordResetClient.ChangePassword(password, _email);
+
+                try
+                {
+                    isPasswordRessetted = passwordResetClient.ChangePassword(password, _email);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerException> ex)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
+
                 if (isPasswordRessetted)
                 {
                     string title = "Contraseña Cambiada";
@@ -117,8 +227,7 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(pwBxConfirmNewPassword.Password))
             {
                 pwBxConfirmNewPassword.Password = (string)pwBxConfirmNewPassword.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+                SolidColorBrush placeholderBrush = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
                 pwBxConfirmNewPassword.Foreground = placeholderBrush;
             }
         }
@@ -137,8 +246,7 @@ namespace TimbiricheViews.Views
             if (string.IsNullOrWhiteSpace(pwBxNewPassword.Password))
             {
                 pwBxNewPassword.Password = (string)pwBxNewPassword.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+                SolidColorBrush placeholderBrush = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
                 pwBxNewPassword.Foreground = placeholderBrush;
             }
         }
