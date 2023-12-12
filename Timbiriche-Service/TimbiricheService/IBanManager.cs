@@ -14,9 +14,9 @@ namespace TimbiricheService
         [OperationContract(IsOneWay = true)]
         void RegisterToBansNotifications(string lobbyCode, string username);
         [OperationContract(IsOneWay = true)]
-        void ReportMessage(int idPlayerReported, int idPlayerReporter);
+        void ReportMessage(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
         [OperationContract(IsOneWay = true)]
-        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter);
+        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
     }
 
     [ServiceContract]

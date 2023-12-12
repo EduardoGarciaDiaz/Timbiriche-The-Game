@@ -741,7 +741,8 @@ namespace TimbiricheViews.Views
             {
                 try
                 {
-                    banManagerClient.ReportPlayer(_lobbyCode, idPlayerReported, idPlayerReporter);
+                    string reporterUsername = PlayerSingleton.Player.Username;
+                    banManagerClient.ReportPlayer(_lobbyCode, idPlayerReported, idPlayerReporter, reporterUsername);
                 }
                 catch (EndpointNotFoundException ex)
                 {

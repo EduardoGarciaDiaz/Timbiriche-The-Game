@@ -424,7 +424,7 @@ namespace TimbiricheViews.Views
         {
             bool isMessageReceived = true;
 
-            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer);
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer, _lobbyCode);
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
@@ -595,7 +595,7 @@ namespace TimbiricheViews.Views
 
                 int idSenderPlayer = PlayerSingleton.Player.IdPlayer;
 
-                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer);
+                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer, _lobbyCode);
                 messageComponent.HorizontalAlignment = HorizontalAlignment.Right;
 
                 stackPanelMessages.Children.Add(messageComponent);

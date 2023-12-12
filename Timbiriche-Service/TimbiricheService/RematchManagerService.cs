@@ -28,31 +28,23 @@ namespace TimbiricheService
 
             match.DisconnectPlayerFromMatch();
 
-            if (!lobbies.ContainsKey(lobbyCode))
+            try
             {
-                CreateRematchLobby(lobbyCode, username);
-                try
+                if (!lobbies.ContainsKey(lobbyCode))
                 {
+                    CreateRematchLobby(lobbyCode, username);
                     currentUserCallbackChannel.NotifyHostOfRematch(lobbyCode);
                 }
-                catch (CommunicationException ex)
-                {
-                    HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
-                }
-            }
-            else
-            {
-                try
+                else
                 {
                     currentUserCallbackChannel.NotifyRematch(lobbyCode);
                 }
-                catch (CommunicationException ex)
-                {
-                    HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
-                }
             }
+            catch (CommunicationException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+            }
+
 
             TryRemoveMatchFromMatches(lobbyCode);
         }
