@@ -2415,16 +2415,16 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task RegisterToBansNotificationsAsync(string lobbyCode, string username);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
-        void ReportMessage(int idPlayerReported, int idPlayerReporter);
+        void ReportMessage(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportMessage")]
-        System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter);
+        System.Threading.Tasks.Task ReportMessageAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportPlayer")]
-        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter);
+        void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IBanManager/ReportPlayer")]
-        System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter);
+        System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2476,20 +2476,20 @@ namespace TimbiricheViews.Server {
             return base.Channel.RegisterToBansNotificationsAsync(lobbyCode, username);
         }
         
-        public void ReportMessage(int idPlayerReported, int idPlayerReporter) {
-            base.Channel.ReportMessage(idPlayerReported, idPlayerReporter);
+        public void ReportMessage(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername) {
+            base.Channel.ReportMessage(lobbyCode, idPlayerReported, idPlayerReporter, reporterUsername);
         }
         
-        public System.Threading.Tasks.Task ReportMessageAsync(int idPlayerReported, int idPlayerReporter) {
-            return base.Channel.ReportMessageAsync(idPlayerReported, idPlayerReporter);
+        public System.Threading.Tasks.Task ReportMessageAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername) {
+            return base.Channel.ReportMessageAsync(lobbyCode, idPlayerReported, idPlayerReporter, reporterUsername);
         }
         
-        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter) {
-            base.Channel.ReportPlayer(lobbyCode, idPlayerReported, idPlayerReporter);
+        public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername) {
+            base.Channel.ReportPlayer(lobbyCode, idPlayerReported, idPlayerReporter, reporterUsername);
         }
         
-        public System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter) {
-            return base.Channel.ReportPlayerAsync(lobbyCode, idPlayerReported, idPlayerReporter);
+        public System.Threading.Tasks.Task ReportPlayerAsync(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername) {
+            return base.Channel.ReportPlayerAsync(lobbyCode, idPlayerReported, idPlayerReporter, reporterUsername);
         }
     }
     

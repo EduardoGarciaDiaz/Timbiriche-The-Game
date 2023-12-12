@@ -21,8 +21,9 @@ namespace TimbiricheViews.Components.Match
     public partial class XAMLMessageItemComponent : UserControl
     {
         private readonly int _idSenderPlayer;
+        private string _lobbyCode;
 
-        public XAMLMessageItemComponent(string senderUsername, string message, bool isMessageReceived, int idSenderPlayer)
+        public XAMLMessageItemComponent(string senderUsername, string message, bool isMessageReceived, int idSenderPlayer, string lobbyCode)
         {          
             InitializeComponent();
 
@@ -30,6 +31,7 @@ namespace TimbiricheViews.Components.Match
             tbkMessage.Text = message;
 
             _idSenderPlayer = idSenderPlayer;
+            _lobbyCode = lobbyCode;
 
             if (!isMessageReceived)
             {
@@ -81,7 +83,8 @@ namespace TimbiricheViews.Components.Match
 
             try
             {
-                banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
+                string reporterUsername = PlayerSingleton.Player.Username;
+                banManagerClient.ReportMessage(_lobbyCode, _idSenderPlayer, idPlayerReporter, reporterUsername);
             }
             catch (EndpointNotFoundException ex)
             {
