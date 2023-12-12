@@ -18,7 +18,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 {
     public class ConfigurationUserManagementTests : IDisposable
     {
-        private ILogger _logger = LoggerManager.GetLogger();
+        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
 
         public ConfigurationUserManagementTests()
         {

@@ -17,7 +17,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 {
     public class ConfigurationShopManagementTests : IDisposable
     {
-        private ILogger _logger = LoggerManager.GetLogger();
+        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
 
         public ConfigurationShopManagementTests()
         {
@@ -124,10 +124,10 @@ namespace TimbiricheTests.UnitTestsDataAccess
             {
                 using (var context = new TimbiricheDBEntities())
                 {
-                    DeletePlayersAndAccounts(context);
                     DeletePlayerColor(context);
                     DeletePlayerStyle(context);
-
+                    DeletePlayersAndAccounts(context);
+                    
                     context.SaveChanges();
                 }
             }
@@ -189,7 +189,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         }
 
         [Fact]
-        public void TestGetColorsSuccess() //Just Success?
+        public void TestGetColorsSuccess()
         {
             List<Colors> colors = ShopManagement.GetColors();
 
