@@ -5,27 +5,47 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
 
     public partial class UserManagerService : IScoreboardManager
     {
-        public List<GlobalScore> GetGlobalScores()
+        public List<GlobalScore> GetGlobalScores(string username)
         {
             GlobalScoresManagement dataAccess = new GlobalScoresManagement();
             List<GlobalScore> globalScores = new List<GlobalScore>();
-            List<GlobalScores> scores = dataAccess.GetGlobalScores();
 
-            foreach (GlobalScores score in scores)
+            try
             {
-                GlobalScore globalScore = new GlobalScore
+                List<GlobalScores> scores = dataAccess.GetGlobalScores();
+
+                foreach (GlobalScores score in scores)
                 {
-                    IdGlobalScore = score.idGlobalScore,
-                    IdPlayer = (int)score.idPlayer,
-                    WinsNumber = (int)score.winsNumber
+                    GlobalScore globalScore = new GlobalScore
+                    {
+                        IdGlobalScore = score.idGlobalScore,
+                        IdPlayer = (int)score.idPlayer,
+                        WinsNumber = (int)score.winsNumber
+                    };
+                    globalScores.Add(globalScore);
+                }
+            }
+            catch (DataAccessException ex)
+            {
+                _logger.Error(ex.Source + " - " + ex.Message + "\n" + ex.StackTrace + "\n");
+
+                DeletePlayerFromOnlineUsersDictionary(username);
+
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
                 };
-                globalScores.Add(globalScore);
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
 
             return globalScores;

@@ -22,10 +22,8 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-
     public partial class XAMLLogin : Page
     {
-        private ILogger _logger = LoggerManager.GetLogger();
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string MAIN_FONT = "Titan One";
         private const string SECONDARY_FONT = "Inter";
@@ -115,34 +113,30 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    _logger.Error(ex.Message + "\n" + ex.StackTrace);
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
-                    //TODO: log
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (FaultException<TimbiricheServerException> ex)
                 {
-                    //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
                 }
                 catch (FaultException ex)
                 {
-                    //TODO: Show emergent window and log
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
+                    EmergentWindows.CreateServerErrorMessageWindow();
                 }
                 catch (CommunicationException ex)
                 {
-                    Console.WriteLine("Upss... Ocurrió un error en el servidor, por favor inténtelo de nuevo");
-                    //TODO: Show emergent window and log
-
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
                 }
                 catch (Exception ex)
                 {
-                    //TODO: Show emergent window and log...Ups has ocurried an unexpected error. Please try again later
-                    Console.WriteLine("Upss... Ocurrió un error inesperado. Por favor, intentelo más tarde");
-                    _logger.Fatal(ex.StackTrace);
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
                 }
 
                 if (playerLogged != null)
@@ -201,7 +195,38 @@ namespace TimbiricheViews.Views
             bool isAlreadyOnline = true;
 
             UserManagerClient userManagerClient = new UserManagerClient();
-            isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
+            try
+            {
+                isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             return isAlreadyOnline;
         }
@@ -213,8 +238,8 @@ namespace TimbiricheViews.Views
 
         private void ShowPlayerAlreadyOnlineMessage()
         {
-            string titleEmergentWindow = "Hay una sesión iniciada";
-            string descriptionEmergentWindow = "Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este";
+            string titleEmergentWindow = Properties.Resources.lbExistentSessionTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkExistentSessionDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
@@ -291,9 +316,42 @@ namespace TimbiricheViews.Views
 
         private void BtnJoin_Click(object sender, RoutedEventArgs e)
         {
+            bool existLobby = false;
             string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
             Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
-            bool existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+
+            try
+            {
+                existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             if (existLobby)
             {
@@ -301,10 +359,7 @@ namespace TimbiricheViews.Views
             } 
             else
             {
-                string title = "Lobby no encontrado";
-                string message = "El lobby al que estas intentando entrar no existe.";
-
-                EmergentWindows.CreateEmergentWindow(title, message);
+                EmergentWindows.CreateLobbyNotFoundMessageWindow();
             }
         }
     }

@@ -15,6 +15,7 @@ using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
 using TimbiricheService.Exceptions;
 using TimbiricheService.Utils;
+using LoggerManager = TimbiricheService.Utils.LoggerManager;
 
 namespace TimbiricheService
 {
@@ -255,16 +256,31 @@ namespace TimbiricheService
                         onlineFriends.Add(onlineUsername);
                     }
                 }
-                
-                currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
 
-                onlineUsers.Add(username, currentUserCallbackChannel);
+                try
+                {
+                    currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
+                    onlineUsers.Add(username, currentUserCallbackChannel);
+                }   
+                catch (CommunicationException ex)
+                {
+                HandlerException.HandleErrorException(ex);
+                    //TODO: Manage channels
+                }
 
                 foreach (var user in onlineUsers)
                 {
                     if (user.Key != username && IsFriend(idPlayer, user.Key))
                     {
-                        user.Value.NotifyUserLoggedIn(username); 
+                        try
+                        {
+                            user.Value.NotifyUserLoggedIn(username);
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerException.HandleErrorException(ex);
+                            // TODO: Manage channels
+                        }
                     }
                 }
             }

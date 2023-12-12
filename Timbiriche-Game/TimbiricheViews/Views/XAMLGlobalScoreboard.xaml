@@ -15,13 +15,13 @@
 
             <Image x:Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png" Cursor="Hand" MouseLeftButtonDown="ImgBack_Click"/>
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White"  Content="Timbiriche" Margin="294,30,0,0" />
-            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White"  Content="Marcador" Width="426" Margin="655,30,0,0" Height="52" />
+            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White"  Content="{x:Static p:Resources.lbScoreboard}" Width="426" Margin="655,30,0,0" Height="52" />
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="40" Foreground="White"  Content="-" Margin="570,28,0,0" />
 
             <Rectangle HorizontalAlignment="Center" Height="584" Margin="0,113,0,0" VerticalAlignment="Top" Width="978" RadiusX="20" RadiusY="20" Fill="#D892620A"/>
-            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White"  Content="Posición" Margin="153,129,0,0" />
-            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White" Content="Jugador" Margin="527,129,0,0" />
-            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White"  Content="Victorias" Margin="890,129,0,0" />
+            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White"  Content="{x:Static p:Resources.lbPosition}" Margin="153,129,0,0" />
+            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White" Content="{x:Static p:Resources.lbPlayer}" Margin="527,129,0,0" />
+            <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="26" Foreground="White"  Content="{x:Static p:Resources.lbWins}" Margin="890,129,0,0" />
 
             <ScrollViewer Margin="111,174,111,91" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <StackPanel x:Name="stackPanelScoreboard" Width="970">

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
+using TimbiricheViews.Utils;
 using Path = System.IO.Path;
 
 
@@ -20,26 +22,26 @@ namespace TimbiricheViews.Components.Shop
 {
     public partial class XAMLStyleItemComponent : UserControl
     {
-        private Server.ShopStyle style;
+        private Server.ShopStyle _style;
 
         public XAMLStyleItemComponent(Server.ShopStyle style)
         {
             InitializeComponent();
-            this.style = style;
+            this._style = style;
             LoadStyleData();
         }
 
         private void LoadStyleData()
         {
-            string stylePath = style.StylePath;
+            string stylePath = _style.StylePath;
             string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
 
             BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
             imgStyle.Source = bitmapImage;
 
-            lbColorCost.Content = style.StyleCost;
+            lbColorCost.Content = _style.StyleCost;
 
-            if (style.OwnedStyle)
+            if (_style.OwnedStyle)
             {
                 gridOwnedSyle.Visibility = Visibility.Visible;
             }
@@ -57,14 +59,13 @@ namespace TimbiricheViews.Components.Shop
 
         private void BtnBuyStyle_Click(object sender, RoutedEventArgs e)
         {
-            if(PlayerSingleton.Player.Coins >= style.StyleCost)
+            if(PlayerSingleton.Player.Coins >= _style.StyleCost)
             {
-                Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
-                bool purchaseCompleted = shopManagerClient.BuyStyle(style, PlayerSingleton.Player.IdPlayer);
+                bool purchaseCompleted = BuyStyle();
 
                 if (purchaseCompleted)
                 {
-                    PlayerSingleton.Player.Coins -= style.StyleCost;
+                    PlayerSingleton.Player.Coins -= _style.StyleCost;
                     gridOwnedSyle.Visibility = Visibility.Visible;
                     Utils.EmergentWindows.CreateEmergentWindow("Compra Completada", "Compraste el estilo correctamente.");
                 }
@@ -78,6 +79,43 @@ namespace TimbiricheViews.Components.Shop
                 Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
 
             }
+        }
+
+        private bool BuyStyle()
+        {
+            bool purchaseCompleted = false;
+            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+
+            try
+            {
+                purchaseCompleted = shopManagerClient.BuyStyle(_style, PlayerSingleton.Player.IdPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleComponentFatalException(ex);
+            }
+
+            return purchaseCompleted;
         }
     }
 }

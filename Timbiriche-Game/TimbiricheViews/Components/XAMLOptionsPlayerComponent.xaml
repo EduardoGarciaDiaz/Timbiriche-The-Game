@@ -18,11 +18,11 @@
 
     <Grid x:Name="gridOptionsPlayer"  Background="#00000000" Margin="0,0,0,0" Grid.IsSharedSizeScope="True" Width="200">
         <Rectangle Fill="#D85E7682" RadiusX="15" RadiusY="15" Opacity="0.75"/>
-        <Image Margin="-9,-6,192,44" Source="/Resources/close.png" Cursor="Hand" MouseLeftButtonDown="ImgCloseOptions_Click"/>
+        <Image Margin="-9,-5,192,43" Source="/Resources/close.png" Cursor="Hand" MouseLeftButtonDown="ImgCloseOptions_Click"/>
         <Label x:Name="lbUsername" Content="username" Foreground="White" FontSize="16" FontFamily="Inter" FontWeight="Bold" VerticalAlignment="Top" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="13,0,7,0"/>
         <StackPanel x:Name="stackPanelOptionsPlayer" Visibility="Visible" Margin="13,29,13,0" >
-            <Button x:Name="btnExpulse" Content="Expulsar" Visibility="Collapsed" IsEnabled="False" Margin="0,0,0,5"  Background="#FF435B67" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" Click="BtnExpulsePlayer_Click" />
-            <Button x:Name="btnReport" Content="{x:Static p:Resources.btnReportMessage}" Margin="0,0,0,5" Background="#FF435B67" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" Click="BtnReportPlayer_Click" />
+            <Button x:Name="btnExpulse" Content="{x:Static p:Resources.btnKickPlayer}" Visibility="Collapsed" IsEnabled="False" Margin="0,0,0,5"  Background="#FF435B67" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" Click="BtnExpulsePlayer_Click" />
+            <Button x:Name="btnReport" Content="{x:Static p:Resources.btnReportPlayer}" Margin="0,0,0,5" Background="#FF435B67" BorderBrush="{x:Null}" FontFamily="Inter" Foreground="White" Cursor="Hand" Click="BtnReportPlayer_Click" />
         </StackPanel>
     </Grid>
 </UserControl>

@@ -259,6 +259,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Reportar jugador.
+        /// </summary>
+        public static string btnReportPlayer {
+            get {
+                return ResourceManager.GetString("btnReportPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Verificar.
         /// </summary>
         public static string btnResetPasswordVerifyCode {
@@ -367,6 +376,24 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Has sido baneado. Recuerda respetar a los demás jugadores..
+        /// </summary>
+        public static string lbBannedAdvise {
+            get {
+                return ResourceManager.GetString("lbBannedAdvise", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has sido baneado.
+        /// </summary>
+        public static string lbBannedPlayerTitle {
+            get {
+                return ResourceManager.GetString("lbBannedPlayerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Fecha de Nacimiento.
         /// </summary>
         public static string lbBirthdate {
@@ -390,6 +417,15 @@ namespace TimbiricheViews.Properties {
         public static string lbBuytItem {
             get {
                 return ResourceManager.GetString("lbBuytItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lo lamentamos.
+        /// </summary>
+        public static string lbCantExpulsePlayerTitle {
+            get {
+                return ResourceManager.GetString("lbCantExpulsePlayerTitle", resourceCulture);
             }
         }
         
@@ -511,6 +547,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error de la base de datos.
+        /// </summary>
+        public static string lbDataBaseExceptionTitle {
+            get {
+                return ResourceManager.GetString("lbDataBaseExceptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Correo.
         /// </summary>
         public static string lbEmail {
@@ -556,11 +601,29 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Hay una sesión iniciada.
+        /// </summary>
+        public static string lbExistentSessionTitle {
+            get {
+                return ResourceManager.GetString("lbExistentSessionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Este nombre de usuario ya está en uso. Intenta con otro.
         /// </summary>
         public static string lbExistentUsername {
             get {
                 return ResourceManager.GetString("lbExistentUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Has sido expulsado.
+        /// </summary>
+        public static string lbExpulsedTilte {
+            get {
+                return ResourceManager.GetString("lbExpulsedTilte", resourceCulture);
             }
         }
         
@@ -633,6 +696,15 @@ namespace TimbiricheViews.Properties {
         public static string lbHelpUsernameError {
             get {
                 return ResourceManager.GetString("lbHelpUsernameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lobby eliminado.
+        /// </summary>
+        public static string lbHostLeftLobbyTitle {
+            get {
+                return ResourceManager.GetString("lbHostLeftLobbyTitle", resourceCulture);
             }
         }
         
@@ -714,6 +786,24 @@ namespace TimbiricheViews.Properties {
         public static string lbLastName {
             get {
                 return ResourceManager.GetString("lbLastName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lobby lleno.
+        /// </summary>
+        public static string lbLobbyIsFullTitle {
+            get {
+                return ResourceManager.GetString("lbLobbyIsFullTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Lobby no encontrado.
+        /// </summary>
+        public static string lbLobbyNotFound {
+            get {
+                return ResourceManager.GetString("lbLobbyNotFound", resourceCulture);
             }
         }
         
@@ -826,11 +916,38 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Jugador.
+        /// </summary>
+        public static string lbPlayer {
+            get {
+                return ResourceManager.GetString("lbPlayer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Posición.
+        /// </summary>
+        public static string lbPosition {
+            get {
+                return ResourceManager.GetString("lbPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Rechazar.
         /// </summary>
         public static string lbRejectFriendRequest {
             get {
                 return ResourceManager.GetString("lbRejectFriendRequest", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Jugador ya reportado.
+        /// </summary>
+        public static string lbReportedPlayerTitle {
+            get {
+                return ResourceManager.GetString("lbReportedPlayerTitle", resourceCulture);
             }
         }
         
@@ -907,6 +1024,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error en el servidor.
+        /// </summary>
+        public static string lbServerExceptionTitle {
+            get {
+                return ResourceManager.GetString("lbServerExceptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Estilos.
         /// </summary>
         public static string lbStyles {
@@ -921,6 +1047,15 @@ namespace TimbiricheViews.Properties {
         public static string lbStylesInstrucion {
             get {
                 return ResourceManager.GetString("lbStylesInstrucion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Reporte exitoso.
+        /// </summary>
+        public static string lbSuccesfulReportTitle {
+            get {
+                return ResourceManager.GetString("lbSuccesfulReportTitle", resourceCulture);
             }
         }
         
@@ -979,6 +1114,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error inesperado.
+        /// </summary>
+        public static string lbUnexpectedExceptionTitle {
+            get {
+                return ResourceManager.GetString("lbUnexpectedExceptionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ilimitado.
         /// </summary>
         public static string lbUnlimitedTime {
@@ -1020,6 +1164,15 @@ namespace TimbiricheViews.Properties {
         public static string lbWelcome {
             get {
                 return ResourceManager.GetString("lbWelcome", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Victorias.
+        /// </summary>
+        public static string lbWins {
+            get {
+                return ResourceManager.GetString("lbWins", resourceCulture);
             }
         }
         
@@ -1069,6 +1222,24 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Has acumulado el máximo de reportes permitidos. Se restringirá tu cuenta por un tiempo establecido..
+        /// </summary>
+        public static string tbkBannedPlayerDescription {
+            get {
+                return ResourceManager.GetString("tbkBannedPlayerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No se puede banear a un jugador invitado..
+        /// </summary>
+        public static string tbkCantExpulsePlayerDescription {
+            get {
+                return ResourceManager.GetString("tbkCantExpulsePlayerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a No se pudo conectar con el servidor. Por favor, Inténtelo más tarde..
         /// </summary>
         public static string tbkConnectionFailedDetails {
@@ -1083,6 +1254,15 @@ namespace TimbiricheViews.Properties {
         public static string tbkDataBaseErrorDescription {
             get {
                 return ResourceManager.GetString("tbkDataBaseErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upss... Ocurrió un error en la base de datos. Porfavor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkDataBaseExceptionDescription {
+            get {
+                return ResourceManager.GetString("tbkDataBaseExceptionDescription", resourceCulture);
             }
         }
         
@@ -1105,11 +1285,101 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este.
+        /// </summary>
+        public static string tbkExistentSessionDescription {
+            get {
+                return ResourceManager.GetString("tbkExistentSessionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Te han expulsado de la sala.
+        /// </summary>
+        public static string tbkExpulsedDescription {
+            get {
+                return ResourceManager.GetString("tbkExpulsedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No fue posible enviar la solictud de amistad, inténtelo de nuevo.
+        /// </summary>
+        public static string tbkFriendRequestErrorDescription {
+            get {
+                return ResourceManager.GetString("tbkFriendRequestErrorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El host salio del lobby. Regresaras al menú principal..
+        /// </summary>
+        public static string tbkHostLeftLobbyDescription {
+            get {
+                return ResourceManager.GetString("tbkHostLeftLobbyDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El lobby al que estas intentando entrar esta lleno..
+        /// </summary>
+        public static string tbkLobbyIsFullDescription {
+            get {
+                return ResourceManager.GetString("tbkLobbyIsFullDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El lobby al que estas intentando entrar no existe..
+        /// </summary>
+        public static string tbkLobbyNotFound {
+            get {
+                return ResourceManager.GetString("tbkLobbyNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Ya has reportado a este jugador..
+        /// </summary>
+        public static string tbkReportedPlayerDescription {
+            get {
+                return ResourceManager.GetString("tbkReportedPlayerDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upss... Ocurrió un error en el servidor. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkServerExceptionDescription {
+            get {
+                return ResourceManager.GetString("tbkServerExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a El jugador ha sido reportado. Agradecemos tu apoyo..
+        /// </summary>
+        public static string tbkSuccesfulReportDescription {
+            get {
+                return ResourceManager.GetString("tbkSuccesfulReportDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a La operación ha excedido el tiempo de espera. Por favor, inténtelo más tarde..
         /// </summary>
         public static string tbkTimeOutExceptionDescription {
             get {
                 return ResourceManager.GetString("tbkTimeOutExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Upss... Ocurrió un error inesperado. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkUnexpectedExceptionDescription {
+            get {
+                return ResourceManager.GetString("tbkUnexpectedExceptionDescription", resourceCulture);
             }
         }
         

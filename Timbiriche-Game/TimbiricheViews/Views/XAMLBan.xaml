@@ -15,9 +15,9 @@
             <Image Source="../Resources/victoryBox.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="1015" Width="1172"/>
 
             <Grid Margin="374,140,374,140">
-                <Label x:Name="lbYouWon" Content="Estas Baneado" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" FontSize="100" Margin="0,69,0,0"/>
+                <Label x:Name="lbYouWon" Content="{x:Static p:Resources.lbBannedPlayerTitle}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" FontSize="100" Margin="0,69,0,0"/>
 
-                <Label Content="Has sido baneado. Recuerda respetar a los demás jugadores." FontFamily="Inter" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
+                <Label Content="{x:Static p:Resources.lbBannedAdvise}" FontFamily="Inter" Foreground="White" FontSize="24" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,252,0,0"/>
 
                 <Label x:Name="lbBanEndDate"  Content="24 Marzo 2023 13:00" HorizontalAlignment="Center" VerticalAlignment="Center" FontFamily="Inter" Foreground="White"
                  FontSize="80" FontWeight="Bold"/>

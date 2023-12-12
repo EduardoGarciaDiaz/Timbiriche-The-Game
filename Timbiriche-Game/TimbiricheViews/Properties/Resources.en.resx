@@ -183,6 +183,9 @@
   <data name="btnReportMessage" xml:space="preserve">
     <value>Report message</value>
   </data>
+  <data name="btnReportPlayer" xml:space="preserve">
+    <value>Report player</value>
+  </data>
   <data name="btnResetPasswordVerifyCode" xml:space="preserve">
     <value>Verificar</value>
   </data>
@@ -219,6 +222,12 @@
   <data name="lbAnyCode" xml:space="preserve">
     <value>Do you have any code?</value>
   </data>
+  <data name="lbBannedAdvise" xml:space="preserve">
+    <value>You have been banned. Remember to respect other players.</value>
+  </data>
+  <data name="lbBannedPlayerTitle" xml:space="preserve">
+    <value>You have been banned</value>
+  </data>
   <data name="lbBirthdate" xml:space="preserve">
     <value>Birthdate</value>
   </data>
@@ -227,6 +236,9 @@
   </data>
   <data name="lbBuytItem" xml:space="preserve">
     <value>Buy Item</value>
+  </data>
+  <data name="lbCantExpulsePlayerTitle" xml:space="preserve">
+    <value>We sorry</value>
   </data>
   <data name="lbCantSentFriendRequestYourself" xml:space="preserve">
     <value>You cannot send a friend request to yourself</value>
@@ -267,6 +279,9 @@
   <data name="lbDataBaseErrorTitle" xml:space="preserve">
     <value>Database error</value>
   </data>
+  <data name="lbDataBaseExceptionTitle" xml:space="preserve">
+    <value>Database error</value>
+  </data>
   <data name="lbEmail" xml:space="preserve">
     <value>Email</value>
   </data>
@@ -282,8 +297,14 @@
   <data name="lbExistentEmail" xml:space="preserve">
     <value>This email is already in use. Try another one</value>
   </data>
+  <data name="lbExistentSessionTitle" xml:space="preserve">
+    <value>There is a session started</value>
+  </data>
   <data name="lbExistentUsername" xml:space="preserve">
     <value>This username is already in use. Try another one</value>
+  </data>
+  <data name="lbExpulsedTilte" xml:space="preserve">
+    <value>You've been kicked</value>
   </data>
   <data name="lbForgottenPassword" xml:space="preserve">
     <value>I forgot my password</value>
@@ -308,6 +329,9 @@
   </data>
   <data name="lbHelpUsernameError" xml:space="preserve">
     <value>Maximum 50 characters, uppercase, lowercase, numbers and underscore</value>
+  </data>
+  <data name="lbHostLeftLobbyTitle" xml:space="preserve">
+    <value>Lobby removed</value>
   </data>
   <data name="lbIncorrectCredentials" xml:space="preserve">
     <value>Incorrect username or password</value>
@@ -335,6 +359,12 @@
   </data>
   <data name="lbLastName" xml:space="preserve">
     <value>Last Name</value>
+  </data>
+  <data name="lbLobbyIsFullTitle" xml:space="preserve">
+    <value>Full lobby</value>
+  </data>
+  <data name="lbLobbyNotFound" xml:space="preserve">
+    <value>Lobby not found</value>
   </data>
   <data name="lbMatchSettings" xml:space="preserve">
     <value>Match settings</value>
@@ -372,8 +402,17 @@
   <data name="lbPersonalInformation" xml:space="preserve">
     <value>Personal information</value>
   </data>
+  <data name="lbPlayer" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="lbPosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
   <data name="lbRejectFriendRequest" xml:space="preserve">
     <value>Decline</value>
+  </data>
+  <data name="lbReportedPlayerTitle" xml:space="preserve">
+    <value>Player already reported</value>
   </data>
   <data name="lbResetPasswordCodeInstruction" xml:space="preserve">
     <value>Enter the code you received in the email you registered</value>
@@ -399,11 +438,17 @@
   <data name="lbSendRequest" xml:space="preserve">
     <value>Send request</value>
   </data>
+  <data name="lbServerExceptionTitle" xml:space="preserve">
+    <value>Server error</value>
+  </data>
   <data name="lbStyles" xml:space="preserve">
     <value>Styles</value>
   </data>
   <data name="lbStylesInstrucion" xml:space="preserve">
     <value>Choose the character with which you will play the matches</value>
+  </data>
+  <data name="lbSuccesfulReportTitle" xml:space="preserve">
+    <value>Successful report</value>
   </data>
   <data name="lbSurname" xml:space="preserve">
     <value>Surname</value>
@@ -423,6 +468,9 @@
   <data name="lbTurnOf" xml:space="preserve">
     <value>Turn of</value>
   </data>
+  <data name="lbUnexpectedExceptionTitle" xml:space="preserve">
+    <value>Unexpected error</value>
+  </data>
   <data name="lbUnlimitedTime" xml:space="preserve">
     <value>Unlimited</value>
   </data>
@@ -437,6 +485,9 @@
   </data>
   <data name="lbWelcome" xml:space="preserve">
     <value>¡Welcome to Timbiriche!</value>
+  </data>
+  <data name="lbWins" xml:space="preserve">
+    <value>Wins</value>
   </data>
   <data name="lbYouEarn" xml:space="preserve">
     <value>You got</value>
@@ -453,11 +504,20 @@
   <data name="String" xml:space="preserve">
     <value>to be able to play with them</value>
   </data>
+  <data name="tbkBannedPlayerDescription" xml:space="preserve">
+    <value>You have accumulated the maximum number of reports allowed. Your account will be restricted for a set time.</value>
+  </data>
+  <data name="tbkCantExpulsePlayerDescription" xml:space="preserve">
+    <value>You cannot kick a guest player.</value>
+  </data>
   <data name="tbkConnectionFailedDetails" xml:space="preserve">
     <value>Could not connect to the server. Please try again later.</value>
   </data>
   <data name="tbkDataBaseErrorDescription" xml:space="preserve">
     <value>An error related to the database has occurred. Please try again later.</value>
+  </data>
+  <data name="tbkDataBaseExceptionDescription" xml:space="preserve">
+    <value>Oops... An error occurred in the database. Please try again later</value>
   </data>
   <data name="tbkDescriptionAccountCreatedSuccess" xml:space="preserve">
     <value>Your account has been created successfully. Now you can log in with your registered username and password</value>
@@ -465,8 +525,38 @@
   <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
     <value>The account could not be created. Please try again later.</value>
   </data>
+  <data name="tbkExistentSessionDescription" xml:space="preserve">
+    <value>There is already a session logged in with that account, log out of the other device to be able to log in to this one</value>
+  </data>
+  <data name="tbkExpulsedDescription" xml:space="preserve">
+    <value>You have been kicked from the lobby</value>
+  </data>
+  <data name="tbkFriendRequestErrorDescription" xml:space="preserve">
+    <value>Failed to send friend request, please try again</value>
+  </data>
+  <data name="tbkHostLeftLobbyDescription" xml:space="preserve">
+    <value>The host left the lobby. You will return to the main menu.</value>
+  </data>
+  <data name="tbkLobbyIsFullDescription" xml:space="preserve">
+    <value>The lobby you are trying to enter is full.</value>
+  </data>
+  <data name="tbkLobbyNotFound" xml:space="preserve">
+    <value>The lobby you are trying to enter does not exist.</value>
+  </data>
+  <data name="tbkReportedPlayerDescription" xml:space="preserve">
+    <value>You have already reported this player.</value>
+  </data>
+  <data name="tbkServerExceptionDescription" xml:space="preserve">
+    <value>Oops... A server error occurred. Please try again later</value>
+  </data>
+  <data name="tbkSuccesfulReportDescription" xml:space="preserve">
+    <value>The player has been reported. We appreciate your support.</value>
+  </data>
   <data name="tbkTimeOutExceptionDescription" xml:space="preserve">
     <value>The operation has timed out. Please try again later.</value>
+  </data>
+  <data name="tbkUnexpectedExceptionDescription" xml:space="preserve">
+    <value>Oops... An unexpected error occurred. Please try again later</value>
   </data>
   <data name="tbxBirthdate" xml:space="preserve">
     <value>02/11/2003</value>

@@ -19,11 +19,13 @@ using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 using Path = System.IO.Path;
+using Serilog;
 
 namespace TimbiricheViews.Views
 {
     public partial class XAMLMyProfile : Page
     {
+        private static readonly ILogger _logger = LoggerManager.GetLogger();
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
         private PlayerStyle[] _myStyles;
         private string _initialPlayerNameLetter;
@@ -57,7 +59,41 @@ namespace TimbiricheViews.Views
         private void GetMyStyles()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            _myStyles = playerCustomizationManagerClient.GetMyStyles(playerLoggedIn.IdPlayer);
+
+            try
+            {
+                _myStyles = playerCustomizationManagerClient.GetMyStyles(playerLoggedIn.IdPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             if (_myStyles != null)
             {
@@ -65,8 +101,7 @@ namespace TimbiricheViews.Views
             }
             else
             {
-                Console.WriteLine("The player doesn't have styles related");
-                // TODO: Log with Warning
+                _logger.Warning("The player doesn't have styles related. - Class MyProfile.xaml.cs on method GetMyStyles");
             }
         }
 
@@ -173,8 +208,43 @@ namespace TimbiricheViews.Views
         private Image CreateImageByIdStyle(int idStyle)
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-            Image styleImage = Utilities.CreateImageByPath(stylePath);
+            Image styleImage = null;
+
+            try
+            {
+                string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+                styleImage = Utilities.CreateImageByPath(stylePath);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             return styleImage;
         }
@@ -211,9 +281,43 @@ namespace TimbiricheViews.Views
             int idStyle = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
 
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            playerCustomizationManagerClient.SelectMyStyle(playerLoggedIn.IdPlayer, idStyle);
-            playerLoggedIn.IdStyleSelected = idStyle;
 
+            try
+            {
+                playerCustomizationManagerClient.SelectMyStyle(playerLoggedIn.IdPlayer, idStyle);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            playerLoggedIn.IdStyleSelected = idStyle;
             MarkAsSelectedStyle(gridSelected);
         }
 
@@ -301,7 +405,32 @@ namespace TimbiricheViews.Views
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    // TODO: Log the exception
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerException> ex)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
                 }
             }
         }

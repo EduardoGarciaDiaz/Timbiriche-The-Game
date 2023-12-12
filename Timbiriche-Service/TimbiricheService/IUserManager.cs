@@ -19,6 +19,7 @@ namespace TimbiricheService
         [FaultContract(typeof(TimbiricheServerException))]
         Player ValidateLoginCredentials(String username, String password);
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         Player GetPlayerByIdPlayer(int idPlayer);
         [OperationContract]
         bool ValidateUniqueIdentifierUser(String identifier);

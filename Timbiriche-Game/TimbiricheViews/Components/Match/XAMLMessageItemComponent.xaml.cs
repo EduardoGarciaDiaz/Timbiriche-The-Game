@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components.Match
 {
@@ -53,26 +54,59 @@ namespace TimbiricheViews.Components.Match
     {
         public void NotifyReportCompleted()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Reporte éxitoso", "El jugador ha sido reportado. Agradecemos tu apoyo.");
+            EmergentWindows.CreateSuccesfulReportMessageWindow();
         }
 
         public void NotifyPlayerAlreadyReported()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Jugador ya reportado", "Ya has reportado a este jugador.");
+            EmergentWindows.CreateReportedPlayerMessageWindow();
         }
 
         public void NotifyPlayerBanned(int idPlayerBanned)
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Has sido baneado", "En cuanto termines la partida, saldrás del juego");
+            EmergentWindows.CreateBannedPlayerMessageWindow();
         }
 
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
 
+            ReportMessage(idPlayerReporter);
+        }
+
+        private void ReportMessage(int idPlayerReporter)
+        {
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
-            banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
+
+            try
+            {
+                banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleComponentFatalException(ex);
+            }
         }
     }
 

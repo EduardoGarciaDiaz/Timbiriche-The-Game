@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components
 {
@@ -57,9 +59,8 @@ namespace TimbiricheViews.Components
             bool isCorrectCode = false;
             string codeEntered = tbxCode.Text.Trim().ToUpper();
 
-            Server.EmailVerificationManagerClient emailVerificationManagerClient = 
-                new Server.EmailVerificationManagerClient();
-            bool isTokenValid = emailVerificationManagerClient.VerifyEmailToken(codeEntered);
+            
+            bool isTokenValid = TokenValidation(codeEntered);
 
             if (!isTokenValid)
             {
@@ -71,6 +72,43 @@ namespace TimbiricheViews.Components
             }
 
             return isCorrectCode;
+        }
+
+        private bool TokenValidation(string code)
+        {
+            bool isTokenValid = false;
+            Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();
+
+            try
+            {
+                isTokenValid = emailVerificationManagerClient.VerifyEmailToken(code);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleComponentFatalException(ex);
+            }
+
+            return isTokenValid;
         }
 
         private void SetDefaultStyles()

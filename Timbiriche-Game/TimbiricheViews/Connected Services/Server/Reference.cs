@@ -1212,6 +1212,8 @@ namespace TimbiricheViews.Server {
         System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionFault" +
+            "", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.Player GetPlayerByIdPlayer(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
@@ -2304,6 +2306,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/DeleteFriend")]
         System.Threading.Tasks.Task DeleteFriendAsync(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary")]
+        void RemoveFromOnlineFriendshipDictionary(string username);
+        
+        [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary")]
+        System.Threading.Tasks.Task RemoveFromOnlineFriendshipDictionaryAsync(string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2385,6 +2393,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task DeleteFriendAsync(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted) {
             return base.Channel.DeleteFriendAsync(idCurrentPlayer, usernameCurrentPlayer, usernameFriendDeleted);
+        }
+        
+        public void RemoveFromOnlineFriendshipDictionary(string username) {
+            base.Channel.RemoveFromOnlineFriendshipDictionary(username);
+        }
+        
+        public System.Threading.Tasks.Task RemoveFromOnlineFriendshipDictionaryAsync(string username) {
+            return base.Channel.RemoveFromOnlineFriendshipDictionaryAsync(username);
         }
     }
     
@@ -2590,10 +2606,12 @@ namespace TimbiricheViews.Server {
     public interface IScoreboardManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
-        TimbiricheViews.Server.GlobalScore[] GetGlobalScores();
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionFau" +
+            "lt", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        TimbiricheViews.Server.GlobalScore[] GetGlobalScores(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
-        System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync();
+        System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/UpdateWins", ReplyAction="http://tempuri.org/IScoreboardManager/UpdateWinsResponse")]
         int UpdateWins(int idPlayer);
@@ -2629,12 +2647,12 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public TimbiricheViews.Server.GlobalScore[] GetGlobalScores() {
-            return base.Channel.GetGlobalScores();
+        public TimbiricheViews.Server.GlobalScore[] GetGlobalScores(string username) {
+            return base.Channel.GetGlobalScores(username);
         }
         
-        public System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync() {
-            return base.Channel.GetGlobalScoresAsync();
+        public System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync(string username) {
+            return base.Channel.GetGlobalScoresAsync(username);
         }
         
         public int UpdateWins(int idPlayer) {

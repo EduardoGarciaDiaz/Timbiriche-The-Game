@@ -33,6 +33,8 @@ namespace TimbiricheService
         void RejectFriendRequest(int idCurrentPlayer, string username);
         [OperationContract(IsOneWay = true)]
         void DeleteFriend(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted);
+        [OperationContract(IsOneWay = true)]
+        void RemoveFromOnlineFriendshipDictionary(string username);
     }
 
     [ServiceContract]
