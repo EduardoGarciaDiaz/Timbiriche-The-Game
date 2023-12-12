@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
@@ -30,6 +31,7 @@ namespace TimbiricheService
                         IdPlayer = (int)score.idPlayer,
                         WinsNumber = (int)score.winsNumber
                     };
+
                     globalScores.Add(globalScore);
                 }
             }
@@ -70,7 +72,15 @@ namespace TimbiricheService
             {
                 IGlobalScoreManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IGlobalScoreManagerCallback>();
                 globalScoreRealTime.Add(usernameCurrentPlayer, currentUserCallbackChannel);
-                currentUserCallbackChannel.NotifyGlobalScoreboardUpdated();
+                try
+                {
+                    currentUserCallbackChannel.NotifyGlobalScoreboardUpdated();
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 
@@ -87,7 +97,15 @@ namespace TimbiricheService
         {
             foreach (var user in globalScoreRealTime)
             {
-                user.Value.NotifyGlobalScoreboardUpdated();
+                try
+                {
+                    user.Value.NotifyGlobalScoreboardUpdated();
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
     }

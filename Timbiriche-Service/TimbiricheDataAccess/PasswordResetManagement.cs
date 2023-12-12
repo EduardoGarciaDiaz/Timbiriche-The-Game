@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -12,15 +16,33 @@ namespace TimbiricheDataAccess
     {
         public static bool AddToken(PasswordResetTokens passwordResetToken)
         {
-            int rowsAffected = 0;
+            int rowsAffected = -1;
 
             if (passwordResetToken != null)
             {
-                using (var context = new TimbiricheDBEntities())
+                try
                 {
-                    context.PasswordResetTokens.Add(passwordResetToken);
+                    using (var context = new TimbiricheDBEntities())
+                    {
+                        context.PasswordResetTokens.Add(passwordResetToken);
 
-                    rowsAffected = context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    HandlerException.HandleFatalException(ex);
+                    throw new DataAccessException(ex.Message);
                 }
             }
 
@@ -29,38 +51,74 @@ namespace TimbiricheDataAccess
 
         public static PasswordResetTokens GetPasswordResetTokenByIdPlayerAndToken(int playerId, int token)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var query = from p in context.PasswordResetTokens
-                            where p.token == token && p.idPlayer == playerId
-                            select p;
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var query = from p in context.PasswordResetTokens
+                                where p.token == token && p.idPlayer == playerId
+                                select p;
 
-                PasswordResetTokens passwordResetToken = query.SingleOrDefault();
+                    PasswordResetTokens passwordResetToken = query.SingleOrDefault();
 
-                return passwordResetToken;
+                    return passwordResetToken;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static bool ChangePasswordById(int idPlayer, string password)
         {
-            using(var context = new TimbiricheDBEntities())
+            int rowsAffected = -1;
+            try
             {
-                var query = from player in context.Players
-                            where player.idPlayer == idPlayer
-                            select player;
-
-                var playerFound = query.FirstOrDefault();
-                int rowsAffected = 0;
-
-                if(playerFound != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    Utils.PasswordHashManager passwordHashManager = new Utils.PasswordHashManager();
-                    playerFound.password = passwordHashManager.HashPassword(password);
-                    playerFound.salt = passwordHashManager.Salt;
-                    rowsAffected = context.SaveChanges();
-                }
+                    var query = from player in context.Players
+                                where player.idPlayer == idPlayer
+                                select player;
 
-                return rowsAffected > 0;
+                    var playerFound = query.FirstOrDefault();
+
+                    if (playerFound != null)
+                    {
+                        Utils.PasswordHashManager passwordHashManager = new Utils.PasswordHashManager();
+                        playerFound.password = passwordHashManager.HashPassword(password);
+                        playerFound.salt = passwordHashManager.Salt;
+                        rowsAffected = context.SaveChanges();
+                    }
+
+                    return rowsAffected > 0;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
     }

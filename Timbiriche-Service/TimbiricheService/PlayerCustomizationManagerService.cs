@@ -6,6 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -99,7 +100,15 @@ namespace TimbiricheService
             if (LobbyExists(lobbyCode))
             {
                 List<LobbyPlayer> playersColorSelection = lobbies[lobbyCode].Item2;
-                currentUserCallbackChannel.NotifyOccupiedColors(playersColorSelection);
+                try
+                {
+                    currentUserCallbackChannel.NotifyOccupiedColors(playersColorSelection);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 
@@ -145,7 +154,15 @@ namespace TimbiricheService
 
                 foreach (var colorSelector in players)
                 {
-                    colorSelector.ColorCallbackChannel?.NotifyColorSelected(lobbyPlayer);
+                    try
+                    {
+                        colorSelector.ColorCallbackChannel?.NotifyColorSelected(lobbyPlayer);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
         }
@@ -156,7 +173,15 @@ namespace TimbiricheService
             {
                 if (idColor != DEFAULT_COLOR)
                 {
-                    callbackChannel?.NotifyColorSelected(lobbyPlayer);
+                    try
+                    {
+                        callbackChannel?.NotifyColorSelected(lobbyPlayer);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
         }
@@ -185,13 +210,29 @@ namespace TimbiricheService
 
                 foreach (var player in lobbyPlayers)
                 {
-                    player.ColorCallbackChannel?.NotifyColorUnselected(idColor);
+                    try
+                    {
+                        player.ColorCallbackChannel?.NotifyColorUnselected(idColor);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
             
             foreach(var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode])
             {
-                callbackPlayer.NotifyColorUnselected(idColor);
+                try
+                {
+                    callbackPlayer.NotifyColorUnselected(idColor);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
 
             if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
@@ -264,7 +305,15 @@ namespace TimbiricheService
 
                     foreach (var colorSelector in lobbies[lobbyCode].Item2)
                     {
-                        colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                        try
+                        {
+                            colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerException.HandleErrorException(ex);
+                            // TODO: Manage channels
+                        }
                     }
                 }
             }

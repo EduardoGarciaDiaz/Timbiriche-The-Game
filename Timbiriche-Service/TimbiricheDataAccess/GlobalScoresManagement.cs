@@ -9,6 +9,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -29,14 +30,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
+                HandlerException.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
+                HandlerException.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
+                HandlerException.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
         }
@@ -47,15 +51,33 @@ namespace TimbiricheDataAccess
 
             if (idPlayer > 0)
             {
-                using (var context = new TimbiricheDBEntities())
+                try
                 {
-                    GlobalScores globalScorePlayer = (from globalScore in context.GlobalScores
-                                                      where globalScore.idPlayer == idPlayer
-                                                      select globalScore).FirstOrDefault<GlobalScores>();
-                    int winsNumber = (int)globalScorePlayer.winsNumber;
-                    winsNumber++;
-                    globalScorePlayer.winsNumber = winsNumber;
-                    rowsAffected = context.SaveChanges();
+                    using (var context = new TimbiricheDBEntities())
+                    {
+                        GlobalScores globalScorePlayer = (from globalScore in context.GlobalScores
+                                                          where globalScore.idPlayer == idPlayer
+                                                          select globalScore).FirstOrDefault<GlobalScores>();
+                        int winsNumber = (int)globalScorePlayer.winsNumber;
+                        winsNumber++;
+                        globalScorePlayer.winsNumber = winsNumber;
+                        rowsAffected = context.SaveChanges();
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    HandlerException.HandleFatalException(ex);
+                    throw new DataAccessException(ex.Message);
                 }
             }
 

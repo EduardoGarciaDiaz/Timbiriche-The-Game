@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Core;
 using System.Data.Entity.Validation;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using System.Security.Cryptography;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -20,16 +24,34 @@ namespace TimbiricheDataAccess
         {
             bool hasRelation = false;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var fsiendship = (from fs in context.FriendShips
-                                  where
-                                      (fs.idPlayer == idPlayerSender && fs.idPlayerFriend == idPlayerRequested)
-                                      || (fs.idPlayer == idPlayerRequested && fs.idPlayerFriend == idPlayerSender) 
-                                      && (fs.statusFriendship.Equals(STATUS_FRIEND) || fs.statusFriendship.Equals(STATUS_REQUEST))
-                                  select fs).ToList();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var fsiendship = (from fs in context.FriendShips
+                                      where
+                                          (fs.idPlayer == idPlayerSender && fs.idPlayerFriend == idPlayerRequested)
+                                          || (fs.idPlayer == idPlayerRequested && fs.idPlayerFriend == idPlayerSender)
+                                          && (fs.statusFriendship.Equals(STATUS_FRIEND) || fs.statusFriendship.Equals(STATUS_REQUEST))
+                                      select fs).ToList();
 
-                hasRelation = fsiendship.Any();
+                    hasRelation = fsiendship.Any();
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return hasRelation;
@@ -46,24 +68,28 @@ namespace TimbiricheDataAccess
                 fsiendShip.idPlayerFriend = idPlayerRequested;
                 fsiendShip.statusFriendship = STATUS_REQUEST;
 
-                using (var context = new TimbiricheDBEntities())
+                try
                 {
-                    context.FriendShips.Add(fsiendShip);
-                    try
+                    using (var context = new TimbiricheDBEntities())
                     {
+                        context.FriendShips.Add(fsiendShip);
                         rowsAffected = context.SaveChanges();
                     }
-                    catch (DbEntityValidationException ex)
-                    {
-                        foreach (var entityValidationErrors in ex.EntityValidationErrors)
-                        {
-                            foreach (var validationError in entityValidationErrors.ValidationErrors)
-                            {
-                                Console.WriteLine($"Entity: {entityValidationErrors.Entry.Entity.GetType().Name}, Field: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
-                            }
-                        }
-                    }
-
+                }
+                catch (EntityException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    HandlerException.HandleFatalException(ex);
+                    throw new DataAccessException(ex.Message);
                 }
             }
 
@@ -72,16 +98,34 @@ namespace TimbiricheDataAccess
 
         public bool IsFriend(int idPlayer, int idPlayerFriend)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var fsiendship = (from fs in context.FriendShips
-                                  where
-                                      ((fs.idPlayer == idPlayer && fs.idPlayerFriend == idPlayerFriend)
-                                      || (fs.idPlayer == idPlayerFriend && fs.idPlayerFriend == idPlayer))
-                                      && (fs.statusFriendship.Equals(STATUS_FRIEND))
-                                  select fs).ToList();
-                bool isFriend = fsiendship.Any();
-                return isFriend;
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var fsiendship = (from fs in context.FriendShips
+                                      where
+                                          ((fs.idPlayer == idPlayer && fs.idPlayerFriend == idPlayerFriend)
+                                          || (fs.idPlayer == idPlayerFriend && fs.idPlayerFriend == idPlayer))
+                                          && (fs.statusFriendship.Equals(STATUS_FRIEND))
+                                      select fs).ToList();
+                    bool isFriend = fsiendship.Any();
+                    return isFriend;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -89,22 +133,40 @@ namespace TimbiricheDataAccess
         {
             List<int> playersId = new List<int>();
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerFriendRequests = (
-                    from fs in context.FriendShips
-                    where (fs.idPlayerFriend == idPlayer && fs.statusFriendship.Equals(STATUS_REQUEST))
-                    select fs.idPlayer
-                ).ToList();
-
-                if (playerFriendRequests.Any())
+                using (var context = new TimbiricheDBEntities())
                 {
-                    foreach (var friendRequester in playerFriendRequests)
+                    var playerFriendRequests = (
+                        from fs in context.FriendShips
+                        where (fs.idPlayerFriend == idPlayer && fs.statusFriendship.Equals(STATUS_REQUEST))
+                        select fs.idPlayer
+                    ).ToList();
+
+                    if (playerFriendRequests.Any())
                     {
-                        playersId.Add((int) friendRequester);
+                        foreach (var friendRequester in playerFriendRequests)
+                        {
+                            playersId.Add((int)friendRequester);
+                        }
                     }
+                    return playersId;
                 }
-                return playersId;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -112,18 +174,36 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var friendship = context.FriendShips.FirstOrDefault(fs =>
-                    (fs.idPlayer == idPlayerAccepted && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
-                    || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerAccepted && fs.statusFriendship == STATUS_REQUEST)
-                );
-
-                if (friendship != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    friendship.statusFriendship = STATUS_FRIEND;
-                    rowsAffected = context.SaveChanges(); 
+                    var friendship = context.FriendShips.FirstOrDefault(fs =>
+                        (fs.idPlayer == idPlayerAccepted && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
+                        || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerAccepted && fs.statusFriendship == STATUS_REQUEST)
+                    );
+
+                    if (friendship != null)
+                    {
+                        friendship.statusFriendship = STATUS_FRIEND;
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected;
@@ -133,18 +213,36 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var friendship = context.FriendShips.FirstOrDefault(fs =>
-                    (fs.idPlayer == idPlayerRejected && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
-                    || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerRejected && fs.statusFriendship == STATUS_REQUEST)
-                );
-
-                if (friendship != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    context.FriendShips.Remove(friendship);
-                    rowsAffected = context.SaveChanges();
+                    var friendship = context.FriendShips.FirstOrDefault(fs =>
+                        (fs.idPlayer == idPlayerRejected && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_REQUEST)
+                        || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerRejected && fs.statusFriendship == STATUS_REQUEST)
+                    );
+
+                    if (friendship != null)
+                    {
+                        context.FriendShips.Remove(friendship);
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected;
@@ -154,18 +252,36 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var friendship = context.FriendShips.FirstOrDefault(fs =>
-                    (fs.idPlayer == idPlayerFriend && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_FRIEND)
-                    || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerFriend && fs.statusFriendship == STATUS_FRIEND)
-                );
-
-                if (friendship != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    context.FriendShips.Remove(friendship);
-                    rowsAffected = context.SaveChanges();
+                    var friendship = context.FriendShips.FirstOrDefault(fs =>
+                        (fs.idPlayer == idPlayerFriend && fs.idPlayerFriend == idCurrentPlayer && fs.statusFriendship == STATUS_FRIEND)
+                        || (fs.idPlayer == idCurrentPlayer && fs.idPlayerFriend == idPlayerFriend && fs.statusFriendship == STATUS_FRIEND)
+                    );
+
+                    if (friendship != null)
+                    {
+                        context.FriendShips.Remove(friendship);
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected;
@@ -173,19 +289,37 @@ namespace TimbiricheDataAccess
 
         public List<string> GetFriends(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var friends = context.FriendShips
-                .Where(f => (f.idPlayerFriend == idPlayer || f.idPlayer == idPlayer) && f.statusFriendship == STATUS_FRIEND)
-                .SelectMany(f => new[] { f.idPlayer, f.idPlayerFriend })
-                .Distinct()
-                .Where(id => id != idPlayer)
-                .Join(context.Players,
-                      friendId => friendId,
-                      player => player.idPlayer,
-                      (friendId, player) => player.username)
-                .ToList();
-                return friends;
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var friends = context.FriendShips
+                    .Where(f => (f.idPlayerFriend == idPlayer || f.idPlayer == idPlayer) && f.statusFriendship == STATUS_FRIEND)
+                    .SelectMany(f => new[] { f.idPlayer, f.idPlayerFriend })
+                    .Distinct()
+                    .Where(id => id != idPlayer)
+                    .Join(context.Players,
+                          friendId => friendId,
+                          player => player.idPlayer,
+                          (friendId, player) => player.username)
+                    .ToList();
+                    return friends;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
     }    

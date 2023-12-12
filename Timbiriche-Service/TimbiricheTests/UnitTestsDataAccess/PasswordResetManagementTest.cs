@@ -1,23 +1,18 @@
 ﻿using Serilog;
 using System;
 using System.Collections.Generic;
-using System.Data.Entity;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Utils;
-using TimbiricheService;
-using TimbiricheService.Utils;
 using Xunit;
 
 namespace TimbiricheTests.UnitTestsDataAccess
 {
     public class ConfigurationPasswordResetManagementTests : IDisposable
     {
-        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
+        private ILogger _logger = LoggerManager.GetLogger();
 
         public ConfigurationPasswordResetManagementTests()
         {
