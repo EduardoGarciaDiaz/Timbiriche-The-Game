@@ -11,7 +11,7 @@ namespace TimbiricheDataAccess.Utils
     {
         public string Salt { get; set; }
 
-        public string HashPassword(String password)
+        public string HashPassword(string password)
         {
             Salt = BCrypt.Net.BCrypt.GenerateSalt();
             string hashedPassword = BCrypt.Net.BCrypt.HashPassword(password, Salt);

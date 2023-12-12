@@ -4,6 +4,7 @@ using System.Linq;
 using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -29,12 +30,28 @@ namespace TimbiricheService
 
             if (!lobbies.ContainsKey(lobbyCode))
             {
-                CreateRematchLobby(lobbyCode, username);   
-                currentUserCallbackChannel.NotifyHostOfRematch(lobbyCode);
+                CreateRematchLobby(lobbyCode, username);
+                try
+                {
+                    currentUserCallbackChannel.NotifyHostOfRematch(lobbyCode);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
             else
             {
-                currentUserCallbackChannel.NotifyRematch(lobbyCode);
+                try
+                {
+                    currentUserCallbackChannel.NotifyRematch(lobbyCode);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
 
             TryRemoveMatchFromMatches(lobbyCode);

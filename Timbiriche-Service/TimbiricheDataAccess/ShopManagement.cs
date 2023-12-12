@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq; 
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -10,116 +14,246 @@ namespace TimbiricheDataAccess
     {
         public static List<Colors> GetColors()
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var colors = context.Colors.ToList();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var colors = context.Colors.ToList();
 
-                return colors;
+                    return colors;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static List<PlayerColors> GetPlayerColors(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerColors = context.PlayerColors
-                    .Where(pc => pc.idPlayer == idPlayer)
-                    .ToList();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var playerColors = context.PlayerColors
+                        .Where(pc => pc.idPlayer == idPlayer)
+                        .ToList();
 
-                return playerColors;
+                    return playerColors;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static List<Styles> GetStyles()
         {
             List<Styles> styles = null;
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var firstStyle = context.Styles.FirstOrDefault();
-                
-                if(firstStyle != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    styles = context.Styles.Where(s => s.idStyle != firstStyle.idStyle).ToList();
+                    var firstStyle = context.Styles.FirstOrDefault();
 
+                    if (firstStyle != null)
+                    {
+                        styles = context.Styles.Where(s => s.idStyle != firstStyle.idStyle).ToList();
+
+                    }
+
+                    return styles;
                 }
-
-                return styles;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static List<PlayerStyles> GetPlayerStyles(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerStyles = context.PlayerStyles
-                    .Where(pc => pc.idPlayer == idPlayer)
-                    .ToList();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var playerStyles = context.PlayerStyles
+                        .Where(pc => pc.idPlayer == idPlayer)
+                        .ToList();
 
-                return playerStyles;
+                    return playerStyles;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static bool BuyColor(int idColor, int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            int rowsAffected = -1;
+
+            try
             {
-                int rowsAffected = 0;
-                Colors colorToBuy = context.Colors.Find(idColor);
-
-                if(colorToBuy != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    PlayerColors playerColors = new PlayerColors
+                    Colors colorToBuy = context.Colors.Find(idColor);
+
+                    if (colorToBuy != null)
                     {
-                        idPlayer = idPlayer,
-                        idColor = idColor
-                    };
+                        PlayerColors playerColors = new PlayerColors
+                        {
+                            idPlayer = idPlayer,
+                            idColor = idColor
+                        };
 
-                    context.PlayerColors.Add(playerColors);
-                    rowsAffected = context.SaveChanges();
+                        context.PlayerColors.Add(playerColors);
+                        rowsAffected = context.SaveChanges();
+                    }
+
+                    return rowsAffected > 0;
                 }
-
-                return rowsAffected > 0;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static bool BuyStyle(int idStyle, int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            int rowsAffected = -1;
+
+            try
             {
-                int rowsAffected = 0;
-                Styles styleToBuy = context.Styles.Find(idStyle);
-
-                if(styleToBuy != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    PlayerStyles playerStyles = new PlayerStyles
+                    Styles styleToBuy = context.Styles.Find(idStyle);
+
+                    if (styleToBuy != null)
                     {
-                        idPlayer = idPlayer,
-                        idStyle = idStyle
-                    };
+                        PlayerStyles playerStyles = new PlayerStyles
+                        {
+                            idPlayer = idPlayer,
+                            idStyle = idStyle
+                        };
 
-                    context.PlayerStyles.Add(playerStyles);
-                    rowsAffected = context.SaveChanges();
+                        context.PlayerStyles.Add(playerStyles);
+                        rowsAffected = context.SaveChanges();
+                    }
+
+                    return rowsAffected > 0;
                 }
-
-                return rowsAffected > 0;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static bool SubstractPlayerCoins(int idPlayer, int coinsToSubstract)
         {
-            using (var context = new TimbiricheDBEntities())
+            int rowsAffected = -1;
+
+            try
             {
-                int rowsAffected = 0;
-                var player = context.Players.FirstOrDefault(p => p.idPlayer == idPlayer);
-
-                if(player != null && player.coins > coinsToSubstract)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    player.coins -= coinsToSubstract;
 
-                    rowsAffected = context.SaveChanges();
+                    var player = context.Players.FirstOrDefault(p => p.idPlayer == idPlayer);
+
+                    if (player != null && player.coins > coinsToSubstract)
+                    {
+                        player.coins -= coinsToSubstract;
+
+                        rowsAffected = context.SaveChanges();
+                    }
+
+                    return rowsAffected > 0;
                 }
-
-                return rowsAffected > 0;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
     }

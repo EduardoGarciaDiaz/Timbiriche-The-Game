@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -93,7 +94,6 @@ namespace TimbiricheService
             if (!onlineFriendship.ContainsKey(usernameCurrentPlayer))
             {
                 onlineFriendship.Add(usernameCurrentPlayer, currentUserCallbackChannel);
-                
             }
         }
 
@@ -101,7 +101,15 @@ namespace TimbiricheService
         {
             if (onlineFriendship.ContainsKey(usernamePlayerRequested))
             {
-                onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
+                try
+                {
+                    onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 
@@ -124,7 +132,15 @@ namespace TimbiricheService
         {
             if (onlineFriendship.ContainsKey(usernameTarget))
             {
-                onlineFriendship[usernameTarget].NotifyFriendRequestAccepted(usernameNewFriend);
+                try
+                {
+                    onlineFriendship[usernameTarget].NotifyFriendRequestAccepted(usernameNewFriend);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 
@@ -154,7 +170,15 @@ namespace TimbiricheService
         {
             if (onlineFriendship.ContainsKey(usernameTarget))
             {
-                onlineFriendship[usernameTarget].NotifyDeletedFriend(usernameDeletedFriend);
+                try
+                {
+                    onlineFriendship[usernameTarget].NotifyDeletedFriend(usernameDeletedFriend);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 

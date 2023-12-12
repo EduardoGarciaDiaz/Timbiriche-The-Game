@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
-using TimbiricheService.Utils;
+using TimbiricheDataAccess.Utils;
 using Xunit;
 
 namespace TimbiricheTests.UnitTestsDataAccess
