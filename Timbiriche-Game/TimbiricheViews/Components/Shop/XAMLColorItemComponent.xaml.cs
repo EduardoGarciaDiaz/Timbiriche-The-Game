@@ -32,8 +32,8 @@ namespace TimbiricheViews.Components.Shop
 
         private void LoadColorData()
         {
-            lbColorCost.Content = color.ColorCost.ToString();
-            rectangleColor.Fill = Utilities.CreateColorFromHexadecimal(color.HexadecimalCode);
+            lbColorCost.Content = _color.ColorCost.ToString();
+            rectangleColor.Fill = Utilities.CreateColorFromHexadecimal(_color.HexadecimalCode);
 
             if (_color.OwnedColor)
             {

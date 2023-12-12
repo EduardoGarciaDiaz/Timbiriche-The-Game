@@ -15,7 +15,6 @@ using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
 using TimbiricheService.Exceptions;
 using TimbiricheService.Utils;
-using LoggerManager = TimbiricheService.Utils.LoggerManager;
 
 namespace TimbiricheService
 {
@@ -264,8 +263,8 @@ namespace TimbiricheService
                 }   
                 catch (CommunicationException ex)
                 {
-                HandlerException.HandleErrorException(ex);
-                    //TODO: Manage channels
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
                 }
 
                 foreach (var user in onlineUsers)
