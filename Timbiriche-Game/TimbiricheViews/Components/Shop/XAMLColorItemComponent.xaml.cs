@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components.Shop
 {
@@ -31,7 +32,7 @@ namespace TimbiricheViews.Components.Shop
         private void LoadColorData()
         {
             lbColorCost.Content = color.ColorCost.ToString();
-            rectangleColor.Fill = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color.HexadecimalCode));
+            rectangleColor.Fill = Utilities.CreateColorFromHexadecimal(color.HexadecimalCode);
 
             if (color.OwnedColor)
             {

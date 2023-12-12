@@ -25,7 +25,6 @@ namespace TimbiricheViews.Views
 
     public partial class XAMLJoinGuest : Page
     {
-        private ILogger _logger = LoggerManager.GetLogger();
         private string _lobbyCode;
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string MAIN_FONT = "Titan One";
@@ -70,7 +69,7 @@ namespace TimbiricheViews.Views
 
             if (ValidateFields())
             {
-                if (IsUniqueIdentifier(username)) //TODO: Validate the guest with same username
+                if (IsUniqueIdentifier(username)) // TODO: Validate the guest with same username
                 {
                     JoinToLobby(username);
                 }
@@ -124,26 +123,22 @@ namespace TimbiricheViews.Views
             catch (FaultException<TimbiricheServerException> ex)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-
                 NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
             catch (Exception ex)
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
 
             return isUsernameUnique;

@@ -63,12 +63,40 @@ namespace TimbiricheViews.Views
 
         private void ConfigureRematch(bool isHost)
         {
-
             if (isHost)
             {
                 InstanceContext context = new InstanceContext(this);
                 LobbyManagerClient client = new LobbyManagerClient(context);
-                client.JoinLobbyAsHost(_lobbyCode);
+
+                try
+                {
+                    client.JoinLobbyAsHost(_lobbyCode);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             }
             else
             {
@@ -85,7 +113,36 @@ namespace TimbiricheViews.Views
             {
                 InstanceContext context = new InstanceContext(this);
                 PlayerColorsManagerClient client = new PlayerColorsManagerClient(context);
-                client.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+
+                try
+                {
+                    client.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             }
         }
 
@@ -106,13 +163,42 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.PlayerStylesManagerClient playerStylesManagerClient = new Server.PlayerStylesManagerClient(context);
-            if (!isLoaded)
+
+            try
             {
-                playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                if (!isLoaded)
+                {
+                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                }
+                else if (_lobbyCode != null)
+                {
+                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                }
             }
-            else if (_lobbyCode != null)
+            catch (EndpointNotFoundException ex)
             {
-                playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
         }
 
@@ -145,8 +231,36 @@ namespace TimbiricheViews.Views
         private void LoadPlayerFriends()
         {
             Server.FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
-            string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(_playerLoggedIn.IdPlayer);
-            AddUsersToFriendsList(usernamePlayerFriends);
+            try
+            {
+                string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(_playerLoggedIn.IdPlayer);
+                AddUsersToFriendsList(usernamePlayerFriends);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
@@ -169,7 +283,43 @@ namespace TimbiricheViews.Views
         private string GetPathByIdStyle(int idStyle)
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            string playerStylePath = null;
+
+            try
+            {
+                playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
             return playerStylePath;
         }
 
@@ -177,7 +327,36 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.RegisterUserToOnlineUsers(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username);
+
+            try
+            {
+                client.RegisterUserToOnlineUsers(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         public void NotifyUserLoggedIn(string username)
@@ -261,12 +440,14 @@ namespace TimbiricheViews.Views
             userOnlineItem.ButtonClicked += UserOnlineItem_BtnDeleteFriendClicked;
             SolidColorBrush onlinePlayerColor = Utilities.CreateColorFromHexadecimal(haxadecimalColor);
             userOnlineItem.rectangleStatusPlayer.Fill = onlinePlayerColor;
+
             return userOnlineItem;
         }
 
         private void UserOnlineItem_BtnDeleteFriendClicked(object sender, ButtonClickEventArgs e)
         {
             const string BTN_DELETE_FRIEND = "DeleteFriend";
+
             if (e.ButtonName.Equals(BTN_DELETE_FRIEND))
             {
                 DeleteFriend(e.Username);
@@ -277,25 +458,93 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-            friendRequestManagerClient.DeleteFriend(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameFriendToDelete);
+
+            try
+            {
+                friendRequestManagerClient.DeleteFriend(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameFriendToDelete);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
 
         private void BtnSignOff_Click(object sender, RoutedEventArgs e)
         {
-            InstanceContext context = new InstanceContext(this);
-            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
-            PlayerSingleton.Player = null;
+            ExitGameFromLobby();
             NavigationService.Navigate(new XAMLLogin());
         }
 
         public void BtnCloseWindow_Click()
         {
+            ExitGameFromLobby();
+        }
+
+        private void ExitGameFromLobby()
+        {
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
-            PlayerSingleton.Player = null;
+
+            try
+            {
+                client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+            finally
+            {
+                PlayerSingleton.Player = null;
+            }
         }
 
         private void BtnFriendsMenu_Click(object sender, RoutedEventArgs e)
@@ -363,7 +612,36 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
-            banManagerClient.RegisterToBansNotifications(lobbyCode, _playerLoggedIn.Username);
+
+            try
+            {
+                banManagerClient.RegisterToBansNotifications(lobbyCode, _playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void LbSecondPlayer_Click(object sender, RoutedEventArgs e)
@@ -423,7 +701,6 @@ namespace TimbiricheViews.Views
         {
             bool isHost = true;
             XAMLOptionsPlayerComponent optionsPlayerComponent;
-           
             optionsPlayerComponent = CreateOptionsPlayerComponent(isHost, username);
             
             return optionsPlayerComponent;
@@ -441,6 +718,7 @@ namespace TimbiricheViews.Views
         {
             const string BTN_REPORT = "Report";
             const string BTN_EXPULSE = "Expulse";
+
             if (e.ButtonName.Equals(BTN_REPORT))
             {
                 ReportPlayer(e.Username);
@@ -455,19 +733,94 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             BanManagerClient banManagerClient = new BanManagerClient(context);
-            UserManagerClient userManagerClient = new UserManagerClient();
 
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
-            int idPlayerReported = userManagerClient.GetIdPlayerByUsername(username);
+            int idPlayerReported = GetIdPlayer(username);
 
             if (idPlayerReported > 0)
             {
-                banManagerClient.ReportPlayer(_lobbyCode, idPlayerReported, idPlayerReporter);
+                try
+                {
+                    banManagerClient.ReportPlayer(_lobbyCode, idPlayerReported, idPlayerReporter);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerException> ex)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             } 
             else
             {
                 ShowCantExpulsePlayerMessage();
             }
+        }
+
+        private int GetIdPlayer(string username)
+        {
+            UserManagerClient userManagerClient = new UserManagerClient();
+            int idPlayer = -1;
+
+            try
+            {
+                idPlayer = userManagerClient.GetIdPlayerByUsername(username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return idPlayer;
         }
 
         private void ShowCantExpulsePlayerMessage()
@@ -480,7 +833,6 @@ namespace TimbiricheViews.Views
 
         private void ExpulsePlayer(string username)
         {
-            //ExpulsePlayerFromLobby(username);
             _ = ExpulsePlayerFromLobbyAsync(username);
         }
 
@@ -514,7 +866,36 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-            friendRequestManagerClient.AddToOnlineFriendshipDictionary(_playerLoggedIn.Username);
+
+            try
+            {
+                friendRequestManagerClient.AddToOnlineFriendshipDictionary(_playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
@@ -531,15 +912,12 @@ namespace TimbiricheViews.Views
 
             if (ValidateSendRequest(idPlayer, usernamePlayerRequested))
             {
-                Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
-                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
-
-                InstanceContext context = new InstanceContext(this);
-                Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
-                friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
+                AddRequestFriendship(idPlayer, usernamePlayerRequested);
+                SendFriendRequest(usernamePlayerRequested);
 
                 EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
                     Properties.Resources.lbFriendRequestSent + " " + usernamePlayerRequested);
+
                 tbxUsernameSendRequest.Text = string.Empty;
             }
             else
@@ -547,7 +925,80 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
                     Properties.Resources.tbkFriendRequestErrorDescription);
             }
+        }
 
+        private void AddRequestFriendship(int idPlayer, string usernamePlayerRequested)
+        {
+            Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+            try
+            {
+                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+        }
+
+        private void SendFriendRequest(string usernamePlayerRequested)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            try
+            {
+                friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private bool ValidateSendRequest(int idPlayer, string usernamePlayerRequested)
@@ -556,12 +1007,46 @@ namespace TimbiricheViews.Views
             if (ValidationUtilities.IsValidUsername(usernamePlayerRequested))
             {
                 Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
-                isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
+                try
+                {
+                    isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerException> ex)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             }
             else
             {
                 lbFriendRequestUsernameError.Visibility = Visibility.Visible;
             }
+
             return isRequestValid;
         }
 
@@ -596,19 +1081,54 @@ namespace TimbiricheViews.Views
         private string[] GetCurrentFriendRequests()
         {
             Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
-            string[] usernamePlayers = friendshipManagerClient.GetUsernamePlayersRequesters(_playerLoggedIn.IdPlayer);
-            if (usernamePlayers != null)
+            string[] usernamePlayers = null;
+
+            try
             {
-                return usernamePlayers;
+                usernamePlayers = friendshipManagerClient.GetUsernamePlayersRequesters(_playerLoggedIn.IdPlayer);
             }
-            return null;
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return usernamePlayers;
         }
 
         private void AddUsersToFriendsRequestList(string[] usernamePlayers)
         {
-            foreach(string username in usernamePlayers)
+            if (usernamePlayers != null)
             {
-                AddUserToFriendRequestList(username);
+                foreach(string username in usernamePlayers)
+                {
+                    AddUserToFriendRequestList(username);
+                }
             }
         }
 
@@ -625,6 +1145,7 @@ namespace TimbiricheViews.Views
             XAMLFriendRequestItemComponent friendRequestItem = new XAMLFriendRequestItemComponent(username);
             friendRequestItem.Name = idUserItem;
             friendRequestItem.ButtonClicked += FriendRequestItem_BtnClicked;
+
             return friendRequestItem;
         }
 
@@ -632,6 +1153,7 @@ namespace TimbiricheViews.Views
         {
             const string BTN_ACCEPT = "Accept";
             const string BTN_REJECT = "Reject";
+
             if (e.ButtonName.Equals(BTN_ACCEPT))
             {
                 AcceptFriendRequest(e.Username);
@@ -646,21 +1168,89 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
-            friendRequestManagerClient.AcceptFriendRequest(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameSender);
+            try
+            {
+                friendRequestManagerClient.AcceptFriendRequest(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameSender);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void RejectFriendRequest(string username)
         {
             InstanceContext context = new InstanceContext(this);
             Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
-            friendRequestManagerClient.RejectFriendRequest(_playerLoggedIn.IdPlayer, username);
-            RemoveFriendRequestFromStackPanel(username);
+
+            try
+            {
+                friendRequestManagerClient.RejectFriendRequest(_playerLoggedIn.IdPlayer, username);
+                RemoveFriendRequestFromStackPanel(username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void RemoveFriendRequestFromStackPanel(string username)
         {
             string idFriendRequestItem = "lbRequest" + username;
             XAMLFriendRequestItemComponent friendRequestItemToRemove = FindFriendRequeustItemControlById(idFriendRequestItem);
+
             if (friendRequestItemToRemove != null)
             {
                 stackPanelFriendsRequest.Children.Remove(friendRequestItemToRemove);
@@ -676,6 +1266,7 @@ namespace TimbiricheViews.Views
                     return item;
                 }
             }
+
             return null;
         }
 
@@ -800,7 +1391,6 @@ namespace TimbiricheViews.Views
         public void NotifyHostPlayerLeftLobby()
         {
             EmergentWindows.CreateHostLeftLobbyMessageWindow();
-
             NavigationService.Navigate(new XAMLLobby());
         }
 
@@ -814,7 +1404,6 @@ namespace TimbiricheViews.Views
             const int SECOND_PLAYER_ID = 0;
             const int THIRD_PLAYER_ID = 1;
             const int FOURTH_PLAYER_ID = 2;
-
 
             if (numPlayersInLobby > SECOND_PLAYER_ID)
             {
@@ -866,7 +1455,36 @@ namespace TimbiricheViews.Views
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
-            client.JoinLobby(lobbyCode, lobbyPlayer);
+
+            try
+            {
+                client.JoinLobby(lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         public void NotifyExpulsedFromLobby()
@@ -899,10 +1517,38 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
-            client.StartMatch(_lobbyCode);
+
+            try
+            {
+                client.StartMatch(_lobbyCode);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             (string, string) playerCustomization = GetPlayerCustomization();
-
             NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
         }
 
@@ -928,7 +1574,35 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
-            lobbyManagerClient.ExitLobby(_lobbyCode, username);
+            try
+            {
+                lobbyManagerClient.ExitLobby(_lobbyCode, username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void ReestablishSelectedColor()
@@ -937,23 +1611,117 @@ namespace TimbiricheViews.Views
 
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
-            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
 
-            PlayerSingleton.Player.IdColorSelected = defaultColor;
+            try
+            {
+                playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+            
+            PlayerSingleton.Player.IdColorSelected = defaultColor;   
         }
 
         public async Task ExpulsePlayerFromLobbyAsync(string username)
         {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClientExpulse = new LobbyManagerClient(context);
-            await lobbyManagerClientExpulse.ExpulsePlayerFromLobbyAsync(_lobbyCode, username);
+
+            try
+            {
+                await lobbyManagerClientExpulse.ExpulsePlayerFromLobbyAsync(_lobbyCode, username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private (string, string) GetPlayerCustomization()
         {
+            string playerHexadecimalColor = null;
+            string playerStylePath = null;
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string playerHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(_playerLoggedIn.IdColorSelected);
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(_playerLoggedIn.IdStyleSelected);
+
+            try
+            {
+                playerHexadecimalColor = GetHexadecimalColor(_playerLoggedIn.IdColorSelected);
+                playerStylePath = playerCustomizationManagerClient.GetStylePath(_playerLoggedIn.IdStyleSelected);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             return (playerHexadecimalColor, playerStylePath);
         }
@@ -974,7 +1742,41 @@ namespace TimbiricheViews.Views
         private void GetMyColors()
         {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            _myColors = playerCustomizationManagerClient.GetMyColors(_playerLoggedIn.IdPlayer);
+
+            try
+            {
+                _myColors = playerCustomizationManagerClient.GetMyColors(_playerLoggedIn.IdPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             if (_myColors != null)
             {
@@ -988,23 +1790,100 @@ namespace TimbiricheViews.Views
 
         private void SetMyColors()
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             SolidColorBrush color;
+
             foreach (PlayerColor playerColor in _myColors)
             {
-                string hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(playerColor.IdColor);
+                string hexadecimalColor = GetHexadecimalColor(playerColor.IdColor);
 
                 color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
                 Rectangle colorRectangle = CreateColorBoxes(playerColor.IdColor, color, PlayerColorTemplate);
                 stackPanelColors.Children.Add(colorRectangle);
             }
 
+            SubscribeColorToColorsSelected();
+
+        }
+
+        private string GetHexadecimalColor(int idColor)
+        {
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            string hexadecimalColor = null;
+
+            try
+            {
+                hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return hexadecimalColor;
+        }
+
+        private void SubscribeColorToColorsSelected()
+        {
             InstanceContext context = new InstanceContext(this);
             Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
-            playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
 
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+            try
+            {
+                playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
+                LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate )
@@ -1015,6 +1894,7 @@ namespace TimbiricheViews.Views
             colorRectangle.MouseLeftButtonDown += RectangleColor_Click;
             colorRectangle.IsEnabled = true;
             colorRectangle.Visibility = Visibility.Visible;
+
             return colorRectangle;
         }
 
@@ -1024,6 +1904,7 @@ namespace TimbiricheViews.Views
             lobbyPlayer.Username = _playerLoggedIn.Username;
             lobbyPlayer.IdHexadecimalColor = _playerLoggedIn.IdColorSelected;
             lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+
             return lobbyPlayer;
         }
 
@@ -1037,19 +1918,126 @@ namespace TimbiricheViews.Views
         {
             int idColor = GetIdColorByRectangle(rectangleSelected);
 
-            LobbyPlayer lobbyPlayer2 = CreateLobbyPlayer();
+            UnsusbcribeColorToColorsSelected();
+            SelectPlayerColor(idColor);
+            RenewSubscriptionToColorsSelected();
 
+            MarkAsSelectedColor(rectangleSelected);
+        }
+
+        private void UnsusbcribeColorToColorsSelected()
+        {
             InstanceContext context = new InstanceContext(this);
             Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
-            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
 
+            try
+            {
+                playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+        }
+
+        private void SelectPlayerColor(int idColor)
+        {
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            playerCustomizationManagerClient.SelectMyColor(_playerLoggedIn.IdPlayer, idColor);
-            _playerLoggedIn.IdColorSelected = idColor;
+            try
+            {
+                playerCustomizationManagerClient.SelectMyColor(_playerLoggedIn.IdPlayer, idColor);
+            }
+            catch(EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException < TimbiricheServerException > ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();            
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
-            MarkAsSelectedColor(rectangleSelected);
+            _playerLoggedIn.IdColorSelected = idColor;
+        }
+
+        private void RenewSubscriptionToColorsSelected()
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+
+            try
+            {
+                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private int GetIdColorByRectangle(Rectangle rectangleSelected)
@@ -1059,6 +2047,7 @@ namespace TimbiricheViews.Views
             string rectangleName = rectangleSelected.Name.ToString();
             string[] nameParts = rectangleName.Split(SPLIT_SYMBOL);
             int idColor = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
+
             return idColor;
         }
 
@@ -1075,6 +2064,7 @@ namespace TimbiricheViews.Views
         {
             bool isOcuppied = true;
             int idColor;
+
             foreach (LobbyPlayer lobbyPlayer in lobbyPlayers)
             {
                 if (lobbyPlayer.IdHexadecimalColor != DEFAULT_SELECTED_COLOR)
@@ -1105,10 +2095,9 @@ namespace TimbiricheViews.Views
 
         private void ChangeColorOfOtherPlayer(LobbyPlayer lobbyPlayer)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             string username = lobbyPlayer.Username;
             int idColor = lobbyPlayer.IdHexadecimalColor;
-            string selectedHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            string selectedHexadecimalColor = GetHexadecimalColor(idColor);
             SolidColorBrush colorPlayer = Utilities.CreateColorFromHexadecimal(selectedHexadecimalColor);
 
             if (lbSecondPlayerUsername.Content.Equals(username))
@@ -1175,18 +2164,56 @@ namespace TimbiricheViews.Views
         private bool ValidatePlayerSelectColor()
         {
             bool isColorSelected = false;
-            if(_playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
+
+            if (_playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
             {
                 isColorSelected = true;
             }
+
             return isColorSelected;
         }
 
         private bool VerifyPlayerHasColor(int idColor)
         {
-            int idPlayer = _playerLoggedIn.IdPlayer;
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            bool hasColor = playerCustomizationManagerClient.CheckColorForPlayer(idPlayer, idColor);
+            int idPlayer = _playerLoggedIn.IdPlayer;
+            bool hasColor = false;
+
+            try
+            {
+                hasColor = playerCustomizationManagerClient.CheckColorForPlayer(idPlayer, idColor);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
             return hasColor;
         }
 
@@ -1255,7 +2282,35 @@ namespace TimbiricheViews.Views
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
-            client.CreateLobby(lobbyInformation, lobbyPlayer);
+            try
+            {
+                client.CreateLobby(lobbyInformation, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private LobbyInformation ConfigureLobbyInformation()

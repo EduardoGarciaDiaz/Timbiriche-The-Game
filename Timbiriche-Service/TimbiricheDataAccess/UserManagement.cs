@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimbiricheDataAccess.Utils;
 using System.Data.Entity.Validation;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
-using System.ServiceModel;
 using TimbiricheDataAccess.Exceptions;
 
 namespace TimbiricheDataAccess
@@ -152,14 +148,17 @@ namespace TimbiricheDataAccess
             } 
             catch (EntityException ex)
             {
+                HandlerException.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
+                HandlerException.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
+                HandlerException.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 

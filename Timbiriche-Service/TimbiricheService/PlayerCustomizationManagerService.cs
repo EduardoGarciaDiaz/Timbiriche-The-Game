@@ -177,6 +177,7 @@ namespace TimbiricheService
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
             int idColor = lobbyPlayer.IdHexadecimalColor;
+            int emptyDictionaryCount = 0;
             
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
@@ -198,7 +199,7 @@ namespace TimbiricheService
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
 
-            if (playersWithDefaultColorByLobby[lobbyCode].Count == 0)
+            if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
             {
                 playersWithDefaultColorByLobby.Remove(lobbyCode);
             }

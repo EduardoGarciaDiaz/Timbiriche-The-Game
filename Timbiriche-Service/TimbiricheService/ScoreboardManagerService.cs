@@ -37,8 +37,7 @@ namespace TimbiricheService
             {
                 _logger.Error(ex.Source + " - " + ex.Message + "\n" + ex.StackTrace + "\n");
 
-                globalScoreRealTime.Remove(username);
-                UnregisterUserToOnlineUsers(username);
+                DeletePlayerFromOnlineUsersDictionary(username);
 
                 TimbiricheServerException exceptionResponse = new TimbiricheServerException
                 {
