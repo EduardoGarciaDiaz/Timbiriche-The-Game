@@ -63,7 +63,6 @@ namespace TimbiricheViews.Views
 
         private void ConfigureRematch(bool isHost)
         {
-
             if (isHost)
             {
                 InstanceContext context = new InstanceContext(this);

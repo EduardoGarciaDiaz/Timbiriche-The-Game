@@ -53,9 +53,52 @@ namespace TimbiricheViews.Views
             _playerStylePath = playerStylePath;
             _username = _playerLoggedIn.Username;
 
+            InitializeRegisterToTheMatch();
+        }
+
+        private void InitializeRegisterToTheMatch()
+        {
             InstanceContext context = new InstanceContext(this);
             MatchManagerClient client = new MatchManagerClient(context);
-            client.RegisterToTheMatch(_lobbyCode, _username, playerHexadecimalColor);
+
+            try
+            {
+                client.RegisterToTheMatch(_lobbyCode, _username, _playerHexadecimalColor);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         private void InitializeGameBoard()
@@ -480,11 +523,50 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.MatchManagerClient client = new Server.MatchManagerClient(context);
-            client.LeftMatch(_lobbyCode, PlayerSingleton.Player.Username);
 
-            LeftMatch();
+            try
+            {
+                client.LeftMatch(_lobbyCode, PlayerSingleton.Player.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex);
+
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            finally
+            {
+                LeftMatch();
+            }
         }
-
 
         private void ImageExitMenu_MouseEnter(object sender, MouseEventArgs e)
         {
