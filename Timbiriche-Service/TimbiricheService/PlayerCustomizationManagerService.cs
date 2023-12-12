@@ -6,7 +6,9 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -16,75 +18,167 @@ namespace TimbiricheService
         {
             List<PlayerColor> myColors = new List<PlayerColor>();
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
-            List<PlayerColors> playerColorsDataAccess = dataAccess.GetMyColorsByIdPlayer(idPlayer);
 
-            foreach(PlayerColors playerColor in playerColorsDataAccess)
+            try
             {
-                PlayerColor playerColorAuxiliar = new PlayerColor();
-                playerColorAuxiliar.IdPlayerColors = playerColor.idPlayerColors;
-                playerColorAuxiliar.IdPlayer = (int)playerColor.idPlayer;
-                playerColorAuxiliar.IdColor = (int)playerColor.idColor;
+                List<PlayerColors> playerColorsDataAccess = dataAccess.GetMyColorsByIdPlayer(idPlayer);
 
-                myColors.Add(playerColorAuxiliar);
+                foreach (PlayerColors playerColor in playerColorsDataAccess)
+                {
+                    PlayerColor playerColorAuxiliar = new PlayerColor();
+                    playerColorAuxiliar.IdPlayerColors = playerColor.idPlayerColors;
+                    playerColorAuxiliar.IdPlayer = (int)playerColor.idPlayer;
+                    playerColorAuxiliar.IdColor = (int)playerColor.idColor;
+
+                    myColors.Add(playerColorAuxiliar);
+                }
+
+                return myColors;
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return myColors;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public string GetHexadecimalColors(int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
-            string hexadecimalColor = dataAccess.GetHexadecimalColorByIdColor(idColor);    
-            
-            return hexadecimalColor;
+
+            try
+            {
+                return dataAccess.GetHexadecimalColorByIdColor(idColor);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public int SelectMyColor(int idPlayer, int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
 
-            return dataAccess.UpdateMyColorSelected(idPlayer, idColor);
+            try
+            {
+                return dataAccess.UpdateMyColorSelected(idPlayer, idColor);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public bool CheckColorForPlayer(int idPlayer, int idColor)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
 
-            return dataAccess.SearchInMyColors(idPlayer, idColor);
+            try
+            {
+                return dataAccess.SearchInMyColors(idPlayer, idColor);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public List<PlayerStyle> GetMyStyles(int idPlayer)
         {
             List<PlayerStyle> myStyles = new List<PlayerStyle>();
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
-            List<PlayerStyles> playerStylesDataAccess = dataAccess.GetMyStylesByIdPlayer(idPlayer);
 
-            foreach(PlayerStyles playerStyle in playerStylesDataAccess)
+            try
             {
-                PlayerStyle playerStyleAxiliar = new PlayerStyle();
-                playerStyleAxiliar.IdPlayerStyle = playerStyle.idPlayerStyles;
-                playerStyleAxiliar.IdPlayer = (int)playerStyle.idPlayer;
-                playerStyleAxiliar.IdStyle = (int)playerStyle.idStyle;
+                List<PlayerStyles> playerStylesDataAccess = dataAccess.GetMyStylesByIdPlayer(idPlayer);
 
-                myStyles.Add(playerStyleAxiliar);
+                foreach (PlayerStyles playerStyle in playerStylesDataAccess)
+                {
+                    PlayerStyle playerStyleAxiliar = new PlayerStyle();
+                    playerStyleAxiliar.IdPlayerStyle = playerStyle.idPlayerStyles;
+                    playerStyleAxiliar.IdPlayer = (int)playerStyle.idPlayer;
+                    playerStyleAxiliar.IdStyle = (int)playerStyle.idStyle;
+
+                    myStyles.Add(playerStyleAxiliar);
+                }
+
+                return myStyles;
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return myStyles;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public string GetStylePath(int idStyle)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
-            string stylePath = dataAccess.GetStylePathByIdStyle(idStyle);
 
-            return stylePath;
+            try
+            {
+                return dataAccess.GetStylePathByIdStyle(idStyle);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public int SelectMyStyle(int idPlayer, int idStyle)
         {
             PlayerCustomizationManagement dataAccess = new PlayerCustomizationManagement();
 
-            return dataAccess.UpdateMyStyleSelected(idPlayer, idStyle);
+            try
+            {
+                return dataAccess.UpdateMyStyleSelected(idPlayer, idStyle);
+
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 
@@ -107,7 +201,7 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                 }
             }
         }
@@ -152,7 +246,7 @@ namespace TimbiricheService
                     auxiliarPlayer.ColorCallbackChannel = currentUserCallbackChannel;
                 }
 
-                foreach (var colorSelector in players)
+                foreach (var colorSelector in players.ToList())
                 {
                     try
                     {
@@ -161,7 +255,7 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                     }
                 }
             }
@@ -169,7 +263,7 @@ namespace TimbiricheService
 
         private void InformDefaultColorSubscriptors(string lobbyCode, LobbyPlayer lobbyPlayer, int idColor)
         {
-            foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode])
+            foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode].ToList())
             {
                 if (idColor != DEFAULT_COLOR)
                 {
@@ -180,7 +274,7 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
                     }
                 }
             }
@@ -202,13 +296,25 @@ namespace TimbiricheService
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
             int idColor = lobbyPlayer.IdHexadecimalColor;
-            int emptyDictionaryCount = 0;
             
+            InformColorUnselected(lobbyCode, idColor);
+
+            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+        }
+
+        private void InformColorUnselected(string lobbyCode, int idColor)
+        {
+            InformColorUnselectedToDefaultColors(lobbyCode, idColor);
+            InformColorUnselectedToNonDefaultColor(lobbyCode, idColor);
+        }
+
+        private void InformColorUnselectedToNonDefaultColor(string lobbyCode, int idColor)
+        {
             if (LobbyExists(lobbyCode) && IsColorSelected(lobbyCode, idColor))
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
 
-                foreach (var player in lobbyPlayers)
+                foreach (var player in lobbyPlayers.ToList())
                 {
                     try
                     {
@@ -217,12 +323,15 @@ namespace TimbiricheService
                     catch (CommunicationException ex)
                     {
                         HandlerException.HandleErrorException(ex);
-                        // TODO: Manage channels
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, player.ColorCallbackChannel);
                     }
                 }
             }
-            
-            foreach(var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode])
+        }
+
+        private void InformColorUnselectedToDefaultColors(string lobbyCode, int idColor)
+        {
+            foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode].ToList())
             {
                 try
                 {
@@ -231,14 +340,28 @@ namespace TimbiricheService
                 catch (CommunicationException ex)
                 {
                     HandlerException.HandleErrorException(ex);
-                    // TODO: Manage channels
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
                 }
             }
+        }
 
+        private void RemovePlayerAndDictionaryFromDefaultColors(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
+            DeletePlayerFromDefaultColorsDictionary(lobbyCode, currentUserCallbackChannel);
+            DeleteDefaultColorsDictionary(lobbyCode);
+        }
+
+        private void DeletePlayerFromDefaultColorsDictionary(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        {
             if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode) && playersWithDefaultColorByLobby[lobbyCode].Contains(currentUserCallbackChannel))
             {
                 playersWithDefaultColorByLobby[lobbyCode].Remove(currentUserCallbackChannel);
             }
+        }
+
+        private void DeleteDefaultColorsDictionary(string lobbyCode)
+        {
+            int emptyDictionaryCount = 0;
 
             if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
             {
@@ -303,16 +426,16 @@ namespace TimbiricheService
                 {
                     auxiliarPlayer.IdStylePath = lobbyPlayer.IdStylePath;
 
-                    foreach (var colorSelector in lobbies[lobbyCode].Item2)
+                    foreach (var styleSelector in lobbies[lobbyCode].Item2.ToList())
                     {
                         try
                         {
-                            colorSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                            styleSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
                         }
                         catch (CommunicationException ex)
                         {
                             HandlerException.HandleErrorException(ex);
-                            // TODO: Manage channels
+                            styleSelector.StyleCallbackChannel = null;
                         }
                     }
                 }

@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
 using TimbiricheService.Email;
 using TimbiricheService.Email.Templates;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -31,25 +34,40 @@ namespace TimbiricheService
         public bool ValidateResetToken(string email, int token)
         {
             int playerId = GetPlayerIdByEmail(email);
-            if(playerId == 0)
-            {
-                return false;
-            }
-            
-            PasswordResetTokens passwordResetTokens = PasswordResetManagement
-                .GetPasswordResetTokenByIdPlayerAndToken(playerId, token);
+            int invalidPlayerId = 0;
 
-            if (passwordResetTokens == null)
+            if(playerId == invalidPlayerId)
             {
                 return false;
             }
 
-            if(DateTime.Now > passwordResetTokens.expirationDate)
+            try
             {
-                return false;
-            }
+                PasswordResetTokens passwordResetTokens = PasswordResetManagement
+                        .GetPasswordResetTokenByIdPlayerAndToken(playerId, token);
 
-            return true;
+                if (passwordResetTokens == null)
+                {
+                    return false;
+                }
+
+                if (DateTime.Now > passwordResetTokens.expirationDate)
+                {
+                    return false;
+                }
+
+                return true;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         private bool SaveResetToken(string email, int token)
@@ -62,13 +80,28 @@ namespace TimbiricheService
                 DateTime creationDateTime = DateTime.Now;
                 DateTime expirationDateTime = creationDateTime.AddMinutes(5);
 
-                PasswordResetTokens passwordResetTokens = new PasswordResetTokens();
-                passwordResetTokens.token = token;
-                passwordResetTokens.creationDate = creationDateTime;
-                passwordResetTokens.expirationDate = expirationDateTime;
-                passwordResetTokens.idPlayer = playerId;
+                PasswordResetTokens passwordResetTokens = new PasswordResetTokens
+                {
+                    token = token,
+                    creationDate = creationDateTime,
+                    expirationDate = expirationDateTime,
+                    idPlayer = playerId
+                };
 
-                tokenGenerated = PasswordResetManagement.AddToken(passwordResetTokens);
+                try
+                {
+                    tokenGenerated = PasswordResetManagement.AddToken(passwordResetTokens);
+                }
+                catch (DataAccessException ex)
+                {
+                    TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                    {
+                        Message = ex.Message,
+                        StackTrace = ex.StackTrace
+                    };
+
+                    throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                }
             }
 
             return tokenGenerated;
@@ -85,13 +118,39 @@ namespace TimbiricheService
         private int GetPlayerIdByEmail(string email)
         {
             UserManagement userManagement = new UserManagement();
-            return userManagement.GetIdPlayerByEmail(email);
+            try
+            {
+                return userManagement.GetIdPlayerByEmail(email);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public bool ChangePassword(string newPassword, string email)
         {            
             int idPlayer = GetPlayerIdByEmail(email);
-            return PasswordResetManagement.ChangePasswordById(idPlayer, newPassword);
+            try
+            {
+                return PasswordResetManagement.ChangePasswordById(idPlayer, newPassword);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 }
