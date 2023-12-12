@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Numerics;
 using System.Security.Principal;
 using System.ServiceModel;
 using System.Text;
@@ -26,48 +27,80 @@ namespace TimbiricheService
         {
             Account auxiliarAccount = player.AccountFK;
 
-            Accounts newAccount = new Accounts();
-            newAccount.name = auxiliarAccount.Name;
-            newAccount.lastName = auxiliarAccount.LastName;
-            newAccount.surname = auxiliarAccount.Surname;
-            newAccount.birthdate = auxiliarAccount.Birthdate;
+            Accounts newAccount = new Accounts
+            {
+                name = auxiliarAccount.Name,
+                lastName = auxiliarAccount.LastName,
+                surname = auxiliarAccount.Surname,
+                birthdate = auxiliarAccount.Birthdate
+            };
 
-            Players newPlayer = new Players();
-            newPlayer.username = player.Username;
-            newPlayer.email = player.Email;
-            newPlayer.password = player.Password;
-            newPlayer.coins = player.Coins;
-            newPlayer.status = player.Status;
-            newPlayer.salt = player.Salt;
-            newPlayer.idColorSelected = player.IdColorSelected;
-            newPlayer.idStyleSelected = player.IdStyleSelected;
-            newPlayer.Accounts = newAccount;
+            Players newPlayer = new Players
+            {
+                username = player.Username,
+                email = player.Email,
+                password = player.Password,
+                coins = player.Coins,
+                status = player.Status,
+                salt = player.Salt,
+                idColorSelected = player.IdColorSelected,
+                idStyleSelected = player.IdStyleSelected,
+                Accounts = newAccount
+            };
 
             UserManagement dataAccess = new UserManagement();
-            int rowsAffected = dataAccess.AddUser(newPlayer);
-
-            if (rowsAffected > 0)
+            try
             {
-                int rowsAffectedPlayerStyles = SetDefaultStyle(newPlayer);
+                int rowsAffected = dataAccess.AddUser(newPlayer);
 
-                if  (rowsAffectedPlayerStyles > 0)
+                if (rowsAffected > 0)
                 {
-                    SetDefaultColors(newPlayer);
-                    AddNewPlayerToGlobalScores(newPlayer.idPlayer);
-                }
-            }
+                    int rowsAffectedPlayerStyles = SetDefaultStyle(newPlayer);
 
-            return rowsAffected;
+                    if (rowsAffectedPlayerStyles > 0)
+                    {
+                        SetDefaultColors(newPlayer);
+                        AddNewPlayerToGlobalScores(newPlayer.idPlayer);
+                    }
+                }
+
+                return rowsAffected;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         private int SetDefaultStyle(Players newPlayer)
-        {
-            PlayerStyles playerStyle = new PlayerStyles();
-            playerStyle.idPlayer = newPlayer.idPlayer;
-            playerStyle.idStyle = 1;
+        {            
             UserManagement dataAccess = new UserManagement();
+            PlayerStyles playerStyle = new PlayerStyles
+            {
+                idPlayer = newPlayer.idPlayer,
+                idStyle = 1
+            };
 
-            return dataAccess.AddPlayerStyles(playerStyle);
+            try
+            {
+                return dataAccess.AddPlayerStyles(playerStyle);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         private void SetDefaultColors(Players newPlayer)
@@ -80,7 +113,21 @@ namespace TimbiricheService
                 playerColor.idColor = i;
                 UserManagement dataAccess = new UserManagement();
 
-                dataAccess.AddPlayerColors(playerColor);
+                try
+                {
+                    dataAccess.AddPlayerColors(playerColor);
+
+                }
+                catch (DataAccessException ex)
+                {
+                    TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                    {
+                        Message = ex.Message,
+                        StackTrace = ex.StackTrace
+                    };
+
+                    throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                }
             }
         }
 
@@ -92,7 +139,21 @@ namespace TimbiricheService
             newScore.idPlayer = idPlayer;
             newScore.winsNumber = DEFAULT_NUMBER_OF_WINS;
 
-            dataAccess.AddToGlobalScoreboards(newScore);
+            try
+            {
+                dataAccess.AddToGlobalScoreboards(newScore);
+
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public Player ValidateLoginCredentials(String username, String password)
@@ -107,28 +168,8 @@ namespace TimbiricheService
                 if (playerValidated != null)
                 {
                     Accounts accountValidated = playerValidated.Accounts;
-                    Account account = new Account
-                    {
-                        IdAccount = accountValidated.idAccount,
-                        Name = accountValidated.name,
-                        LastName = accountValidated.lastName,
-                        Surname = accountValidated.surname,
-                        Birthdate = accountValidated.birthdate
-                    };
-
-                    player = new Player
-                    {
-                        IdPlayer = playerValidated.idPlayer,
-                        Username = playerValidated.username,
-                        Email = playerValidated.email,
-                        Password = playerValidated.password,
-                        Coins = (int)playerValidated.coins,
-                        Status = playerValidated.status,
-                        Salt = playerValidated.salt,
-                        IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
-                        IdStyleSelected = (int)playerValidated.idStyleSelected,
-                        AccountFK = account,
-                    };
+                    Account account = CreateAccount(accountValidated);
+                    player = CreatePlayer(playerValidated, account);                    
                 }
             }
             catch (DataAccessException ex)
@@ -145,71 +186,138 @@ namespace TimbiricheService
             return player;
         }
 
+        private Account CreateAccount(Accounts accountValidated)
+        {
+            Account account = new Account
+            {
+                IdAccount = accountValidated.idAccount,
+                Name = accountValidated.name,
+                LastName = accountValidated.lastName,
+                Surname = accountValidated.surname,
+                Birthdate = accountValidated.birthdate
+            };
+
+            return account;
+        }
+
+        private Player CreatePlayer(Players playerValidated, Account account)
+        {
+            Player player = new Player
+            {
+                IdPlayer = playerValidated.idPlayer,
+                Username = playerValidated.username,
+                Email = playerValidated.email,
+                Password = playerValidated.password,
+                Coins = (int)playerValidated.coins,
+                Status = playerValidated.status,
+                Salt = playerValidated.salt,
+                IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
+                IdStyleSelected = (int)playerValidated.idStyleSelected,
+                AccountFK = account,
+            };
+
+            return player;
+        }
+
         public Player GetPlayerByIdPlayer(int idPlayer)
         {
             UserManagement dataAccess = new UserManagement();
-            Players playerFromDataBase = dataAccess.GetPlayerByIdPlayer(idPlayer);
-
             Player player = null;
 
-            if (playerFromDataBase != null)
+            try
             {
-                Accounts accountValidated = playerFromDataBase.Accounts;
-                Account account = new Account
-                {
-                    IdAccount = accountValidated.idAccount,
-                    Name = accountValidated.name,
-                    LastName = accountValidated.lastName,
-                    Surname = accountValidated.surname,
-                    Birthdate = accountValidated.birthdate
-                };
+                Players playerFromDataBase = dataAccess.GetPlayerByIdPlayer(idPlayer);
 
-                player = new Player
+                if (playerFromDataBase != null)
                 {
-                    IdPlayer = playerFromDataBase.idPlayer,
-                    Username = playerFromDataBase.username,
-                    Email = playerFromDataBase.email,
-                    Password = playerFromDataBase.password,
-                    Coins = (int)playerFromDataBase.coins,
-                    Status = playerFromDataBase .status,
-                    Salt = playerFromDataBase.salt,
-                    IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
-                    IdStyleSelected = (int)playerFromDataBase.idStyleSelected,
-                    AccountFK = account,
-                };
+                    Accounts accountValidated = playerFromDataBase.Accounts;
+                    Account account = CreateAccount(accountValidated);
+
+                    player = CreatePlayer(playerFromDataBase, account);
+                }
+
+                return player;
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return player;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public bool ValidateUniqueIdentifierUser(String identifier)
         {
             UserManagement dataAccess = new UserManagement();
 
-            return dataAccess.ExistUserIdenitifier(identifier);
+            try
+            {
+                return dataAccess.ExistUserIdenitifier(identifier);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public int UpdateAccount(Account account)
-        {
-            Accounts editedAccount = new Accounts();
-            editedAccount.idAccount = account.IdAccount;
-            editedAccount.name = account.Name;
-            editedAccount.lastName = account.LastName;
-            editedAccount.surname = account.Surname;
-            editedAccount.birthdate = account.Birthdate;
-
+        {            
             UserManagement dataAccess = new UserManagement();
-            int rowsAffected = dataAccess.UpdateAccount(editedAccount);
+            Accounts editedAccount = new Accounts
+            {
+                idAccount = account.IdAccount,
+                name = account.Name,
+                lastName = account.LastName,
+                surname = account.Surname,
+                birthdate = account.Birthdate
+            };
 
-            return rowsAffected;
+            try
+            {
+                return dataAccess.UpdateAccount(editedAccount);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
+
+            
         }
 
         public string GetUsernameByIdPlayer(int idPlayer)
         {
             UserManagement dataAccess = new UserManagement();
-            string username = dataAccess.GetUsernameByIdPlayer(idPlayer);
 
-            return username;
+            try
+            {
+                return dataAccess.GetUsernameByIdPlayer(idPlayer);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            } 
         }
 
         public bool ValidateIsUserAlreadyOnline(string username)
@@ -227,9 +335,20 @@ namespace TimbiricheService
         public int GetIdPlayerByUsername(string username)
         {
             UserManagement dataAccess = new UserManagement();
-            int idPlayer = dataAccess.GetIdPlayerByUsername(username);
+            try
+            {
+                return dataAccess.GetIdPlayerByUsername(username);
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return idPlayer;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 
@@ -266,7 +385,7 @@ namespace TimbiricheService
                     UnregisterUserToOnlineUsers(username);
                 }
 
-                foreach (var user in onlineUsers)
+                foreach (var user in onlineUsers.ToList())
                 {
                     if (user.Key != username && IsFriend(idPlayer, user.Key))
                     {
@@ -302,7 +421,7 @@ namespace TimbiricheService
                 onlineUsers.Remove(username);
                 onlineFriendship.Remove(username);
 
-                foreach (var user in onlineUsers)
+                foreach (var user in onlineUsers.ToList())
                 {
                     try
                     {

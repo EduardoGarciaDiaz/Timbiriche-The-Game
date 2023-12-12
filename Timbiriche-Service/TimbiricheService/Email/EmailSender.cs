@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Utils;
 using TimbiricheService.Email.Templates;
 
 namespace TimbiricheService.Email
@@ -46,6 +47,7 @@ namespace TimbiricheService.Email
             }
             catch (SmtpException ex)
             {
+                HandlerException.HandleErrorException(ex);
                 emailSent = false;
             }
 

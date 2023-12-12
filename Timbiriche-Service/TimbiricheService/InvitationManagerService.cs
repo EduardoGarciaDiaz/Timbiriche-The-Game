@@ -13,8 +13,7 @@ namespace TimbiricheService
         public bool SendInvitationToEmail(string lobbyCode, string email)
         {
             EmailSender emailSender = new EmailSender(new InvitationToLobbyTemplate());
-            bool isEmailSent = emailSender.SendEmail(email, lobbyCode);
-            return isEmailSent;
+            return emailSender.SendEmail(email, lobbyCode);
         }
     }
 }
