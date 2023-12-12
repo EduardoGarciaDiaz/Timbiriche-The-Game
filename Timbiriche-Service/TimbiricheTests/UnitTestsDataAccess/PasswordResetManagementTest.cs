@@ -17,7 +17,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 {
     public class ConfigurationPasswordResetManagementTests : IDisposable
     {
-        private ILogger _logger = LoggerManager.GetLogger();
+        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
 
         public ConfigurationPasswordResetManagementTests()
         {

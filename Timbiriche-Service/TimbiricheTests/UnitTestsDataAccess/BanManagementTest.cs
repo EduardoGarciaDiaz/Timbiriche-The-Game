@@ -19,7 +19,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
     public class ConfigurationBanManagementTests : IDisposable
     {
 
-        private ILogger _logger = LoggerManager.GetLogger();
+        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
         public int IdReportedTestPlayer { get; set; }
         public int IdReporterTestPlayer { get; set; }
         public DateTime BanEndDate { get; set; }
