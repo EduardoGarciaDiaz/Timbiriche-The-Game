@@ -111,7 +111,41 @@ namespace TimbiricheViews.Views
             if (_idPlayer > 0)
             {
                 Server.ScoreboardManagerClient scoreboardManagerClient = new Server.ScoreboardManagerClient();
-                scoreboardManagerClient.UpdateWins(_idPlayer);
+
+                try
+                {
+                    scoreboardManagerClient.UpdateWins(_idPlayer);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerException>)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             }
         }
 
@@ -130,8 +164,43 @@ namespace TimbiricheViews.Views
 
         private bool VerifyPlayerIsNotBanned(int idPlayer)
         {
+            bool isPlayerBanned = false;
             Server.BanVerifierManagerClient banVerifierManagerClient = new Server.BanVerifierManagerClient();
-            bool isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
+
+            try
+            {
+                isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             return isPlayerBanned;
         }
@@ -153,22 +222,84 @@ namespace TimbiricheViews.Views
             NavigationService.Navigate(new XAMLLobby(lobbyCode, isHost));
         }
 
+        private void SendNotRematch()
+        {
+            InstanceContext context = new InstanceContext(this);
+            RematchManagerClient client = new RematchManagerClient(context);
+
+            try
+            {
+                client.NotRematch(_lobbyCode);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+        }
+
         private void BtnRematch_Click(object sender, RoutedEventArgs e)
         {
             InstanceContext context = new InstanceContext(this);
             RematchManagerClient client = new RematchManagerClient(context);
-            client.Rematch(_lobbyCode, _playerUsername);
+
+            try
+            {
+                client.Rematch(_lobbyCode, _playerUsername);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
 
-            InstanceContext context = new InstanceContext(this);
-            RematchManagerClient client = new RematchManagerClient(context);
-            client.NotRematch(_lobbyCode);
+            SendNotRematch();
 
             bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
-
 
             if (isPlayerBanned)
             {

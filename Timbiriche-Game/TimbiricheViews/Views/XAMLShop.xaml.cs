@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -14,6 +15,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Components.Shop;
 using TimbiricheViews.Player;
+using TimbiricheViews.Server;
+using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
@@ -32,10 +35,52 @@ namespace TimbiricheViews.Views
             lbCoins.Content = PlayerSingleton.Player.Coins;
         }
 
-        private void LoadColors()
+        private ShopColor[] GetColors()
         {
             Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
-            Server.ShopColor[] colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
+            ShopColor[] colors = null;
+
+            try
+            {
+                colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return colors;
+        }
+
+        private void LoadColors()
+        {
+            ShopColor[] colors = GetColors();
 
             foreach(var color in colors)
             {
@@ -69,10 +114,52 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void LoadStyles()
+        private ShopStyle[] GetStyles()
         {
             Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
-            Server.ShopStyle[] styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
+            ShopStyle[] styles = null;
+
+            try
+            {
+                shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return styles;
+        }
+
+        private void LoadStyles()
+        {
+            Server.ShopStyle[] styles = GetStyles();
 
             foreach (var style in styles)
             {

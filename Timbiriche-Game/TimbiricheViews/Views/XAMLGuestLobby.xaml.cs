@@ -49,19 +49,52 @@ namespace TimbiricheViews.Views
         {
             LoadDataPlayer();
             PrepareNotificationOfStyleUpdated();
-            JoinToLobby();
+            ConfigureGuestPlayer();
         }
 
-        private void JoinToLobby()
+        private void ConfigureGuestPlayer()
         {
             const int ID_DEFAULT_STYLE = 1;
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = _playerLoggedIn.Username;
             lobbyPlayer.IdStylePath = ID_DEFAULT_STYLE;
 
+            JoinToLobby(lobbyPlayer);
+        }
+
+        private void JoinToLobby(LobbyPlayer lobbyPlayer)
+        {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
-            lobbyManagerClient.JoinLobby(_lobbyCode, lobbyPlayer);
+
+            try
+            {
+                lobbyManagerClient.JoinLobby(_lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void PrepareNotificationOfStyleUpdated()
@@ -75,13 +108,45 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             Server.PlayerStylesManagerClient playerStylesManagerClient = new Server.PlayerStylesManagerClient(context);
-            if (!isLoaded)
+
+            try
             {
-                playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                if (!isLoaded)
+                {
+                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                }
+                else if (_lobbyCode != null)
+                {
+                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                }
             }
-            else if (_lobbyCode != null)
+            catch (EndpointNotFoundException ex)
             {
-                playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
             }
         }
 
@@ -106,9 +171,7 @@ namespace TimbiricheViews.Views
 
         private Image CreateImageByPath(int idStyle)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            string playerStylePath = GetStylePathByIdStyle(idStyle);
             string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, playerStylePath);
 
             Image styleImage = new Image();
@@ -117,6 +180,47 @@ namespace TimbiricheViews.Views
 
             return styleImage;
         }
+
+        private string GetStylePathByIdStyle(int idStyle)
+        {
+            string stylePath = "";
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+
+            try
+            {
+                stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return stylePath;
+        } 
         
         private void LoadDataPlayer()
         {
@@ -142,10 +246,39 @@ namespace TimbiricheViews.Views
 
         public void BtnCloseWindow_Click()
         {
+            PlayerSingleton.Player = null;
+
             InstanceContext context = new InstanceContext(this);
             Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
-            client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
-            PlayerSingleton.Player = null;
+
+            try
+            {
+                client.UnregisterUserToOnlineUsers(_playerLoggedIn.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
     }
 
@@ -271,16 +404,79 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
-            client.ExitLobby(_lobbyCode, PlayerSingleton.Player.Username);
+
+            try
+            {
+                client.ExitLobby(_lobbyCode, PlayerSingleton.Player.Username);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             NavigationService.Navigate(new XAMLLogin());
         }
 
         private (string, string) GetPlayerCustomization()
         {
+            string playerHexadecimalColor = "";
+            string playerStylePath = "";
+
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string playerHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(_playerLoggedIn.IdColorSelected);
-            string playerStylePath = playerCustomizationManagerClient.GetStylePath(_playerLoggedIn.IdStyleSelected);
+
+            try
+            {
+                playerHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(_playerLoggedIn.IdColorSelected);
+                playerStylePath = playerCustomizationManagerClient.GetStylePath(_playerLoggedIn.IdStyleSelected);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
 
             return (playerHexadecimalColor, playerStylePath);
         }
@@ -309,23 +505,61 @@ namespace TimbiricheViews.Views
 
         private void SetMyColors()
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             SolidColorBrush color;
+            
             foreach (int idColor in _idDefaultColors)
             {
-                string hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+                string hexadecimalColor = GetHexadecimalColorByIdColor(idColor);
 
                 color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
                 Rectangle colorRectangle = CreateColorBoxes(idColor, color, PlayerColorTemplate);
                 stackPanelColors.Children.Add(colorRectangle);
             }
 
+
+            ManageColorsSelected();
+            
+        }
+
+        private void ManageColorsSelected()
+        {
             InstanceContext context = new InstanceContext(this);
             Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
-            playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
 
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+            try
+            {
+                LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+                playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
+                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate )
@@ -361,14 +595,46 @@ namespace TimbiricheViews.Views
             LobbyPlayer lobbyPlayer2 = CreateLobbyPlayer();
 
             InstanceContext context = new InstanceContext(this);
-            Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
-            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
 
-            _playerLoggedIn.IdColorSelected = idColor;
+            try
+            {
+                Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+                playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
 
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();            
-            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
-            MarkAsSelectedColor(rectangleSelected);
+                _playerLoggedIn.IdColorSelected = idColor;
+
+                LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
+                MarkAsSelectedColor(rectangleSelected);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private int GetIdColorByRectangle(Rectangle rectangleSelected)
@@ -424,10 +690,10 @@ namespace TimbiricheViews.Views
 
         private void ChangeColorOfOtherPlayer(LobbyPlayer lobbyPlayer)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
             string username = lobbyPlayer.Username;
             int idColor = lobbyPlayer.IdHexadecimalColor;
-            string selectedHexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            string selectedHexadecimalColor = GetHexadecimalColorByIdColor(idColor);
+
             SolidColorBrush colorPlayer = Utilities.CreateColorFromHexadecimal(selectedHexadecimalColor);
 
             if (lbSecondPlayerUsername.Content.Equals(username))
@@ -445,6 +711,48 @@ namespace TimbiricheViews.Views
                 rectangleFourthPlayerColor.Fill = colorPlayer;
                 rectangleFourthPlayerUsernameColor.Fill = colorPlayer;
             }
+        }
+
+        private string GetHexadecimalColorByIdColor(int idColor)
+        {
+            string hexadecimalColor = "";
+
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+
+            try
+            {
+                hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return hexadecimalColor;
         }
 
         private void MarkAsOccupiedColor(string idRectangle)
@@ -494,10 +802,12 @@ namespace TimbiricheViews.Views
         private bool ValidatePlayerSelectColor()
         {
             bool isColorSelected = false;
+
             if(_playerLoggedIn.IdColorSelected > DEFAULT_SELECTED_COLOR)
             {
                 isColorSelected = true;
             }
+            
             return isColorSelected;
         }
 
@@ -506,6 +816,7 @@ namespace TimbiricheViews.Views
             const int LOW_LIMITD_DEFAULTS_COLOR = 0;
             const int HIGH_LIMIT_DEFAULTS_COLOR = 4;
             bool hasColor = false;
+
             if (idColor > LOW_LIMITD_DEFAULTS_COLOR && idColor <= HIGH_LIMIT_DEFAULTS_COLOR)
             {
                 hasColor = true;

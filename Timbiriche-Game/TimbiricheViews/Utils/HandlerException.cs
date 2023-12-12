@@ -24,5 +24,15 @@ namespace TimbiricheViews.Utils
             _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
             navigationService.Navigate(new XAMLLogin());
         }
+
+        public static void HandleComponentErrorException(Exception ex)
+        {
+            _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
+        }
+
+        public static void HandleComponentFatalException(Exception ex)
+        {
+            _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
+        }
     }
 }
