@@ -1,0 +1,204 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ServiceModel;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows;
+using TimbiricheViews.Components;
+using TimbiricheViews.Player;
+using TimbiricheViews.Server;
+using TimbiricheViews.Utils;
+
+namespace TimbiricheViews.Views
+{
+    public partial class XAMLLobby : Page, IPlayerStylesManagerCallback
+    {
+        private void RestartSelectedColor(bool isRematch)
+        {
+            int defaultColor = 0;
+            PlayerSingleton.Player.IdColorSelected = defaultColor;
+
+            if (isRematch)
+            {
+                InstanceContext context = new InstanceContext(this);
+                PlayerColorsManagerClient client = new PlayerColorsManagerClient(context);
+
+                try
+                {
+                    client.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
+            }
+        }
+
+        private void Lobby_Loaded(object sender, RoutedEventArgs e)
+        {
+            LoadDataPlayer();
+            PrepareNotificationOfStyleUpdated();
+        }
+
+        private void PrepareNotificationOfStyleUpdated()
+        {
+            bool isLoaded = true;
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
+        }
+
+        private void InformUpdateStyleForPlayers(LobbyPlayer lobbyPlayer, bool isLoaded)
+        {
+            InstanceContext context = new InstanceContext(this);
+            Server.PlayerStylesManagerClient playerStylesManagerClient = new Server.PlayerStylesManagerClient(context);
+
+            try
+            {
+                if (!isLoaded)
+                {
+                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                }
+                else if (_lobbyCode != null)
+                {
+                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+        }
+
+        public void NotifyStyleSelected(LobbyPlayer lobbyPlayer)
+        {
+            string username = lobbyPlayer.Username;
+            int idStyle = lobbyPlayer.IdStylePath;
+
+            if (lbSecondPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbSecondPlayerFaceBox, idStyle, username);
+            }
+            else if (lbThirdPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbThirdPlayerUsername, idStyle, username);
+            }
+            else if (lbFourthPlayerUsername.Content.Equals(username))
+            {
+                LoadFaceBox(lbFourthPlayerUsername, idStyle, username);
+            }
+        }
+
+        private void LoadDataPlayer()
+        {
+            lbUsername.Content = _playerLoggedIn.Username;
+            lbCoins.Content = _playerLoggedIn.Coins;
+            LoadFaceBox(lbUserFaceBox, _playerLoggedIn.IdStyleSelected, _playerLoggedIn.Username);
+        }
+
+        private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
+        {
+            const int ID_DEFAULT_STYLE = 1;
+            const int INDEX_FIRST_LETTER = 0;
+
+            if (idStyle == ID_DEFAULT_STYLE)
+            {
+                lbFaceBox.Content = username[INDEX_FIRST_LETTER].ToString();
+            }
+            else
+            {
+                string stylePath = GetPathByIdStyle(idStyle);
+                Image styleImage = Utilities.CreateImageByPath(stylePath);
+                lbFaceBox.Content = styleImage;
+            }
+        }
+
+        private string GetPathByIdStyle(int idStyle)
+        {
+            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            string playerStylePath = null;
+
+            try
+            {
+                playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException> ex)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return playerStylePath;
+        }
+    }
+}

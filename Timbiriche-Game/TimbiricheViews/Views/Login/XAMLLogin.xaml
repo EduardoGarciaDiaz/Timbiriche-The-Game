@@ -70,8 +70,8 @@
                 <ImageBrush ImageSource="/Resources/backgroundGame.png"/>
             </Grid.Background>
 
-            <Image Source="../Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="524" Width="511" Margin="337,71,0,0" Grid.RowSpan="2"/>
-            <Image Source="../Resources/loginCodeBox.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,390,0,0" Height="116" Width="511" Grid.Row="1"/>
+            <Image Source="/Resources/loginBox.png" HorizontalAlignment="Left" VerticalAlignment="Top"  Stretch="Fill" Height="524" Width="511" Margin="337,71,0,0" Grid.RowSpan="2"/>
+            <Image Source="/Resources/loginCodeBox.png" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="338,390,0,0" Height="116" Width="511" Grid.Row="1"/>
             <Label FontFamily="Titan One" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="68" Foreground="White" Margin="0,87,0,0" >Timbiriche</Label>
 
             <Label FontFamily="Titan One" HorizontalAlignment="Left" VerticalAlignment="Bottom" FontSize="24" Foreground="White" 

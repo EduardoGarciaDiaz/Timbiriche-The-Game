@@ -12,7 +12,7 @@
     <Viewbox Stretch="Fill">
         <Grid>
             <Image Source="/Resources/backgroundGame.png" />
-            <Image Source="../Resources/victoryBox.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="1015" Width="1172"/>
+            <Image Source="/Resources/victoryBox.png" HorizontalAlignment="Center" VerticalAlignment="Center" Height="1015" Width="1172"/>
 
             <Grid Margin="374,140,374,140">
                 <Label x:Name="lbYouWon" Content="{x:Static p:Resources.lbYouWon}" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Titan One" Foreground="White" FontSize="150" Visibility="Collapsed"/>

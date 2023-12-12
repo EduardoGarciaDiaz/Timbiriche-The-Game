@@ -22,7 +22,6 @@ using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Views
 {
-
     public partial class XAMLJoinGuest : Page
     {
         private string _lobbyCode;
@@ -163,6 +162,5 @@ namespace TimbiricheViews.Views
         {
             NavigationService.GoBack();
         }
-
     }
 }

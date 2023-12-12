@@ -21,7 +21,7 @@
 
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">
-            <Image Source="../Resources/shopBackground.png" Stretch="Fill"/>
+            <Image Source="/Resources/shopBackground.png" Stretch="Fill"/>
 
             <Button Content="{x:Static p:Resources.btnLobby}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
                     BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand" Click="BtnLobby_Click" />
@@ -29,9 +29,8 @@
             <Button Content="{x:Static p:Resources.btnShop}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
                     BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand"/>
 
-            <!--Shop-->
-            <Image Source="../Resources/shopBox.png" Margin="0,114,0,42"/>
-            <Image Source="../Resources/coinsBox.png" Margin="755,118,287,595"/>
+            <Image Source="/Resources/shopBox.png" Margin="0,114,0,42"/>
+            <Image Source="/Resources/coinsBox.png" Margin="755,118,287,595"/>
 
             <Label Content="{x:Static p:Resources.lbCoins}" FontFamily="Titan One" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Top" 
                 FontSize="14" Margin="673,133,0,0" ></Label>

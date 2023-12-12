@@ -118,31 +118,42 @@
     <Compile Include="Utils\LoggerManager.cs" />
     <Compile Include="Utils\SoundsUtilities.cs" />
     <Compile Include="Utils\ValidationUtilities.cs" />
-    <Compile Include="Views\XAMLBan.xaml.cs">
+    <Compile Include="Views\GameBoard\GameBoardMatchManager.cs" />
+    <Compile Include="Views\GuestLobby\GuestLobbyPlayerColorsManager.cs" />
+    <Compile Include="Views\GuestLobby\GuestLobbyPlayerStylesManager.cs" />
+    <Compile Include="Views\Lobby\LobbyBanManager.cs" />
+    <Compile Include="Views\Lobby\LobbyFriendRequestManager.cs" />
+    <Compile Include="Views\Lobby\LobbyLobbyManager.cs" />
+    <Compile Include="Views\Lobby\LobbyOnlineUsersManager.cs" />
+    <Compile Include="Views\Lobby\LobbyPlayerColorsManager.cs" />
+    <Compile Include="Views\Lobby\LobbyPlayerStylesManager.cs" />
+    <Compile Include="Views\MyProfile\MyProfilePersonalInformation.cs" />
+    <Compile Include="Views\Victory\VictoryRematchManager.cs" />
+    <Compile Include="Views\Ban\XAMLBan.xaml.cs">
       <DependentUpon>XAMLBan.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLGameBoard.xaml.cs">
+    <Compile Include="Views\GameBoard\XAMLGameBoard.xaml.cs">
       <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLGlobalScoreboard.xaml.cs">
+    <Compile Include="Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml.cs">
       <DependentUpon>XAMLGlobalScoreboard.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLJoinGuest.xaml.cs">
+    <Compile Include="Views\JoinGuest\XAMLJoinGuest.xaml.cs">
       <DependentUpon>XAMLJoinGuest.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLGuestLobby.xaml.cs">
+    <Compile Include="Views\GuestLobby\XAMLGuestLobby.xaml.cs">
       <DependentUpon>XAMLGuestLobby.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLMyProfile.xaml.cs">
+    <Compile Include="Views\MyProfile\XAMLMyProfile.xaml.cs">
       <DependentUpon>XAMLMyProfile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLPasswordReset.xaml.cs">
+    <Compile Include="Views\PasswordReset\XAMLPasswordReset.xaml.cs">
       <DependentUpon>XAMLPasswordReset.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLShop.xaml.cs">
+    <Compile Include="Views\Shop\XAMLShop.xaml.cs">
       <DependentUpon>XAMLShop.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLVictory.xaml.cs">
+    <Compile Include="Views\Victory\XAMLVictory.xaml.cs">
       <DependentUpon>XAMLVictory.xaml</DependentUpon>
     </Compile>
     <Compile Include="XAMLMainWindow.xaml.cs">
@@ -155,10 +166,10 @@
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Utils\Utilities.cs" />
-    <Compile Include="Views\XAMLLobby.xaml.cs">
+    <Compile Include="Views\Lobby\XAMLLobby.xaml.cs">
       <DependentUpon>XAMLLobby.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\XAMLLogin.xaml.cs">
+    <Compile Include="Views\Login\XAMLLogin.xaml.cs">
       <DependentUpon>XAMLLogin.xaml</DependentUpon>
     </Compile>
     <Page Include="Components\Lobby\XAMLLobbyInvitationComponent.xaml">
@@ -193,41 +204,41 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLBan.xaml">
+    <Page Include="Views\Ban\XAMLBan.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLGameBoard.xaml">
+    <Page Include="Views\GameBoard\XAMLGameBoard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLGlobalScoreboard.xaml">
+    <Page Include="Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLJoinGuest.xaml">
+    <Page Include="Views\JoinGuest\XAMLJoinGuest.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\XAMLGuestLobby.xaml">
+    <Page Include="Views\GuestLobby\XAMLGuestLobby.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\XAMLMyProfile.xaml">
+    <Page Include="Views\MyProfile\XAMLMyProfile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLPasswordReset.xaml">
+    <Page Include="Views\PasswordReset\XAMLPasswordReset.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLShop.xaml">
+    <Page Include="Views\Shop\XAMLShop.xaml">
     </Page>
     <Page Include="Components\XAMLBeginnerCodeVerification.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLVictory.xaml">
+    <Page Include="Views\Victory\XAMLVictory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -235,7 +246,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLLobby.xaml">
+    <Page Include="Views\Lobby\XAMLLobby.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -248,15 +259,15 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Page Include="Views\XAMLLogin.xaml">
+    <Page Include="Views\Login\XAMLLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\XAMLUserForm.xaml">
+    <Page Include="Views\UserForm\XAMLUserForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Compile Include="Views\XAMLUserForm.xaml.cs">
+    <Compile Include="Views\UserForm\XAMLUserForm.xaml.cs">
       <DependentUpon>XAMLUserForm.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
