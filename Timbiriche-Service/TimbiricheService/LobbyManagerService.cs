@@ -9,7 +9,6 @@ using TimbiricheService.Match;
 
 namespace TimbiricheService
 {
-
     public partial class UserManagerService : ILobbyExistenceChecker
     {
         public bool ExistLobbyCode(string lobbyCode)
@@ -88,8 +87,8 @@ namespace TimbiricheService
                     if (numOfPlayersInLobby < 4)
                     {
                         lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(lobbyCode, playersInLobby);
-                        playersInLobby.Add(lobbyPlayer);
                         NotifyPlayerJoinToLobby(playersInLobby, lobbyPlayer, numOfPlayersInLobby, lobbyCode);
+                        playersInLobby.Add(lobbyPlayer);
                     }
                     else
                     {

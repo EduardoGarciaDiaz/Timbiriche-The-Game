@@ -121,7 +121,7 @@ namespace TimbiricheViews.Views
 
             try
             {
-                shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
+                styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
             }
             catch (EndpointNotFoundException ex)
             {

@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\obj\Debug\
 TimbiricheViews
 none
 false
 DEBUG;TRACE
-C:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
+C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
 22-2070111513
 3-1638773155
 37-261292889
-24543459188
+241915206066
 Components\Lobby\XAMLLobbyInvitationComponent.xaml;Components\Match\XAMLMessageItemComponent.xaml;Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLStyleItemComponent.xaml;Components\XAMLOptionsPlayerComponent.xaml;Components\XAMLFriendRequestItemComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\XAMLBan.xaml;Views\XAMLGameBoard.xaml;Views\XAMLGlobalScoreboard.xaml;Views\XAMLJoinGuest.xaml;Views\XAMLGuestLobby.xaml;Views\XAMLMyProfile.xaml;Views\XAMLPasswordReset.xaml;Views\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;Views\XAMLVictory.xaml;XAMLMainWindow.xaml;Views\XAMLLobby.xaml;Views\XAMLLogin.xaml;Views\XAMLUserForm.xaml;
 
 False
