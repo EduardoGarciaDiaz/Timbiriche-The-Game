@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -12,72 +15,124 @@ namespace TimbiricheService
     {
         public bool BuyColor(ShopColor color, int idPlayer)
         {
-            bool purchaseCompleted = ShopManagement.BuyColor(color.IdColor, idPlayer);
-
-            if (purchaseCompleted)
+            try
             {
-                purchaseCompleted = ShopManagement.SubstractPlayerCoins(idPlayer, color.ColorCost);
-            }
+                bool purchaseCompleted = ShopManagement.BuyColor(color.IdColor, idPlayer);
 
-            return purchaseCompleted;
+                if (purchaseCompleted)
+                {
+                    purchaseCompleted = ShopManagement.SubstractPlayerCoins(idPlayer, color.ColorCost);
+                }
+
+                return purchaseCompleted;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public bool BuyStyle(ShopStyle style, int idPlayer)
         {
-            bool purchaseCompleted = ShopManagement.BuyStyle(style.IdStyle, idPlayer);
-
-            if (purchaseCompleted)
+            try
             {
-                 purchaseCompleted = ShopManagement.SubstractPlayerCoins(idPlayer, style.StyleCost);
-            }
+                bool purchaseCompleted = ShopManagement.BuyStyle(style.IdStyle, idPlayer);
 
-            return purchaseCompleted;
+                if (purchaseCompleted)
+                {
+                    purchaseCompleted = ShopManagement.SubstractPlayerCoins(idPlayer, style.StyleCost);
+                }
+
+                return purchaseCompleted;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public List<ShopColor> GetColors(int idPlayer)
         {
-            List<Colors> colorsFromDataBase = ShopManagement.GetColors();
-            List<PlayerColors> playerColors = ShopManagement.GetPlayerColors(idPlayer);
-            List<ShopColor> colors = new List<ShopColor>();
-
-            foreach(Colors color in colorsFromDataBase)
+            try
             {
-                bool ownedColor = playerColors.Any(pc => pc.idColor ==  color.idColor);
+                List<Colors> colorsFromDataBase = ShopManagement.GetColors();
+                List<PlayerColors> playerColors = ShopManagement.GetPlayerColors(idPlayer);
+                List<ShopColor> colors = new List<ShopColor>();
 
-                ShopColor singleColor = new ShopColor();
-                singleColor.IdColor = color.idColor;
-                singleColor.ColorName = color.colorName;
-                singleColor.ColorCost = (int) color.cost;
-                singleColor.HexadecimalCode = color.hexadecimalCode;
-                singleColor.OwnedColor = ownedColor;
+                foreach (Colors color in colorsFromDataBase)
+                {
+                    bool ownedColor = playerColors.Any(pc => pc.idColor == color.idColor);
 
-                colors.Add(singleColor);
+                    ShopColor singleColor = new ShopColor();
+                    singleColor.IdColor = color.idColor;
+                    singleColor.ColorName = color.colorName;
+                    singleColor.ColorCost = (int)color.cost;
+                    singleColor.HexadecimalCode = color.hexadecimalCode;
+                    singleColor.OwnedColor = ownedColor;
+
+                    colors.Add(singleColor);
+                }
+
+                return colors;
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return colors;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
 
         public List<ShopStyle> GetStyles(int idPlayer)
         {
-            List<Styles> stylesFromDataBase = ShopManagement.GetStyles();
-            List<PlayerStyles> playerStyles = ShopManagement.GetPlayerStyles(idPlayer);
-            List<ShopStyle> styles = new List<ShopStyle>();
-
-            foreach (Styles style in stylesFromDataBase)
+            try
             {
-                bool ownedStyle = playerStyles.Any(ps => ps.idStyle == style.idStyle);
+                List<Styles> stylesFromDataBase = ShopManagement.GetStyles();
+                List<PlayerStyles> playerStyles = ShopManagement.GetPlayerStyles(idPlayer);
+                List<ShopStyle> styles = new List<ShopStyle>();
 
-                ShopStyle singleStyle = new ShopStyle();
-                singleStyle.IdStyle = style.idStyle;
-                singleStyle.StyleName = style.styleName;
-                singleStyle.StyleCost = (int)style.cost;
-                singleStyle.StylePath = style.path;
-                singleStyle.OwnedStyle = ownedStyle;
+                foreach (Styles style in stylesFromDataBase)
+                {
+                    bool ownedStyle = playerStyles.Any(ps => ps.idStyle == style.idStyle);
 
-                styles.Add(singleStyle);
+                    ShopStyle singleStyle = new ShopStyle();
+                    singleStyle.IdStyle = style.idStyle;
+                    singleStyle.StyleName = style.styleName;
+                    singleStyle.StyleCost = (int)style.cost;
+                    singleStyle.StylePath = style.path;
+                    singleStyle.OwnedStyle = ownedStyle;
+
+                    styles.Add(singleStyle);
+                }
+
+                return styles;
             }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
 
-            return styles;
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 }

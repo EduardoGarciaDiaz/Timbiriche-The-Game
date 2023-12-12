@@ -8,7 +8,9 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
