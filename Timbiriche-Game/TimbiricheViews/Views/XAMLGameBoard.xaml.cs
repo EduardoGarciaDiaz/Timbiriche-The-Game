@@ -641,8 +641,12 @@ namespace TimbiricheViews.Views
             }
             finally
             {
-                LeftMatch();
+                _turnTimer.Stop();
+                _matchTimer.Stop();
+                _dispatchTimer.Stop();
             }
+
+            LeftMatch();
         }
 
         private void ImageExitMenu_MouseEnter(object sender, MouseEventArgs e)

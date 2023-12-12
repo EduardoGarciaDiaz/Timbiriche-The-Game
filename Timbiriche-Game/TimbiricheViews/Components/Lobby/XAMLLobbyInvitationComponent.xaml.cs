@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -10,7 +11,9 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components.Lobby
@@ -75,7 +78,35 @@ namespace TimbiricheViews.Components.Lobby
             if (ValidateEmail())
             {
                 Server.InvitationManagerClient invitationManagerClient = new Server.InvitationManagerClient();
-                invitationManagerClient.SendInvitationToEmail(_lobbyCode, tbxFriendEmail.Text.Trim());
+
+                try
+                {
+                    invitationManagerClient.SendInvitationToEmail(_lobbyCode, tbxFriendEmail.Text.Trim());
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleComponentErrorException(ex);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleComponentErrorException(ex);
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleComponentErrorException(ex);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleComponentFatalException(ex);
+                }
             }   
         }
 

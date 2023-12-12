@@ -71,9 +71,42 @@ namespace TimbiricheViews.Components.Match
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
 
+            ReportMessage(idPlayerReporter);
+        }
+
+        private void ReportMessage(int idPlayerReporter)
+        {
             InstanceContext context = new InstanceContext(this);
             Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
-            banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
+
+            try
+            {
+                banManagerClient.ReportMessage(_idSenderPlayer, idPlayerReporter);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleComponentErrorException(ex);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleComponentFatalException(ex);
+            }
         }
     }
 
