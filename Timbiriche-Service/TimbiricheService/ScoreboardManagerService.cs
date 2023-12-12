@@ -49,15 +49,26 @@ namespace TimbiricheService
             return globalScores;
         }
 
-
-
         public int UpdateWins(int idPlayer)
         {
             GlobalScoresManagement dataAccess = new GlobalScoresManagement();
-            int response = dataAccess.UpdateWinsPlayer(idPlayer);
-            UpdateGlobalScore();
+            try
+            {
+                int response = dataAccess.UpdateWinsPlayer(idPlayer);
+                UpdateGlobalScore();
 
-            return response;
+                return response;
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+            }
         }
     }
 
@@ -95,7 +106,7 @@ namespace TimbiricheService
 
         public void UpdateGlobalScore()
         {
-            foreach (var user in globalScoreRealTime)
+            foreach (var user in globalScoreRealTime.ToList())
             {
                 try
                 {
