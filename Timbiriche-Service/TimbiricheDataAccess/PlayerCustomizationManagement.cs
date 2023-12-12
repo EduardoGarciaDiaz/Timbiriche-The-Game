@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.Remoting.Contexts;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -11,13 +15,31 @@ namespace TimbiricheDataAccess
     {
         public List<PlayerColors> GetMyColorsByIdPlayer(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var myColors = (from pc in context.PlayerColors
-                                where pc.idPlayer == idPlayer
-                                select pc).ToList();
-                
-                 return myColors;
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var myColors = (from pc in context.PlayerColors
+                                    where pc.idPlayer == idPlayer
+                                    select pc).ToList();
+
+                    return myColors;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -25,16 +47,34 @@ namespace TimbiricheDataAccess
         {
             string hexadecimalColor = null;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var colorEntity = context.Colors.Where(c => c.idColor == idColor).FirstOrDefault<Colors>();
-
-                if (colorEntity != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    hexadecimalColor = colorEntity.hexadecimalCode;
-                }
+                    var colorEntity = context.Colors.Where(c => c.idColor == idColor).FirstOrDefault<Colors>();
 
-                return hexadecimalColor;
+                    if (colorEntity != null)
+                    {
+                        hexadecimalColor = colorEntity.hexadecimalCode;
+                    }
+
+                    return hexadecimalColor;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -44,12 +84,30 @@ namespace TimbiricheDataAccess
 
             if (idPlayer > 0)
             {
-                using (var context = new TimbiricheDBEntities())
+                try
                 {
-                    var player = context.Players.Find(idPlayer);
-                    player.idColorSelected = idColor;
+                    using (var context = new TimbiricheDBEntities())
+                    {
+                        var player = context.Players.Find(idPlayer);
+                        player.idColorSelected = idColor;
 
-                    rowsAffected = context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    HandlerException.HandleFatalException(ex);
+                    throw new DataAccessException(ex.Message);
                 }
             }            
 
@@ -60,16 +118,34 @@ namespace TimbiricheDataAccess
         {
             bool hasColor = false;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerColor = (from pc in context.PlayerColors
-                                where pc.idPlayer == idPlayer && pc.idColor == idColor
-                                select pc).ToList();
-
-                if (playerColor.Count > 0)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    hasColor = true;
+                    var playerColor = (from pc in context.PlayerColors
+                                       where pc.idPlayer == idPlayer && pc.idColor == idColor
+                                       select pc).ToList();
+
+                    if (playerColor.Count > 0)
+                    {
+                        hasColor = true;
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return hasColor;
@@ -77,13 +153,31 @@ namespace TimbiricheDataAccess
 
         public List<PlayerStyles> GetMyStylesByIdPlayer(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var myStyles = (from ps in context.PlayerStyles
-                                where ps.idPlayer == idPlayer
-                                select ps).ToList();
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var myStyles = (from ps in context.PlayerStyles
+                                    where ps.idPlayer == idPlayer
+                                    select ps).ToList();
 
-                return myStyles;
+                    return myStyles;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -91,16 +185,34 @@ namespace TimbiricheDataAccess
         {
             string stylePath = null;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var styleEntity = context.Styles.Where(s => s.idStyle == idStyle).FirstOrDefault<Styles>();
-
-                if (styleEntity != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    stylePath = styleEntity.path;
-                }
+                    var styleEntity = context.Styles.Where(s => s.idStyle == idStyle).FirstOrDefault<Styles>();
 
-                return stylePath;
+                    if (styleEntity != null)
+                    {
+                        stylePath = styleEntity.path;
+                    }
+
+                    return stylePath;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -110,12 +222,30 @@ namespace TimbiricheDataAccess
 
             if (idPlayer > 0)
             {
-                using (var context = new TimbiricheDBEntities())
+                try
                 {
-                    var player = context.Players.Find(idPlayer);
-                    player.idStyleSelected = idStyle;
+                    using (var context = new TimbiricheDBEntities())
+                    {
+                        var player = context.Players.Find(idPlayer);
+                        player.idStyleSelected = idStyle;
 
-                    rowsAffected = context.SaveChanges();
+                        rowsAffected = context.SaveChanges();
+                    }
+                }
+                catch (EntityException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    throw new DataAccessException(ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    HandlerException.HandleFatalException(ex);
+                    throw new DataAccessException(ex.Message);
                 }
             }
                 

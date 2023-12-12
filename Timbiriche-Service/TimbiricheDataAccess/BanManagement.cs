@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Numerics;
 using System.Runtime.InteropServices.ComTypes;
 using System.Text;
 using System.Threading.Tasks;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheDataAccess
 {
@@ -12,25 +16,43 @@ namespace TimbiricheDataAccess
     {
         public static bool CreateReport(int idPlayerReported, int idPlayerReporter, DateTime reportDate)
         {
-            int rowsAffected = 0;
+            int rowsAffected = -1;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerReported = context.Players.Find(idPlayerReported);
-                var playerReporter = context.Players.Find(idPlayerReporter);
-
-                if(playerReported != null && playerReporter != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    var newReport = new Reports
-                    {
-                        idPlayerReported = idPlayerReported,
-                        idPlayerReporter = idPlayerReporter,
-                        reportDate = reportDate
-                    };
+                    var playerReported = context.Players.Find(idPlayerReported);
+                    var playerReporter = context.Players.Find(idPlayerReporter);
 
-                    context.Reports.Add(newReport);
-                    rowsAffected = context.SaveChanges();
-                }            
+                    if (playerReported != null && playerReporter != null)
+                    {
+                        var newReport = new Reports
+                        {
+                            idPlayerReported = idPlayerReported,
+                            idPlayerReporter = idPlayerReporter,
+                            reportDate = reportDate
+                        };
+
+                        context.Reports.Add(newReport);
+                        rowsAffected = context.SaveChanges();
+                    }
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected > 0;
@@ -40,21 +62,39 @@ namespace TimbiricheDataAccess
         {
             bool isUniqueReport = false;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerReported = context.Players.Find(idPlayerReported);
-                var playerReporter = context.Players.Find(idPlayerReporter);
-
-                if (playerReported != null && playerReporter != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    var query = context.Reports
-                        .Where(r => r.idPlayerReported == idPlayerReported)
-                        .Where(r => r.idPlayerReporter == idPlayerReporter);
+                    var playerReported = context.Players.Find(idPlayerReported);
+                    var playerReporter = context.Players.Find(idPlayerReporter);
 
-                    isUniqueReport = (query.Count() == 1) ? true : false;
+                    if (playerReported != null && playerReporter != null)
+                    {
+                        var query = context.Reports
+                            .Where(r => r.idPlayerReported == idPlayerReported)
+                            .Where(r => r.idPlayerReporter == idPlayerReporter);
+
+                        isUniqueReport = (query.Count() == 1) ? true : false;
+                    }
+
+                    return isUniqueReport;
                 }
-
-                return isUniqueReport;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -62,17 +102,36 @@ namespace TimbiricheDataAccess
         {
             int numberOfReports = 0;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerReported = context.Players.Find(idPlayerReported);
+                using (var context = new TimbiricheDBEntities())
+                {
+                    var playerReported = context.Players.Find(idPlayerReported);
 
-                if(playerReported != null){
-                    numberOfReports = context.Reports
-                        .Where(r => r.idPlayerReported == idPlayerReported)
-                        .Count();
+                    if (playerReported != null)
+                    {
+                        numberOfReports = context.Reports
+                            .Where(r => r.idPlayerReported == idPlayerReported)
+                            .Count();
+                    }
+
+                    return numberOfReports;
                 }
-
-                return numberOfReports;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -80,18 +139,36 @@ namespace TimbiricheDataAccess
         {
             int numberOfBans = 0;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var player = context.Players.Find(idPlayer);
-
-                if (player != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    numberOfBans = context.Bans
-                        .Where(b => b.idBannedPlayer == idPlayer)
-                        .Count();
-                }
+                    var player = context.Players.Find(idPlayer);
 
-                return numberOfBans;
+                    if (player != null)
+                    {
+                        numberOfBans = context.Bans
+                            .Where(b => b.idBannedPlayer == idPlayer)
+                            .Count();
+                    }
+
+                    return numberOfBans;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
@@ -99,22 +176,40 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = 0;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var player = context.Players.Find(idPlayer);
-
-                if (player != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    var newBan = new Bans
-                    {
-                        idBannedPlayer = idPlayer,
-                        startDate = startDate,
-                        endDate = endDate
-                    };
+                    var player = context.Players.Find(idPlayer);
 
-                    context.Bans.Add(newBan);
-                    rowsAffected = context.SaveChanges();
+                    if (player != null)
+                    {
+                        var newBan = new Bans
+                        {
+                            idBannedPlayer = idPlayer,
+                            startDate = startDate,
+                            endDate = endDate
+                        };
+
+                        context.Bans.Add(newBan);
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected > 0;
@@ -124,18 +219,36 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = 0;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var player = context.Players.Find(idPlayer);
-
-                if (player != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    var reportsToRemove = context.Reports
-                                        .Where(r => r.idPlayerReported == idPlayer);
+                    var player = context.Players.Find(idPlayer);
 
-                    context.Reports.RemoveRange(reportsToRemove);
-                    rowsAffected = context.SaveChanges();
+                    if (player != null)
+                    {
+                        var reportsToRemove = context.Reports
+                                            .Where(r => r.idPlayerReported == idPlayer);
+
+                        context.Reports.RemoveRange(reportsToRemove);
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected > 0;
@@ -145,15 +258,33 @@ namespace TimbiricheDataAccess
         {
             int rowsAffected = 0;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerToUpdate = context.Players.Find(idPlayer);
-
-                if(playerToUpdate != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    playerToUpdate.status = status;
-                    rowsAffected = context.SaveChanges();
+                    var playerToUpdate = context.Players.Find(idPlayer);
+
+                    if (playerToUpdate != null)
+                    {
+                        playerToUpdate.status = status;
+                        rowsAffected = context.SaveChanges();
+                    }
                 }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
 
             return rowsAffected > 0;
@@ -163,37 +294,73 @@ namespace TimbiricheDataAccess
         {
             DateTime banEndDate = DateTime.MinValue;
 
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                var playerToUpdate = context.Players.Find(idPlayer);
-
-                if (playerToUpdate != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    var ban = context.Bans
-                        .Where(b => b.idBannedPlayer == idPlayer)
-                        .OrderByDescending(b => b.startDate)
-                        .FirstOrDefault();
+                    var playerToUpdate = context.Players.Find(idPlayer);
 
-                    banEndDate = (DateTime)ban.endDate;
+                    if (playerToUpdate != null)
+                    {
+                        var ban = context.Bans
+                            .Where(b => b.idBannedPlayer == idPlayer)
+                            .OrderByDescending(b => b.startDate)
+                            .FirstOrDefault();
+
+                        banEndDate = (DateTime)ban.endDate;
+                    }
+
+                    return banEndDate;
                 }
-
-                return banEndDate;
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
 
         public static string GetPlayerStatusByIdPlayer(int idPlayer)
         {
-            using (var context = new TimbiricheDBEntities())
+            try
             {
-                string playerStatus = null;
-                var player = context.Players.Find(idPlayer);
-
-                if(player != null)
+                using (var context = new TimbiricheDBEntities())
                 {
-                    playerStatus = player.status;
-                }
+                    string playerStatus = null;
+                    var player = context.Players.Find(idPlayer);
 
-                return playerStatus;
+                    if (player != null)
+                    {
+                        playerStatus = player.status;
+                    }
+
+                    return playerStatus;
+                }
+            }
+            catch (EntityException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (SqlException ex)
+            {
+                HandlerException.HandleErrorException(ex);
+                throw new DataAccessException(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                HandlerException.HandleFatalException(ex);
+                throw new DataAccessException(ex.Message);
             }
         }
     }

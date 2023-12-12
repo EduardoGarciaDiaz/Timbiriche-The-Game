@@ -5,10 +5,8 @@ using System.Data.Entity.Core;
 using System.Data.Entity.Validation;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TimbiricheDataAccess;
-using TimbiricheService.Utils;
+using TimbiricheDataAccess.Utils;
 using Xunit;
 
 namespace TimbiricheTests.UnitTestsDataAccess

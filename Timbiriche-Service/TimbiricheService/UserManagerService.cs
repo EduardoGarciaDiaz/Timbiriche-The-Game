@@ -14,7 +14,6 @@ using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
 using TimbiricheService.Exceptions;
-using TimbiricheService.Utils;
 
 namespace TimbiricheService
 {

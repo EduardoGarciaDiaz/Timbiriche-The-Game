@@ -4,11 +4,8 @@ using System.Collections.Generic;
 using System.Data.Entity.Core;
 using System.Data.SqlClient;
 using System.Linq;
-using System.Runtime.Remoting.Contexts;
-using System.Text;
-using System.Threading.Tasks;
 using TimbiricheDataAccess;
-using TimbiricheService.Utils;
+using TimbiricheDataAccess.Utils;
 using Xunit;
 
 namespace TimbiricheTests.UnitTestsDataAccess
