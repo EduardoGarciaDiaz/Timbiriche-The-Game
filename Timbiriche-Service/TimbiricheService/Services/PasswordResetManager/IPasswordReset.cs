@@ -12,8 +12,10 @@ namespace TimbiricheService
     {
         [OperationContract]
         bool SendResetToken(string email);
+
         [OperationContract]
         bool ValidateResetToken(string email, int token);
+        
         [OperationContract]
         bool ChangePassword(string newPassword, string email);
     }

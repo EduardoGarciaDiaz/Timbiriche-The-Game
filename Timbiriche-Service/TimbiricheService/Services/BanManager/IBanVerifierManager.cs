@@ -8,11 +8,12 @@ using System.Threading.Tasks;
 namespace TimbiricheService
 {
     [ServiceContract]
-    internal interface IEmailVerificationManager
+    public interface IBanVerifierManager
     {
         [OperationContract]
-        bool SendEmailToken(string email);
+        BanInformation VerifyBanEndDate(int idPlayer);
+
         [OperationContract]
-        bool VerifyEmailToken(string token);
+        bool VerifyPlayerIsBanned(int idPlayer);
     }
 }
