@@ -305,7 +305,15 @@ namespace TimbiricheService
 
                 foreach (var user in onlineUsers)
                 {
-                    user.Value.NotifyUserLoggedOut(username);
+                    try
+                    {
+                        user.Value.NotifyUserLoggedOut(username);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
         }

@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -41,12 +42,28 @@ namespace TimbiricheService
                 if (reportCreated)
                 {
                     VerifyBanNeed(idPlayerReported, currentDateTime);
-                    currentUserCallbackChannel.NotifyReportCompleted();
+                    try
+                    {
+                        currentUserCallbackChannel.NotifyReportCompleted();
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
             else
             {
-                currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                try
+                {
+                    currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    // TODO: Manage channels
+                }
             }
         }
 
@@ -63,12 +80,28 @@ namespace TimbiricheService
                     if (reportCreated)
                     {
                         VerifyBanNeedFromLobby(lobbyCode, idPlayerReported, currentDateTime);
-                        currentUserCallbackChannel.NotifyReportCompleted();
+                        try
+                        {
+                            currentUserCallbackChannel.NotifyReportCompleted();
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerException.HandleErrorException(ex);
+                            // TODO: Manage channels
+                        }
                     }
                 }
                 else
                 {
-                    currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                    try
+                    {
+                        currentUserCallbackChannel.NotifyPlayerAlreadyReported();
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        // TODO: Manage channels
+                    }
                 }
             }
         }
@@ -90,7 +123,16 @@ namespace TimbiricheService
                 {
                     if (player.Username == username)
                     {
-                        player.BanManagerChannel.NotifyPlayerBanned(idPlayerReported);
+                        try
+                        {
+                            player.BanManagerChannel.NotifyPlayerBanned(idPlayerReported);
+                            
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerException.HandleErrorException(ex);
+                            // TODO: Manage channels
+                        }
                         break;
                     }
                 }
