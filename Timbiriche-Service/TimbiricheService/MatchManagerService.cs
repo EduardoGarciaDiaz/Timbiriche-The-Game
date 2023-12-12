@@ -1,10 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Numerics;
 using System.ServiceModel;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Exceptions;
+using TimbiricheDataAccess.Utils;
+using TimbiricheService.Exceptions;
 using TimbiricheService.Match;
 
 namespace TimbiricheService
@@ -39,13 +45,7 @@ namespace TimbiricheService
         {
             Match.Match match = matches[lobbyCode];
 
-            foreach (LobbyPlayer player in match.Players)
-            {
-                if (player != match.GetTurnPlayer())
-                {
-                        player.MatchCallbackChannel.NotifyMovement(movement);
-                }
-            }
+            NotifyMovement(lobbyCode, match, movement);
 
             int earnedPoints = movement.EarnedPoints;
 
@@ -53,22 +53,45 @@ namespace TimbiricheService
             {
                 LobbyPlayer playerScoringPoints = match.GetTurnPlayer();
                 match.ScorePointsToPlayer(playerScoringPoints, earnedPoints);
-                matches[lobbyCode] = match;
 
-                //foreach (LobbyPlayer player in match.Players)
-                //{
-                //    player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
-                //    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
-                //}
-                foreach (var playerCallbackChannel in match.Players.Select(player => player.MatchCallbackChannel))
+                foreach (LobbyPlayer player in match.Players.ToList())
                 {
-                    playerCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
-                    playerCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
+                        player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
+                    
                 }
+
             }
             else
             {
                 NotifyTurns(lobbyCode);
+            }
+        }
+
+        private void NotifyMovement(string lobbyCode, Match.Match match, Movement movement)
+        {
+            foreach (LobbyPlayer player in match.Players.ToList())
+            {
+                if (player != match.GetTurnPlayer())
+                {
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyMovement(movement);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
+                }
             }
         }
 
@@ -90,19 +113,39 @@ namespace TimbiricheService
                 {
                     int coinsEarned = CoinsEarn.CalculateExtraCoins(playerPosition, scoreboard[playerPosition].Value);
 
-                    CoinsManagement coinsManagement = new CoinsManagement();
-                    coinsManagement.UpdateCoins(player.Username, coinsEarned);
+                    UpdateCoins(player.Username, coinsEarned);
 
                     try
                     {
                         player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
-                    } 
-                    catch(FaultException ex)
+                    }
+                    catch (CommunicationException ex)
                     {
-                        Console.WriteLine($"Fault Exception: {ex.Message}");
-                        Console.WriteLine($"Detail: {ex.StackTrace}");
+                        HandlerException.HandleErrorException(ex);
+                        match.DeletePlayerFromMatch(player);
                     }
                 }
+            }
+        }
+
+        private void UpdateCoins(string username, int coinsEarned)
+        {
+            CoinsManagement coinsManagement = new CoinsManagement();
+
+            try
+            {
+                coinsManagement.UpdateCoins(username, coinsEarned);
+
+            }
+            catch (DataAccessException ex)
+            {
+                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                {
+                    Message = ex.Message,
+                    StackTrace = ex.StackTrace
+                };
+
+                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
         }
 
@@ -110,11 +153,19 @@ namespace TimbiricheService
         {
             Match.Match match = matches[lobbyCode];
 
-            foreach (LobbyPlayer player in match.Players)
+            foreach (LobbyPlayer player in match.Players.ToList())
             {
                 if (player.Username != senderUsername)
                 {
-                    player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
                 }
             }
         }
@@ -123,7 +174,7 @@ namespace TimbiricheService
         {
             Match.Match match = matches[lobbyCode];
             LobbyPlayer playerToDelete = null;
-            bool isPlayerOnDuty = (match.GetTurnPlayer().Username == username) ? true : false;
+            bool isPlayerOnDuty = (match.GetTurnPlayer().Username == username);
 
             foreach (LobbyPlayer player in match.Players)
             {
@@ -134,18 +185,29 @@ namespace TimbiricheService
             }
 
             match.DeletePlayerFromMatch(playerToDelete);
-            matches[lobbyCode] = match;
+            NotifyPlayerLeftLobby(lobbyCode, match, isPlayerOnDuty);
+        }
 
-            if(match.GetNumberOfPlayerInMatch() == 1)
+        private void NotifyPlayerLeftLobby(string lobbyCode, Match.Match match, bool isPlayerOnDuty)
+        {
+            if (match.GetNumberOfPlayerInMatch() == 1)
             {
                 LobbyPlayer player = match.Players.FirstOrDefault();
-                player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
 
-                matches.Remove(lobbyCode);
+                try
+                {
+                    player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
+                    matches.Remove(lobbyCode);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    LeftMatch(lobbyCode, player.Username);
+                }
             }
             else
             {
-                NotifyPlayerNumberUpdate(match, isPlayerOnDuty);
+                NotifyPlayerNumberUpdate(lobbyCode, match, isPlayerOnDuty);
             }
         }
 
@@ -156,28 +218,45 @@ namespace TimbiricheService
 
             LobbyPlayer temporalPlayer = match.GetTurnPlayer();
 
-            foreach (LobbyPlayer player in match.Players)
+            foreach (LobbyPlayer player in match.Players.ToList())
             {
-                player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+                try
+                {
+                    player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    LeftMatch(lobbyCode, player.Username);
+                }
             }
 
             matches[lobbyCode] = match;
         }
 
-        private void NotifyPlayerNumberUpdate(Match.Match match, bool isPlayerOnDuty)
+        private void NotifyPlayerNumberUpdate(string lobbyCode, Match.Match match, bool isPlayerOnDuty)
         {
             LobbyPlayer newTurnPlayer = match.GetTurnPlayer();
             List<KeyValuePair<LobbyPlayer, int>> scoreboard = match.GetScoreboard();
 
-            foreach (LobbyPlayer player in match.Players)
+            foreach (LobbyPlayer player in match.Players.ToList())
             {
-                player.MatchCallbackChannel.NotifyPlayerLeftMatch();
-                player.MatchCallbackChannel.NotifyNewScoreboard(scoreboard);
-
-                if (isPlayerOnDuty)
+                try
                 {
-                    player.MatchCallbackChannel.NotifyNewTurn(newTurnPlayer.Username);
+                    player.MatchCallbackChannel.NotifyPlayerLeftMatch();
+                    player.MatchCallbackChannel.NotifyNewScoreboard(scoreboard);
+
+                    if (isPlayerOnDuty)
+                    {
+                        player.MatchCallbackChannel.NotifyNewTurn(newTurnPlayer.Username);
+                    }
                 }
+                catch (CommunicationException ex)
+                {
+                    HandlerException.HandleErrorException(ex);
+                    LeftMatch(lobbyCode, player.Username);
+                }
+                
             }
         }
 
@@ -188,11 +267,19 @@ namespace TimbiricheService
 
             if (match.AreAllPlayersConnected())
             {
-                foreach (var player in match.Players)
+                foreach (var player in match.Players.ToList())
                 {
-                    player.MatchCallbackChannel.NotifyFirstTurn(lobbyInformation.MatchDurationInMinutes, lobbyInformation.TurnDurationInMinutes,
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyFirstTurn(lobbyInformation.MatchDurationInMinutes, lobbyInformation.TurnDurationInMinutes,
                                                                 match.GetTurnPlayer().Username);
-                    player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                        player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerException.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
                 }
             }
         }

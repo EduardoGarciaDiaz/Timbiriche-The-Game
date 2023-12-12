@@ -103,7 +103,6 @@
     <Compile Include="ScoreboardManagerService.cs" />
     <Compile Include="ShopManagerService.cs" />
     <Compile Include="UserManagerService.cs" />
-    <Compile Include="Utils\LoggerManager.cs" />
     <Compile Include="Utils\ServerUtils.cs" />
   </ItemGroup>
   <ItemGroup>

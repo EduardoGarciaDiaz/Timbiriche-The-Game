@@ -9,7 +9,6 @@ using System.Text;
 using System.Threading.Tasks;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Utils;
-using TimbiricheService.Utils;
 using Xunit;
 
 
@@ -17,7 +16,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 {
     public class ConfigurationShopManagementTests : IDisposable
     {
-        private ILogger _logger = TimbiricheDataAccess.Utils.LoggerManager.GetLogger();
+        private ILogger _logger = LoggerManager.GetLogger();
 
         public ConfigurationShopManagementTests()
         {
