@@ -15,7 +15,7 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IFriendRequestManager 
     {
-        protected static Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
+        private static Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
 
         public void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer)
         {
