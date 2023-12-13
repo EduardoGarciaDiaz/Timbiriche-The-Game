@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace TimbiricheViews.Utils
 {
@@ -17,12 +12,20 @@ namespace TimbiricheViews.Utils
         private const string VALID_CAPITAL_LETTERS = "^(?=.*[A-Z])";
         private const string VALID_LOWER_LETTERS = "^(?=.*[a-z])";
         private const string VALID_NUMBERS = "^(?=.*\\d)";
+        private const string VALID_SURNAME = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]{0,50}$";
 
         public static bool IsValidPersonalInformation(string personalInformation)
         {
             Regex regex = new Regex(VALID_PERSONAL_INFORMATION);
 
             return regex.IsMatch(personalInformation.Trim());
+        }
+
+        public static bool IsValidSurname(string surname)
+        {
+            Regex regex = new Regex(VALID_SURNAME);
+
+            return regex.IsMatch(surname.Trim());
         }
 
         public static bool IsValidUsername(string username)

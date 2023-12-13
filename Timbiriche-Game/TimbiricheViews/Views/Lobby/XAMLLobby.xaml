@@ -70,7 +70,7 @@
             </Grid>
 
 
-            <Button Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
+            <Button x:Name="btnSignOff" Content="{x:Static p:Resources.btnSignOff}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#FFF61D1D" Margin="10,696,968,10" Click="BtnSignOff_Click" Cursor="Hand"/>
 
             <Grid x:Name="gridMatchCreation" Margin="842,500,19,28" Visibility="Visible">
                 <Button Content="{x:Static p:Resources.btnCreateMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Click="BtnCreateMatch_Click" Margin="0,99,0,0"/>
@@ -78,16 +78,15 @@
                 <Button Margin="260,0,0,163" Background="#FFFFD600" Height="79"  Click="BtnScoreboard_Click" Cursor="Hand">
                     <Grid>
                         <Image Source="/Resources/scoreboardIcon.png" Margin="15,5,14,18" />
-                        <TextBlock Text="Marcador" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" Margin="10,57,0,0" FontWeight="Bold" />
+                        <TextBlock Text="{x:Static p:Resources.lbScoreboard}" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Inter" Margin="10,57,0,0" FontWeight="Bold" />
                     </Grid>
                 </Button>
             </Grid>
 
             <Grid x:Name="gridMatchControl" Margin="842,500,19,28" Visibility="Collapsed">
                 <Button x:Name="btnStartMatch" Content="{x:Static p:Resources.btnStartMatch}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#00EFFE" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnStartMatch_Click"/>
-                <Button Content="{x:Static p:Resources.btnJoinCode}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#359EFF" Cursor="Hand" Margin="237,0,0,163"/>
-                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,234,163" Click="BtnExit_Click"/>
-                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="110,0,107,163" Click="BtnInviteToLobby_Click"/>
+                <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,174,163" Click="BtnExit_Click"/>
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#49BF36" Cursor="Hand" Margin="170,0,0,163" Click="BtnInviteToLobby_Click"/>
             </Grid>
 
             <Grid x:Name="gridMatchControlNotLeadPlayer" Margin="842,500,19,28" Visibility="Collapsed">

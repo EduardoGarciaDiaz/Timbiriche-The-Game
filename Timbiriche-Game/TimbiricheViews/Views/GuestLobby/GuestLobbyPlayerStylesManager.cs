@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using System.Windows;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using Path = System.IO.Path;
 
 namespace TimbiricheViews.Views
 {
@@ -19,6 +14,7 @@ namespace TimbiricheViews.Views
         private const int ID_DEFAULT_STYLE = 1;
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private string _lobbyCode;
+
 
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
         {
@@ -132,6 +128,11 @@ namespace TimbiricheViews.Views
             string username = lobbyPlayer.Username;
             int idStyle = lobbyPlayer.IdStylePath;
 
+            UpdateStyleOfPlayers(username, idStyle);
+        }
+
+        private void UpdateStyleOfPlayers(string username, int idStyle)
+        {
             if (lbSecondPlayerUsername.Content.Equals(username))
             {
                 LoadFaceBox(lbSecondPlayerFaceBox, idStyle, username);

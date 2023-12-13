@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Serilog;
+using System;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Media;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Markup;
+using System.Windows.Media;
+using System.Windows.Shapes;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using System.Windows.Shapes;
-using System.Windows.Markup;
-using Serilog;
 
 namespace TimbiricheViews.Views
 {

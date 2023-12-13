@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using System.Globalization;
 
 namespace TimbiricheViews.Views
 {
@@ -124,16 +120,16 @@ namespace TimbiricheViews.Views
 
         private void ShowAccountModifiedMessage()
         {
-            string titleEmergentWindow = "Cuenta modificada";
-            string descriptionEmergentWindow = "Se ha modificado con éxito";
+            string titleEmergentWindow = Properties.Resources.lbAccountModifiedTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkAccountModifiedDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
         private void ShowModifyAccountFailMessage()
         {
-            string titleEmergentWindow = "Error al modificar";
-            string descriptionEmergentWindow = "No fue posible realizar los cambios, por favor intenta de nuevo";
+            string titleEmergentWindow = Properties.Resources.lbModifyAccountFailTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkModifyAccountFailDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
@@ -151,6 +147,12 @@ namespace TimbiricheViews.Views
                 tbxName.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
 
+                isValid = false;
+            }
+
+            if (!ValidationUtilities.IsValidSurname(tbxSurname.Text.Trim()))
+            {
+                tbxSurname.Style = (Style)FindResource(errorTextBoxStyle);
                 isValid = false;
             }
 
@@ -195,6 +197,7 @@ namespace TimbiricheViews.Views
             tbxName.Style = (Style)FindResource(normalTextBoxStyle);
             tbxLastName.Style = (Style)FindResource(normalTextBoxStyle);
             dpBirthdate.Style = (Style)FindResource(normalDatePickerStyle);
+            tbxSurname.Style = (Style)FindResource(normalTextBoxStyle);
 
             ImgNameErrorDetails.Visibility = Visibility.Hidden;
             ImgLastNameErrorDetails.Visibility = Visibility.Hidden;

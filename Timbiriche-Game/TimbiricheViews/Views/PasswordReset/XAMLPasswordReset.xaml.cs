@@ -1,18 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
@@ -211,15 +203,15 @@ namespace TimbiricheViews.Views
         {
             if (isPasswordReseted)
             {
-                string title = "Contraseña Cambiada";
-                string message = "La contraseña fue cambiada con éxito";
+                string title = Properties.Resources.lbPasswordResetedTitle;
+                string message = Properties.Resources.tbkPasswordResetedDescription;
                 EmergentWindows.CreateEmergentWindow(title, message);
                 NavigationService.GoBack();
             }
             else
             {
-                string title = "Error al Cambiar Contraseña";
-                string message = "Hubo un error al cambiar la contraeña. Intentelo mas tarde.";
+                string title = Properties.Resources.lbErrorPasswordResetTitle;
+                string message = Properties.Resources.tbkErrorPasswordResetDescription;
                 EmergentWindows.CreateEmergentWindow(title, message);
             }
         }

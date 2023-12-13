@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
-using System.Windows;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -23,6 +20,7 @@ namespace TimbiricheViews.Views
             _lobbyCode = lobbyCode;
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
+            btnSignOff.Visibility = Visibility.Collapsed;
 
             ShowSelectPlayerColorGrid();
             ValidateStartOfMatch();
@@ -111,6 +109,7 @@ namespace TimbiricheViews.Views
         {
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControlNotLeadPlayer.Visibility = Visibility.Visible;
+            btnSignOff.Visibility = Visibility.Collapsed;
 
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;

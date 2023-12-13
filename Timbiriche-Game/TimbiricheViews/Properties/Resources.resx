@@ -216,6 +216,9 @@
   <data name="lbAccessData" xml:space="preserve">
     <value>Datos de acceso</value>
   </data>
+  <data name="lbAccountModifiedTitle" xml:space="preserve">
+    <value>Cuenta modificada</value>
+  </data>
   <data name="lbAceptFriendRequest" xml:space="preserve">
     <value>Aceptar</value>
   </data>
@@ -291,8 +294,17 @@
   <data name="lbEmptyCode" xml:space="preserve">
     <value>Necesitas ingresar un código para unirte a una partida</value>
   </data>
+  <data name="lbEndBan" xml:space="preserve">
+    <value>El baneo ha terminado. Recuerda portarte bien.</value>
+  </data>
   <data name="lbEnterEmail" xml:space="preserve">
     <value>Ingresa el correo de tu amigo</value>
+  </data>
+  <data name="lbErrorPasswordResetTitle" xml:space="preserve">
+    <value>Error al Cambiar Contraseña</value>
+  </data>
+  <data name="lbErrorPurchaseTitle" xml:space="preserve">
+    <value>Error al realizar la compra</value>
   </data>
   <data name="lbExistentEmail" xml:space="preserve">
     <value>Este correo ya está en uso. Intenta con otro</value>
@@ -372,6 +384,9 @@
   <data name="lbMatchSettingTimeInstruction" xml:space="preserve">
     <value>Selecciona la duración de la partida</value>
   </data>
+  <data name="lbModifyAccountFailTitle" xml:space="preserve">
+    <value>Error al modificar</value>
+  </data>
   <data name="lbMyProfile" xml:space="preserve">
     <value>Mi Perfil</value>
   </data>
@@ -396,6 +411,9 @@
   <data name="lbPasswordNumberInstruction" xml:space="preserve">
     <value>Al menos un número</value>
   </data>
+  <data name="lbPasswordResetedTitle" xml:space="preserve">
+    <value>Contraseña Cambiada</value>
+  </data>
   <data name="lbPasswordSymbolInstruction" xml:space="preserve">
     <value>Al menos un símbolo</value>
   </data>
@@ -407,6 +425,9 @@
   </data>
   <data name="lbPosition" xml:space="preserve">
     <value>Posición</value>
+  </data>
+  <data name="lbPurchaseCompleteTitle" xml:space="preserve">
+    <value>Compra Completada</value>
   </data>
   <data name="lbRejectFriendRequest" xml:space="preserve">
     <value>Rechazar</value>
@@ -471,6 +492,9 @@
   <data name="lbUnexpectedExceptionTitle" xml:space="preserve">
     <value>Error inesperado</value>
   </data>
+  <data name="lbUniquePlayerTitle" xml:space="preserve">
+    <value>Único Jugador</value>
+  </data>
   <data name="lbUnlimitedTime" xml:space="preserve">
     <value>Ilimitado</value>
   </data>
@@ -504,6 +528,9 @@
   <data name="String" xml:space="preserve">
     <value>para poder jugar con ellos</value>
   </data>
+  <data name="tbkAccountModifiedDescription" xml:space="preserve">
+    <value>Se ha modificado con éxito</value>
+  </data>
   <data name="tbkBannedPlayerDescription" xml:space="preserve">
     <value>Has acumulado el máximo de reportes permitidos. Se restringirá tu cuenta por un tiempo establecido.</value>
   </data>
@@ -525,6 +552,15 @@
   <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
     <value>No se pudo crear la cuenta. Por favor, inténtelo más tarde.</value>
   </data>
+  <data name="tbkErrorPasswordResetDescription" xml:space="preserve">
+    <value>Hubo un error al cambiar la contraseña. Por favor, inténtelo más tarde</value>
+  </data>
+  <data name="tbkErrorPurchaseColorDescription" xml:space="preserve">
+    <value>No fue posible comprar el color. Por favor, inténtelo más tarde</value>
+  </data>
+  <data name="tbkErrorPurchaseStyleDescription" xml:space="preserve">
+    <value>No fue posible comprar el estilo. Por favor, inténtelo más tarde</value>
+  </data>
   <data name="tbkExistentSessionDescription" xml:space="preserve">
     <value>Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este</value>
   </data>
@@ -543,6 +579,18 @@
   <data name="tbkLobbyNotFound" xml:space="preserve">
     <value>El lobby al que estas intentando entrar no existe.</value>
   </data>
+  <data name="tbkModifyAccountFailDescription" xml:space="preserve">
+    <value>No fue posible realizar los cambios. Por favor, inténtelo más tarde</value>
+  </data>
+  <data name="tbkPasswordResetedDescription" xml:space="preserve">
+    <value>La contraseña fue cambiada con éxito</value>
+  </data>
+  <data name="tbkPurchaseColorDescription" xml:space="preserve">
+    <value>Compraste el color correctamente.</value>
+  </data>
+  <data name="tbkPurchaseStyleDescription" xml:space="preserve">
+    <value>Compraste el estilo correctamente.</value>
+  </data>
   <data name="tbkReportedPlayerDescription" xml:space="preserve">
     <value>Ya has reportado a este jugador.</value>
   </data>
@@ -557,6 +605,9 @@
   </data>
   <data name="tbkUnexpectedExceptionDescription" xml:space="preserve">
     <value>Upss... Ocurrió un error inesperado. Por favor, inténtelo más tarde</value>
+  </data>
+  <data name="tbkUniquePlayerDescription" xml:space="preserve">
+    <value>Eres el único jugador en la partida. Regresarás al lobby.</value>
   </data>
   <data name="tbxBirthdate" xml:space="preserve">
     <value>11/02/2003</value>
