@@ -16,7 +16,6 @@ namespace TimbiricheDataAccess
     public partial class TimbiricheDBEntities : DbContext
     {
         public TimbiricheDBEntities()
-            //: base("name=TimbiricheDBEntities")
             :base(Environment.GetEnvironmentVariable("CONNECTION_STRING"))
         {
         }
@@ -24,11 +23,6 @@ namespace TimbiricheDataAccess
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             throw new UnintentionalCodeFirstException();
-        }
-
-        private string GetConnectionString()
-        {
-            return Environment.GetEnvironmentVariable("CONNECTION_STRING");
         }
     
         public virtual DbSet<Accounts> Accounts { get; set; }
