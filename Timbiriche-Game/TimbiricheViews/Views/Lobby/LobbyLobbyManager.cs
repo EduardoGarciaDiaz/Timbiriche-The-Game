@@ -30,9 +30,8 @@ namespace TimbiricheViews.Views
 
         private void ValidateStartOfMatch()
         {
-            // TODO: VALIDATE ALL PLAYERS HAVE SELECTED COLOR
-            const int INITIAL_NUMBER_OF_PLAYERS = 1;
-            if (_numberOfPlayersInLobby > INITIAL_NUMBER_OF_PLAYERS)
+            int initialNumberOfPlayers = 1;
+            if (_numberOfPlayersInLobby > initialNumberOfPlayers)
             {
                 btnStartMatch.IsEnabled = true;
             }
@@ -68,7 +67,6 @@ namespace TimbiricheViews.Views
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
-                return;
             }
         }
 
@@ -116,28 +114,28 @@ namespace TimbiricheViews.Views
 
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;
-            const int SECOND_PLAYER_ID = 0;
-            const int THIRD_PLAYER_ID = 1;
-            const int FOURTH_PLAYER_ID = 2;
+            const int secondPlayerId = 0;
+            const int thirdPlayerId = 1;
+            const int fourthPlayerId = 2;
 
-            if (numPlayersInLobby > SECOND_PLAYER_ID)
+            if (numPlayersInLobby > secondPlayerId)
             {
-                lbSecondPlayerUsername.Content = lobbyPlayers[SECOND_PLAYER_ID].Username;
-                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[SECOND_PLAYER_ID].IdStylePath, lobbyPlayers[SECOND_PLAYER_ID].Username);
+                lbSecondPlayerUsername.Content = lobbyPlayers[secondPlayerId].Username;
+                LoadFaceBox(lbSecondPlayerFaceBox, lobbyPlayers[secondPlayerId].IdStylePath, lobbyPlayers[secondPlayerId].Username);
                 gridSecondPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numPlayersInLobby > THIRD_PLAYER_ID)
+            if (numPlayersInLobby > thirdPlayerId)
             {
-                lbThirdPlayerUsername.Content = lobbyPlayers[THIRD_PLAYER_ID].Username;
-                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[THIRD_PLAYER_ID].IdStylePath, lobbyPlayers[THIRD_PLAYER_ID].Username);
+                lbThirdPlayerUsername.Content = lobbyPlayers[thirdPlayerId].Username;
+                LoadFaceBox(lbThirdPlayerFaceBox, lobbyPlayers[thirdPlayerId].IdStylePath, lobbyPlayers[thirdPlayerId].Username);
                 gridThirdPlayer.Visibility = Visibility.Visible;
             }
 
-            if (numPlayersInLobby > FOURTH_PLAYER_ID)
+            if (numPlayersInLobby > fourthPlayerId)
             {
-                lbFourthPlayerUsername.Content = lobbyPlayers[FOURTH_PLAYER_ID].Username;
-                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[FOURTH_PLAYER_ID].IdStylePath, lobbyPlayers[FOURTH_PLAYER_ID].Username);
+                lbFourthPlayerUsername.Content = lobbyPlayers[fourthPlayerId].Username;
+                LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[fourthPlayerId].IdStylePath, lobbyPlayers[fourthPlayerId].Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
 
@@ -164,9 +162,11 @@ namespace TimbiricheViews.Views
 
         private void JoinLobbyByLobbyCode(String lobbyCode)
         {
-            LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = _playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+            LobbyPlayer lobbyPlayer = new LobbyPlayer
+            {
+                Username = _playerLoggedIn.Username,
+                IdStylePath = _playerLoggedIn.IdStyleSelected
+            };
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
@@ -185,7 +185,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -247,7 +247,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -289,6 +289,7 @@ namespace TimbiricheViews.Views
         {
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
+
             try
             {
                 lobbyManagerClient.ExitLobby(_lobbyCode, username);
@@ -303,7 +304,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -322,8 +323,6 @@ namespace TimbiricheViews.Views
 
         private void ReestablishSelectedColor()
         {
-            int defaultColor = 0;
-
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
 
@@ -341,7 +340,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -357,7 +356,7 @@ namespace TimbiricheViews.Views
                 HandlerException.HandleFatalException(ex, NavigationService);
             }
 
-            PlayerSingleton.Player.IdColorSelected = defaultColor;
+            PlayerSingleton.Player.IdColorSelected = DEFAULT_SELECTED_COLOR;
         }
 
         public async Task ExpulsePlayerFromLobbyAsync(string username)
@@ -379,7 +378,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -400,7 +399,7 @@ namespace TimbiricheViews.Views
         {
             string playerHexadecimalColor = null;
             string playerStylePath = null;
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
 
             try
             {
@@ -417,12 +416,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

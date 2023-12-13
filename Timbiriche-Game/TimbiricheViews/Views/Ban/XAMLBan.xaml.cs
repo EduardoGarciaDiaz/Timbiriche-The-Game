@@ -29,15 +29,17 @@ namespace TimbiricheViews.Views
         private void VerifyBanEndDate(int idPlayerBanned)
         {
             Server.BanVerifierManagerClient banManagerClient = new Server.BanVerifierManagerClient();
+            string dateFormat = "dd MMMM yyyy HH:mm";
+            string inactiveStatus = "Inactive";
 
             try
             {
                 Server.BanInformation banInformation = banManagerClient.VerifyBanEndDate(idPlayerBanned);
 
-                string formattedDateTime = banInformation.EndDate.ToString("dd MMMM yyyy HH:mm");
+                string formattedDateTime = banInformation.EndDate.ToString(dateFormat);
                 lbBanEndDate.Content = formattedDateTime;
 
-                if (banInformation.BanStatus.Equals("Inactive"))
+                if (banInformation.BanStatus.Equals(inactiveStatus))
                 {
                     gridBanFinished.Visibility = Visibility.Visible;
                 }
@@ -52,12 +54,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

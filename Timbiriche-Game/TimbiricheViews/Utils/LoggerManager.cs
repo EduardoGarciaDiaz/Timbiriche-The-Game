@@ -1,14 +1,9 @@
 ﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Path = System.IO.Path;
 
 namespace TimbiricheViews.Utils
 {
-    public class LoggerManager
+    public static class LoggerManager
     {
         private static ILogger _logger;
 
@@ -22,17 +17,17 @@ namespace TimbiricheViews.Utils
 
         private static string BuildLogFilePath()
         {
-            const string DATE_FORMAT = "dd-MM-yyyy";
-            const string ID_FILE_NAME = "Log";
-            const string CHARACTER_SEPARATOR = "_";
-            const string FILE_EXTENSION = ".txt";
-            const string RELATIVE_LOG_FILE_PATH = "../../Logs\\";
+            string dateFormat = "dd-MM-yyyy";
+            string idFileName = "Log";
+            string characterSeparation = "_";
+            string fileExtension = ".txt";
+            string relativeLogFilePath = "../../Logs\\";
 
             DateTime currentDate = DateTime.Today;
-            string date = currentDate.ToString(DATE_FORMAT);
+            string date = currentDate.ToString(dateFormat);
 
-            string logFileName = ID_FILE_NAME + CHARACTER_SEPARATOR + date + FILE_EXTENSION;
-            string absoluteLogFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, RELATIVE_LOG_FILE_PATH);
+            string logFileName = idFileName + characterSeparation + date + fileExtension;
+            string absoluteLogFilePath = Utilities.BuildAbsolutePath(relativeLogFilePath);
             string logPath = absoluteLogFilePath + logFileName;
 
             return logPath;
@@ -45,6 +40,7 @@ namespace TimbiricheViews.Utils
                 string logPath = BuildLogFilePath();
                 ConfigureLogger(logPath);
             }
+
             _logger = Log.Logger;
             return _logger;
         }

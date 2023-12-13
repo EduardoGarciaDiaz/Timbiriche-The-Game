@@ -21,7 +21,7 @@ namespace TimbiricheViews.Components.Shop
 {
     public partial class XAMLColorItemComponent : UserControl
     {
-        private Server.ShopColor _color;
+        private readonly Server.ShopColor _color;
 
         public XAMLColorItemComponent(Server.ShopColor color)
         {

@@ -1,21 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.Remoting.Contexts;
-using System.Security.Principal;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using TimbiricheViews.Components;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -36,71 +25,89 @@ namespace TimbiricheViews.Views
 
         private void DpBirthdate_Loaded(object sender, RoutedEventArgs e)
         {
-            const int YEARS_AGO_ALLOWED = -3;
+            const int yearsAgoAllowed = 3;
 
             if (sender is DatePicker datePicker)
             {
-                datePicker.DisplayDateEnd = DateTime.Today.AddYears(YEARS_AGO_ALLOWED);
+                datePicker.DisplayDateEnd = DateTime.Today.AddYears(-yearsAgoAllowed);
             }
         }
 
         private void BtnCreateAccount_Click(object sender, RoutedEventArgs e)
         {
+            TryCreateAccount();
+        }
+
+        private void TryCreateAccount()
+        {
             if (ValidateFields())
             {
                 string email = tbxEmail.Text.Trim().ToLower();
                 string username = tbxUsername.Text.Trim();
-                int rowsAffected = -1;
 
                 if (!ValidateUniqueIdentifier(email, username) && VerifyEmailCode(email))
                 {
-                    try
-                    {
-                        Account newAccount = CreateNewAccount();
-                        Server.Player newPlayer = CreateNewPlayer(newAccount);
+                    int rowsAffected = AddUser();
 
-                        Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                        rowsAffected = userManagerClient.AddUser(newPlayer);
-                    }
-                    catch (EndpointNotFoundException ex)
-                    {
-                        EmergentWindows.CreateConnectionFailedMessageWindow();
-                        HandlerException.HandleErrorException(ex, NavigationService);
-                    }
-                    catch (TimeoutException ex)
-                    {
-                        EmergentWindows.CreateTimeOutMessageWindow();
-                        HandlerException.HandleErrorException(ex, NavigationService);
-                    }
-                    catch (FaultException<TimbiricheServerException> ex)
-                    {
-                        EmergentWindows.CreateDataBaseErrorMessageWindow();
-                    }
-                    catch (FaultException ex)
-                    {
-                        EmergentWindows.CreateServerErrorMessageWindow();
-                    }
-                    catch (CommunicationException ex)
-                    {
-                        EmergentWindows.CreateServerErrorMessageWindow();
-                        HandlerException.HandleErrorException(ex, NavigationService);
-                    }
-                    catch (Exception ex)
-                    {
-                        EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                        HandlerException.HandleFatalException(ex, NavigationService);
-                    }
-
-                    if (rowsAffected > 0)
-                    {
-                        ShowAccountCreatedMessage();
-                        NavigationService.GoBack();
-                    }
-                    else
-                    {
-                        ShowCreateAccountFailMessage();
-                    }
+                    HandleResultOfAddUser(rowsAffected);
                 }
+            }
+        }
+
+        private int AddUser()
+        {
+            int rowsAffected = -1;
+
+            try
+            {
+                Account newAccount = CreateNewAccount();
+                Server.Player newPlayer = CreateNewPlayer(newAccount);
+
+                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                rowsAffected = userManagerClient.AddUser(newPlayer);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return rowsAffected;
+        }
+
+        private void HandleResultOfAddUser(int rowsAffected)
+        {
+            if (rowsAffected > 0)
+            {
+                ShowAccountCreatedMessage();
+                NavigationService.GoBack();
+            }
+            else
+            {
+                ShowCreateAccountFailMessage();
             }
         }
 
@@ -125,7 +132,8 @@ namespace TimbiricheViews.Views
         {
             bool isEmailSend = false;
 
-            Server.EmailVerificationManagerClient emailVerificationManagerClient = new Server.EmailVerificationManagerClient();
+            EmailVerificationManagerClient emailVerificationManagerClient = new EmailVerificationManagerClient();
+
             try
             {
                 isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
@@ -140,11 +148,11 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
             }
@@ -180,21 +188,21 @@ namespace TimbiricheViews.Views
 
         private Server.Player CreateNewPlayer(Account account)
         {
-            const string NOT_BANNED_STATUS = "Not-Banned";
-            const int DEFAULT_NUMBER_OF_COINS = 0;
-            const int DEFAULT_ID_COLOR_SELECTED = 1;
-            const int DEFAULT_ID_STYLE_SELECTED = 1;
+            string notBannedStatus = "Not-Banned";
+            int defaultCoinsNumber = 0;
+            int defaultIdColorSelected = 1;
+            int defaultIdStyleSelected = 1;
 
             Server.Player newPlayer = new Server.Player()
             {
                 Username = tbxUsername.Text.Trim(),
                 Email = tbxEmail.Text.Trim().ToLower(),
                 Password = pwBxPassword.Password.Trim(),
-                Coins = DEFAULT_NUMBER_OF_COINS,
-                Status = NOT_BANNED_STATUS,
+                Coins = defaultCoinsNumber,
+                Status = notBannedStatus,
                 AccountFK = account,
-                IdColorSelected = DEFAULT_ID_COLOR_SELECTED,
-                IdStyleSelected = DEFAULT_ID_STYLE_SELECTED,
+                IdColorSelected = defaultIdColorSelected,
+                IdStyleSelected = defaultIdStyleSelected,
             };
 
             return newPlayer;
@@ -223,7 +231,7 @@ namespace TimbiricheViews.Views
 
             try
             {
-                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                UserManagerClient userManagerClient = new UserManagerClient();
 
                 if (userManagerClient.ValidateUniqueIdentifierUser(email))
                 {
@@ -247,11 +255,11 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
             }
@@ -273,13 +281,16 @@ namespace TimbiricheViews.Views
         {
             CultureInfo cultureInfo = CultureInfo.CurrentCulture;
             bool isValid = true;
+            string errorTextBoxStyle = "ErrorTextBoxStyle";
+            string errorPasswordBoxStyle = "ErrorPasswordBoxStyle";
+            string errorDatePickerStyle = "ErrorDatePickerStyle";
 
             SetDefaultStyles();
             ValidatePasswordProperties();
 
             if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text.Trim()))
             {
-                tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxName.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
@@ -287,7 +298,7 @@ namespace TimbiricheViews.Views
 
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
-                tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxLastName.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
@@ -295,7 +306,7 @@ namespace TimbiricheViews.Views
 
             if (!ValidationUtilities.IsValidEmail(tbxEmail.Text.Trim()))
             {
-                tbxEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxEmail.Style = (Style)FindResource(errorTextBoxStyle);
                 lbEmailError.Visibility = Visibility.Visible;
                 ImgEmailErrorDetails.Visibility = Visibility.Visible;
 
@@ -304,7 +315,7 @@ namespace TimbiricheViews.Views
 
             if (!ValidationUtilities.IsValidUsername(tbxUsername.Text.Trim()))
             {
-                tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxUsername.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
@@ -312,7 +323,7 @@ namespace TimbiricheViews.Views
 
             if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password.Trim()))
             {
-                pwBxPassword.Style = (Style)FindResource("ErrorPasswordBoxStyle");
+                pwBxPassword.Style = (Style)FindResource(errorPasswordBoxStyle);
                 ImgPasswordErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
@@ -320,7 +331,7 @@ namespace TimbiricheViews.Views
 
             if (!DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out _))
             {
-                dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
+                dpBirthdate.Style = (Style)FindResource(errorDatePickerStyle);
 
                 isValid = false;
             }
@@ -330,12 +341,16 @@ namespace TimbiricheViews.Views
 
         private void SetDefaultStyles()
         {
-            tbxName.Style = (Style)FindResource("NormalTextBoxStyle");
-            tbxLastName.Style = (Style)FindResource("NormalTextBoxStyle");
-            tbxEmail.Style = (Style)FindResource("NormalTextBoxStyle");
-            tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
-            pwBxPassword.Style = (Style)FindResource("NormalPasswordBoxStyle");
-            dpBirthdate.Style = (Style)FindResource("NormalDatePickerStyle");
+            string normalTextBoxStyle = "NormalTextBoxStyle";
+            string normalPasswordBoxStyle = "NormalPasswordBoxStyle";
+            string normalDatePickerStyle = "NormalDatePickerStyle";
+
+            tbxName.Style = (Style)FindResource(normalTextBoxStyle);
+            tbxLastName.Style = (Style)FindResource(normalTextBoxStyle);
+            tbxEmail.Style = (Style)FindResource(normalTextBoxStyle);
+            tbxUsername.Style = (Style)FindResource(normalTextBoxStyle);
+            pwBxPassword.Style = (Style)FindResource(normalPasswordBoxStyle);
+            dpBirthdate.Style = (Style)FindResource(normalDatePickerStyle);
 
             lbExistentEmail.Visibility = Visibility.Hidden;
             lbExistentUsername.Visibility = Visibility.Hidden;

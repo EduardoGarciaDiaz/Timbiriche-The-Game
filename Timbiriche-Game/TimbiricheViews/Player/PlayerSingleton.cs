@@ -24,12 +24,11 @@ namespace TimbiricheViews.Player
             {
                 if(_player == null)
                 {
-                    throw new ArgumentNullException("The Player instance has not been configured.");
+                    throw new ArgumentNullException(nameof(_player), "The Player instance has not been configured.");
                 }
 
                 return _player;
             }
-
             set
             {
                 _player = value;

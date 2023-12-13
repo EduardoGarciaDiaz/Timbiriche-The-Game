@@ -24,10 +24,10 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLJoinGuest : Page
     {
-        private string _lobbyCode;
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string MAIN_FONT = "Titan One";
         private const string SECONDARY_FONT = "Inter";
+        private readonly string _lobbyCode;
 
         public XAMLJoinGuest()
         {
@@ -66,23 +66,21 @@ namespace TimbiricheViews.Views
         {
             string username = tbxUsername.Text.Trim();
 
-            if (ValidateFields())
+            if (ValidateFields() && IsUniqueIdentifier(username))
             {
-                if (IsUniqueIdentifier(username)) // TODO: Validate the guest with same username
-                {
-                    JoinToLobby(username);
-                }
+                JoinToLobby(username);
             }
         }
 
         private bool ValidateFields()
         {
-            SetDefaultStyles();
             bool isValid = true;
+            string errorTextBoxStyle = "ErrorTextBoxStyle";
+            SetDefaultStyles();
 
             if (!ValidationUtilities.IsValidUsername(tbxUsername.Text) || tbxUsername.Text.Equals(tbxUsername.Tag))
             {
-                tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxUsername.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgUsernameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
@@ -92,7 +90,9 @@ namespace TimbiricheViews.Views
 
         private void SetDefaultStyles()
         {
-            tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
+            string normalTextBoxStyle = "NormalTextBoxStyle";
+
+            tbxUsername.Style = (Style)FindResource(normalTextBoxStyle);
             lbExistentUsername.Visibility = Visibility.Hidden;
             ImgUsernameErrorDetails.Visibility = Visibility.Hidden;
         }
@@ -100,9 +100,11 @@ namespace TimbiricheViews.Views
         public bool IsUniqueIdentifier(string username)
         {
             bool isUsernameUnique = true;
+
             try
             {
                 Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+
                 if (userManagerClient.ValidateUniqueIdentifierUser(username))
                 {
                     isUsernameUnique = false;
@@ -151,10 +153,13 @@ namespace TimbiricheViews.Views
 
         private void InitializatePlayerSingleton(string username)
         {
-            const int ID_DEFAULT_STYLE_SELECTED = 1;
-            Server.Player guestPlayer = new Server.Player();
-            guestPlayer.Username = username;
-            guestPlayer.IdStyleSelected = ID_DEFAULT_STYLE_SELECTED;
+            int idDefaultStyleSelected = 1;
+            Server.Player guestPlayer = new Server.Player
+            {
+                Username = username,
+                IdStyleSelected = idDefaultStyleSelected
+            };
+
             PlayerSingleton.Player = guestPlayer;
         }
 

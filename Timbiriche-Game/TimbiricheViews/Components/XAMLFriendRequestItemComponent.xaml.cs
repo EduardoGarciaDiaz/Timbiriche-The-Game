@@ -19,7 +19,7 @@ namespace TimbiricheViews.Components
     {
         private const string BTN_ACCEPT = "Accept";
         private const string BTN_REJECT = "Reject";
-        private string _username;
+        private readonly string _username;
 
         public event EventHandler<ButtonClickEventArgs> ButtonClicked;
 
@@ -39,18 +39,6 @@ namespace TimbiricheViews.Components
         private void ImgRejectFriendRequest_Click(object sender, MouseButtonEventArgs e)
         {
             ButtonClicked?.Invoke(this, new ButtonClickEventArgs(BTN_REJECT, _username));
-        }
-    }
-
-    public class ButtonClickEventArgs : EventArgs
-    {
-        public string ButtonName { get; private set; }
-        public string Username { get; private set; }
-
-        public ButtonClickEventArgs(string buttonName, string username)
-        {
-            ButtonName = buttonName;
-            Username = username;
         }
     }
 }

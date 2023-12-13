@@ -1,23 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using TimbiricheViews.Components;
-using TimbiricheViews.Components.Lobby;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -70,15 +55,14 @@ namespace TimbiricheViews.Views
                 lbFourthPlayerUsername.Content = lobbyPlayer.Username;
                 LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayer.IdStylePath, lobbyPlayer.Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
-                return;
             }
         }
 
-        public void NotifyPlayerLeftLobby(String username)
+        public void NotifyPlayerLeftLobby(string username)
         {
-            String secondPlayerUsername = (String)lbSecondPlayerUsername.Content;
-            String thirdPlayerUsername = (String)lbThirdPlayerUsername.Content;
-            String fourthPlayerUsername = (String)lbFourthPlayerUsername.Content;
+            string secondPlayerUsername = (string)lbSecondPlayerUsername.Content;
+            string thirdPlayerUsername = (string)lbThirdPlayerUsername.Content;
+            string fourthPlayerUsername = (string)lbFourthPlayerUsername.Content;
 
             if (username.Equals(secondPlayerUsername))
             {
@@ -98,7 +82,7 @@ namespace TimbiricheViews.Views
 
         public void NotifyHostPlayerLeftLobby()
         {
-            Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbHostLeftLobbyTitle ,
+            EmergentWindows.CreateEmergentWindow(Properties.Resources.lbHostLeftLobbyTitle ,
                 Properties.Resources.tbkHostLeftLobbyDescription);
             NavigationService.Navigate(new XAMLLogin());
         }
@@ -131,6 +115,7 @@ namespace TimbiricheViews.Views
                 LoadFaceBox(lbFourthPlayerFaceBox, lobbyPlayers[FOURTH_PLAYER_ID].IdStylePath, lobbyPlayers[FOURTH_PLAYER_ID].Username);
                 gridFourthPlayer.Visibility = Visibility.Visible;
             }
+
             ShowSelectPlayerColorGrid();
         }
 
@@ -176,9 +161,10 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -216,13 +202,15 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {

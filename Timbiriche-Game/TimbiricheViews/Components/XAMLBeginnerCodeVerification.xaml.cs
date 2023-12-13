@@ -19,7 +19,7 @@ namespace TimbiricheViews.Components
 {
     public partial class XAMLBeginnerCodeVerification : Window
     {
-        private Window _mainWindow;
+        private readonly Window _mainWindow;
 
         public XAMLBeginnerCodeVerification()
         {

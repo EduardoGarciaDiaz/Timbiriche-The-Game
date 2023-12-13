@@ -1,21 +1,10 @@
-﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using TimbiricheViews.Components;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -27,6 +16,8 @@ namespace TimbiricheViews.Views
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
         private const string MAIN_FONT = "Titan One";
         private const string SECONDARY_FONT = "Inter";
+        private const string SPANISH_MX_CODE = "es-MX";
+        private const string ENGLISH_US_CODE = "en";
 
         public XAMLLogin()
         {
@@ -35,30 +26,35 @@ namespace TimbiricheViews.Views
 
         private void ChangeLanguage()
         {
-            string spanishMXLanguage = "es-MX";
-            string englishUSLanguage = "en";
+            string spanishMXLanguage = "Español";
+            string englishUSLanguage = "English";
             string language = "";
-
-            if (lbLanguage.Content.Equals("Español"))
-            {
-                language = englishUSLanguage;
-            }
-
-            if(lbLanguage.Content.Equals("English"))
-            {
-                language = spanishMXLanguage;
-            }
             
+            if (lbLanguage.Content.Equals(spanishMXLanguage))
+            {
+                language = ENGLISH_US_CODE;
+            }
+
+            if(lbLanguage.Content.Equals(englishUSLanguage))
+            {
+                language = SPANISH_MX_CODE;
+            }
+
+            ToggleLanguage(language);
+        }
+
+        private void ToggleLanguage(string language)
+        {
             System.Threading.Thread.CurrentThread.CurrentUICulture = new System.Globalization.CultureInfo(language);
             XAMLLogin newLoginPage = new XAMLLogin();
 
-            if (language.Equals(englishUSLanguage))
+            if (language.Equals(ENGLISH_US_CODE))
             {
                 newLoginPage.imgUsaFlag.Visibility = Visibility.Visible;
                 newLoginPage.imgMexicoFlag.Visibility = Visibility.Hidden;
             }
 
-            if (language.Equals(spanishMXLanguage))
+            if (language.Equals(SPANISH_MX_CODE))
             {
                 newLoginPage.imgMexicoFlag.Visibility = Visibility.Visible;
                 newLoginPage.imgUsaFlag.Visibility = Visibility.Hidden;
@@ -71,16 +67,17 @@ namespace TimbiricheViews.Views
         {
             SetDefaultStyles();
             bool isValid = true;
+            string errorTextBoxStyle = "ErrorTextBoxStyle";
 
             if (!ValidationUtilities.IsValidUsername(tbxUsername.Text) || tbxUsername.Text.Equals(tbxUsername.Tag))
             {
-                tbxUsername.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxUsername.Style = (Style)FindResource(errorTextBoxStyle);
                 isValid = false;
             }
 
             if (!ValidationUtilities.IsValidPassword(pwBxPassword.Password) || pwBxPassword.Password.Equals(pwBxPassword.Tag))
             {
-                pwBxPasswordMask.Style = (Style)FindResource("ErrorTextBoxStyle");
+                pwBxPasswordMask.Style = (Style)FindResource(errorTextBoxStyle);
                 isValid = false;
             }
 
@@ -89,8 +86,10 @@ namespace TimbiricheViews.Views
 
         private void SetDefaultStyles()
         {
-            tbxUsername.Style = (Style)FindResource("NormalTextBoxStyle");
-            pwBxPasswordMask.Style = (Style)FindResource("NormalTextBoxStyle");
+            string normalTextBoxStyle = "NormalTextBoxStyle";
+
+            tbxUsername.Style = (Style)FindResource(normalTextBoxStyle);
+            pwBxPasswordMask.Style = (Style)FindResource(normalTextBoxStyle);
             lbIncorrectCredentials.Visibility = Visibility.Hidden;
         }
 
@@ -101,58 +100,73 @@ namespace TimbiricheViews.Views
 
         private void BtnLogin_Click(object sender, RoutedEventArgs e)
         {
+            TryToLogin();
+        }
+
+        private void TryToLogin()
+        {
             if (ValidateFields())
             {
-                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                Server.Player playerLogged = null;
-
-                try
-                {
-                    playerLogged = userManagerClient.ValidateLoginCredentials(tbxUsername.Text.Trim(), pwBxPassword.Password.Trim());
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (TimeoutException ex)
-                {
-                    EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (FaultException<TimbiricheServerException> ex)
-                {
-                    EmergentWindows.CreateDataBaseErrorMessageWindow();
-                }
-                catch (FaultException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                }
-                catch (CommunicationException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerException.HandleFatalException(ex, NavigationService);
-                }
+                Server.Player playerLogged = ValidateLoginCredentials();
 
                 if (playerLogged != null)
                 {
-                    bool isAdmitedPlayer = ValidateIsAdmitedPlayer(playerLogged);
-
-                    if (isAdmitedPlayer)
-                    {
-                        PlayerSingleton.Player = playerLogged;
-                        NavigationService.Navigate(new XAMLLobby());
-                    }
-                } 
+                    ProcessLoggedInPlayer(playerLogged);
+                }
                 else
                 {
                     lbIncorrectCredentials.Visibility = Visibility.Visible;
                 }
+            }
+        }
+
+        private Server.Player ValidateLoginCredentials()
+        {
+            UserManagerClient userManagerClient = new UserManagerClient();
+            Server.Player playerLoging = null;
+
+            try
+            {
+                playerLoging = userManagerClient.ValidateLoginCredentials(tbxUsername.Text.Trim(), pwBxPassword.Password.Trim());
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return playerLoging;
+        }
+
+        private void ProcessLoggedInPlayer(Server.Player playerLogged)
+        {
+            if (ValidateIsAdmitedPlayer(playerLogged))
+            {
+                PlayerSingleton.Player = playerLogged;
+                NavigationService.Navigate(new XAMLLobby());
             }
         }
 
@@ -195,6 +209,7 @@ namespace TimbiricheViews.Views
             bool isAlreadyOnline = true;
 
             UserManagerClient userManagerClient = new UserManagerClient();
+
             try
             {
                 isAlreadyOnline = userManagerClient.ValidateIsUserAlreadyOnline(username);
@@ -209,11 +224,11 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
             }
@@ -334,11 +349,11 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
             }

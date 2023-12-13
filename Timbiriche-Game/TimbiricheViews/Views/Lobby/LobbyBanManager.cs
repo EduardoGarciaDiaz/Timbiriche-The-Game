@@ -18,7 +18,7 @@ namespace TimbiricheViews.Views
         private void RegisterToBansNotifications(string lobbyCode)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.BanManagerClient banManagerClient = new Server.BanManagerClient(context);
+            BanManagerClient banManagerClient = new BanManagerClient(context);
 
             try
             {
@@ -34,7 +34,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -107,6 +107,7 @@ namespace TimbiricheViews.Views
         private XAMLOptionsPlayerComponent ConfigureOptionsPlayerComponent(string username)
         {
             bool isHost = true;
+
             XAMLOptionsPlayerComponent optionsPlayerComponent;
             optionsPlayerComponent = CreateOptionsPlayerComponent(isHost, username);
 
@@ -123,14 +124,14 @@ namespace TimbiricheViews.Views
 
         private void BtnOptionPlayer_Click(object sender, ButtonClickEventArgs e)
         {
-            const string BTN_REPORT = "Report";
-            const string BTN_EXPULSE = "Expulse";
+            const string btnReport = "Report";
+            const string btnExpulse = "Expulse";
 
-            if (e.ButtonName.Equals(BTN_REPORT))
+            if (e.ButtonName.Equals(btnReport))
             {
                 ReportPlayer(e.Username);
             }
-            if (e.ButtonName.Equals(BTN_EXPULSE))
+            if (e.ButtonName.Equals(btnExpulse))
             {
                 ExpulsePlayer(e.Username);
             }
@@ -161,12 +162,12 @@ namespace TimbiricheViews.Views
                     EmergentWindows.CreateTimeOutMessageWindow();
                     HandlerException.HandleErrorException(ex, NavigationService);
                 }
-                catch (FaultException<TimbiricheServerException> ex)
+                catch (FaultException<TimbiricheServerException>)
                 {
                     EmergentWindows.CreateDataBaseErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
                 }
-                catch (FaultException ex)
+                catch (FaultException)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
@@ -207,12 +208,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

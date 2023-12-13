@@ -79,12 +79,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -126,12 +126,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -159,57 +159,68 @@ namespace TimbiricheViews.Views
             if (ValidatePassword())
             {
                 string password = pwBxNewPassword.Password.Trim();
-                bool isPasswordRessetted = false;
-                Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+                bool isPasswordReseted = ChangePassword(password);
+                HandleResultOfChangePassword(isPasswordReseted);
+            }
+        }
 
-                try
-                {
-                    isPasswordRessetted = passwordResetClient.ChangePassword(password, _email);
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (TimeoutException ex)
-                {
-                    EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (FaultException<TimbiricheServerException> ex)
-                {
-                    EmergentWindows.CreateDataBaseErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (FaultException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (CommunicationException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerException.HandleFatalException(ex, NavigationService);
-                }
+        private bool ChangePassword(string password)
+        {
+            PasswordResetClient passwordResetClient = new PasswordResetClient();
+            bool isPasswordReseted = false;
 
-                if (isPasswordRessetted)
-                {
-                    string title = "Contraseña Cambiada";
-                    string message = "La contraseña fue cambiada con éxito";
-                    EmergentWindows.CreateEmergentWindow(title, message);
-                    NavigationService.GoBack();
-                }
-                else
-                {
-                    string title = "Error al Cambiar Contraseña";
-                    string message = "Hubo un error al cambiar la contraeña. Intentelo mas tarde.";
-                    EmergentWindows.CreateEmergentWindow(title, message);
-                }
+            try
+            {
+                isPasswordReseted = passwordResetClient.ChangePassword(password, _email);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return isPasswordReseted;
+        }
+
+        private void HandleResultOfChangePassword(bool isPasswordReseted)
+        {
+            if (isPasswordReseted)
+            {
+                string title = "Contraseña Cambiada";
+                string message = "La contraseña fue cambiada con éxito";
+                EmergentWindows.CreateEmergentWindow(title, message);
+                NavigationService.GoBack();
+            }
+            else
+            {
+                string title = "Error al Cambiar Contraseña";
+                string message = "Hubo un error al cambiar la contraeña. Intentelo mas tarde.";
+                EmergentWindows.CreateEmergentWindow(title, message);
             }
         }
 

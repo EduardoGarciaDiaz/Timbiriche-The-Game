@@ -1,40 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.IO;
 using System.Windows.Markup;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using Path = System.IO.Path;
 using Serilog;
 
 namespace TimbiricheViews.Views
 {
     public partial class XAMLMyProfile : Page
     {
+        private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
+        private const string HEXADECIMAL_COLOR_BTN_NOT_PRESSED = "#1C95D1";
+        private const string HEXADECIMAL_RECTANGLE_COLOR = "#FF6C6868";
+        private const int ID_DEFAULT_STYLE = 1;
+        private readonly SolidColorBrush colorButtonPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_PRESSED);
+        private readonly SolidColorBrush colorButtonNotPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_NOT_PRESSED);
         private static readonly ILogger _logger = LoggerManager.GetLogger();
         private Server.Player playerLoggedIn = PlayerSingleton.Player;
         private PlayerStyle[] _myStyles;
         private string _initialPlayerNameLetter;
-        const int ID_DEFAULT_STYLE = 1;
-        private string HEXADECIMAL_RECTANGLE_COLOR = "#FF6C6868";
-        private const string HEXADECIMAL_COLOR_BTN_PRESSED = "#0F78C4";
-        private const string HEXADECIMAL_COLOR_BTN_NOT_PRESSED = "#1C95D1";
-        private SolidColorBrush colorButtonPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_PRESSED);
-        private SolidColorBrush colorButtonNotPressed = Utilities.CreateColorFromHexadecimal(HEXADECIMAL_COLOR_BTN_NOT_PRESSED);
 
         public XAMLMyProfile()
         {
@@ -49,16 +40,17 @@ namespace TimbiricheViews.Views
 
         private void LoadDataPlayer()
         {
-            const int INDEX_FIRST_LETTER = 0;
+            int indexFirstLetter = 0;
+
             lbUsername.Content = playerLoggedIn.Username;
-            _initialPlayerNameLetter = playerLoggedIn.Username[INDEX_FIRST_LETTER].ToString();
+            _initialPlayerNameLetter = playerLoggedIn.Username[indexFirstLetter].ToString();
 
             GetMyStyles();
         }
 
         private void GetMyStyles()
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
 
             try
             {
@@ -74,12 +66,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -207,7 +199,7 @@ namespace TimbiricheViews.Views
 
         private Image CreateImageByIdStyle(int idStyle)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
             Image styleImage = null;
 
             try
@@ -225,12 +217,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -275,12 +267,12 @@ namespace TimbiricheViews.Views
 
         private void SelectStyle(Grid gridSelected)
         {
-            const char SPLIT_SYMBOL = '_';
-            const int INDEX_ID_COLOR_PART = 1;
-            string[] nameParts = gridSelected.Name.ToString().Split(SPLIT_SYMBOL);
-            int idStyle = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
+            char splitSymbol = '_';
+            int indexIdColorPart = 1;
+            string[] nameParts = gridSelected.Name.ToString().Split(splitSymbol);
+            int idStyle = int.Parse(nameParts[indexIdColorPart]);
 
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
 
             try
             {
@@ -296,12 +288,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -323,33 +315,33 @@ namespace TimbiricheViews.Views
 
         private void MarkAsSelectedStyle(Grid gridSelected)
         {
-            const int INDEX_BACKGORUND_RECTANGLE = 2;
-            const int SIZE_STYLE_SELECTED = 175;
+            int indexBackgroundRectangle = 2;
+            int sizeStyleSelected = 175;
 
-            Rectangle rectangleSelected = gridSelected.Children[INDEX_BACKGORUND_RECTANGLE] as Rectangle;
-            gridSelected.Width = SIZE_STYLE_SELECTED;
-            gridSelected.Height = SIZE_STYLE_SELECTED;
-            rectangleSelected.Width = SIZE_STYLE_SELECTED;
-            rectangleSelected.Height = SIZE_STYLE_SELECTED;
+            Rectangle rectangleSelected = gridSelected.Children[indexBackgroundRectangle] as Rectangle;
+            gridSelected.Width = sizeStyleSelected;
+            gridSelected.Height = sizeStyleSelected;
+            rectangleSelected.Width = sizeStyleSelected;
+            rectangleSelected.Height = sizeStyleSelected;
 
             ClearOtherStylesSelections(gridSelected);
         }
 
         private void ClearOtherStylesSelections(Grid gridSelected)
         {
-            const int INDEX_BACKGORUND_RECTANGLE = 2;
-            const int SIZE_STYLE_NOT_SELECTED = 150;
-            const string GRID_STYLE_TEMPLATE = "gridPlayerStyleTemplate";
+            int indexBackgroundRectangle = 2;
+            int sizeStyleNotSelected = 150;
+            string gridStyleTemplate = "gridPlayerStyleTemplate";
 
             foreach (Grid gridStylePlayer in wrapPanelPlayerStyles.Children)
             {
-                if (gridStylePlayer.Name != gridSelected.Name && !gridStylePlayer.Name.Equals(GRID_STYLE_TEMPLATE))
+                if (gridStylePlayer.Name != gridSelected.Name && !gridStylePlayer.Name.Equals(gridStyleTemplate))
                 {
-                    Rectangle rectangleStyle = gridStylePlayer.Children[INDEX_BACKGORUND_RECTANGLE] as Rectangle;
-                    gridStylePlayer.Width = SIZE_STYLE_NOT_SELECTED;
-                    gridStylePlayer.Height = SIZE_STYLE_NOT_SELECTED;
-                    rectangleStyle.Width = SIZE_STYLE_NOT_SELECTED;
-                    rectangleStyle.Height = SIZE_STYLE_NOT_SELECTED;
+                    Rectangle rectangleStyle = gridStylePlayer.Children[indexBackgroundRectangle] as Rectangle;
+                    gridStylePlayer.Width = sizeStyleNotSelected;
+                    gridStylePlayer.Height = sizeStyleNotSelected;
+                    rectangleStyle.Width = sizeStyleNotSelected;
+                    rectangleStyle.Height = sizeStyleNotSelected;
                 }
             }
         }       

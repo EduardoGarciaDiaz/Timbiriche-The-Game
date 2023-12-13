@@ -18,7 +18,7 @@ namespace TimbiricheViews.Views
         private void SuscribeUserToOnlineFriendsDictionary()
         {
             InstanceContext context = new InstanceContext(this);
-            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
 
             try
             {
@@ -34,7 +34,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -82,7 +82,8 @@ namespace TimbiricheViews.Views
 
         private void AddRequestFriendship(int idPlayer, string usernamePlayerRequested)
         {
-            Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+            FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
+
             try
             {
                 friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
@@ -97,12 +98,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -122,7 +123,8 @@ namespace TimbiricheViews.Views
         private void SendFriendRequest(string usernamePlayerRequested)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+
             try
             {
                 friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
@@ -137,7 +139,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -157,9 +159,11 @@ namespace TimbiricheViews.Views
         private bool ValidateSendRequest(int idPlayer, string usernamePlayerRequested)
         {
             bool isRequestValid = false;
+
             if (ValidationUtilities.IsValidUsername(usernamePlayerRequested))
             {
-                Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+                FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
+
                 try
                 {
                     isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
@@ -174,12 +178,12 @@ namespace TimbiricheViews.Views
                     EmergentWindows.CreateTimeOutMessageWindow();
                     HandlerException.HandleErrorException(ex, NavigationService);
                 }
-                catch (FaultException<TimbiricheServerException> ex)
+                catch (FaultException<TimbiricheServerException>)
                 {
                     EmergentWindows.CreateDataBaseErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
                 }
-                catch (FaultException ex)
+                catch (FaultException)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
@@ -214,6 +218,11 @@ namespace TimbiricheViews.Views
 
         private void BtnFriendsRequest_Click(object sender, RoutedEventArgs e)
         {
+            ShowFriendRequests();
+        }
+
+        private void ShowFriendRequests()
+        {
             scrollViewerFriendsRequest.Visibility = Visibility.Visible;
             scrollViewerFriends.Visibility = Visibility.Collapsed;
 
@@ -222,6 +231,7 @@ namespace TimbiricheViews.Views
 
             stackPanelFriendsRequest.Children.Clear();
             string[] usernamePlayers = GetCurrentFriendRequests();
+
             AddUsersToFriendsRequestList(usernamePlayers);
         }
 
@@ -233,7 +243,7 @@ namespace TimbiricheViews.Views
 
         private string[] GetCurrentFriendRequests()
         {
-            Server.FriendshipManagerClient friendshipManagerClient = new Server.FriendshipManagerClient();
+            FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
             string[] usernamePlayers = null;
 
             try
@@ -250,12 +260,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -293,8 +303,8 @@ namespace TimbiricheViews.Views
 
         private XAMLFriendRequestItemComponent CreateFriendRequestItemControl(string username)
         {
-            const string ID_ITEM = "lbRequest";
-            string idUserItem = ID_ITEM + username;
+            string idItem = "lbRequest";
+            string idUserItem = idItem + username;
             XAMLFriendRequestItemComponent friendRequestItem = new XAMLFriendRequestItemComponent(username);
             friendRequestItem.Name = idUserItem;
             friendRequestItem.ButtonClicked += FriendRequestItem_BtnClicked;
@@ -304,14 +314,15 @@ namespace TimbiricheViews.Views
 
         private void FriendRequestItem_BtnClicked(object sender, ButtonClickEventArgs e)
         {
-            const string BTN_ACCEPT = "Accept";
-            const string BTN_REJECT = "Reject";
+            string btnAccept = "Accept";
+            string btnReject = "Reject";
 
-            if (e.ButtonName.Equals(BTN_ACCEPT))
+            if (e.ButtonName.Equals(btnAccept))
             {
                 AcceptFriendRequest(e.Username);
             }
-            if (e.ButtonName.Equals(BTN_REJECT))
+
+            if (e.ButtonName.Equals(btnReject))
             {
                 RejectFriendRequest(e.Username);
             }
@@ -320,7 +331,8 @@ namespace TimbiricheViews.Views
         private void AcceptFriendRequest(string usernameSender)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+            FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+
             try
             {
                 friendRequestManagerClient.AcceptFriendRequest(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username, usernameSender);
@@ -335,12 +347,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -360,7 +372,7 @@ namespace TimbiricheViews.Views
         private void RejectFriendRequest(string username)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
+            FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
 
             try
             {
@@ -377,12 +389,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -401,7 +413,9 @@ namespace TimbiricheViews.Views
 
         private void RemoveFriendRequestFromStackPanel(string username)
         {
-            string idFriendRequestItem = "lbRequest" + username;
+            string idItem = "lbRequest";
+            string idFriendRequestItem = idItem + username;
+
             XAMLFriendRequestItemComponent friendRequestItemToRemove = FindFriendRequeustItemControlById(idFriendRequestItem);
 
             if (friendRequestItemToRemove != null)
@@ -441,7 +455,9 @@ namespace TimbiricheViews.Views
 
         private void RemoveFriendFromFriendsList(string username)
         {
-            string idUserItem = "lb" + username;
+            string idItem = "lb";
+            string idUserItem = idItem + username;
+
             XAMLActiveUserItemControl userOnlineItemToRemove = FindActiveUserItemControlById(idUserItem);
 
             if (userOnlineItemToRemove != null)

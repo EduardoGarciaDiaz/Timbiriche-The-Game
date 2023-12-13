@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
+using System.Globalization;
 
 namespace TimbiricheViews.Views
 {
@@ -15,9 +16,11 @@ namespace TimbiricheViews.Views
     {
         private void DpBirthdate_Loaded(object sender, RoutedEventArgs e)
         {
+            int yearsAgoAllowed = 3;
+
             if (sender is DatePicker datePicker)
             {
-                datePicker.DisplayDateEnd = DateTime.Today.AddYears(-3);
+                datePicker.DisplayDateEnd = DateTime.Today.AddYears(-yearsAgoAllowed);
             }
         }
 
@@ -36,64 +39,33 @@ namespace TimbiricheViews.Views
 
         private void SaveDataChanges()
         {
-            if (ValidateFields())
+            Account editedAccount = CreateEditedAccount();
+
+            if (ValidateFields() && HasDifferenteData(editedAccount))
             {
-                try
-                {
-                    Account editedAccount = CreateEditedAccount();
+                int rowsAffected = UpdateAccount(editedAccount);
 
-                    if (HasDifferenteData(editedAccount))
-                    {
-                        Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
-                        int rowsAffected = userManagerClient.UpdateAccount(editedAccount);
+                HandleResultOfUpdate(rowsAffected, editedAccount);
+            }
+        }
 
-                        if (rowsAffected > 0)
-                        {
-                            ShowAccountModifiedMessage();
-                            playerLoggedIn.AccountFK = editedAccount;
-                        }
-                        else
-                        {
-                            ShowModifyAccountFailMessage();
-                        }
-                    }
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (TimeoutException ex)
-                {
-                    EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (FaultException<TimbiricheServerException> ex)
-                {
-                    EmergentWindows.CreateDataBaseErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (FaultException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (CommunicationException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerException.HandleErrorException(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerException.HandleFatalException(ex, NavigationService);
-                }
+        private void HandleResultOfUpdate(int rowsAffected, Account editedAccount)
+        {
+            if (rowsAffected > 0)
+            {
+                ShowAccountModifiedMessage();
+                playerLoggedIn.AccountFK = editedAccount;
+            }
+            else
+            {
+                ShowModifyAccountFailMessage();
             }
         }
 
         private Account CreateEditedAccount()
         {
-            DateTime.TryParse(dpBirthdate.Text, out DateTime birthdate);
+            CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+            DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out DateTime birthdate);
 
             Account editedAccount = new Account()
             {
@@ -105,6 +77,49 @@ namespace TimbiricheViews.Views
             };
 
             return editedAccount;
+        }
+
+        private int UpdateAccount(Account editedAccount)
+        {
+            UserManagerClient userManagerClient = new UserManagerClient();
+            int rowsAffected = -1;
+
+            try
+            {
+                rowsAffected = userManagerClient.UpdateAccount(editedAccount);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerException>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerException.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerException.HandleFatalException(ex, NavigationService);
+            }
+
+            return rowsAffected;
         }
 
         private void ShowAccountModifiedMessage()
@@ -127,24 +142,29 @@ namespace TimbiricheViews.Views
         {
             SetDefaultStyles();
             bool isValid = true;
+            CultureInfo cultureInfo = CultureInfo.CurrentCulture;
+            string errorTextBoxStyle = "ErrorTextBoxStyle";
+            string errorDatePickerStyle = "ErrorDatePickerStyle";
 
             if (!ValidationUtilities.IsValidPersonalInformation(tbxName.Text.Trim()))
             {
-                tbxName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxName.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgNameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
             }
+
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
-                tbxLastName.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxLastName.Style = (Style)FindResource(errorTextBoxStyle);
                 ImgLastNameErrorDetails.Visibility = Visibility.Visible;
 
                 isValid = false;
             }
-            if (!DateTime.TryParse(dpBirthdate.Text, out _))
+
+            if (!DateTime.TryParse(dpBirthdate.Text, cultureInfo, DateTimeStyles.None, out _))
             {
-                dpBirthdate.Style = (Style)FindResource("ErrorDatePickerStyle");
+                dpBirthdate.Style = (Style)FindResource(errorDatePickerStyle);
 
                 isValid = false;
             }
@@ -169,9 +189,12 @@ namespace TimbiricheViews.Views
 
         private void SetDefaultStyles()
         {
-            tbxName.Style = (Style)FindResource("NormalTextBoxStyle");
-            tbxLastName.Style = (Style)FindResource("NormalTextBoxStyle");
-            dpBirthdate.Style = (Style)FindResource("NormalDatePickerStyle");
+            string normalTextBoxStyle = "NormalTextBoxStyle";
+            string normalDatePickerStyle = "NormalDatePickerStyle";
+
+            tbxName.Style = (Style)FindResource(normalTextBoxStyle);
+            tbxLastName.Style = (Style)FindResource(normalTextBoxStyle);
+            dpBirthdate.Style = (Style)FindResource(normalDatePickerStyle);
 
             ImgNameErrorDetails.Visibility = Visibility.Hidden;
             ImgLastNameErrorDetails.Visibility = Visibility.Hidden;

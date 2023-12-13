@@ -16,7 +16,7 @@ namespace TimbiricheViews.Components
 {
     public partial class XAMLEmergentWindow : Window
     {
-        private Window _mainWindow;
+        private readonly Window _mainWindow;
 
         public XAMLEmergentWindow()
         {

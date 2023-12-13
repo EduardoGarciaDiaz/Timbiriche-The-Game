@@ -40,7 +40,7 @@ namespace TimbiricheViews.Views
                     EmergentWindows.CreateTimeOutMessageWindow();
                     HandlerException.HandleErrorException(ex, NavigationService);
                 }
-                catch (FaultException ex)
+                catch (FaultException)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
@@ -64,7 +64,8 @@ namespace TimbiricheViews.Views
 
         private void LoadPlayerFriends()
         {
-            Server.FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
+            FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
+
             try
             {
                 string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(_playerLoggedIn.IdPlayer);
@@ -80,7 +81,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -100,7 +101,7 @@ namespace TimbiricheViews.Views
         private void ShowAsActiveUser()
         {
             InstanceContext context = new InstanceContext(this);
-            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
+            OnlineUsersManagerClient client = new OnlineUsersManagerClient(context);
 
             try
             {
@@ -116,7 +117,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -148,6 +149,7 @@ namespace TimbiricheViews.Views
         public void NotifyOnlineFriends(string[] onlineUsernames)
         {
             bool isOnline = true;
+
             ChangeStatusFriends(onlineUsernames, isOnline);
             SuscribeUserToOnlineFriendsDictionary();
         }
@@ -162,11 +164,14 @@ namespace TimbiricheViews.Views
 
         private void ChangeStatusPlayer(string username, bool isOnline)
         {
-            string idUserItem = "lb" + username;
+            string idLabel = "lb";
+            string idUserItem = idLabel + username;
             XAMLActiveUserItemControl userOnlineItem = FindActiveUserItemControlById(idUserItem);
+
             if (userOnlineItem != null)
             {
                 SolidColorBrush statusPlayerColor;
+
                 if (isOnline)
                 {
                     statusPlayerColor = Utilities.CreateColorFromHexadecimal(ONLINE_STATUS_PLAYER_HEX_COLOR);
@@ -175,6 +180,7 @@ namespace TimbiricheViews.Views
                 {
                     statusPlayerColor = Utilities.CreateColorFromHexadecimal(OFFLINE_STATUS_PLAYER_HEX_COLOR);
                 }
+
                 userOnlineItem.rectangleStatusPlayer.Fill = statusPlayerColor;
             }
         }
@@ -208,8 +214,8 @@ namespace TimbiricheViews.Views
 
         private XAMLActiveUserItemControl CreateActiveUserItemControl(string username, string haxadecimalColor)
         {
-            const string ID_ITEM = "lb";
-            string idUserItem = ID_ITEM + username;
+            string idItem = "lb";
+            string idUserItem = idItem + username;
             XAMLActiveUserItemControl userOnlineItem = new XAMLActiveUserItemControl(username);
             userOnlineItem.Name = idUserItem;
             userOnlineItem.ButtonClicked += UserOnlineItem_BtnDeleteFriendClicked;
@@ -221,9 +227,9 @@ namespace TimbiricheViews.Views
 
         private void UserOnlineItem_BtnDeleteFriendClicked(object sender, ButtonClickEventArgs e)
         {
-            const string BTN_DELETE_FRIEND = "DeleteFriend";
+            string btnDeleteFriend = "DeleteFriend";
 
-            if (e.ButtonName.Equals(BTN_DELETE_FRIEND))
+            if (e.ButtonName.Equals(btnDeleteFriend))
             {
                 DeleteFriend(e.Username);
             }
@@ -232,7 +238,7 @@ namespace TimbiricheViews.Views
         private void DeleteFriend(string usernameFriendToDelete)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.FriendRequestManagerClient friendRequestManagerClient = new Server.FriendRequestManagerClient(context);
+            FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
 
             try
             {
@@ -248,12 +254,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -270,7 +276,6 @@ namespace TimbiricheViews.Views
             }
         }
 
-
         private void BtnSignOff_Click(object sender, RoutedEventArgs e)
         {
             ExitGameFromLobby();
@@ -285,7 +290,7 @@ namespace TimbiricheViews.Views
         private void ExitGameFromLobby()
         {
             InstanceContext context = new InstanceContext(this);
-            Server.OnlineUsersManagerClient client = new Server.OnlineUsersManagerClient(context);
+            OnlineUsersManagerClient client = new OnlineUsersManagerClient(context);
 
             try
             {
@@ -301,7 +306,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

@@ -20,7 +20,8 @@ namespace TimbiricheViews.Components
     public partial class XAMLActiveUserItemControl : UserControl
     {
         private const string BTN_DELETE_FRIEND = "DeleteFriend";
-        private string _username;
+        private readonly string _username;
+
         public event EventHandler<ButtonClickEventArgs> ButtonClicked;
 
         public XAMLActiveUserItemControl(string username)
