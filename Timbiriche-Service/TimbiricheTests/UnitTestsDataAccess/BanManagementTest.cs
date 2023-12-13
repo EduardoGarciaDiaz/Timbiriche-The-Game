@@ -108,6 +108,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
             DateTime reportDate = DateTime.Now;
 
             BanManagement.CreateReport(idPlayerReported, idPlayerReporter, reportDate);
+            BanManagement.CreateReport(idPlayerReporter, idPlayerReported, reportDate);
         }
 
         private void CreateBan()
@@ -154,19 +155,24 @@ namespace TimbiricheTests.UnitTestsDataAccess
             Accounts reportedAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest1000");
             Accounts reporterAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JuanNameTest1001");
 
-            context.Players.Remove(reportedPlayerToDelete);
-            context.Players.Remove(reporterPlayerToDelete);
+            context.Accounts.Remove(reportedAccountToDelete);
+            context.Accounts.Remove(reporterAccountToDelete);
         }
 
         private void DeleteReports(TimbiricheDBEntities context)
         {
-            var reportsToDelete = context.Reports
+            var reportsToDeleteReportedTestPlayer = context.Reports
                 .Where(r => r.idPlayerReporter == IdReporterTestPlayer || r.idPlayerReported == IdReportedTestPlayer)
                 .ToList();
 
-            if (reportsToDelete != null)
+            var reportsToDeleteReporterTestPlayer = context.Reports
+                .Where(r => r.idPlayerReporter == IdReportedTestPlayer || r.idPlayerReported == IdReporterTestPlayer)
+                .ToList();
+
+            if (reportsToDeleteReportedTestPlayer != null && reportsToDeleteReporterTestPlayer != null)
             {
-                context.Reports.RemoveRange(reportsToDelete);
+                context.Reports.RemoveRange(reportsToDeleteReportedTestPlayer);
+                context.Reports.RemoveRange(reportsToDeleteReporterTestPlayer);
             }
         }
 
@@ -223,7 +229,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
             var result = BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
 
-            Assert.True(result);
+            Assert.False(result);
         }
 
         [Fact]

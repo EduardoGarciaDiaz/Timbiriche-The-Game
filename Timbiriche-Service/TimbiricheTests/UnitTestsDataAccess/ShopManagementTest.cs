@@ -20,8 +20,12 @@ namespace TimbiricheTests.UnitTestsDataAccess
             try
             {
                 CreateTestUser();
-                AddPlayerColor();
-                AddPlayerStyle();
+
+                AddPlayerColor(IdTestPlayer);
+                AddPlayerStyle(IdTestPlayer);
+
+                AddPlayerColor(IdTestPlayerColorStyles);
+                AddPlayerStyle(IdTestPlayerColorStyles);
             }
             catch (SqlException ex)
             {
@@ -38,25 +42,32 @@ namespace TimbiricheTests.UnitTestsDataAccess
         }
 
         public int IdTestPlayer { get; set; }
+        public int IdTestPlayerColorStyles { get; set; }
 
         private void CreateTestUser()
         {
             using (var context = new TimbiricheDBEntities())
             {
-                var newAccountTest = CreateTestAccount(context);
-                var newPlayerTest = CreateTestPlayer(context, newAccountTest);
+                var newAccountTest = CreateTestAccount(context, "JhonNameTest2000");
+                var newPlayerTest = CreateTestPlayer(context, newAccountTest, "JhonUsernameTest2000");
                 UpdatePasswordAndSalt(newPlayerTest);
 
+                var newAccountTestPlayerColorStyles = CreateTestAccount(context, "JhonNameTest2002");
+                var newPlayerTestPlayerColorStyles = CreateTestPlayer(context, newAccountTestPlayerColorStyles, "JhonUsernameTest2002");
+                UpdatePasswordAndSalt(newPlayerTestPlayerColorStyles);
+
                 context.SaveChanges();
+
                 IdTestPlayer = newPlayerTest.idPlayer;
+                IdTestPlayerColorStyles = newPlayerTestPlayerColorStyles.idPlayer;
             }
         }
 
-        private Accounts CreateTestAccount(TimbiricheDBEntities context)
+        private Accounts CreateTestAccount(TimbiricheDBEntities context, string name)
         {
             var newAccountTest = context.Accounts.Add(new Accounts()
             {
-                name = "JhonNameTest2000",
+                name = name,
                 lastName = "JhonMercuryLastNameTest",
                 surname = "JhonLopezSurnameTest",
                 birthdate = DateTime.Now
@@ -65,11 +76,11 @@ namespace TimbiricheTests.UnitTestsDataAccess
             return newAccountTest;
         }
 
-        private Players CreateTestPlayer(TimbiricheDBEntities context, Accounts newAccountTest)
+        private Players CreateTestPlayer(TimbiricheDBEntities context, Accounts newAccountTest, string username)
         {
             var newPlayerTest = context.Players.Add(new Players()
             {
-                username = "JhonUsernameTest2000",
+                username = username,
                 email = "jhonemailtest2000@gmail.com",
                 password = "My7_ScrT3Pa5s_W0r6",
                 coins = 20,
@@ -86,13 +97,13 @@ namespace TimbiricheTests.UnitTestsDataAccess
             newPlayerTest.salt = passwordHashManager.Salt;
         }
 
-        private void AddPlayerColor()
+        private void AddPlayerColor(int idPlayer)
         {
             using (var context = new TimbiricheDBEntities())
             {
                 PlayerColors playerColor = new PlayerColors();
                 playerColor.idColor = 1;
-                playerColor.idPlayer = IdTestPlayer;
+                playerColor.idPlayer = idPlayer;
 
                 context.PlayerColors.Add(playerColor);
 
@@ -100,13 +111,13 @@ namespace TimbiricheTests.UnitTestsDataAccess
             }
         }
 
-        private void AddPlayerStyle()
+        private void AddPlayerStyle(int idPlayer)
         {
             using (var context = new TimbiricheDBEntities())
             {
                 PlayerStyles playerStyle = new PlayerStyles();
                 playerStyle.idStyle = 1;
-                playerStyle.idPlayer = IdTestPlayer;
+                playerStyle.idPlayer = idPlayer;
 
                 context.PlayerStyles.Add(playerStyle);
 
@@ -123,7 +134,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
                     DeletePlayerColor(context);
                     DeletePlayerStyle(context);
                     DeletePlayersAndAccounts(context);
-                    
+
                     context.SaveChanges();
                 }
             }
@@ -140,38 +151,31 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
         private void DeletePlayersAndAccounts(TimbiricheDBEntities context)
         {
-            var usernamesToDelete = new List<string> { "JhonUsernameTest2000" };
-            var emailsToDelete = new List<string> {"jhonemailtest2000@gmail.com" };
+            Players testPlayer = context.Players.Find(IdTestPlayer);
+            Players testPlayerColorStyles = context.Players.Find(IdTestPlayerColorStyles);
 
-            var playersToDelete = context.Players
-                .Where(p => usernamesToDelete.Contains(p.username) && emailsToDelete.Contains(p.email))
-                .ToList();
+            context.Players.Remove(testPlayer);
+            context.Players.Remove(testPlayerColorStyles);
 
-            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest2000"
-            && a.lastName == "JhonMercuryLastNameTest" && a.surname == "JhonLopezSurnameTest");
+            Accounts testAccount = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest2000");
+            Accounts testAccountColorStyles = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest2002");
 
-            if (generalAccountToDelete != null)
-            {
-                context.Accounts.Remove(generalAccountToDelete);
-            }
+            context.Accounts.Remove(testAccount);
+            context.Accounts.Remove(testAccountColorStyles);
         }
 
         private void DeletePlayerColor(TimbiricheDBEntities context)
         {
-            var playerColorToDelete = context.PlayerColors.Where(pc => pc.idPlayer == IdTestPlayer);
+            var playerColorToDelete = context.PlayerColors.Where(pc => pc.idPlayer == IdTestPlayer || pc.idPlayer == IdTestPlayerColorStyles);
 
             context.PlayerColors.RemoveRange(playerColorToDelete);
-
-            context.SaveChanges();
         }
 
         private void DeletePlayerStyle(TimbiricheDBEntities context)
         {
-            var playerStyleToDelete = context.PlayerStyles.Where(ps => ps.idPlayer == IdTestPlayer);
+            var playerStyleToDelete = context.PlayerStyles.Where(ps => ps.idPlayer == IdTestPlayer || ps.idPlayer == IdTestPlayerColorStyles);
 
             context.PlayerStyles.RemoveRange(playerStyleToDelete);
-
-            context.SaveChanges();
         }
     }
 
@@ -195,7 +199,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         [Fact]
         public void TestGetPlayerColorsSuccess()
         {
-            int playerId = _configuration.IdTestPlayer;
+            int playerId = _configuration.IdTestPlayerColorStyles;
 
             List<PlayerColors> playerColors = ShopManagement.GetPlayerColors(playerId);
 
@@ -223,7 +227,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         [Fact]
         public void TestGetPlayerStylesSuccess()
         {
-            int validPlayerId = _configuration.IdTestPlayer;
+            int validPlayerId = _configuration.IdTestPlayerColorStyles;
 
             List<PlayerStyles> playerStyles = ShopManagement.GetPlayerStyles(validPlayerId);
 

@@ -53,7 +53,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
         {
             var newAccountTest = context.Accounts.Add(new Accounts()
             {
-                name = "JhonNameTest",
+                name = "JhonNameTest23",
                 lastName = "JhonMercuryLastNameTest",
                 surname = "JhonLopezSurnameTest",
                 birthdate = DateTime.Now
@@ -120,8 +120,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
             && a.lastName == "LastNameTestX0101" && a.surname == "SurnameTestX0101");
 
 
-            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest"
-            && a.lastName == "JhonMercuryLastNameTest" && a.surname == "JhonLopezSurnameTest");
+            Accounts generalAccountToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTest23");
 
             Accounts accountUpdatedToDelete = context.Accounts.FirstOrDefault(a => a.name == "JhonNameTestHAVETODELETE");
 
@@ -468,8 +467,8 @@ namespace TimbiricheTests.UnitTestsDataAccess
             Accounts editedAccount = new Accounts
             {
                 idAccount = idAccount,
-                name = "JhonNameTest",
-                lastName = "JhonMercuryLastNameTest",
+                name = "JhonNameTest23",
+                lastName = "JhonMercuryLastNameTest12",
                 surname = "JhonLopezSurnameTest",
                 birthdate = DateTime.Now
             };
