@@ -143,7 +143,7 @@ namespace TimbiricheService
             }
         }
 
-        public Player ValidateLoginCredentials(String username, String password)
+        public Player ValidateLoginCredentials(string username, string password)
         {
             Player player = null;
             UserManagement dataAccess = new UserManagement();
@@ -237,7 +237,7 @@ namespace TimbiricheService
             }
         }
 
-        public bool ValidateUniqueIdentifierUser(String identifier)
+        public bool ValidateUniqueIdentifierUser(string identifier)
         {
             UserManagement dataAccess = new UserManagement();
 

@@ -117,7 +117,7 @@ namespace TimbiricheViews.Views
 
             if (SendEmail(email))
             {
-                XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification();
+                XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(tbxUsername.Text.Trim());
 
                 if (codeWindow.ShowDialog() == true)
                 {
@@ -136,7 +136,7 @@ namespace TimbiricheViews.Views
 
             try
             {
-                isEmailSend = emailVerificationManagerClient.SendEmailToken(email);
+                isEmailSend = emailVerificationManagerClient.SendEmailToken(email, tbxUsername.Text.Trim());
             }
             catch (EndpointNotFoundException ex)
             {
