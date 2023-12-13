@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 namespace TimbiricheService.Exceptions
 {
     [DataContract]
-    public class TimbiricheServerException
+    public class TimbiricheServerExceptions
     {
         [DataMember]
-        public new string Message { get; set; }
+        public string Message { get; set; }
         [DataMember]
-        public new string StackTrace { get; set; }
+        public string StackTrace { get; set; }
     }
 }

@@ -7,15 +7,15 @@ namespace TimbiricheService
     public interface IPasswordReset
     {
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool SendResetToken(string email);
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool ValidateResetToken(string email, int token);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool ChangePassword(string newPassword, string email);
     }
 }

@@ -20,7 +20,7 @@ namespace TimbiricheViews.Utils
                 }
                 catch (FormatException ex)
                 {
-                    HandlerException.HandleComponentErrorException(ex);
+                    HandlerExceptions.HandleComponentErrorException(ex);
                 }
             }
 

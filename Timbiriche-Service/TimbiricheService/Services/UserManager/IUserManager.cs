@@ -14,35 +14,35 @@ namespace TimbiricheService
     public interface IUserManager
     {
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         int AddUser(Player player);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         Player ValidateLoginCredentials(string username, string password);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         Player GetPlayerByIdPlayer(int idPlayer);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool ValidateUniqueIdentifierUser(string identifier);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         int UpdateAccount(Account account);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         string GetUsernameByIdPlayer(int idPlayer);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool ValidateIsUserAlreadyOnline(string username);
         
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         int GetIdPlayerByUsername(string username);
     }
 }

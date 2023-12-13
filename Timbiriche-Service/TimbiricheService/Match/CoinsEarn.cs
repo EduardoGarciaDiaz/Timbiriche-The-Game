@@ -10,9 +10,11 @@ namespace TimbiricheService.Match
     {
         public static int CalculateExtraCoins(int playerPosition, int points)
         {
-            const int MAX_NUMBER_OF_PLAYERS = 4;
+            int maxNumberOfPlayers = 4;
+            int multiplier = 2;
+            int additionalPointsEarned = 10;
 
-            return points * 2 + 10 * (MAX_NUMBER_OF_PLAYERS - playerPosition);
+            return points * multiplier + additionalPointsEarned * (maxNumberOfPlayers - playerPosition);
         }
     }
 }

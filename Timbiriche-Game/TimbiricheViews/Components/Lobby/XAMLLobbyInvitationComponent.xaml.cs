@@ -74,12 +74,12 @@ namespace TimbiricheViews.Components.Lobby
                 catch (EndpointNotFoundException ex)
                 {
                     EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerException.HandleComponentErrorException(ex);
+                    HandlerExceptions.HandleComponentErrorException(ex);
                 }
                 catch (TimeoutException ex)
                 {
                     EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerException.HandleComponentErrorException(ex);
+                    HandlerExceptions.HandleComponentErrorException(ex);
                 }
                 catch (FaultException)
                 {
@@ -88,12 +88,12 @@ namespace TimbiricheViews.Components.Lobby
                 catch (CommunicationException ex)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerException.HandleComponentErrorException(ex);
+                    HandlerExceptions.HandleComponentErrorException(ex);
                 }
                 catch (Exception ex)
                 {
                     EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerException.HandleComponentFatalException(ex);
+                    HandlerExceptions.HandleComponentFatalException(ex);
                 }
             }   
         }
