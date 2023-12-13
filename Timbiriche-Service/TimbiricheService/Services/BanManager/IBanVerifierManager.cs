@@ -7,11 +7,11 @@ namespace TimbiricheService
     public interface IBanVerifierManager
     {
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         BanInformation VerifyBanEndDate(int idPlayer);
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool VerifyPlayerIsBanned(int idPlayer);
     }
 }

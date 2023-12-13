@@ -31,13 +31,13 @@ namespace TimbiricheService
             }
             catch (DataAccessException ex)
             {
-                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                TimbiricheServerExceptions exceptionResponse = new TimbiricheServerExceptions
                 {
                     Message = ex.Message,
                     StackTrace = ex.StackTrace
                 };
 
-                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
 
             return globalScores;
@@ -55,13 +55,13 @@ namespace TimbiricheService
             }
             catch (DataAccessException ex)
             {
-                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                TimbiricheServerExceptions exceptionResponse = new TimbiricheServerExceptions
                 {
                     Message = ex.Message,
                     StackTrace = ex.StackTrace
                 };
 
-                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
         }
     }

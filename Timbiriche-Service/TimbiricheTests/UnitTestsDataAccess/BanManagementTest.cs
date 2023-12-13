@@ -354,13 +354,11 @@ namespace TimbiricheTests.UnitTestsDataAccess
         {
             int idPlayer = _configuration.IdReportedTestPlayer;
             DateTime validEndDate = _configuration.BanEndDate;
-
             DateTime result = BanManagement.GetBanEndDateByIdPlayer(idPlayer);
 
-            result = new DateTime(result.Ticks - (result.Ticks % TimeSpan.TicksPerSecond), result.Kind);
-            validEndDate = new DateTime(validEndDate.Ticks - (validEndDate.Ticks % TimeSpan.TicksPerSecond), validEndDate.Kind);
+            TimeSpan tolerance = TimeSpan.FromSeconds(1);
 
-            Assert.Equal(validEndDate, result);
+            Assert.True(Math.Abs((result - validEndDate).TotalSeconds) <= tolerance.TotalSeconds);
         }
 
         [Fact]

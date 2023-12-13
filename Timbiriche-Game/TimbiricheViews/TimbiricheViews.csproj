@@ -115,7 +115,7 @@
     </Compile>
     <Compile Include="Match\Timer.cs" />
     <Compile Include="Utils\EmergentWindows.cs" />
-    <Compile Include="Utils\HandlerException.cs" />
+    <Compile Include="Utils\HandlerExceptions.cs" />
     <Compile Include="Utils\LoggerManager.cs" />
     <Compile Include="Utils\SoundsUtilities.cs" />
     <Compile Include="Utils\ValidationUtilities.cs" />

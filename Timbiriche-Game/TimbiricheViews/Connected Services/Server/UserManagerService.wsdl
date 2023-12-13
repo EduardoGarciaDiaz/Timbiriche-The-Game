@@ -567,8 +567,8 @@
   <wsdl:message name="IUserManager_AddUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_AddUser_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q1:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_AddUser_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q1:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_ValidateLoginCredentials_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateLoginCredentials" />
@@ -576,8 +576,8 @@
   <wsdl:message name="IUserManager_ValidateLoginCredentials_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateLoginCredentialsResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q2:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q2:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_GetPlayerByIdPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayer" />
@@ -585,8 +585,8 @@
   <wsdl:message name="IUserManager_GetPlayerByIdPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q3:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q3:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUser" />
@@ -594,8 +594,8 @@
   <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUserResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q4:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q4:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_UpdateAccount_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateAccount" />
@@ -603,8 +603,8 @@
   <wsdl:message name="IUserManager_UpdateAccount_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_UpdateAccount_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q5:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_UpdateAccount_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q5:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_GetUsernameByIdPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernameByIdPlayer" />
@@ -612,8 +612,8 @@
   <wsdl:message name="IUserManager_GetUsernameByIdPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernameByIdPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q6:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q6:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnline" />
@@ -621,8 +621,8 @@
   <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnlineResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q7:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q7:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IUserManager_GetIdPlayerByUsername_InputMessage">
     <wsdl:part name="parameters" element="tns:GetIdPlayerByUsername" />
@@ -630,8 +630,8 @@
   <wsdl:message name="IUserManager_GetIdPlayerByUsername_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetIdPlayerByUsernameResponse" />
   </wsdl:message>
-  <wsdl:message name="IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q8:TimbiricheServerException" />
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q8:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IOnlineUsersManager_RegisterUserToOnlineUsers_InputMessage">
     <wsdl:part name="parameters" element="tns:RegisterUserToOnlineUsers" />
@@ -663,8 +663,8 @@
   <wsdl:message name="IPasswordReset_SendResetToken_OutputMessage">
     <wsdl:part name="parameters" element="tns:SendResetTokenResponse" />
   </wsdl:message>
-  <wsdl:message name="IPasswordReset_SendResetToken_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q9:TimbiricheServerException" />
+  <wsdl:message name="IPasswordReset_SendResetToken_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q9:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPasswordReset_ValidateResetToken_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateResetToken" />
@@ -672,8 +672,8 @@
   <wsdl:message name="IPasswordReset_ValidateResetToken_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateResetTokenResponse" />
   </wsdl:message>
-  <wsdl:message name="IPasswordReset_ValidateResetToken_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q10:TimbiricheServerException" />
+  <wsdl:message name="IPasswordReset_ValidateResetToken_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q10:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPasswordReset_ChangePassword_InputMessage">
     <wsdl:part name="parameters" element="tns:ChangePassword" />
@@ -681,8 +681,8 @@
   <wsdl:message name="IPasswordReset_ChangePassword_OutputMessage">
     <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
   </wsdl:message>
-  <wsdl:message name="IPasswordReset_ChangePassword_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q11:TimbiricheServerException" />
+  <wsdl:message name="IPasswordReset_ChangePassword_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q11:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="ILobbyManager_CreateLobby_InputMessage">
     <wsdl:part name="parameters" element="tns:CreateLobby" />
@@ -846,8 +846,8 @@
   <wsdl:message name="IPlayerCustomizationManager_GetMyColors_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMyColorsResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q12:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q12:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_InputMessage">
     <wsdl:part name="parameters" element="tns:GetHexadecimalColors" />
@@ -855,8 +855,8 @@
   <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetHexadecimalColorsResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q13:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q13:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectMyColor" />
@@ -864,8 +864,8 @@
   <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectMyColorResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q14:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q14:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_InputMessage">
     <wsdl:part name="parameters" element="tns:CheckColorForPlayer" />
@@ -873,8 +873,8 @@
   <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_OutputMessage">
     <wsdl:part name="parameters" element="tns:CheckColorForPlayerResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q15:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q15:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_InputMessage">
     <wsdl:part name="parameters" element="tns:GetMyStyles" />
@@ -882,8 +882,8 @@
   <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetMyStylesResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q16:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q16:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_GetStylePath_InputMessage">
     <wsdl:part name="parameters" element="tns:GetStylePath" />
@@ -891,8 +891,8 @@
   <wsdl:message name="IPlayerCustomizationManager_GetStylePath_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStylePathResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q17:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q17:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_InputMessage">
     <wsdl:part name="parameters" element="tns:SelectMyStyle" />
@@ -900,8 +900,8 @@
   <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_OutputMessage">
     <wsdl:part name="parameters" element="tns:SelectMyStyleResponse" />
   </wsdl:message>
-  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q18:TimbiricheServerException" />
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q18:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeColorToColorsSelected" />
@@ -954,8 +954,8 @@
   <wsdl:message name="IFriendshipManager_GetListUsernameFriends_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetListUsernameFriendsResponse" />
   </wsdl:message>
-  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q19:TimbiricheServerException" />
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q19:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_InputMessage">
     <wsdl:part name="parameters" element="tns:ValidateFriendRequestSending" />
@@ -963,8 +963,8 @@
   <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_OutputMessage">
     <wsdl:part name="parameters" element="tns:ValidateFriendRequestSendingResponse" />
   </wsdl:message>
-  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q20:TimbiricheServerException" />
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q20:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IFriendshipManager_AddRequestFriendship_InputMessage">
     <wsdl:part name="parameters" element="tns:AddRequestFriendship" />
@@ -972,8 +972,8 @@
   <wsdl:message name="IFriendshipManager_AddRequestFriendship_OutputMessage">
     <wsdl:part name="parameters" element="tns:AddRequestFriendshipResponse" />
   </wsdl:message>
-  <wsdl:message name="IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q21:TimbiricheServerException" />
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q21:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_InputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequesters" />
@@ -981,8 +981,8 @@
   <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequestersResponse" />
   </wsdl:message>
-  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q22:TimbiricheServerException" />
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q22:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IFriendRequestManager_AddToOnlineFriendshipDictionary_InputMessage">
     <wsdl:part name="parameters" element="tns:AddToOnlineFriendshipDictionary" />
@@ -1053,8 +1053,8 @@
   <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerifyBanEndDateResponse" />
   </wsdl:message>
-  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q23:TimbiricheServerException" />
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q23:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_InputMessage">
     <wsdl:part name="parameters" element="tns:VerifyPlayerIsBanned" />
@@ -1062,8 +1062,8 @@
   <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage">
     <wsdl:part name="parameters" element="tns:VerifyPlayerIsBannedResponse" />
   </wsdl:message>
-  <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q24:TimbiricheServerException" />
+  <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q24:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_InputMessage">
     <wsdl:part name="parameters" element="tns:ExistLobbyCode" />
@@ -1077,8 +1077,8 @@
   <wsdl:message name="IScoreboardManager_GetGlobalScores_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetGlobalScoresResponse" />
   </wsdl:message>
-  <wsdl:message name="IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q25:TimbiricheServerException" />
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q25:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IScoreboardManager_UpdateWins_InputMessage">
     <wsdl:part name="parameters" element="tns:UpdateWins" />
@@ -1086,8 +1086,8 @@
   <wsdl:message name="IScoreboardManager_UpdateWins_OutputMessage">
     <wsdl:part name="parameters" element="tns:UpdateWinsResponse" />
   </wsdl:message>
-  <wsdl:message name="IScoreboardManager_UpdateWins_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q26:TimbiricheServerException" />
+  <wsdl:message name="IScoreboardManager_UpdateWins_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q26:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IGlobalScoreManager_SubscribeToGlobalScoreRealTime_InputMessage">
     <wsdl:part name="parameters" element="tns:SubscribeToGlobalScoreRealTime" />
@@ -1110,8 +1110,8 @@
   <wsdl:message name="IShopManager_GetColors_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetColorsResponse" />
   </wsdl:message>
-  <wsdl:message name="IShopManager_GetColors_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q27:TimbiricheServerException" />
+  <wsdl:message name="IShopManager_GetColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q27:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IShopManager_GetStyles_InputMessage">
     <wsdl:part name="parameters" element="tns:GetStyles" />
@@ -1119,8 +1119,8 @@
   <wsdl:message name="IShopManager_GetStyles_OutputMessage">
     <wsdl:part name="parameters" element="tns:GetStylesResponse" />
   </wsdl:message>
-  <wsdl:message name="IShopManager_GetStyles_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q28:TimbiricheServerException" />
+  <wsdl:message name="IShopManager_GetStyles_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q28:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IShopManager_BuyColor_InputMessage">
     <wsdl:part name="parameters" element="tns:BuyColor" />
@@ -1128,8 +1128,8 @@
   <wsdl:message name="IShopManager_BuyColor_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuyColorResponse" />
   </wsdl:message>
-  <wsdl:message name="IShopManager_BuyColor_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q29:TimbiricheServerException" />
+  <wsdl:message name="IShopManager_BuyColor_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q29:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IShopManager_BuyStyle_InputMessage">
     <wsdl:part name="parameters" element="tns:BuyStyle" />
@@ -1137,8 +1137,8 @@
   <wsdl:message name="IShopManager_BuyStyle_OutputMessage">
     <wsdl:part name="parameters" element="tns:BuyStyleResponse" />
   </wsdl:message>
-  <wsdl:message name="IShopManager_BuyStyle_TimbiricheServerExceptionFault_FaultMessage">
-    <wsdl:part xmlns:q30="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q30:TimbiricheServerException" />
+  <wsdl:message name="IShopManager_BuyStyle_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q30:TimbiricheServerExceptions" />
   </wsdl:message>
   <wsdl:message name="IRematchManager_NotRematch_InputMessage">
     <wsdl:part name="parameters" element="tns:NotRematch" />
@@ -1162,42 +1162,42 @@
     <wsdl:operation name="AddUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/AddUserResponse" message="tns:IUserManager_AddUser_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/AddUserTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_AddUser_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/AddUserTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_AddUser_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateLoginCredentials">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentials" message="tns:IUserManager_ValidateLoginCredentials_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse" message="tns:IUserManager_ValidateLoginCredentials_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetPlayerByIdPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" message="tns:IUserManager_GetPlayerByIdPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse" message="tns:IUserManager_GetPlayerByIdPlayer_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" message="tns:IUserManager_ValidateUniqueIdentifierUser_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse" message="tns:IUserManager_ValidateUniqueIdentifierUser_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateAccount">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/UpdateAccount" message="tns:IUserManager_UpdateAccount_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountResponse" message="tns:IUserManager_UpdateAccount_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_UpdateAccount_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_UpdateAccount_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUsernameByIdPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer" message="tns:IUserManager_GetUsernameByIdPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse" message="tns:IUserManager_GetUsernameByIdPlayer_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateIsUserAlreadyOnline">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline" message="tns:IUserManager_ValidateIsUserAlreadyOnline_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse" message="tns:IUserManager_ValidateIsUserAlreadyOnline_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetIdPlayerByUsername">
       <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername" message="tns:IUserManager_GetIdPlayerByUsername_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse" message="tns:IUserManager_GetIdPlayerByUsername_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IOnlineUsersManager">
@@ -1224,17 +1224,17 @@
     <wsdl:operation name="SendResetToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/SendResetToken" message="tns:IPasswordReset_SendResetToken_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenResponse" message="tns:IPasswordReset_SendResetToken_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPasswordReset_SendResetToken_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_SendResetToken_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateResetToken">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetToken" message="tns:IPasswordReset_ValidateResetToken_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse" message="tns:IPasswordReset_ValidateResetToken_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPasswordReset_ValidateResetToken_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_ValidateResetToken_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ChangePassword">
       <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ChangePassword" message="tns:IPasswordReset_ChangePassword_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ChangePasswordResponse" message="tns:IPasswordReset_ChangePassword_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ChangePasswordTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPasswordReset_ChangePassword_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ChangePasswordTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_ChangePassword_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ILobbyManager">
@@ -1361,37 +1361,37 @@
     <wsdl:operation name="GetMyColors">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors" message="tns:IPlayerCustomizationManager_GetMyColors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse" message="tns:IPlayerCustomizationManager_GetMyColors_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetHexadecimalColors">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectMyColor">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor" message="tns:IPlayerCustomizationManager_SelectMyColor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse" message="tns:IPlayerCustomizationManager_SelectMyColor_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="CheckColorForPlayer">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetMyStyles">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" message="tns:IPlayerCustomizationManager_GetMyStyles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse" message="tns:IPlayerCustomizationManager_GetMyStyles_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetStylePath">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath" message="tns:IPlayerCustomizationManager_GetStylePath_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse" message="tns:IPlayerCustomizationManager_GetStylePath_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="SelectMyStyle">
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle" message="tns:IPlayerCustomizationManager_SelectMyStyle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse" message="tns:IPlayerCustomizationManager_SelectMyStyle_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IPlayerColorsManager">
@@ -1439,22 +1439,22 @@
     <wsdl:operation name="GetListUsernameFriends">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends" message="tns:IFriendshipManager_GetListUsernameFriends_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse" message="tns:IFriendshipManager_GetListUsernameFriends_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="ValidateFriendRequestSending">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" message="tns:IFriendshipManager_ValidateFriendRequestSending_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse" message="tns:IFriendshipManager_ValidateFriendRequestSending_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="AddRequestFriendship">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship" message="tns:IFriendshipManager_AddRequestFriendship_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse" message="tns:IFriendshipManager_AddRequestFriendship_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetUsernamePlayersRequesters">
       <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IFriendRequestManager">
@@ -1516,12 +1516,12 @@
     <wsdl:operation name="VerifyBanEndDate">
       <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate" message="tns:IBanVerifierManager_VerifyBanEndDate_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse" message="tns:IBanVerifierManager_VerifyBanEndDate_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="VerifyPlayerIsBanned">
       <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="ILobbyExistenceChecker">
@@ -1534,12 +1534,12 @@
     <wsdl:operation name="GetGlobalScores">
       <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScores" message="tns:IScoreboardManager_GetGlobalScores_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse" message="tns:IScoreboardManager_GetGlobalScores_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="UpdateWins">
       <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWins" message="tns:IScoreboardManager_UpdateWins_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsResponse" message="tns:IScoreboardManager_UpdateWins_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IScoreboardManager_UpdateWins_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IScoreboardManager_UpdateWins_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IGlobalScoreManager">
@@ -1561,22 +1561,22 @@
     <wsdl:operation name="GetColors">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetColors" message="tns:IShopManager_GetColors_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetColorsResponse" message="tns:IShopManager_GetColors_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetColorsTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IShopManager_GetColors_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_GetColors_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="GetStyles">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetStyles" message="tns:IShopManager_GetStyles_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetStylesResponse" message="tns:IShopManager_GetStyles_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetStylesTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IShopManager_GetStyles_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetStylesTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_GetStyles_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="BuyColor">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyColor" message="tns:IShopManager_BuyColor_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyColorResponse" message="tns:IShopManager_BuyColor_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyColorTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IShopManager_BuyColor_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyColorTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_BuyColor_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
     <wsdl:operation name="BuyStyle">
       <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyStyle" message="tns:IShopManager_BuyStyle_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyStyleResponse" message="tns:IShopManager_BuyStyle_OutputMessage" />
-      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyStyleTimbiricheServerExceptionFault" name="TimbiricheServerExceptionFault" message="tns:IShopManager_BuyStyle_TimbiricheServerExceptionFault_FaultMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyStyleTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_BuyStyle_TimbiricheServerExceptionsFault_FaultMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IRematchManager">
@@ -1606,8 +1606,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateLoginCredentials">
@@ -1618,8 +1618,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetPlayerByIdPlayer">
@@ -1630,8 +1630,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateUniqueIdentifierUser">
@@ -1642,8 +1642,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="UpdateAccount">
@@ -1654,8 +1654,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetUsernameByIdPlayer">
@@ -1666,8 +1666,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateIsUserAlreadyOnline">
@@ -1678,8 +1678,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetIdPlayerByUsername">
@@ -1690,8 +1690,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -1749,8 +1749,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateResetToken">
@@ -1761,8 +1761,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ChangePassword">
@@ -1773,8 +1773,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2050,8 +2050,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetHexadecimalColors">
@@ -2062,8 +2062,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="SelectMyColor">
@@ -2074,8 +2074,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="CheckColorForPlayer">
@@ -2086,8 +2086,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetMyStyles">
@@ -2098,8 +2098,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetStylePath">
@@ -2110,8 +2110,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="SelectMyStyle">
@@ -2122,8 +2122,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2225,8 +2225,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="ValidateFriendRequestSending">
@@ -2237,8 +2237,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="AddRequestFriendship">
@@ -2249,8 +2249,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetUsernamePlayersRequesters">
@@ -2261,8 +2261,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2393,8 +2393,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="VerifyPlayerIsBanned">
@@ -2405,8 +2405,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2434,8 +2434,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="UpdateWins">
@@ -2446,8 +2446,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2493,8 +2493,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="GetStyles">
@@ -2505,8 +2505,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="BuyColor">
@@ -2517,8 +2517,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
     <wsdl:operation name="BuyStyle">
@@ -2529,8 +2529,8 @@
       <wsdl:output>
         <soap12:body use="literal" />
       </wsdl:output>
-      <wsdl:fault name="TimbiricheServerExceptionFault">
-        <soap12:fault use="literal" name="TimbiricheServerExceptionFault" namespace="" />
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
       </wsdl:fault>
     </wsdl:operation>
   </wsdl:binding>
@@ -2574,7 +2574,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2583,7 +2583,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2592,7 +2592,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2601,7 +2601,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2610,7 +2610,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2619,7 +2619,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2628,7 +2628,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2637,7 +2637,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2646,7 +2646,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2655,7 +2655,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2664,7 +2664,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2673,7 +2673,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2682,7 +2682,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2691,7 +2691,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2700,7 +2700,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2709,7 +2709,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2718,7 +2718,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2727,7 +2727,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
@@ -2736,7 +2736,7 @@
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
         <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Upn>LAPTOP-HHJQVNMN\egd17</Upn>
+          <Upn>USUARIO-JS8U5M9\Cesar</Upn>
         </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
