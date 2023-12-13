@@ -60,6 +60,7 @@ namespace TimbiricheViews.Views
         public void NotifyNewScoreboard(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard)
         {
             string animationNewScoreboard = "fadeAnimation";
+
             if (stackPanelScoreboard.Visibility == Visibility.Collapsed)
             {
                 stackPanelScoreboard.Visibility = Visibility.Visible;
@@ -130,7 +131,9 @@ namespace TimbiricheViews.Views
 
         public void NotifyOnlyPlayerInMatch()
         {
-            Utils.EmergentWindows.CreateEmergentWindow("Unico Jugador", "Eres el unico jugador en la partida. Regresaras al lobby.");
+            Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbUniquePlayerTitle,
+                Properties.Resources.tbkUniquePlayerDescription);
+
             LeftMatch();
         }
 

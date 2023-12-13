@@ -358,6 +358,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Cuenta modificada.
+        /// </summary>
+        public static string lbAccountModifiedTitle {
+            get {
+                return ResourceManager.GetString("lbAccountModifiedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Aceptar.
         /// </summary>
         public static string lbAceptFriendRequest {
@@ -583,11 +592,38 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a El baneo ha terminado. Recuerda portarte bien..
+        /// </summary>
+        public static string lbEndBan {
+            get {
+                return ResourceManager.GetString("lbEndBan", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ingresa el correo de tu amigo.
         /// </summary>
         public static string lbEnterEmail {
             get {
                 return ResourceManager.GetString("lbEnterEmail", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al Cambiar Contraseña.
+        /// </summary>
+        public static string lbErrorPasswordResetTitle {
+            get {
+                return ResourceManager.GetString("lbErrorPasswordResetTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Error al realizar la compra.
+        /// </summary>
+        public static string lbErrorPurchaseTitle {
+            get {
+                return ResourceManager.GetString("lbErrorPurchaseTitle", resourceCulture);
             }
         }
         
@@ -826,6 +862,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Error al modificar.
+        /// </summary>
+        public static string lbModifyAccountFailTitle {
+            get {
+                return ResourceManager.GetString("lbModifyAccountFailTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Mi Perfil.
         /// </summary>
         public static string lbMyProfile {
@@ -898,6 +943,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Contraseña Cambiada.
+        /// </summary>
+        public static string lbPasswordResetedTitle {
+            get {
+                return ResourceManager.GetString("lbPasswordResetedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Al menos un símbolo.
         /// </summary>
         public static string lbPasswordSymbolInstruction {
@@ -930,6 +984,15 @@ namespace TimbiricheViews.Properties {
         public static string lbPosition {
             get {
                 return ResourceManager.GetString("lbPosition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Compra Completada.
+        /// </summary>
+        public static string lbPurchaseCompleteTitle {
+            get {
+                return ResourceManager.GetString("lbPurchaseCompleteTitle", resourceCulture);
             }
         }
         
@@ -1123,6 +1186,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Único Jugador.
+        /// </summary>
+        public static string lbUniquePlayerTitle {
+            get {
+                return ResourceManager.GetString("lbUniquePlayerTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ilimitado.
         /// </summary>
         public static string lbUnlimitedTime {
@@ -1222,6 +1294,15 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Se ha modificado con éxito.
+        /// </summary>
+        public static string tbkAccountModifiedDescription {
+            get {
+                return ResourceManager.GetString("tbkAccountModifiedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Has acumulado el máximo de reportes permitidos. Se restringirá tu cuenta por un tiempo establecido..
         /// </summary>
         public static string tbkBannedPlayerDescription {
@@ -1285,6 +1366,33 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a Hubo un error al cambiar la contraseña. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkErrorPasswordResetDescription {
+            get {
+                return ResourceManager.GetString("tbkErrorPasswordResetDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No fue posible comprar el color. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkErrorPurchaseColorDescription {
+            get {
+                return ResourceManager.GetString("tbkErrorPurchaseColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a No fue posible comprar el estilo. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkErrorPurchaseStyleDescription {
+            get {
+                return ResourceManager.GetString("tbkErrorPurchaseStyleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ya existe una sesión iniciada con esa cuenta, cierra sesión en el otro dispositivo para poder iniciar sesión en este.
         /// </summary>
         public static string tbkExistentSessionDescription {
@@ -1339,6 +1447,42 @@ namespace TimbiricheViews.Properties {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a No fue posible realizar los cambios. Por favor, inténtelo más tarde.
+        /// </summary>
+        public static string tbkModifyAccountFailDescription {
+            get {
+                return ResourceManager.GetString("tbkModifyAccountFailDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a La contraseña fue cambiada con éxito.
+        /// </summary>
+        public static string tbkPasswordResetedDescription {
+            get {
+                return ResourceManager.GetString("tbkPasswordResetedDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Compraste el color correctamente..
+        /// </summary>
+        public static string tbkPurchaseColorDescription {
+            get {
+                return ResourceManager.GetString("tbkPurchaseColorDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Compraste el estilo correctamente..
+        /// </summary>
+        public static string tbkPurchaseStyleDescription {
+            get {
+                return ResourceManager.GetString("tbkPurchaseStyleDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a Ya has reportado a este jugador..
         /// </summary>
         public static string tbkReportedPlayerDescription {
@@ -1380,6 +1524,15 @@ namespace TimbiricheViews.Properties {
         public static string tbkUnexpectedExceptionDescription {
             get {
                 return ResourceManager.GetString("tbkUnexpectedExceptionDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Busca una cadena traducida similar a Eres el único jugador en la partida. Regresarás al lobby..
+        /// </summary>
+        public static string tbkUniquePlayerDescription {
+            get {
+                return ResourceManager.GetString("tbkUniquePlayerDescription", resourceCulture);
             }
         }
         

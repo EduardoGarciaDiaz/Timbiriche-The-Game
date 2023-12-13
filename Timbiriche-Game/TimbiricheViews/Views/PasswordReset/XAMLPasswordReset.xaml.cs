@@ -211,15 +211,15 @@ namespace TimbiricheViews.Views
         {
             if (isPasswordReseted)
             {
-                string title = "Contraseña Cambiada";
-                string message = "La contraseña fue cambiada con éxito";
+                string title = Properties.Resources.lbPasswordResetedTitle;
+                string message = Properties.Resources.tbkPasswordResetedDescription;
                 EmergentWindows.CreateEmergentWindow(title, message);
                 NavigationService.GoBack();
             }
             else
             {
-                string title = "Error al Cambiar Contraseña";
-                string message = "Hubo un error al cambiar la contraeña. Intentelo mas tarde.";
+                string title = Properties.Resources.lbErrorPasswordResetTitle;
+                string message = Properties.Resources.tbkErrorPasswordResetDescription;
                 EmergentWindows.CreateEmergentWindow(title, message);
             }
         }

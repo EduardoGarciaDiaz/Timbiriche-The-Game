@@ -61,16 +61,18 @@ namespace TimbiricheViews.Components.Shop
                 {
                     PlayerSingleton.Player.Coins -= _color.ColorCost;
                     gridOwnedColor.Visibility = Visibility.Visible;
-                    Utils.EmergentWindows.CreateEmergentWindow("Compra Completada", "Compraste el color correctamente.");
+                    EmergentWindows.CreateEmergentWindow(Properties.Resources.lbPurchaseCompleteTitle,
+                        Properties.Resources.tbkPurchaseColorDescription);
                 }
                 else
                 {
-                    Utils.EmergentWindows.CreateEmergentWindow("Error al realizar la compra", "No fue posible comprar el color. Intentálo mas tarde.");
+                    EmergentWindows.CreateEmergentWindow(Properties.Resources.lbErrorPurchaseTitle,
+                        Properties.Resources.tbkErrorPurchaseColorDescription);
                 }
             }
             else
             {
-                Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
             }
         }
 

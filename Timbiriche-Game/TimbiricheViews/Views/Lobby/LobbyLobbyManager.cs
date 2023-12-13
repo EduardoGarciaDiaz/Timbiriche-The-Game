@@ -23,6 +23,7 @@ namespace TimbiricheViews.Views
             _lobbyCode = lobbyCode;
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
+            btnSignOff.Visibility = Visibility.Collapsed;
 
             ShowSelectPlayerColorGrid();
             ValidateStartOfMatch();
@@ -111,6 +112,7 @@ namespace TimbiricheViews.Views
         {
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControlNotLeadPlayer.Visibility = Visibility.Visible;
+            btnSignOff.Visibility = Visibility.Collapsed;
 
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;

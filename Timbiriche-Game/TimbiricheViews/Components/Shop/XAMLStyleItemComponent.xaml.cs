@@ -67,17 +67,18 @@ namespace TimbiricheViews.Components.Shop
                 {
                     PlayerSingleton.Player.Coins -= _style.StyleCost;
                     gridOwnedSyle.Visibility = Visibility.Visible;
-                    Utils.EmergentWindows.CreateEmergentWindow("Compra Completada", "Compraste el estilo correctamente.");
+                    EmergentWindows.CreateEmergentWindow(Properties.Resources.lbPurchaseCompleteTitle,
+                        Properties.Resources.tbkPurchaseStyleDescription);
                 }
                 else
                 {
-                    Utils.EmergentWindows.CreateEmergentWindow("Error al realizar la compra", "No fue posible comprar el estilo. Intentálo mas tarde.");
+                    EmergentWindows.CreateEmergentWindow(Properties.Resources.lbErrorPurchaseTitle,
+                        Properties.Resources.tbkErrorPurchaseStyleDescription);
                 }
             }
             else
             {
-                Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
-
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
             }
         }
 

@@ -124,16 +124,16 @@ namespace TimbiricheViews.Views
 
         private void ShowAccountModifiedMessage()
         {
-            string titleEmergentWindow = "Cuenta modificada";
-            string descriptionEmergentWindow = "Se ha modificado con éxito";
+            string titleEmergentWindow = Properties.Resources.lbAccountModifiedTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkAccountModifiedDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
 
         private void ShowModifyAccountFailMessage()
         {
-            string titleEmergentWindow = "Error al modificar";
-            string descriptionEmergentWindow = "No fue posible realizar los cambios, por favor intenta de nuevo";
+            string titleEmergentWindow = Properties.Resources.lbModifyAccountFailTitle;
+            string descriptionEmergentWindow = Properties.Resources.tbkModifyAccountFailDescription;
 
             EmergentWindows.CreateEmergentWindow(titleEmergentWindow, descriptionEmergentWindow);
         }
