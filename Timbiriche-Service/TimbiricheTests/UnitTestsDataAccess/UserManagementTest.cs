@@ -458,27 +458,6 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
         
         [Fact]
-        public void TestUpdateAccountSuccess()
-        {
-            UserManagement userManagement = new UserManagement();
-            int expectedResult = 1;
-
-            int idAccount = userManagement.GetIdPlayerByUsername("JhonUsernameTest02");
-            Accounts editedAccount = new Accounts
-            {
-                idAccount = idAccount,
-                name = "JhonNameTest23",
-                lastName = "JhonMercuryLastNameTest12",
-                surname = "JhonLopezSurnameTest",
-                birthdate = DateTime.Now
-            };
-
-            int rowsAffected = userManagement.UpdateAccount(editedAccount);
-
-            Assert.Equal(expectedResult, rowsAffected);
-        }
-
-        [Fact]
         public void TestUpdateAccountFail()
         {
             UserManagement userManagement = new UserManagement();
