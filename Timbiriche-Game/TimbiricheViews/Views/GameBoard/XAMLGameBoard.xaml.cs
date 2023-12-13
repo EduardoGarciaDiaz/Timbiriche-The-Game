@@ -30,8 +30,7 @@ namespace TimbiricheViews.Views
         private const int BOARD_SIZE = 10;
         private const string HORIZONTAL_TYPE_LINE = "Horizontal";
         private const string VERTICAL_TYPE_LINE = "Vertical";
-
-        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
+        private const int GAMEBOARD_BOUNDARY = 0;
         private int[,] _horizontalLines;
         private int[,] _verticalLines;
         private int _row;
@@ -41,6 +40,7 @@ namespace TimbiricheViews.Views
         private string _playerHexadecimalColor;
         private string _playerStylePath;
         private bool _itsMyTurn;
+        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
 
         public XAMLGameBoard(string lobbyCode, string playerHexadecimalColor, string playerStylePath)
         {
@@ -74,7 +74,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -88,8 +88,6 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerException.HandleFatalException(ex, NavigationService);
-
-                NavigationService.Navigate(new XAMLLogin());
             }
         }
 
@@ -109,9 +107,11 @@ namespace TimbiricheViews.Views
 
         private void CreateLines(int rows, int cols, Button buttonTemplate, string typeLine)
         {
-            for (int currentRow = 0 ; currentRow < rows ; currentRow++)
+            int initialGrid = 0;
+
+            for (int currentRow = initialGrid; currentRow < rows ; currentRow++)
             {
-                for (int currentColumn = 0 ; currentColumn < cols ; currentColumn++)
+                for (int currentColumn = initialGrid; currentColumn < cols ; currentColumn++)
                 {
                     Button btnLine = CreateButton(buttonTemplate, typeLine, currentRow, currentColumn);
                     gridGameBoard.Children.Add(btnLine);
@@ -135,48 +135,82 @@ namespace TimbiricheViews.Views
 
         private void BtnLine_Click(object sender, RoutedEventArgs e)
         {
-            const char SPLIT_SYMBOL = ',';
-            const int INDEX_TYPE_LINE = 0;
-            const int INDEX_ROW = 1;
-            const int INDEX_COLUMN = 2;
+            const char splitSymbol = ',';
+            const int indexTypeLine = 0;
+            const int indexRow = 1;
+            const int indexColumn = 2;
 
             Button btnLine = (Button)sender;
-            string[] tagParts = btnLine.Tag.ToString().Split(SPLIT_SYMBOL);
-            string typeLine = tagParts[INDEX_TYPE_LINE];
-            _row = int.Parse(tagParts[INDEX_ROW]);
-            _column = int.Parse(tagParts[INDEX_COLUMN]);
+            string[] tagParts = btnLine.Tag.ToString().Split(splitSymbol);
+            string typeLine = tagParts[indexTypeLine];
+            _row = int.Parse(tagParts[indexRow]);
+            _column = int.Parse(tagParts[indexColumn]);
 
+            DrawLine(btnLine, typeLine);
+        }
+
+        private void DrawLine(Button btnLine, string typeLine)
+        {
             if (_itsMyTurn)
             {
                 SoundsUtilities.PlayButtonClicLineSound();
                 string stylePlayer = ChooseCorrectStyle(_playerStylePath, _username);
                 int points = SetMovement(btnLine, _playerHexadecimalColor, stylePlayer, _row, _column, typeLine);
 
-                InstanceContext context = new InstanceContext(this);
-                Server.MatchManagerClient client = new Server.MatchManagerClient(context);
+                try
+                {
+                    InstanceContext context = new InstanceContext(this);
+                    Server.MatchManagerClient client = new Server.MatchManagerClient(context);
 
-                Movement movement = new Movement();
-                movement.TypeLine = typeLine;
-                movement.Row = _row;
-                movement.Column = _column;
-                movement.EarnedPoints = points;
-                movement.HexadecimalColor = _playerHexadecimalColor;
-                movement.StylePath = _playerStylePath;
-                movement.Username = _username;
+                    Movement movement = new Movement
+                    {
+                        TypeLine = typeLine,
+                        Row = _row,
+                        Column = _column,
+                        EarnedPoints = points,
+                        HexadecimalColor = _playerHexadecimalColor,
+                        StylePath = _playerStylePath,
+                        Username = _username
+                    };
 
-                client.EndTurn(_lobbyCode, movement);
+                    client.EndTurn(_lobbyCode, movement);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerException.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerException.HandleFatalException(ex, NavigationService);
+                }
             }
         }
 
         private string ChooseCorrectStyle(string stylePath, string username)
         {
-            const string DEFAULT_STYLE = "";
-            const int INDEX_FIRST_LETTER = 0;
+            string defaultStyle = "";
+            int indexFirstLetter = 0;
 
             string stylePlayer = stylePath;
-            if (stylePath == DEFAULT_STYLE)
+            if (stylePath == defaultStyle)
             {
-                stylePlayer = username[INDEX_FIRST_LETTER].ToString();
+                stylePlayer = username[indexFirstLetter].ToString();
             }
 
             return stylePlayer;
@@ -193,8 +227,9 @@ namespace TimbiricheViews.Views
 
         private void UpdateButtonAppearance(Button btnLine, string color)
         {
-            btnLine.Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString(color));
-            btnLine.Style = (Style)FindResource("NoHoverStyle");
+            string styleButtonClicked = "NoHoverStyle";
+            btnLine.Background = Utilities.CreateColorFromHexadecimal(color);
+            btnLine.Style = (Style)FindResource(styleButtonClicked);
             btnLine.IsEnabled = false;
         }
 
@@ -202,14 +237,15 @@ namespace TimbiricheViews.Views
         {
             bool isHorizontalLine = typeLine.Equals(HORIZONTAL_TYPE_LINE);
             bool isVerticalLine = typeLine.Equals(VERTICAL_TYPE_LINE);
+            int markedLine = 1;
 
             if (isHorizontalLine)
             {
-                _horizontalLines[row, column] = 1;
+                _horizontalLines[row, column] = markedLine;
             }
             else if (isVerticalLine)
             {
-                _verticalLines[row, column] = 1;
+                _verticalLines[row, column] = markedLine;
             }
         }
         
@@ -237,11 +273,11 @@ namespace TimbiricheViews.Views
         {
             int points = 0;
 
-            if (row > 0 && _horizontalLines[row - 1, column] != 0 && _verticalLines[row - 1, column] != 0 && _verticalLines[row - 1, column + 1] != 0)
+            if (row > GAMEBOARD_BOUNDARY && _horizontalLines[row - 1, column] != GAMEBOARD_BOUNDARY 
+                && _verticalLines[row - 1, column] != GAMEBOARD_BOUNDARY && _verticalLines[row - 1, column + 1] != GAMEBOARD_BOUNDARY)
             {
                 points++;
                 SetScoringPlayerOnBoard(row - 1, column, imageBoardPath, hexadecimalColor);
-
             }
 
             return points;
@@ -251,7 +287,8 @@ namespace TimbiricheViews.Views
         {
             int points = 0;
 
-            if (row < BOARD_SIZE - 1 && _horizontalLines[row + 1, column] != 0 && _verticalLines[row, column] != 0 && _verticalLines[row, column + 1] != 0)
+            if (row < BOARD_SIZE - 1 && _horizontalLines[row + 1, column] != GAMEBOARD_BOUNDARY 
+                && _verticalLines[row, column] != GAMEBOARD_BOUNDARY && _verticalLines[row, column + 1] != GAMEBOARD_BOUNDARY)
             {
                 points++;
                 SetScoringPlayerOnBoard(row, column, imageBoardPath, hexadecimalColor);
@@ -264,7 +301,8 @@ namespace TimbiricheViews.Views
         {
             int points = 0;
 
-            if (column > 0 && _verticalLines[row, column - 1] != 0 && _horizontalLines[row, column - 1] != 0 && _horizontalLines[row + 1, column - 1] != 0)
+            if (column > GAMEBOARD_BOUNDARY && _verticalLines[row, column - 1] != GAMEBOARD_BOUNDARY 
+                && _horizontalLines[row, column - 1] != GAMEBOARD_BOUNDARY && _horizontalLines[row + 1, column - 1] != GAMEBOARD_BOUNDARY)
             {
                 points++;
                 SetScoringPlayerOnBoard(row, column - 1, imageBoardPath, hexadecimalColor);
@@ -277,7 +315,8 @@ namespace TimbiricheViews.Views
         {
             int points = 0;
 
-            if (column < BOARD_SIZE - 1 && _verticalLines[row, column + 1] != 0 && _horizontalLines[row, column] != 0 && _horizontalLines[row + 1, column] != 0)
+            if (column < BOARD_SIZE - 1 && _verticalLines[row, column + 1] != GAMEBOARD_BOUNDARY 
+                && _horizontalLines[row, column] != GAMEBOARD_BOUNDARY && _horizontalLines[row + 1, column] != GAMEBOARD_BOUNDARY)
             {
                 points++;
                 SetScoringPlayerOnBoard(row, column, imageBoardPath, hexadecimalColor);
@@ -288,11 +327,12 @@ namespace TimbiricheViews.Views
 
         private void SetScoringPlayerOnBoard(int row, int column, string imageBoardPath, string hexadecimalColor)
         {
-            Color color = (Color)ColorConverter.ConvertFromString(hexadecimalColor);
-            SolidColorBrush colorBrush = new SolidColorBrush(color);
+            SolidColorBrush colorBrush = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
 
-            Rectangle scoringPlayerColor = new Rectangle();
-            scoringPlayerColor.Fill = colorBrush;
+            Rectangle scoringPlayerColor = new Rectangle
+            {
+                Fill = colorBrush
+            };
 
             Grid containerGrid = new Grid();
             containerGrid.Children.Add(scoringPlayerColor);
@@ -308,9 +348,9 @@ namespace TimbiricheViews.Views
 
         private void SetFaceBoxOnSquareCompleted(string stylePath, Grid containerGrid)
         {
-            const int DEFAULT_STYLE_LENGTH = 1;
+            int defaultStyleLength = 1;
 
-            if (stylePath.Length == DEFAULT_STYLE_LENGTH)
+            if (stylePath.Length == defaultStyleLength)
             {
                 Label lbFacebox = CreateFaceBoxLabel();
                 lbFacebox.Content = stylePath;

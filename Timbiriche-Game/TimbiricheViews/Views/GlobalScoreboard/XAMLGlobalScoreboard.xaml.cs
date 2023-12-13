@@ -23,9 +23,9 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLGlobalScoreboard : Page, IGlobalScoreManagerCallback
     {
-        private GlobalScore[] _globalScores;
-        private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private const string IDENTIFIER_CURRENT_PLAYER_HEX_COLOR = "#FF232B9B";
+        private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
+        private GlobalScore[] _globalScores;
 
         public XAMLGlobalScoreboard()
         {
@@ -57,7 +57,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -93,7 +93,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -127,12 +127,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -167,25 +167,25 @@ namespace TimbiricheViews.Views
 
         private Grid CloneScorePlayerGrid(GlobalScore scorePlayer, int position)
         {
-            const string ID_GRID = "grid";
-            const string ID_LB_POSITION = "lbPosition";
-            const string ID_LB_USERNAME_PLAYER = "lbUsernamePlayer";
-            const string ID_LB_VICTORIES = "lbVictories";
-            const string POSITION_SYMBOL = "#";
-            const string SEPARATOR_SYMBOL = "_";
+            string idGrid = "grid";
+            string idLbPosition = "lbPosition";
+            string idLbUsernamePlayer = "lbUsernamePlayer";
+            string idLbVictorries = "lbVictories";
+            string positionSymbol = "#";
+            string splitSymbol = "_";
 
             string idGlobalScore = scorePlayer.IdGlobalScore.ToString();
             string idPlayer = scorePlayer.IdPlayer.ToString();
-            string idGridScorePlayer = idGlobalScore + SEPARATOR_SYMBOL + idPlayer;
+            string idGridScorePlayer = idGlobalScore + splitSymbol + idPlayer;
 
             Grid gridScorePlayer = XamlReader.Parse(XamlWriter.Save(gridScorePlayerTemplate)) as Grid;
             gridScorePlayer.Visibility = Visibility.Visible;
-            gridScorePlayer.Name = ID_GRID + SEPARATOR_SYMBOL + idGridScorePlayer;
+            gridScorePlayer.Name = idGrid + splitSymbol + idGridScorePlayer;
 
             string username = GetUsernamePlayerById(scorePlayer.IdPlayer);
-            UpdateLabel(gridScorePlayer, ID_LB_POSITION, POSITION_SYMBOL + position);
-            UpdateLabel(gridScorePlayer, ID_LB_USERNAME_PLAYER, username);
-            UpdateLabel(gridScorePlayer, ID_LB_VICTORIES, scorePlayer.WinsNumber.ToString());
+            UpdateLabel(gridScorePlayer, idLbPosition, positionSymbol + position);
+            UpdateLabel(gridScorePlayer, idLbUsernamePlayer, username);
+            UpdateLabel(gridScorePlayer, idLbVictorries, scorePlayer.WinsNumber.ToString());
 
             if (_playerLoggedIn.Username == username)
             {
@@ -203,9 +203,7 @@ namespace TimbiricheViews.Views
 
         private Label FindLabel(Grid gridForSearch, string name)
         {
-            Label lbFound = gridForSearch.FindName(name) as Label;
-
-            return lbFound;
+            return gridForSearch.FindName(name) as Label;
         }
 
         private string GetUsernamePlayerById(int idPlayer)
@@ -227,12 +225,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

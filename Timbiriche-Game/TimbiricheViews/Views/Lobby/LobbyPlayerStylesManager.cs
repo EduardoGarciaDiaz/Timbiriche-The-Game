@@ -19,8 +19,7 @@ namespace TimbiricheViews.Views
     {
         private void RestartSelectedColor(bool isRematch)
         {
-            int defaultColor = 0;
-            PlayerSingleton.Player.IdColorSelected = defaultColor;
+            PlayerSingleton.Player.IdColorSelected = DEFAULT_SELECTED_COLOR;
 
             if (isRematch)
             {
@@ -41,7 +40,7 @@ namespace TimbiricheViews.Views
                     EmergentWindows.CreateTimeOutMessageWindow();
                     HandlerException.HandleErrorException(ex, NavigationService);
                 }
-                catch (FaultException ex)
+                catch (FaultException)
                 {
                     EmergentWindows.CreateServerErrorMessageWindow();
                     NavigationService.Navigate(new XAMLLogin());
@@ -68,6 +67,7 @@ namespace TimbiricheViews.Views
         private void PrepareNotificationOfStyleUpdated()
         {
             bool isLoaded = true;
+
             LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
             InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
         }
@@ -75,7 +75,7 @@ namespace TimbiricheViews.Views
         private void InformUpdateStyleForPlayers(LobbyPlayer lobbyPlayer, bool isLoaded)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.PlayerStylesManagerClient playerStylesManagerClient = new Server.PlayerStylesManagerClient(context);
+            PlayerStylesManagerClient playerStylesManagerClient = new PlayerStylesManagerClient(context);
 
             try
             {
@@ -98,7 +98,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -138,17 +138,18 @@ namespace TimbiricheViews.Views
         {
             lbUsername.Content = _playerLoggedIn.Username;
             lbCoins.Content = _playerLoggedIn.Coins;
+
             LoadFaceBox(lbUserFaceBox, _playerLoggedIn.IdStyleSelected, _playerLoggedIn.Username);
         }
 
         private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
         {
-            const int ID_DEFAULT_STYLE = 1;
-            const int INDEX_FIRST_LETTER = 0;
+            int idDefaultStyle = 1;
+            int indexFirstLetter = 0;
 
-            if (idStyle == ID_DEFAULT_STYLE)
+            if (idStyle == idDefaultStyle)
             {
-                lbFaceBox.Content = username[INDEX_FIRST_LETTER].ToString();
+                lbFaceBox.Content = username[indexFirstLetter].ToString();
             }
             else
             {
@@ -160,7 +161,7 @@ namespace TimbiricheViews.Views
 
         private string GetPathByIdStyle(int idStyle)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
             string playerStylePath = null;
 
             try
@@ -177,12 +178,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

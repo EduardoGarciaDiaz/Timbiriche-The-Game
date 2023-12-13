@@ -1,19 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 
 namespace TimbiricheViews.Components.Lobby
@@ -21,9 +10,8 @@ namespace TimbiricheViews.Components.Lobby
     public partial class XAMLLobbyInvitationComponent : Window
     {
         private const string PLACEHOLDER_HEX_COLOR = "#CDCDCD";
-
-        private Window _mainWindow;
-        private string _lobbyCode;
+        private readonly Window _mainWindow;
+        private readonly string _lobbyCode;
 
         public XAMLLobbyInvitationComponent(string lobbyCode)
         {
@@ -124,8 +112,7 @@ namespace TimbiricheViews.Components.Lobby
             if (string.IsNullOrWhiteSpace(tbxFriendEmail.Text))
             {
                 tbxFriendEmail.Text  = (string)tbxFriendEmail.Tag;
-                Color placeholderColor = (Color)ColorConverter.ConvertFromString(PLACEHOLDER_HEX_COLOR);
-                SolidColorBrush placeholderBrush = new SolidColorBrush(placeholderColor);
+                SolidColorBrush placeholderBrush = Utilities.CreateColorFromHexadecimal(PLACEHOLDER_HEX_COLOR);
                 tbxFriendEmail.Foreground = placeholderBrush;
             }
         }
@@ -134,10 +121,11 @@ namespace TimbiricheViews.Components.Lobby
         {
             SetDefaultStyles();
             bool isValid = true;
+            string errorTextBoxStyle = "ErrorTextBoxStyle";
 
             if (!ValidationUtilities.IsValidEmail(tbxFriendEmail.Text) || tbxFriendEmail.Text.Equals(tbxFriendEmail.Tag))
             {
-                tbxFriendEmail.Style = (Style)FindResource("ErrorTextBoxStyle");
+                tbxFriendEmail.Style = (Style)FindResource(errorTextBoxStyle);
                 isValid = false;
             }
 
@@ -146,7 +134,8 @@ namespace TimbiricheViews.Components.Lobby
 
         private void SetDefaultStyles()
         {
-            tbxFriendEmail.Style = (Style)FindResource("NormalTextBoxStyle");
+            string normalTextBoxStyle = "NormalTextBoxStyle";
+            tbxFriendEmail.Style = (Style)FindResource(normalTextBoxStyle);
         }
     }
 }

@@ -27,6 +27,7 @@ namespace TimbiricheViews.Components
         private const string BTN_EXPULSE = "Expulse";
         private readonly bool _isHost;
         private readonly string _username;
+
         public event EventHandler<ButtonClickEventArgs> ButtonClicked;
 
         public XAMLOptionsPlayerComponent(string username)

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Media;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Media;
+
 
 namespace TimbiricheViews.Utils
 {
-    public class SoundsUtilities
+    public static class SoundsUtilities
     {
         private static readonly SoundPlayer btnLine = new SoundPlayer(Utilities.BuildAbsolutePath(@"..\..\Resources\Sounds\clicLine.wav"));
         private static readonly SoundPlayer squareComplete = new SoundPlayer(Utilities.BuildAbsolutePath(@"..\..\Resources\Sounds\squareComplete.wav"));

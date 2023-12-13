@@ -36,39 +36,46 @@ namespace TimbiricheViews.Views
             _playerUsername = _playerLoggedIn.Username;
             _lobbyCode = lobbyCode;
             _idPlayer = _playerLoggedIn.IdPlayer;
+
             InitializeVictoryPage();
         }
 
         private void InitializeVictoryPage()
         {
             int numPlayers = _scoreboard.Count();
+            int indexFirstPlayer = 0;
+            int indexSecondPlayer = 1;
+            int indexThirdPlayer = 2;
+            int indexFourthPlayer = 3;
 
-            SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[0].Key.HexadecimalColor);
-            tbxFirstPlaceUsername.Text = _scoreboard[0].Key.Username;
-            tbxFirstPlacePoints.Text = _scoreboard[0].Value.ToString();
+            SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[indexFirstPlayer].Key.HexadecimalColor);
+            tbxFirstPlaceUsername.Text = _scoreboard[indexFirstPlayer].Key.Username;
+            tbxFirstPlacePoints.Text = _scoreboard[indexFirstPlayer].Value.ToString();
             borderFirstPlace.Background = brushFirstPlace;
 
-            SolidColorBrush brushSecondPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[1].Key.HexadecimalColor);
-            tbxSecondPlaceUsername.Text = _scoreboard[1].Key.Username;
-            tbxSecondPlacePoints.Text = _scoreboard[1].Value.ToString();
+            SolidColorBrush brushSecondPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[indexSecondPlayer].Key.HexadecimalColor);
+            tbxSecondPlaceUsername.Text = _scoreboard[indexSecondPlayer].Key.Username;
+            tbxSecondPlacePoints.Text = _scoreboard[indexSecondPlayer].Value.ToString();
             borderSecondPlace.Background = brushSecondPlace;
 
 
-            if (numPlayers > 2)
+            if (numPlayers > indexThirdPlayer)
             {
-                SolidColorBrush brushThirdPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[2].Key.HexadecimalColor);
+                SolidColorBrush brushThirdPlace = Utilities
+                    .CreateColorFromHexadecimal(_scoreboard[indexThirdPlayer].Key.HexadecimalColor);
                 gridThirdPlace.Visibility = Visibility.Visible;
-                tbxThirdPlaceUsername.Text = _scoreboard[2].Key.Username;
-                tbxThirdPlacePoints.Text = _scoreboard[2].Value.ToString();
+                tbxThirdPlaceUsername.Text = _scoreboard[indexThirdPlayer].Key.Username;
+                tbxThirdPlacePoints.Text = _scoreboard[indexThirdPlayer].Value.ToString();
                 borderThirdPlace.Background = brushThirdPlace;
             }
 
-            if (numPlayers > 3)
+            if (numPlayers > indexFourthPlayer)
             {
-                SolidColorBrush brushFourthPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[3].Key.HexadecimalColor);
+                SolidColorBrush brushFourthPlace = Utilities
+                    .CreateColorFromHexadecimal(_scoreboard[indexFourthPlayer].Key.HexadecimalColor);
                 gridFourthPlace.Visibility = Visibility.Visible;
-                tbxFourthPlaceUsername.Text = _scoreboard[3].Key.Username;
-                tbxFourthPlacePoints.Text = _scoreboard[3].Value.ToString();
+                tbxFourthPlaceUsername.Text = _scoreboard[indexFourthPlayer].Key.Username;
+                tbxFourthPlacePoints.Text = _scoreboard[indexFourthPlayer].Value.ToString();
                 borderFourthPlace.Background = brushFourthPlace;
             }
 
@@ -108,9 +115,11 @@ namespace TimbiricheViews.Views
 
         private void UpdateWinsNumber()
         {
-            if (_idPlayer > 0)
+            int idPlayerGuest = 0;
+
+            if (_idPlayer > idPlayerGuest)
             {
-                Server.ScoreboardManagerClient scoreboardManagerClient = new Server.ScoreboardManagerClient();
+                ScoreboardManagerClient scoreboardManagerClient = new ScoreboardManagerClient();
 
                 try
                 {
@@ -149,7 +158,7 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private int GetPlayerPositionInScoreboard() //TODO: Check dictionary
+        private int GetPlayerPositionInScoreboard()
         {
             for(int i = 0; i < _scoreboard.Length; i++)
             {
@@ -165,7 +174,7 @@ namespace TimbiricheViews.Views
         private bool VerifyPlayerIsNotBanned(int idPlayer)
         {
             bool isPlayerBanned = false;
-            Server.BanVerifierManagerClient banVerifierManagerClient = new Server.BanVerifierManagerClient();
+            BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
 
             try
             {

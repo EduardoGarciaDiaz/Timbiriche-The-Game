@@ -21,7 +21,7 @@ namespace TimbiricheViews.Components.Match
     public partial class XAMLMessageItemComponent : UserControl
     {
         private readonly int _idSenderPlayer;
-        private string _lobbyCode;
+        private readonly string _lobbyCode;
 
         public XAMLMessageItemComponent(string senderUsername, string message, bool isMessageReceived, int idSenderPlayer, string lobbyCode)
         {          

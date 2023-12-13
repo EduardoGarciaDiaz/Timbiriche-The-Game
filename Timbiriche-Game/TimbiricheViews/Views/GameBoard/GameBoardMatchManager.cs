@@ -59,12 +59,13 @@ namespace TimbiricheViews.Views
 
         public void NotifyNewScoreboard(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard)
         {
+            string animationNewScoreboard = "fadeAnimation";
             if (stackPanelScoreboard.Visibility == Visibility.Collapsed)
             {
                 stackPanelScoreboard.Visibility = Visibility.Visible;
             }
 
-            Storyboard animationFadeIn = (Storyboard)FindResource("fadeAnimation");
+            Storyboard animationFadeIn = (Storyboard)FindResource(animationNewScoreboard);
             animationFadeIn.Begin();
 
             int numPlayers = scoreboard.Count();
@@ -105,7 +106,6 @@ namespace TimbiricheViews.Views
             _dispatchTimer.Stop();
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
-
             if (parentWindow != null)
             {
                 parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(_lobbyCode, scoreboard, coinsEarned));
@@ -148,7 +148,7 @@ namespace TimbiricheViews.Views
         private void UpdateTurn(string username)
         {
             lbTurnOfUsername.Content = username;
-            _itsMyTurn = (_username == username) ? true : false;
+            _itsMyTurn = (_username == username);
 
             _turnTimer.Reset();
         }
@@ -172,7 +172,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -234,7 +234,6 @@ namespace TimbiricheViews.Views
             _dispatchTimer.Stop();
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
-
             if (parentWindow != null)
             {
                 parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
@@ -260,7 +259,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -279,7 +278,10 @@ namespace TimbiricheViews.Views
 
         private void BtnSendMessage_Click(object sender, RoutedEventArgs e)
         {
-            if (tbxMessage.Text != null && tbxMessage.Text.Length != 0)
+            int emptySizeText = 0;
+            string defaultMessageText = "";
+
+            if (tbxMessage.Text != null && tbxMessage.Text.Length != emptySizeText)
             {
                 string senderUsername = _username;
                 string message = tbxMessage.Text;
@@ -287,13 +289,14 @@ namespace TimbiricheViews.Views
 
                 int idSenderPlayer = PlayerSingleton.Player.IdPlayer;
 
-                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer, _lobbyCode)
+                XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message,
+                    isMessageReceived, idSenderPlayer, _lobbyCode)
                 {
                     HorizontalAlignment = HorizontalAlignment.Right
                 };
 
                 stackPanelMessages.Children.Add(messageComponent);
-                tbxMessage.Text = "";
+                tbxMessage.Text = defaultMessageText;
 
                 SendMessageToLobby(senderUsername, message, idSenderPlayer);
             }
@@ -318,7 +321,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

@@ -16,6 +16,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLGuestLobby : Page, IPlayerStylesManagerCallback
     {
+        private const int ID_DEFAULT_STYLE = 1;
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private string _lobbyCode;
 
@@ -28,7 +29,6 @@ namespace TimbiricheViews.Views
 
         private void ConfigureGuestPlayer()
         {
-            const int ID_DEFAULT_STYLE = 1;
             LobbyPlayer lobbyPlayer = new LobbyPlayer();
             lobbyPlayer.Username = _playerLoggedIn.Username;
             lobbyPlayer.IdStylePath = ID_DEFAULT_STYLE;
@@ -55,9 +55,10 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -74,6 +75,7 @@ namespace TimbiricheViews.Views
         private void PrepareNotificationOfStyleUpdated()
         {
             bool isLoaded = true;
+
             LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
             InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
         }
@@ -104,11 +106,12 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
             }
@@ -146,7 +149,7 @@ namespace TimbiricheViews.Views
         private Image CreateImageByPath(int idStyle)
         {
             string playerStylePath = GetStylePathByIdStyle(idStyle);
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, playerStylePath);
+            string absolutePath = Utilities.BuildAbsolutePath(playerStylePath);
 
             Image styleImage = new Image();
             BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
@@ -174,13 +177,15 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -204,12 +209,11 @@ namespace TimbiricheViews.Views
 
         private void LoadFaceBox(Label lbFaceBox, int idStyle, string username)
         {
-            const int ID_DEFAULT_STYLE = 1;
-            const int INDEX_FIRST_LETTER = 0;
+            const int indexFirstLetter = 0;
 
             if (idStyle == ID_DEFAULT_STYLE)
             {
-                lbFaceBox.Content = username[INDEX_FIRST_LETTER].ToString();
+                lbFaceBox.Content = username[indexFirstLetter].ToString();
             }
             else
             {
@@ -239,9 +243,10 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {

@@ -22,6 +22,9 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLShop : Page
     {
+        private const float WIDTH_GRID = 82;
+        private const float HEIGHT_GRID = 173;
+
         public XAMLShop()
         {
             InitializeComponent();
@@ -37,7 +40,7 @@ namespace TimbiricheViews.Views
 
         private ShopColor[] GetColors()
         {
-            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+            ShopManagerClient shopManagerClient = new ShopManagerClient();
             ShopColor[] colors = null;
 
             try
@@ -102,13 +105,16 @@ namespace TimbiricheViews.Views
             {
                 var newGrid = new Grid
                 {
-                    Width = 82,
-                    Height = 173,
+                    Width = WIDTH_GRID,
+                    Height = HEIGHT_GRID,
                     Margin = new Thickness(0, 10, 15, 15)
                 };
 
-                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color);
-                colorItemComponent.Margin = new Thickness(0, 0, 0, 95);
+                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color)
+                {
+                    Margin = new Thickness(0, 0, 0, 95)
+                };
+
                 newGrid.Children.Add(colorItemComponent);
                 stackPanelColors.Children.Add(newGrid);
             }
@@ -116,7 +122,7 @@ namespace TimbiricheViews.Views
 
         private ShopStyle[] GetStyles()
         {
-            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+            ShopManagerClient shopManagerClient = new ShopManagerClient();
             ShopStyle[] styles = null;
 
             try
@@ -159,7 +165,7 @@ namespace TimbiricheViews.Views
 
         private void LoadStyles()
         {
-            Server.ShopStyle[] styles = GetStyles();
+            ShopStyle[] styles = GetStyles();
 
             foreach (var style in styles)
             {
@@ -167,27 +173,33 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void AddStyleItem(Server.ShopStyle style)
+        private void AddStyleItem(ShopStyle style)
         {
             var lastGrid = stackPanelStyles.Children.OfType<Grid>().LastOrDefault();
+            int maxChildrenCount = 2;
 
-            if (lastGrid != null && lastGrid.Children.Count < 2)
+            if (lastGrid != null && lastGrid.Children.Count < maxChildrenCount)
             {
-                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style);
-                styleItemComponent.Margin = new Thickness(0, 95, 0, 0);
+                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style)
+                {
+                    Margin = new Thickness(0, 95, 0, 0)
+                };
                 lastGrid.Children.Add(styleItemComponent);
             }
             else
             {
                 var newGrid = new Grid
                 {
-                    Width = 82,
-                    Height = 173,
+                    Width = WIDTH_GRID,
+                    Height = HEIGHT_GRID,
                     Margin = new Thickness(0, 10, 15, 15)
                 };
 
-                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style);
-                styleItemComponent.Margin = new Thickness(0, 0, 0, 95);
+                XAMLStyleItemComponent styleItemComponent = new XAMLStyleItemComponent(style)
+                {
+                    Margin = new Thickness(0, 0, 0, 95)
+                };
+
                 newGrid.Children.Add(styleItemComponent);
                 stackPanelStyles.Children.Add(newGrid);
             }

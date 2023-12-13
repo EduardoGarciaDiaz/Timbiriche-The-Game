@@ -33,8 +33,7 @@ namespace TimbiricheViews.Views
         private const float DEFAULT_MATCH_DURATION_IN_MINUTES = 5;
         private const float MAXIMIUN_MATCH_DURATION_IN_MINUTES = 20;
         private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 2;
-
-        private Server.Player _playerLoggedIn = PlayerSingleton.Player;
+        private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private float _matchDurationInMinutes = DEFAULT_MATCH_DURATION_IN_MINUTES;
 
         public XAMLLobby()
@@ -104,7 +103,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
@@ -123,10 +122,10 @@ namespace TimbiricheViews.Views
 
         private LobbyInformation ConfigureLobbyInformation()
         {
-            const float TURN_DURATION_IN_MINUTES = 0.5F;
+            float turnDurationInMinutes = 0.5F;
 
             LobbyInformation lobbyInformation = new LobbyInformation();
-            lobbyInformation.TurnDurationInMinutes = TURN_DURATION_IN_MINUTES;
+            lobbyInformation.TurnDurationInMinutes = turnDurationInMinutes;
             lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
 
             return lobbyInformation;
@@ -134,9 +133,11 @@ namespace TimbiricheViews.Views
 
         private LobbyPlayer ConfigureLobbyPlayer()
         {
-            LobbyPlayer lobbyPlayer = new LobbyPlayer();
-            lobbyPlayer.Username = _playerLoggedIn.Username;
-            lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+            LobbyPlayer lobbyPlayer = new LobbyPlayer
+            {
+                Username = _playerLoggedIn.Username,
+                IdStylePath = _playerLoggedIn.IdStyleSelected
+            };
 
             return lobbyPlayer;
         }

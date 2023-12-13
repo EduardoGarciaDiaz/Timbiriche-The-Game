@@ -9,33 +9,37 @@ namespace TimbiricheViews.Match
 {
     public class Timer
     {
+        private const int DEFAULT_TIME = 0;
         private readonly int _initialSeconds;
+        private readonly System.Timers.Timer timer;
         private int _seconds;
         private bool _isRunning;
-        private readonly System.Timers.Timer timer;
 
         public event EventHandler CountDownFinished;
 
         public Timer(int initialSeconds)
         {
+            int intervalInMiliseconds = 1000;
             _initialSeconds = initialSeconds;
             _seconds = initialSeconds;
             _isRunning = false;
-            timer = new System.Timers.Timer(1000); // 1 - second inteval
+            timer = new System.Timers.Timer(intervalInMiliseconds);
             timer.Elapsed += TimerElapsed;
         }
 
         public string GetTime()
         {
-            float minutes = _seconds / 60;
-            float remainingSeconds = _seconds % 60;
+            float secondsPerMinute = 60;
+            float minutes = (float)_seconds / secondsPerMinute;
+            float remainingSeconds = _seconds % secondsPerMinute;
+            string timeFormat = "{0:00}:{1:00}";
 
-            return string.Format("{0:00}:{1:00}", minutes, remainingSeconds);
+            return string.Format(timeFormat, minutes, remainingSeconds);
         }
 
         public void Start()
         {
-            if(!_isRunning && _seconds > 0)
+            if (!_isRunning && _seconds > DEFAULT_TIME)
             {
                 _isRunning = true;
                 timer.Start();
@@ -56,7 +60,7 @@ namespace TimbiricheViews.Match
 
         private void TimerElapsed(object sender, ElapsedEventArgs e)
         {
-            if(_seconds > 0)
+            if (_seconds > DEFAULT_TIME)
             {
                 _seconds--;
             }

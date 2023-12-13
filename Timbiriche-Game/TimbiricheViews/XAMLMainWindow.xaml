@@ -10,7 +10,7 @@
         Title="Timbiriche" Height="770" Width="1200">
     <Viewbox Stretch="Fill">
         <Grid Height="770" Width="1200">
-            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Views/XAMLLogin.xaml" />
+            <Frame x:Name="frameNavigation" Grid.Column="0" Grid.ColumnSpan="3" NavigationUIVisibility="Hidden" Source="/Views/Login/XAMLLogin.xaml" />
         </Grid>
     </Viewbox>
 

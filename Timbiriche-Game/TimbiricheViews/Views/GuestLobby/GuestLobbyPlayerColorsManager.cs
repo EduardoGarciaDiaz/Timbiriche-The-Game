@@ -39,9 +39,7 @@ namespace TimbiricheViews.Views
                 stackPanelColors.Children.Add(colorRectangle);
             }
 
-
             ManageColorsSelected();
-
         }
 
         private void ManageColorsSelected()
@@ -65,13 +63,15 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -93,6 +93,7 @@ namespace TimbiricheViews.Views
             colorRectangle.MouseLeftButtonDown += RectangleColor_Click;
             colorRectangle.IsEnabled = true;
             colorRectangle.Visibility = Visibility.Visible;
+
             return colorRectangle;
         }
 
@@ -102,6 +103,7 @@ namespace TimbiricheViews.Views
             lobbyPlayer.Username = _playerLoggedIn.Username;
             lobbyPlayer.IdHexadecimalColor = _playerLoggedIn.IdColorSelected;
             lobbyPlayer.IdStylePath = _playerLoggedIn.IdStyleSelected;
+
             return lobbyPlayer;
         }
 
@@ -121,7 +123,7 @@ namespace TimbiricheViews.Views
 
             try
             {
-                Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+                PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
                 playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer2);
 
                 _playerLoggedIn.IdColorSelected = idColor;
@@ -140,13 +142,15 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -162,19 +166,22 @@ namespace TimbiricheViews.Views
 
         private int GetIdColorByRectangle(Rectangle rectangleSelected)
         {
-            const char SPLIT_SYMBOL = '_';
-            const int INDEX_ID_COLOR_PART = 1;
+            char splitSymbol = '_';
+            int indexIdColorPart = 1;
             string rectangleName = rectangleSelected.Name.ToString();
-            string[] nameParts = rectangleName.Split(SPLIT_SYMBOL);
-            int idColor = int.Parse(nameParts[INDEX_ID_COLOR_PART]);
+            string[] nameParts = rectangleName.Split(splitSymbol);
+            int idColor = int.Parse(nameParts[indexIdColorPart]);
+
             return idColor;
         }
 
         private void MarkAsSelectedColor(Rectangle rectangleSelected)
         {
+            int strokeSize = 2;
             SolidColorBrush blackColor = Utilities.CreateColorFromHexadecimal(SELECTED_STROKE_COLOR_HEXADECIMAL);
             rectangleSelected.Stroke = blackColor;
-            rectangleSelected.StrokeThickness = 2;
+            rectangleSelected.StrokeThickness = strokeSize;
+
             ClearOtherColorSelections(rectangleSelected);
             UpdatePlayerColor(rectangleSelected);
         }
@@ -183,11 +190,13 @@ namespace TimbiricheViews.Views
         {
             bool isOcuppied = true;
             int idColor;
+
             foreach (LobbyPlayer lobbyPlayer in lobbyPlayers)
             {
                 if (lobbyPlayer.IdHexadecimalColor != DEFAULT_SELECTED_COLOR)
                 {
                     idColor = lobbyPlayer.IdHexadecimalColor;
+
                     HandleColorOccupation(idColor, isOcuppied);
                     ChangeColorOfOtherPlayer(lobbyPlayer);
                 }
@@ -196,8 +205,9 @@ namespace TimbiricheViews.Views
 
         private void HandleColorOccupation(int idColor, bool isOccupied)
         {
-            const int DEFAULT_SELECTED_COLOR = 0;
-            if (idColor != DEFAULT_SELECTED_COLOR && VerifyPlayerHasColor(idColor))
+            int defaultSelectedColor = 0;
+
+            if (idColor != defaultSelectedColor && VerifyPlayerHasColor(idColor))
             {
                 string idRectangle = "colorRectangle" + "_" + idColor;
                 if (isOccupied)
@@ -238,9 +248,8 @@ namespace TimbiricheViews.Views
 
         private string GetHexadecimalColorByIdColor(int idColor)
         {
-            string hexadecimalColor = "";
-
             Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            string hexadecimalColor = null;
 
             try
             {
@@ -256,13 +265,15 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerException.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException> ex)
+            catch (FaultException<TimbiricheServerException>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
-            catch (FaultException ex)
+            catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -280,8 +291,8 @@ namespace TimbiricheViews.Views
 
         private void MarkAsOccupiedColor(string idRectangle)
         {
-            const string OCCUPIED_COLOR_HEXADECIMAL = "#7F000000";
-            SolidColorBrush difuminedColor = Utilities.CreateColorFromHexadecimal(OCCUPIED_COLOR_HEXADECIMAL);
+            string occupiedColorHexadecimal = "#7F000000";
+            SolidColorBrush difuminedColor = Utilities.CreateColorFromHexadecimal(occupiedColorHexadecimal);
 
             Rectangle rectangleFinded = LogicalTreeHelper.FindLogicalNode(stackPanelColors, idRectangle)
                 as Rectangle;
@@ -336,11 +347,11 @@ namespace TimbiricheViews.Views
 
         private bool VerifyPlayerHasColor(int idColor)
         {
-            const int LOW_LIMITD_DEFAULTS_COLOR = 0;
-            const int HIGH_LIMIT_DEFAULTS_COLOR = 4;
+            int lowLimitDefaultColor = 0;
+            int highLimitDefaultColor = 4;
             bool hasColor = false;
 
-            if (idColor > LOW_LIMITD_DEFAULTS_COLOR && idColor <= HIGH_LIMIT_DEFAULTS_COLOR)
+            if (idColor > lowLimitDefaultColor && idColor <= highLimitDefaultColor)
             {
                 hasColor = true;
             }
@@ -371,9 +382,9 @@ namespace TimbiricheViews.Views
             HandleColorOccupation(idUnselectedColor, isOcuppied);
         }
 
-        public void NotifyOccupiedColors(LobbyPlayer[] ocuppedColors)
+        public void NotifyOccupiedColors(LobbyPlayer[] ocuppiedColors)
         {
-            StablishOcuppiedColors(ocuppedColors);
+            StablishOcuppiedColors(ocuppiedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
         }
     }
