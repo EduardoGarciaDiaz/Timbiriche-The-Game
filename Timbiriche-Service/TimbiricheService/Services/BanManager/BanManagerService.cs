@@ -163,11 +163,9 @@ namespace TimbiricheService
 
         private bool VerifyUniqueReport(int idPlayerReported, int idPlayerReporter)
         {
-            bool isUniqueReport = false;
-
             try
             {
-                isUniqueReport = BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
+                return BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
             }
             catch (DataAccessException ex)
             {
@@ -179,8 +177,6 @@ namespace TimbiricheService
 
                 throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
-
-            return isUniqueReport;
         }
 
         private void VerifyBanNeed(int idPlayerReported, DateTime startDate)

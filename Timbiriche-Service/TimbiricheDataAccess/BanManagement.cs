@@ -75,7 +75,7 @@ namespace TimbiricheDataAccess
                             .Where(r => r.idPlayerReported == idPlayerReported)
                             .Where(r => r.idPlayerReporter == idPlayerReporter);
 
-                        isUniqueReport = (query.Count() == 1);
+                        isUniqueReport = (query.Count() <= 1);
                     }
 
                     return isUniqueReport;
