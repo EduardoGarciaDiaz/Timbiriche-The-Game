@@ -26,7 +26,7 @@ namespace TimbiricheViews.Views
             ShowAsActiveUser();
             LoadDataPlayer();
             LoadPlayerFriends();
-            btnSignOff.Visibility = Visibility.Collapsed;
+            btnSignOff.Visibility = Visibility.Visible;
 
             bool isRematch = false;
             RestartSelectedColor(isRematch);

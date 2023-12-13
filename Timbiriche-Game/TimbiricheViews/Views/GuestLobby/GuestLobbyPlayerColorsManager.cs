@@ -378,9 +378,9 @@ namespace TimbiricheViews.Views
             HandleColorOccupation(idUnselectedColor, isOcuppied);
         }
 
-        public void NotifyOccupiedColors(LobbyPlayer[] ocuppiedColors)
+        public void NotifyOccupiedColors(LobbyPlayer[] occupiedColors)
         {
-            StablishOcuppiedColors(ocuppiedColors);
+            StablishOcuppiedColors(occupiedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
         }
     }

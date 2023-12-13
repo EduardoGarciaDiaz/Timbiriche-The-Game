@@ -203,8 +203,8 @@ namespace TimbiricheViews.Views
 
         public void NotifyExpulsedFromLobby()
         {
-            string title = Properties.Resources.lbExpulsedTilte; ;
-            string message = Properties.Resources.tbkExpulsedDescription; ;
+            string title = Properties.Resources.lbExpulsedTilte;
+            string message = Properties.Resources.tbkExpulsedDescription;
             EmergentWindows.CreateEmergentWindowNoModal(title, message);
 
             NavigationService.Navigate(new XAMLLobby());
