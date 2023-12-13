@@ -313,9 +313,9 @@ namespace TimbiricheViews.Server {
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
-    [System.Runtime.Serialization.DataContractAttribute(Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
     [System.SerializableAttribute()]
-    public partial class TimbiricheServerException : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+    public partial class TimbiricheServerExceptions : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
         
         [System.NonSerializedAttribute()]
         private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
@@ -1198,62 +1198,62 @@ namespace TimbiricheViews.Server {
     public interface IUserManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/AddUserTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/AddUserTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int AddUser(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/AddUser", ReplyAction="http://tempuri.org/IUserManager/AddUserResponse")]
         System.Threading.Tasks.Task<int> AddUserAsync(TimbiricheViews.Server.Player player);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerException" +
-            "Fault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerException" +
+            "sFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.Player ValidateLoginCredentials(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateLoginCredentials", ReplyAction="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.Player> ValidateLoginCredentialsAsync(string username, string password);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionFault" +
-            "", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionsFaul" +
+            "t", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.Player GetPlayerByIdPlayer(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.Player> GetPlayerByIdPlayerAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserTimbiricheServerExcep" +
-            "tionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserTimbiricheServerExcep" +
+            "tionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool ValidateUniqueIdentifierUser(string identifier);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser", ReplyAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse")]
         System.Threading.Tasks.Task<bool> ValidateUniqueIdentifierUserAsync(string identifier);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/UpdateAccount", ReplyAction="http://tempuri.org/IUserManager/UpdateAccountResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/UpdateAccountTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/UpdateAccountTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int UpdateAccount(TimbiricheViews.Server.Account account);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/UpdateAccount", ReplyAction="http://tempuri.org/IUserManager/UpdateAccountResponse")]
         System.Threading.Tasks.Task<int> UpdateAccountAsync(TimbiricheViews.Server.Account account);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerTimbiricheServerExceptionFau" +
-            "lt", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerTimbiricheServerExceptionsFa" +
+            "ult", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         string GetUsernameByIdPlayer(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer", ReplyAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse")]
         System.Threading.Tasks.Task<string> GetUsernameByIdPlayerAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineTimbiricheServerExcept" +
-            "ionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineTimbiricheServerExcept" +
+            "ionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool ValidateIsUserAlreadyOnline(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline", ReplyAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse")]
         System.Threading.Tasks.Task<bool> ValidateIsUserAlreadyOnlineAsync(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername", ReplyAction="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameTimbiricheServerExceptionFau" +
-            "lt", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameTimbiricheServerExceptionsFa" +
+            "ult", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int GetIdPlayerByUsername(string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername", ReplyAction="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse")]
@@ -1432,22 +1432,22 @@ namespace TimbiricheViews.Server {
     public interface IPasswordReset {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/SendResetToken", ReplyAction="http://tempuri.org/IPasswordReset/SendResetTokenResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPasswordReset/SendResetTokenTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPasswordReset/SendResetTokenTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool SendResetToken(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/SendResetToken", ReplyAction="http://tempuri.org/IPasswordReset/SendResetTokenResponse")]
         System.Threading.Tasks.Task<bool> SendResetTokenAsync(string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPasswordReset/ValidateResetTokenTimbiricheServerExceptionFaul" +
-            "t", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPasswordReset/ValidateResetTokenTimbiricheServerExceptionsFau" +
+            "lt", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool ValidateResetToken(string email, int token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ValidateResetToken", ReplyAction="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse")]
         System.Threading.Tasks.Task<bool> ValidateResetTokenAsync(string email, int token);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ChangePassword", ReplyAction="http://tempuri.org/IPasswordReset/ChangePasswordResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPasswordReset/ChangePasswordTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPasswordReset/ChangePasswordTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool ChangePassword(string newPassword, string email);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPasswordReset/ChangePassword", ReplyAction="http://tempuri.org/IPasswordReset/ChangePasswordResponse")]
@@ -1867,56 +1867,56 @@ namespace TimbiricheViews.Server {
     public interface IPlayerCustomizationManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsTimbiricheServerExcepti" +
-            "onFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsTimbiricheServerExcepti" +
+            "onsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.PlayerColor[] GetMyColors(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerColor[]> GetMyColorsAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsTimbiricheServ" +
-            "erExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsTimbiricheServ" +
+            "erExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         string GetHexadecimalColors(int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse")]
         System.Threading.Tasks.Task<string> GetHexadecimalColorsAsync(int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorTimbiricheServerExcep" +
-            "tionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorTimbiricheServerExcep" +
+            "tionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int SelectMyColor(int idPlayer, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse")]
         System.Threading.Tasks.Task<int> SelectMyColorAsync(int idPlayer, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerTimbiricheServe" +
-            "rExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerTimbiricheServe" +
+            "rExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool CheckColorForPlayer(int idPlayer, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse")]
         System.Threading.Tasks.Task<bool> CheckColorForPlayerAsync(int idPlayer, int idColor);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesTimbiricheServerExcepti" +
-            "onFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesTimbiricheServerExcepti" +
+            "onsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.PlayerStyle[] GetMyStyles(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.PlayerStyle[]> GetMyStylesAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathTimbiricheServerExcept" +
-            "ionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathTimbiricheServerExcept" +
+            "ionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         string GetStylePath(int idStyle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse")]
         System.Threading.Tasks.Task<string> GetStylePathAsync(int idStyle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleTimbiricheServerExcep" +
-            "tionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleTimbiricheServerExcep" +
+            "tionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int SelectMyStyle(int idPlayer, int idStyle);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle", ReplyAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse")]
@@ -2217,32 +2217,32 @@ namespace TimbiricheViews.Server {
     public interface IFriendshipManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends", ReplyAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsTimbiricheServerExcep" +
-            "tionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsTimbiricheServerExcep" +
+            "tionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         string[] GetListUsernameFriends(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends", ReplyAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse")]
         System.Threading.Tasks.Task<string[]> GetListUsernameFriendsAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending", ReplyAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingTimbiricheServe" +
-            "rExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingTimbiricheServe" +
+            "rExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending", ReplyAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse")]
         System.Threading.Tasks.Task<bool> ValidateFriendRequestSendingAsync(int idPlayerSender, string usernamePlayerRequested);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship", ReplyAction="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipTimbiricheServerExcepti" +
-            "onFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipTimbiricheServerExcepti" +
+            "onsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship", ReplyAction="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse")]
         System.Threading.Tasks.Task<int> AddRequestFriendshipAsync(int idPlayerSender, string usernamePlayerRequested);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters", ReplyAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersTimbiricheServe" +
-            "rExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersTimbiricheServe" +
+            "rExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         string[] GetUsernamePlayersRequesters(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters", ReplyAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse")]
@@ -2534,16 +2534,16 @@ namespace TimbiricheViews.Server {
     public interface IBanVerifierManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateTimbiricheServerExceptionF" +
-            "ault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateTimbiricheServerExceptions" +
+            "Fault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.BanInformation VerifyBanEndDate(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.BanInformation> VerifyBanEndDateAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedTimbiricheServerExcept" +
-            "ionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedTimbiricheServerExcept" +
+            "ionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool VerifyPlayerIsBanned(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned", ReplyAction="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse")]
@@ -2646,15 +2646,15 @@ namespace TimbiricheViews.Server {
     public interface IScoreboardManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionFau" +
-            "lt", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionsFa" +
+            "ult", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.GlobalScore[] GetGlobalScores();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/GetGlobalScores", ReplyAction="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.GlobalScore[]> GetGlobalScoresAsync();
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/UpdateWins", ReplyAction="http://tempuri.org/IScoreboardManager/UpdateWinsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IScoreboardManager/UpdateWinsTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IScoreboardManager/UpdateWinsTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         int UpdateWins(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IScoreboardManager/UpdateWins", ReplyAction="http://tempuri.org/IScoreboardManager/UpdateWinsResponse")]
@@ -2793,28 +2793,28 @@ namespace TimbiricheViews.Server {
     public interface IShopManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetColors", ReplyAction="http://tempuri.org/IShopManager/GetColorsResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IShopManager/GetColorsTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IShopManager/GetColorsTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.ShopColor[] GetColors(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetColors", ReplyAction="http://tempuri.org/IShopManager/GetColorsResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.ShopColor[]> GetColorsAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetStyles", ReplyAction="http://tempuri.org/IShopManager/GetStylesResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IShopManager/GetStylesTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IShopManager/GetStylesTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         TimbiricheViews.Server.ShopStyle[] GetStyles(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/GetStyles", ReplyAction="http://tempuri.org/IShopManager/GetStylesResponse")]
         System.Threading.Tasks.Task<TimbiricheViews.Server.ShopStyle[]> GetStylesAsync(int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyColor", ReplyAction="http://tempuri.org/IShopManager/BuyColorResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IShopManager/BuyColorTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IShopManager/BuyColorTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool BuyColor(TimbiricheViews.Server.ShopColor color, int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyColor", ReplyAction="http://tempuri.org/IShopManager/BuyColorResponse")]
         System.Threading.Tasks.Task<bool> BuyColorAsync(TimbiricheViews.Server.ShopColor color, int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyStyle", ReplyAction="http://tempuri.org/IShopManager/BuyStyleResponse")]
-        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerException), Action="http://tempuri.org/IShopManager/BuyStyleTimbiricheServerExceptionFault", Name="TimbiricheServerException", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
+        [System.ServiceModel.FaultContractAttribute(typeof(TimbiricheViews.Server.TimbiricheServerExceptions), Action="http://tempuri.org/IShopManager/BuyStyleTimbiricheServerExceptionsFault", Name="TimbiricheServerExceptions", Namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions")]
         bool BuyStyle(TimbiricheViews.Server.ShopStyle style, int idPlayer);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IShopManager/BuyStyle", ReplyAction="http://tempuri.org/IShopManager/BuyStyleResponse")]

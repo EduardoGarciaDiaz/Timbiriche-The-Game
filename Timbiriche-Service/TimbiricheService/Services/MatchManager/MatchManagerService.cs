@@ -132,7 +132,7 @@ namespace TimbiricheService
             }
             catch (DataAccessException ex)
             {
-                TimbiricheServerException exceptionResponse = new TimbiricheServerException
+                TimbiricheServerExceptions exceptionResponse = new TimbiricheServerExceptions
                 {
                     Message = ex.Message,
                     StackTrace = ex.StackTrace

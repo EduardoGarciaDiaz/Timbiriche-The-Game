@@ -8,11 +8,11 @@ namespace TimbiricheService
     public interface IScoreboardManager
     {
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         List<GlobalScore> GetGlobalScores();
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         int UpdateWins(int idPlayer);
     }
 }

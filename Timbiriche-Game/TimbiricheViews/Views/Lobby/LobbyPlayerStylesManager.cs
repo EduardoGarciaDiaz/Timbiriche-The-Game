@@ -171,7 +171,7 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerExceptions.HandleErrorException(ex, NavigationService);
             }
-            catch (FaultException<TimbiricheServerException>)
+            catch (FaultException<TimbiricheServerExceptions>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());

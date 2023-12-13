@@ -8,19 +8,19 @@ namespace TimbiricheService
     public interface IFriendshipManager
     {
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         List<string> GetListUsernameFriends(int idPlayer);
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested);
 
         [OperationContract]
-        [FaultContract(typeof(TimbiricheServerException))]
+        [FaultContract(typeof(TimbiricheServerExceptions))]
         List<string> GetUsernamePlayersRequesters(int idPlayer);
     }
 }
