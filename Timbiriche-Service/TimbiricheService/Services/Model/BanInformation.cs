@@ -10,13 +10,10 @@ namespace TimbiricheService
     [DataContract]
     public class BanInformation
     {
-        private DateTime _endDate;
-        private string _banStatus;
+        [DataMember]
+        public DateTime EndDate { get; set; }
 
         [DataMember]
-        public DateTime EndDate { get { return _endDate; } set { _endDate = value; } }
-
-        [DataMember]
-        public string BanStatus { get { return _banStatus; } set { _banStatus = value; } }
+        public string BanStatus { get; set; }
     }
 }

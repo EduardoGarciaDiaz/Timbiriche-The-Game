@@ -33,7 +33,7 @@ namespace TimbiricheService
             }
             catch (CommunicationException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 PerformExitLobby(lobbyCode, lobbyPlayer.Username, false);
             }
         }
@@ -52,7 +52,7 @@ namespace TimbiricheService
             }
             catch (CommunicationException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 PerformExitLobby(lobbyCode, hostPlayer.Username, false);
             }
         }
@@ -87,7 +87,7 @@ namespace TimbiricheService
             }
             catch (CommunicationException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
             }
         }
 
@@ -101,7 +101,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     PerformExitLobby(lobbyCode, player.Username, false);
                 }
             }
@@ -122,7 +122,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     PerformExitLobby(lobbyCode, player.Username, false);
                     DeletePlayerFromMatch(lobbyCode, player.Username);
                 }
@@ -195,7 +195,7 @@ namespace TimbiricheService
             }
             catch (CommunicationException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
             }
         }
 
@@ -203,22 +203,22 @@ namespace TimbiricheService
         {
             int hostIndex = 0;
 
-            foreach (var player in players.ToList())
+            foreach (var callbackChannel in players.Select(p => p.CallbackChannel).ToList())
             {
                 try
                 {
                     if (eliminatedPlayerIndex != hostIndex)
                     {
-                        player.CallbackChannel.NotifyPlayerLeftLobby(username);
+                        callbackChannel.NotifyPlayerLeftLobby(username);
                     }
                     else
                     {
-                        player.CallbackChannel.NotifyHostPlayerLeftLobby();
+                        callbackChannel.NotifyHostPlayerLeftLobby();
                     }
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     PerformExitLobby(lobbyCode, username, isExpulsed);
                 }
             }

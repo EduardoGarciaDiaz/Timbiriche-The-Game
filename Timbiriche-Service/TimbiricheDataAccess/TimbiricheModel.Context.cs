@@ -16,7 +16,7 @@ namespace TimbiricheDataAccess
     public partial class TimbiricheDBEntities : DbContext
     {
         public TimbiricheDBEntities()
-            : base("name=TimbiricheDBEntities")
+            :base(Environment.GetEnvironmentVariable("CONNECTION_STRING"))
         {
         }
     

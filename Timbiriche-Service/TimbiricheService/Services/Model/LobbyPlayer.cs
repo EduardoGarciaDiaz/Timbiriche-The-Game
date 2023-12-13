@@ -48,7 +48,7 @@ namespace TimbiricheService
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return Username.GetHashCode();
         }
     }
 }

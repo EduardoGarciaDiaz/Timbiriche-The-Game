@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace TimbiricheDataAccess.Utils
 {
-    public static class HandlerException
+    public static class HandlerExceptions
     {
         private static readonly ILogger _logger = LoggerManager.GetLogger();
 

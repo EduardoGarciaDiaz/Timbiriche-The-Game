@@ -23,12 +23,9 @@ namespace TimbiricheService
                 List<string> onlineUsernames = onlineUsers.Keys.ToList();
                 List<string> onlineFriends = new List<string>();
 
-                foreach (string onlineUsername in onlineUsernames)
+                foreach (string onlineUsername in onlineUsernames.Where(u => IsFriend(idPlayer, username)))
                 {
-                    if (IsFriend(idPlayer, onlineUsername))
-                    {
-                        onlineFriends.Add(onlineUsername);
-                    }
+                    onlineFriends.Add(onlineUsername);
                 }
 
                 try
@@ -38,23 +35,28 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     UnregisterUserToOnlineUsers(username);
                 }
 
-                foreach (var user in onlineUsers.ToList())
+                NotifyUserLoggedInToFriends(idPlayer, username);
+            }
+        }
+
+        private void NotifyUserLoggedInToFriends(int idPlayer, string username)
+        {
+            foreach (var user in onlineUsers.ToList())
+            {
+                if (user.Key != username && IsFriend(idPlayer, user.Key))
                 {
-                    if (user.Key != username && IsFriend(idPlayer, user.Key))
+                    try
                     {
-                        try
-                        {
-                            user.Value.NotifyUserLoggedIn(username);
-                        }
-                        catch (CommunicationException ex)
-                        {
-                            HandlerException.HandleErrorException(ex);
-                            UnregisterUserToOnlineUsers(username);
-                        }
+                        user.Value.NotifyUserLoggedIn(username);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        UnregisterUserToOnlineUsers(username);
                     }
                 }
             }
@@ -86,7 +88,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         UnregisterUserToOnlineUsers(username);
                     }
                 }

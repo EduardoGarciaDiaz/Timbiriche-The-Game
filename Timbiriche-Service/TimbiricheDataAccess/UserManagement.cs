@@ -18,7 +18,7 @@ namespace TimbiricheDataAccess
             player.salt = passwordHashManager.Salt;
 
             Accounts account = null;
-            if (player != null && player.Accounts != null)
+            if (player.Accounts != null)
             {
                 account = player.Accounts;
 
@@ -34,17 +34,17 @@ namespace TimbiricheDataAccess
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }
@@ -69,17 +69,17 @@ namespace TimbiricheDataAccess
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }
@@ -104,17 +104,17 @@ namespace TimbiricheDataAccess
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }
@@ -139,17 +139,17 @@ namespace TimbiricheDataAccess
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }
@@ -170,17 +170,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 
@@ -188,11 +188,6 @@ namespace TimbiricheDataAccess
             {
                 PasswordHashManager passwordHashManager = new PasswordHashManager();
                 var playerPassword = playerData.password;
-
-                if (playerData.Accounts != null)
-                {
-                    var accountEntry = playerData.Accounts;
-                }
 
                 if (!passwordHashManager.VerifyPassword(password, playerPassword))
                 {
@@ -216,17 +211,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
         }
@@ -247,17 +242,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 
@@ -285,17 +280,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 
@@ -321,17 +316,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 
@@ -357,17 +352,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 
@@ -397,17 +392,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
 

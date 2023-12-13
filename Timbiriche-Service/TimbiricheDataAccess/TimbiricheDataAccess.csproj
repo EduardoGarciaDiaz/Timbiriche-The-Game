@@ -137,7 +137,7 @@
       <DependentUpon>TimbiricheModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="UserManagement.cs" />
-    <Compile Include="Utils\HandlerException.cs" />
+    <Compile Include="Utils\HandlerExceptions.cs" />
     <Compile Include="Utils\LoggerManager.cs" />
     <Compile Include="Utils\PasswordHashManager.cs" />
   </ItemGroup>

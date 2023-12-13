@@ -15,7 +15,7 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IFriendRequestManager 
     {
-        public static readonly Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
+        private static Dictionary<string, IFriendRequestManagerCallback> onlineFriendship = new Dictionary<string, IFriendRequestManagerCallback>();
 
         public void AddToOnlineFriendshipDictionary(string usernameCurrentPlayer)
         {
@@ -37,7 +37,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
                 }
             }
@@ -81,7 +81,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     RemoveFromOnlineFriendshipDictionary(usernameTarget);
                 }
             }
@@ -148,7 +148,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     RemoveFromOnlineFriendshipDictionary(usernameTarget);
                 }
             }

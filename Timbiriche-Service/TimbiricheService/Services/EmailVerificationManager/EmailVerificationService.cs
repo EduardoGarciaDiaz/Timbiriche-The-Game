@@ -13,7 +13,7 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IEmailVerificationManager
     {
-        private static SecureString _secureToken;
+        private SecureString _secureToken;
 
         public bool SendEmailToken(string email)
         {

@@ -43,7 +43,7 @@ namespace TimbiricheService
                         }
                         catch (CommunicationException ex)
                         {
-                            HandlerException.HandleErrorException(ex);
+                            HandlerExceptions.HandleErrorException(ex);
                             styleSelector.StyleCallbackChannel = null;
                         }
                     }

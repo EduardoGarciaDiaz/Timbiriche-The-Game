@@ -73,7 +73,7 @@ namespace TimbiricheService
 
                 foreach (Colors color in colorsFromDataBase)
                 {
-                    bool ownedColor = playerColors.Any(pc => pc.idColor == color.idColor);
+                    bool ownedColor = playerColors.Exists(pc => pc.idColor == color.idColor);
 
                     ShopColor singleColor = new ShopColor();
                     singleColor.IdColor = color.idColor;
@@ -109,7 +109,7 @@ namespace TimbiricheService
 
                 foreach (Styles style in stylesFromDataBase)
                 {
-                    bool ownedStyle = playerStyles.Any(ps => ps.idStyle == style.idStyle);
+                    bool ownedStyle = playerStyles.Exists(ps => ps.idStyle == style.idStyle);
 
                     ShopStyle singleStyle = new ShopStyle();
                     singleStyle.IdStyle = style.idStyle;

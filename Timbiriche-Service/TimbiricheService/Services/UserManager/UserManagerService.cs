@@ -20,7 +20,6 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IUserManager
     {
-        private ILogger _logger = LoggerManager.GetLogger();
         private const int DEFAULT_ID_COLOR_SELECTED = 0;
 
         public int AddUser(Player player)

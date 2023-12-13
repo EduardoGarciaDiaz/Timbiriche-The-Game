@@ -21,24 +21,25 @@ namespace TimbiricheService.Email
 
         public bool SendEmail(string recipient, string message)
         {
-            bool emailSent = true;
             string emailContent = _emailTemplate.ComposeEmail(message);
-            const string EMAIL_SENDER = "timbirichethegame@gmail.com";
-            const string APPLICATION_PASSWORD = "dusb ueav ompt pckq";
-            const string DISPLAY_NAME = "Timbiriche Team";
-            const string SUBJECT = "Timbiriche The Game";
-            const string SERVER_ADDRESS = "smtp.gmail.com";
-            const int PORT = 587;
+            string emailSender = "timbirichethegame@gmail.com";
+            string displayName = "Timbiriche Team";
+            string subject = "Timbiriche The Game";
+            string serverAddress = "smtp.gmail.com";
+            string applicationPassword = Environment.GetEnvironmentVariable("APPLICATION_PASSWORD");
+            int PORT = 587;
+            bool emailSent = true;
+
 
             MailMessage mailMessage = new MailMessage();
-            mailMessage.From = new MailAddress(EMAIL_SENDER, DISPLAY_NAME);
+            mailMessage.From = new MailAddress(emailSender, displayName);
             mailMessage.To.Add(recipient);
-            mailMessage.Subject = SUBJECT;
+            mailMessage.Subject = subject;
             mailMessage.Body = emailContent;
             mailMessage.IsBodyHtml = true;
 
-            SmtpClient smtpClient = new SmtpClient(SERVER_ADDRESS, PORT);
-            smtpClient.Credentials = new NetworkCredential(EMAIL_SENDER, APPLICATION_PASSWORD);
+            SmtpClient smtpClient = new SmtpClient(serverAddress, PORT);
+            smtpClient.Credentials = new NetworkCredential(emailSender, applicationPassword);
             smtpClient.EnableSsl = true;
 
             try
@@ -47,7 +48,7 @@ namespace TimbiricheService.Email
             }
             catch (SmtpException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 emailSent = false;
             }
 
