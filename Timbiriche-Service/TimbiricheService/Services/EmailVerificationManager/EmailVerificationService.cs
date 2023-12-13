@@ -10,7 +10,7 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IEmailVerificationManager
     {
-        private static Dictionary<string, string> _secureTokens = new Dictionary<string, string>();
+        private readonly static Dictionary<string, string> _secureTokens = new Dictionary<string, string>();
 
         public bool SendEmailToken(string email, string username)
         {
