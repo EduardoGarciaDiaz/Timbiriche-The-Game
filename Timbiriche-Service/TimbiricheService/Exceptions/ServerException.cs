@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace TimbiricheService.Exceptions
 {
     [DataContract]
-    public class TimbiricheServerException
+    public class TimbiricheServerException : Exception
     {
         [DataMember]
         public string Message { get ; set ; }

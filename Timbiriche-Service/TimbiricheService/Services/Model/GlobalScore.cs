@@ -10,17 +10,13 @@ namespace TimbiricheService
     [DataContract]
     public class GlobalScore
     {
-        private int _idGlobalScore;
-        private int _idPlayer;
-        private int _winsNumber;
+        [DataMember]
+        public int IdGlobalScore { get; set; }
 
         [DataMember]
-        public int IdGlobalScore { get { return _idGlobalScore; } set { _idGlobalScore = value; } }
+        public int IdPlayer { get; set; }
 
         [DataMember]
-        public int IdPlayer { get { return _idPlayer; } set { _idPlayer = value; } }
-        
-        [DataMember]
-        public int WinsNumber { get { return _winsNumber; } set { _winsNumber = value; } }
+        public int WinsNumber { get; set; }
     }
 }

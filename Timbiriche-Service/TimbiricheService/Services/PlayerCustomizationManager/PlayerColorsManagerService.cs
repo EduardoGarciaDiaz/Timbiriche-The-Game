@@ -26,7 +26,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                 }
             }
@@ -39,7 +39,7 @@ namespace TimbiricheService
 
             if (idColor == DEFAULT_COLOR)
             {
-                HandleDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
+                HandleDefaultColorSubscription(lobbyCode, currentUserCallbackChannel);
             }
             else if (!IsColorSelected(lobbyCode, idColor))
             {
@@ -49,7 +49,7 @@ namespace TimbiricheService
             InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor);
         }
 
-        private void HandleDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        private void HandleDefaultColorSubscription(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
         {
             if (!playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
@@ -80,7 +80,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                     }
                 }
@@ -99,7 +99,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
                     }
                 }
@@ -140,16 +140,16 @@ namespace TimbiricheService
             {
                 List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
 
-                foreach (var player in lobbyPlayers.ToList())
+                foreach (var colorCallbackChannel in lobbyPlayers.Select(p => p.ColorCallbackChannel).ToList())
                 {
                     try
                     {
-                        player.ColorCallbackChannel?.NotifyColorUnselected(idColor);
+                         colorCallbackChannel?.NotifyColorUnselected(idColor);
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
-                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, player.ColorCallbackChannel);
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, colorCallbackChannel);
                     }
                 }
             }
@@ -165,7 +165,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
                 }
             }

@@ -24,7 +24,7 @@ namespace TimbiricheService
             {
                 List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
 
-                LobbyPlayer playerToUpdate = playersInLobby.FirstOrDefault(player => player.Username == username);
+                LobbyPlayer playerToUpdate = playersInLobby.Find(player => player.Username == username);
 
                 if (playerToUpdate != null)
                 {
@@ -57,7 +57,7 @@ namespace TimbiricheService
             }
             catch (CommunicationException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 LeftMatch(lobbyCode, reporterUsername);
             }
         }
@@ -88,7 +88,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     PerformExitLobby(lobbyCode, reporterUsername, false);
                 }
             }
@@ -156,7 +156,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         PerformExitLobby(lobbyCode, player.Username, false);
                     }
                 }
@@ -236,7 +236,7 @@ namespace TimbiricheService
         {
             DateTime endDate;
 
-            /*switch (numberOfBans)
+            switch (numberOfBans)
             {
                 case 0:
                     endDate = startDate.AddHours(24); 
@@ -246,25 +246,6 @@ namespace TimbiricheService
                     break;
                 case 3:
                     endDate = startDate.AddHours(72);
-                    break;
-                case 4:
-                    endDate = startDate.AddHours(876000);
-                    break;
-                default:
-                    endDate = startDate;
-                    break;
-            }*/
-
-            switch (numberOfBans)
-            {
-                case 0:
-                    endDate = startDate.AddMinutes(2); 
-                    break;
-                case 1:
-                    endDate = startDate.AddMinutes(5);
-                    break;
-                case 3:
-                    endDate = startDate.AddHours(876000);
                     break;
                 case 4:
                     endDate = startDate.AddHours(876000);

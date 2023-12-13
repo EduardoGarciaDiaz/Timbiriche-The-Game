@@ -25,7 +25,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     UnsubscribeToGlobalScoreRealTime(usernameCurrentPlayer);
                 }
             }
@@ -35,7 +35,6 @@ namespace TimbiricheService
         {
             if (globalScoreRealTime.ContainsKey(usernameCurrentPlayer))
             {
-                IGlobalScoreManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IGlobalScoreManagerCallback>();
                 globalScoreRealTime.Remove(usernameCurrentPlayer);
             }
         }
@@ -50,7 +49,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     UnsubscribeToGlobalScoreRealTime(user.Key);
                 }
             }

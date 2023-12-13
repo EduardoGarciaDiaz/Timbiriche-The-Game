@@ -47,7 +47,7 @@ namespace TimbiricheService.Email
             }
             catch (SmtpException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 emailSent = false;
             }
 

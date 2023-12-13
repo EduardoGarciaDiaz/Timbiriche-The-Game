@@ -31,17 +31,17 @@ namespace TimbiricheDataAccess
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }
@@ -66,17 +66,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
         }
@@ -107,17 +107,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
         }

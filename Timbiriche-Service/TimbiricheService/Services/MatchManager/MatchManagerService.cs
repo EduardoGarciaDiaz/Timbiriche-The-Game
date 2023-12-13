@@ -63,7 +63,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
                     }
                     
@@ -88,7 +88,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
                     }
                 }
@@ -107,7 +107,7 @@ namespace TimbiricheService
 
             for(int playerPosition = 0; playerPosition < scoreboard.Count; playerPosition++)
             {
-                var player = match.Players.FirstOrDefault(p => p == scoreboard[playerPosition].Key);
+                var player = match.Players.Find(p => p == scoreboard[playerPosition].Key);
 
                 if(player != null)
                 {
@@ -121,7 +121,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         match.DeletePlayerFromMatch(player);
                     }
                 }
@@ -162,7 +162,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
                     }
                 }
@@ -193,15 +193,18 @@ namespace TimbiricheService
             {
                 LobbyPlayer player = match.Players.FirstOrDefault();
 
-                try
+                if(player != null)
                 {
-                    player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
-                    matches.Remove(lobbyCode);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerException.HandleErrorException(ex);
-                    LeftMatch(lobbyCode, player.Username);
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
+                        matches.Remove(lobbyCode);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
                 }
             }
             else
@@ -225,7 +228,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     LeftMatch(lobbyCode, player.Username);
                 }
             }
@@ -252,7 +255,7 @@ namespace TimbiricheService
                 }
                 catch (CommunicationException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     LeftMatch(lobbyCode, player.Username);
                 }
                 
@@ -276,7 +279,7 @@ namespace TimbiricheService
                     }
                     catch (CommunicationException ex)
                     {
-                        HandlerException.HandleErrorException(ex);
+                        HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
                     }
                 }

@@ -30,17 +30,17 @@ namespace TimbiricheDataAccess
             }
             catch (EntityException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (SqlException ex)
             {
-                HandlerException.HandleErrorException(ex);
+                HandlerExceptions.HandleErrorException(ex);
                 throw new DataAccessException(ex.Message);
             }
             catch (Exception ex)
             {
-                HandlerException.HandleFatalException(ex);
+                HandlerExceptions.HandleFatalException(ex);
                 throw new DataAccessException(ex.Message);
             }
         }
@@ -58,25 +58,30 @@ namespace TimbiricheDataAccess
                         GlobalScores globalScorePlayer = (from globalScore in context.GlobalScores
                                                           where globalScore.idPlayer == idPlayer
                                                           select globalScore).FirstOrDefault<GlobalScores>();
-                        int winsNumber = (int)globalScorePlayer.winsNumber;
-                        winsNumber++;
-                        globalScorePlayer.winsNumber = winsNumber;
-                        rowsAffected = context.SaveChanges();
+                        if (globalScorePlayer != null)
+                        {
+                            int winsNumber = (int)globalScorePlayer.winsNumber;
+
+                            winsNumber++;
+                            globalScorePlayer.winsNumber = winsNumber;
+
+                            rowsAffected = context.SaveChanges();
+                        }
                     }
                 }
                 catch (EntityException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (SqlException ex)
                 {
-                    HandlerException.HandleErrorException(ex);
+                    HandlerExceptions.HandleErrorException(ex);
                     throw new DataAccessException(ex.Message);
                 }
                 catch (Exception ex)
                 {
-                    HandlerException.HandleFatalException(ex);
+                    HandlerExceptions.HandleFatalException(ex);
                     throw new DataAccessException(ex.Message);
                 }
             }

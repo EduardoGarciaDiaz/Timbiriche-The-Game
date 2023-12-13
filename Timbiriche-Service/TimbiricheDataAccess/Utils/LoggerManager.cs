@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace TimbiricheDataAccess.Utils
 {
-    public class LoggerManager
+    public static class LoggerManager
     {
         private static ILogger _logger;
 
