@@ -138,7 +138,7 @@ namespace TimbiricheService
                     StackTrace = ex.StackTrace
                 };
 
-                //throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
         }
 

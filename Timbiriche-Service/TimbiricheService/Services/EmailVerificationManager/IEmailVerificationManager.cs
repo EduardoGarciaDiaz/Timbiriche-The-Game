@@ -6,9 +6,9 @@ namespace TimbiricheService
     public interface IEmailVerificationManager
     {
         [OperationContract]
-        bool SendEmailToken(string email);
+        bool SendEmailToken(string email, string username);
 
         [OperationContract]
-        bool VerifyEmailToken(string token);
+        bool VerifyEmailToken(string token, string username);
     }
 }

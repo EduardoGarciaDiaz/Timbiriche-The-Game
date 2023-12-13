@@ -1806,16 +1806,16 @@ namespace TimbiricheViews.Server {
     public interface IEmailVerificationManager {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/SendEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/SendEmailTokenResponse")]
-        bool SendEmailToken(string email);
+        bool SendEmailToken(string email, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/SendEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/SendEmailTokenResponse")]
-        System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email);
+        System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse")]
-        bool VerifyEmailToken(string token);
+        bool VerifyEmailToken(string token, string username);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken", ReplyAction="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse")]
-        System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token);
+        System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -1845,20 +1845,20 @@ namespace TimbiricheViews.Server {
                 base(binding, remoteAddress) {
         }
         
-        public bool SendEmailToken(string email) {
-            return base.Channel.SendEmailToken(email);
+        public bool SendEmailToken(string email, string username) {
+            return base.Channel.SendEmailToken(email, username);
         }
         
-        public System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email) {
-            return base.Channel.SendEmailTokenAsync(email);
+        public System.Threading.Tasks.Task<bool> SendEmailTokenAsync(string email, string username) {
+            return base.Channel.SendEmailTokenAsync(email, username);
         }
         
-        public bool VerifyEmailToken(string token) {
-            return base.Channel.VerifyEmailToken(token);
+        public bool VerifyEmailToken(string token, string username) {
+            return base.Channel.VerifyEmailToken(token, username);
         }
         
-        public System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token) {
-            return base.Channel.VerifyEmailTokenAsync(token);
+        public System.Threading.Tasks.Task<bool> VerifyEmailTokenAsync(string token, string username) {
+            return base.Channel.VerifyEmailTokenAsync(token, username);
         }
     }
     

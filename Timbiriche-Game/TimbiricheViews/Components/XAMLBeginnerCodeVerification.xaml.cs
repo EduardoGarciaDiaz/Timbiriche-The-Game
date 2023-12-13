@@ -9,11 +9,22 @@ namespace TimbiricheViews.Components
     public partial class XAMLBeginnerCodeVerification : Window
     {
         private readonly Window _mainWindow;
+        private readonly string _username;
 
         public XAMLBeginnerCodeVerification()
         {
             InitializeComponent();
 
+            _mainWindow = Application.Current.MainWindow;
+            InitializeComponent();
+            ConfigureEmergentWindow();
+        }
+
+        public XAMLBeginnerCodeVerification(string username)
+        {
+            InitializeComponent();
+
+            _username = username;
             _mainWindow = Application.Current.MainWindow;
             InitializeComponent();
             ConfigureEmergentWindow();
@@ -70,7 +81,7 @@ namespace TimbiricheViews.Components
 
             try
             {
-                isTokenValid = emailVerificationManagerClient.VerifyEmailToken(code);
+                isTokenValid = emailVerificationManagerClient.VerifyEmailToken(code, _username);
             }
             catch (EndpointNotFoundException ex)
             {

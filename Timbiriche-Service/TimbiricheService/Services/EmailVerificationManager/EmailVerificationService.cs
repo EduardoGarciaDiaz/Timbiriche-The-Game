@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Security;
 using System.Text;
@@ -9,12 +10,16 @@ namespace TimbiricheService
 {
     public partial class UserManagerService : IEmailVerificationManager
     {
-        private SecureString _secureToken;
+        private readonly static Dictionary<string, string> _secureTokens = new Dictionary<string, string>();
 
-        public bool SendEmailToken(string email)
+        public bool SendEmailToken(string email, string username)
         {
             string token = GenerateTokenNumbersAndLetters();
-            SaveOnSecureString(token);
+            
+            if (!_secureTokens.ContainsKey(username))
+            {
+                _secureTokens.Add(username, token);
+            }
 
             EmailSender emailSender = new EmailSender(new EmailVerificationTemplate());
             bool isEmailSend = emailSender.SendEmail(email, token);
@@ -41,23 +46,19 @@ namespace TimbiricheService
             return confirmationCode;
         }
 
-        private void SaveOnSecureString(string token)
-        {
-            _secureToken = new SecureString();
-            foreach (char c in token.ToString())
-            {
-                _secureToken.AppendChar(c);
-            }
-        }
-
-        public bool VerifyEmailToken(string token)
+        public bool VerifyEmailToken(string token, string username)
         {
             bool isTokenValid = false;
-            string tokenNetworkCredential = new NetworkCredential(string.Empty, _secureToken).Password;
+            string emailToken = null;
 
-            if (token.Equals(tokenNetworkCredential))
+            if (_secureTokens.ContainsKey(username))
             {
-                _secureToken.Dispose();
+                emailToken = _secureTokens[username];
+                _secureTokens.Remove(username);
+            }
+
+            if (token == emailToken)
+            {
                 isTokenValid = true;
             }
 
