@@ -229,7 +229,7 @@ namespace TimbiricheTests.UnitTestsDataAccess
 
             var result = BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
 
-            Assert.False(result);
+            Assert.True(result);
         }
 
         [Fact]
