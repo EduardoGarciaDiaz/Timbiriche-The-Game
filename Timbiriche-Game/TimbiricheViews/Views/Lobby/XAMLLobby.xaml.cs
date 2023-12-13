@@ -1,24 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data.Common;
-using System.Linq;
-using System.Runtime.Remoting.Contexts;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Markup;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Xml.Linq;
-using TimbiricheViews.Components;
-using TimbiricheViews.Components.Lobby;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
@@ -42,7 +26,7 @@ namespace TimbiricheViews.Views
             ShowAsActiveUser();
             LoadDataPlayer();
             LoadPlayerFriends();
-            btnSignOff.Visibility = Visibility.Visible;
+            btnSignOff.Visibility = Visibility.Collapsed;
 
             bool isRematch = false;
             RestartSelectedColor(isRematch);

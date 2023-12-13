@@ -296,6 +296,12 @@ namespace TimbiricheViews.Views
                 isValid = false;
             }
 
+            if (!ValidationUtilities.IsValidSurname(tbxSurname.Text.Trim()))
+            {
+                tbxSurname.Style = (Style)FindResource(errorTextBoxStyle);
+                isValid = false;
+            }
+
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
                 tbxLastName.Style = (Style)FindResource(errorTextBoxStyle);
@@ -349,6 +355,7 @@ namespace TimbiricheViews.Views
             tbxLastName.Style = (Style)FindResource(normalTextBoxStyle);
             tbxEmail.Style = (Style)FindResource(normalTextBoxStyle);
             tbxUsername.Style = (Style)FindResource(normalTextBoxStyle);
+            tbxSurname.Style = (Style)FindResource(normalTextBoxStyle);
             pwBxPassword.Style = (Style)FindResource(normalPasswordBoxStyle);
             dpBirthdate.Style = (Style)FindResource(normalDatePickerStyle);
 

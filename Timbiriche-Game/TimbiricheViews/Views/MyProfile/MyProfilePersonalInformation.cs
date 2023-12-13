@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Globalization;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows;
+using System.Windows.Controls;
 using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
-using System.Globalization;
 
 namespace TimbiricheViews.Views
 {
@@ -154,6 +150,12 @@ namespace TimbiricheViews.Views
                 isValid = false;
             }
 
+            if (!ValidationUtilities.IsValidSurname(tbxSurname.Text.Trim()))
+            {
+                tbxSurname.Style = (Style)FindResource(errorTextBoxStyle);
+                isValid = false;
+            }
+
             if (!ValidationUtilities.IsValidPersonalInformation(tbxLastName.Text.Trim()))
             {
                 tbxLastName.Style = (Style)FindResource(errorTextBoxStyle);
@@ -195,6 +197,7 @@ namespace TimbiricheViews.Views
             tbxName.Style = (Style)FindResource(normalTextBoxStyle);
             tbxLastName.Style = (Style)FindResource(normalTextBoxStyle);
             dpBirthdate.Style = (Style)FindResource(normalDatePickerStyle);
+            tbxSurname.Style = (Style)FindResource(normalTextBoxStyle);
 
             ImgNameErrorDetails.Visibility = Visibility.Hidden;
             ImgLastNameErrorDetails.Visibility = Visibility.Hidden;
