@@ -12,6 +12,7 @@ namespace TimbiricheService
     {
         [OperationContract(IsOneWay = true)]
         void NotRematch(string lobbyCode);
+
         [OperationContract(IsOneWay = true)]
         void Rematch(String lobbyCode, string username);
     }
@@ -21,6 +22,7 @@ namespace TimbiricheService
     {
         [OperationContract]
         void NotifyRematch(string lobbyCode);
+
         [OperationContract]
         void NotifyHostOfRematch(string lobbyCode);
     }
