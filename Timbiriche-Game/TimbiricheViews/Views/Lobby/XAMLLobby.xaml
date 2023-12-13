@@ -90,7 +90,7 @@
             </Grid>
 
             <Grid x:Name="gridMatchControlNotLeadPlayer" Margin="842,500,19,28" Visibility="Collapsed">
-                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#49BF36" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0"/>
+                <Button Content="{x:Static p:Resources.btnInvite}" FontFamily="Inter" Foreground="White" FontSize="40" Background="#49BF36" FontWeight="Bold" Cursor="Hand" Margin="0,99,0,0" Click="BtnInviteToLobby_Click"/>
                 <Button Content="{x:Static p:Resources.btnExit}" FontFamily="Inter" Foreground="White" FontSize="28" Background="#F61D1D" Cursor="Hand" Margin="0,0,0,163" Click="BtnExit_Click"/>
             </Grid>
 

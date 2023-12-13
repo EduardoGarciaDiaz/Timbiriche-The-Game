@@ -28,6 +28,7 @@ namespace TimbiricheViews.Views
             ShowAsActiveUser();
 
             btnSignOff.Visibility = Visibility.Visible;
+            btnShop.IsEnabled = true;
 
             bool isRematch = false;
             RestartSelectedColor(isRematch);

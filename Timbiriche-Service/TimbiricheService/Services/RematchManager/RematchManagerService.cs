@@ -61,11 +61,14 @@ namespace TimbiricheService
 
         private void TryRemoveMatchFromMatches(string lobbyCode)
         {
-            Match.Match match = matches[lobbyCode];
-            
-            if(match.GetNumberOfPlayerInMatch() == 0)
+            if (matches.ContainsKey(lobbyCode))
             {
-                matches.Remove(lobbyCode);
+                Match.Match match = matches[lobbyCode];
+
+                if (match.GetNumberOfPlayerInMatch() == 0)
+                {
+                    matches.Remove(lobbyCode);
+                }
             }
         }
     }

@@ -1,4 +1,5 @@
-﻿using TimbiricheViews.Components;
+﻿using System.Windows;
+using TimbiricheViews.Components;
 using TimbiricheViews.Components.Lobby;
 
 namespace TimbiricheViews.Utils
@@ -12,7 +13,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateEmergentWindowNoModal(string titleEmergentWindow, string descriptionEmergentWindow)
@@ -30,12 +31,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbConnectionFailed;
             string descriptionEmergentWindow = Properties.Resources.tbkConnectionFailedDetails;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.Show();
+            });
         }
 
         public static void CreateTimeOutMessageWindow()
@@ -48,7 +52,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateDataBaseErrorMessageWindow()
@@ -61,7 +65,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateServerErrorMessageWindow()
@@ -69,12 +73,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbServerExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkServerExceptionDescription;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.Show();
+            });
         }
 
         public static void CreateUnexpectedErrorMessageWindow()
@@ -82,12 +89,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbUnexpectedExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkUnexpectedExceptionDescription;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.Show();
+            });
         }
 
         public static void CreateLobbyInvitationWindow(string lobbyCode)
@@ -107,7 +117,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateSuccesfulReportMessageWindow()
@@ -120,7 +130,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateReportedPlayerMessageWindow()
@@ -133,7 +143,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateBannedPlayerMessageWindow()
@@ -146,7 +156,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateHostLeftLobbyMessageWindow()
@@ -159,7 +169,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateLobbyIsFullMessageWindow()
@@ -172,7 +182,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
     }

@@ -21,6 +21,7 @@ namespace TimbiricheViews.Views
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControl.Visibility = Visibility.Visible;
             btnSignOff.Visibility = Visibility.Collapsed;
+            btnShop.IsEnabled = false;
 
             ShowSelectPlayerColorGrid();
             ValidateStartOfMatch();
@@ -110,6 +111,7 @@ namespace TimbiricheViews.Views
             gridMatchCreation.Visibility = Visibility.Collapsed;
             gridMatchControlNotLeadPlayer.Visibility = Visibility.Visible;
             btnSignOff.Visibility = Visibility.Collapsed;
+            btnShop.IsEnabled = false;
 
             _lobbyCode = lobbyCode;
             int numPlayersInLobby = lobbyPlayers.Length;
@@ -235,6 +237,8 @@ namespace TimbiricheViews.Views
             try
             {
                 client.StartMatch(_lobbyCode);
+                (string, string) playerCustomization = GetPlayerCustomization();
+                NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
             }
             catch (EndpointNotFoundException ex)
             {
@@ -261,9 +265,6 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
-
-            (string, string) playerCustomization = GetPlayerCustomization();
-            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
         }
 
         private void BtnInviteToLobby_Click(object sender, RoutedEventArgs e)

@@ -154,16 +154,19 @@ namespace TimbiricheService
 
         private void InformColorUnselectedToDefaultColors(string lobbyCode, int idColor)
         {
-            foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode].ToList())
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
-                try
+                foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode].ToList())
                 {
-                    callbackPlayer.NotifyColorUnselected(idColor);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
+                    try
+                    {
+                        callbackPlayer.NotifyColorUnselected(idColor);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
+                    }
                 }
             }
         }
@@ -186,9 +189,12 @@ namespace TimbiricheService
         {
             int emptyDictionaryCount = 0;
 
-            if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
-                playersWithDefaultColorByLobby.Remove(lobbyCode);
+                if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
+                {
+                    playersWithDefaultColorByLobby.Remove(lobbyCode);
+                }
             }
         }
 

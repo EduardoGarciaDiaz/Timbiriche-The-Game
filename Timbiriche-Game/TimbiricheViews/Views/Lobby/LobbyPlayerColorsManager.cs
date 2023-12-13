@@ -206,56 +206,12 @@ namespace TimbiricheViews.Views
         {
             int idColor = GetIdColorByRectangle(rectangleSelected);
 
-            UnsusbcribeColorToColorsSelected();
-            SelectPlayerColor(idColor);
-            RenewSubscriptionToColorsSelected();
-
-            MarkAsSelectedColor(rectangleSelected);
-        }
-
-        private void UnsusbcribeColorToColorsSelected()
-        {
-            InstanceContext context = new InstanceContext(this);
-            PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-
             try
             {
-                playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-        }
-
-        private void SelectPlayerColor(int idColor)
-        {
-            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
-            try
-            {
-                playerCustomizationManagerClient.SelectMyColor(_playerLoggedIn.IdPlayer, idColor);
+                UnsusbcribeColorToColorsSelected();
+                SelectPlayerColor(idColor);
+                RenewSubscriptionToColorsSelected();
+                MarkAsSelectedColor(rectangleSelected);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -288,6 +244,20 @@ namespace TimbiricheViews.Views
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
 
+        }
+
+        private void UnsusbcribeColorToColorsSelected()
+        {
+            InstanceContext context = new InstanceContext(this);
+            PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, lobbyPlayer);
+        }
+
+        private void SelectPlayerColor(int idColor)
+        {
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
+            playerCustomizationManagerClient.SelectMyColor(_playerLoggedIn.IdPlayer, idColor);
             _playerLoggedIn.IdColorSelected = idColor;
         }
 
@@ -296,36 +266,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
             LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-
-            try
-            {
-                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
         }
 
         private int GetIdColorByRectangle(Rectangle rectangleSelected)

@@ -128,7 +128,7 @@ namespace TimbiricheService
             lobbies.Remove(lobbyCode);
         }
 
-        public void ExitLobby(String lobbyCode, String username)
+        public void ExitLobby(string lobbyCode, string username)
         {
             PerformExitLobby(lobbyCode, username, false);
         }

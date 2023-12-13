@@ -159,35 +159,38 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             Server.MatchManagerClient client = new Server.MatchManagerClient(context);
 
-            try
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                client.EndTurnWithoutMovement(_lobbyCode);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+                try
+                {
+                    client.EndTurnWithoutMovement(_lobbyCode);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerExceptions.HandleFatalException(ex, NavigationService);
+                }
+            });
         }
 
         private void OnCountDownMatchFinished(object sender, EventArgs e)
@@ -197,35 +200,38 @@ namespace TimbiricheViews.Views
 
             _itsMyTurn = false;
 
-            try
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                client.EndMatch(_lobbyCode);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+                try
+                {
+                    client.EndMatch(_lobbyCode);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerExceptions.HandleFatalException(ex, NavigationService);
+                }
+            });
         }
 
         private void LeftMatch()
