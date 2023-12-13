@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using TimbiricheDataAccess.Utils;
 using TimbiricheDataAccess;
+using TimbiricheDataAccess.Utils;
 
 namespace TimbiricheService
 {
@@ -16,31 +13,30 @@ namespace TimbiricheService
 
         public void RegisterUserToOnlineUsers(int idPlayer, string username)
         {
+            IUserManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IUserManagerCallback>();
+            List<string> onlineUsernames = onlineUsers.Keys.ToList();
+            List<string> onlineFriends = new List<string>();
+
             if (!onlineUsers.ContainsKey(username))
             {
-                IUserManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IUserManagerCallback>();
-
-                List<string> onlineUsernames = onlineUsers.Keys.ToList();
-                List<string> onlineFriends = new List<string>();
-
-                foreach (string onlineUsername in onlineUsernames.Where(u => IsFriend(idPlayer, username)))
-                {
-                    onlineFriends.Add(onlineUsername);
-                }
-
-                try
-                {
-                    currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
-                    onlineUsers.Add(username, currentUserCallbackChannel);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    UnregisterUserToOnlineUsers(username);
-                }
-
-                NotifyUserLoggedInToFriends(idPlayer, username);
+                onlineUsers.Add(username, currentUserCallbackChannel);
             }
+
+            onlineFriends = onlineUsernames
+                .Where(onlineUsername => IsFriend(idPlayer, onlineUsername))
+                .ToList();
+
+            try
+            {
+                currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
+            }
+            catch (CommunicationException ex)
+            {
+                HandlerExceptions.HandleErrorException(ex);
+                UnregisterUserToOnlineUsers(username);
+            }
+
+            NotifyUserLoggedInToFriends(idPlayer, username);
         }
 
         private void NotifyUserLoggedInToFriends(int idPlayer, string username)

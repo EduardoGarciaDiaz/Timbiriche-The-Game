@@ -105,7 +105,7 @@ namespace TimbiricheViews.Views
             Server.ScoreboardManagerClient scoreboardManagerClient = new Server.ScoreboardManagerClient();
             try
             {
-                _globalScores = scoreboardManagerClient.GetGlobalScores(PlayerSingleton.Player.Username);
+                _globalScores = scoreboardManagerClient.GetGlobalScores();
             }
             catch (EndpointNotFoundException ex)
             {

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -11,9 +7,11 @@ namespace TimbiricheService
     public interface IBanVerifierManager
     {
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         BanInformation VerifyBanEndDate(int idPlayer);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool VerifyPlayerIsBanned(int idPlayer);
     }
 }

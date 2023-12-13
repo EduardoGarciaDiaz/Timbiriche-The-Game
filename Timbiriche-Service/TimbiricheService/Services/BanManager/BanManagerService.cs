@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices.ComTypes;
-using System.Runtime.Remoting.Messaging;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
@@ -96,10 +91,11 @@ namespace TimbiricheService
 
         private bool CreateReport(int idPlayerReported, int idPlayerReporter, DateTime currentDateTime)
         {
+            bool isCreatedReport = false;
+
             try
             {
-                return BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
-
+                isCreatedReport = BanManagement.CreateReport(idPlayerReported, idPlayerReporter, currentDateTime);
             }
             catch (DataAccessException ex)
             {
@@ -111,6 +107,8 @@ namespace TimbiricheService
 
                 throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
+
+            return isCreatedReport;
         }
 
         private void VerifyBanNeedFromLobby(string lobbyCode, int idPlayerReported, DateTime startDate)
@@ -165,9 +163,11 @@ namespace TimbiricheService
 
         private bool VerifyUniqueReport(int idPlayerReported, int idPlayerReporter)
         {
+            bool isUniqueReport = false;
+
             try
             {
-                return BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
+                isUniqueReport = BanManagement.VerifyUniqueReport(idPlayerReported, idPlayerReporter);
             }
             catch (DataAccessException ex)
             {
@@ -179,6 +179,8 @@ namespace TimbiricheService
 
                 throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
+
+            return isUniqueReport;
         }
 
         private void VerifyBanNeed(int idPlayerReported, DateTime startDate)

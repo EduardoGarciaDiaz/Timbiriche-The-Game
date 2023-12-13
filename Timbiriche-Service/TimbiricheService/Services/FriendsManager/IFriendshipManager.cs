@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -11,15 +8,19 @@ namespace TimbiricheService
     public interface IFriendshipManager
     {
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         List<string> GetListUsernameFriends(int idPlayer);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool ValidateFriendRequestSending(int idPlayerSender, string usernamePlayerRequested);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         int AddRequestFriendship(int idPlayerSender, string usernamePlayerRequested);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         List<string> GetUsernamePlayersRequesters(int idPlayer);
     }
 }

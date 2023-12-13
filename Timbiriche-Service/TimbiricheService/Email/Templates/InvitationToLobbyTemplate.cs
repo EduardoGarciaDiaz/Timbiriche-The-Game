@@ -10,7 +10,7 @@ namespace TimbiricheService.Email.Templates
     {
         public string ComposeEmail(string message)
         {
-            string emailContent = "Unete al juego! Elcódigo del lobby es: " + message;
+            string emailContent = "Unete al juego! El código del lobby es: " + message;
             return emailContent;
         }
     }

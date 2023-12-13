@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.ServiceModel;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
 using TimbiricheDataAccess.Utils;
@@ -144,7 +138,7 @@ namespace TimbiricheService
                     StackTrace = ex.StackTrace
                 };
 
-                throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                //throw new FaultException<TimbiricheServerException>(exceptionResponse, new FaultReason(exceptionResponse.Message));
             }
         }
 

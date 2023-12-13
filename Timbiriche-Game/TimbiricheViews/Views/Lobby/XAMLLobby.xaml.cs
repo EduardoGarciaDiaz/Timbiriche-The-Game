@@ -23,9 +23,10 @@ namespace TimbiricheViews.Views
         public XAMLLobby()
         {
             InitializeComponent();
-            ShowAsActiveUser();
             LoadDataPlayer();
             LoadPlayerFriends();
+            ShowAsActiveUser();
+
             btnSignOff.Visibility = Visibility.Visible;
 
             bool isRematch = false;
@@ -42,6 +43,7 @@ namespace TimbiricheViews.Views
 
             LoadDataPlayer();
             LoadPlayerFriends();
+            ShowAsActiveUser();
 
             bool isRematch = true;
             RestartSelectedColor(isRematch);

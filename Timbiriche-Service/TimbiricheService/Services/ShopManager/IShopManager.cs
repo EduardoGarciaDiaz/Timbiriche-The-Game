@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
+﻿using System.Collections.Generic;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -12,16 +8,19 @@ namespace TimbiricheService
     public interface IShopManager
     {
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         List<ShopColor> GetColors(int idPlayer);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         List<ShopStyle> GetStyles(int idPlayer);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool BuyColor(ShopColor color, int idPlayer);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool BuyStyle(ShopStyle style, int idPlayer);
-
     }
 }

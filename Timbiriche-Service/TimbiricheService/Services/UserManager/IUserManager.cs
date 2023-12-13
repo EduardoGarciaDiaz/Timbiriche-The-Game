@@ -38,6 +38,7 @@ namespace TimbiricheService
         string GetUsernameByIdPlayer(int idPlayer);
         
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool ValidateIsUserAlreadyOnline(string username);
         
         [OperationContract]

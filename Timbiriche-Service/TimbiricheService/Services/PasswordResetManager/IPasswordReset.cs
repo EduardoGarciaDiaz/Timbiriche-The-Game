@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
+using TimbiricheService.Exceptions;
 
 namespace TimbiricheService
 {
@@ -11,12 +7,15 @@ namespace TimbiricheService
     public interface IPasswordReset
     {
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool SendResetToken(string email);
 
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool ValidateResetToken(string email, int token);
         
         [OperationContract]
+        [FaultContract(typeof(TimbiricheServerException))]
         bool ChangePassword(string newPassword, string email);
     }
 }
