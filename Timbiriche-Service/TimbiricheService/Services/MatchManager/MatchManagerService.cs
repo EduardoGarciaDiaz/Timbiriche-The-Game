@@ -22,7 +22,7 @@ namespace TimbiricheService
             {
                 Match.Match match = matches[lobbyCode];
 
-                foreach (var player in match.Players)
+                foreach (var player in match.Players.ToList())
                 {
                     if (player.Username == username)
                     {
@@ -61,8 +61,8 @@ namespace TimbiricheService
                         {
                             try
                             {
-                                player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
-                                player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                                player.MatchCallbackChannel?.NotifyNewTurn(playerScoringPoints.Username);
+                                player.MatchCallbackChannel?.NotifyNewScoreboard(match.GetScoreboard());
                             }
                             catch (CommunicationException ex)
                             {
@@ -94,7 +94,7 @@ namespace TimbiricheService
                 {
                     try
                     {
-                        player.MatchCallbackChannel.NotifyMovement(movement);
+                        player.MatchCallbackChannel?.NotifyMovement(movement);
                     }
                     catch (CommunicationException ex)
                     {
@@ -134,7 +134,7 @@ namespace TimbiricheService
 
                         try
                         {
-                            player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
+                            player.MatchCallbackChannel?.NotifyEndOfTheMatch(scoreboard, coinsEarned);
                         }
                         catch (CommunicationException ex)
                         {
@@ -183,7 +183,7 @@ namespace TimbiricheService
                     {
                         try
                         {
-                            player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
+                            player.MatchCallbackChannel?.NotifyNewMessage(senderUsername, message, idSenderPlayer);
                         }
                         catch (CommunicationException ex)
                         {
@@ -236,7 +236,7 @@ namespace TimbiricheService
                 {
                     try
                     {
-                        player.MatchCallbackChannel.NotifyOnlyPlayerInMatch();
+                        player.MatchCallbackChannel?.NotifyOnlyPlayerInMatch();
                         matches.Remove(lobbyCode);
                     }
                     catch (CommunicationException ex)
@@ -272,7 +272,7 @@ namespace TimbiricheService
                     {
                         try
                         {
-                            player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+                            player.MatchCallbackChannel?.NotifyNewTurn(temporalPlayer.Username);
                         }
                         catch (CommunicationException ex)
                         {
@@ -302,8 +302,8 @@ namespace TimbiricheService
                 {
                     try
                     {
-                        player.MatchCallbackChannel.NotifyPlayerLeftMatch();
-                        player.MatchCallbackChannel.NotifyNewScoreboard(scoreboard);
+                        player.MatchCallbackChannel?.NotifyPlayerLeftMatch();
+                        player.MatchCallbackChannel?.NotifyNewScoreboard(scoreboard);
 
                         if (isPlayerOnDuty)
                         {
