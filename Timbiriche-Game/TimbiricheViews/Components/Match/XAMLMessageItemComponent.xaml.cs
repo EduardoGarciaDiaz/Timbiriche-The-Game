@@ -62,8 +62,12 @@ namespace TimbiricheViews.Components.Match
         private void BtnReportMessage_Click(object sender, RoutedEventArgs e)
         {
             int idPlayerReporter = PlayerSingleton.Player.IdPlayer;
+            int idGuestIdPlayer = 0;
 
-            ReportMessage(idPlayerReporter);
+            if (idPlayerReporter > idGuestIdPlayer)
+            {
+                ReportMessage(idPlayerReporter);
+            }
         }
 
         private void ReportMessage(int idPlayerReporter)

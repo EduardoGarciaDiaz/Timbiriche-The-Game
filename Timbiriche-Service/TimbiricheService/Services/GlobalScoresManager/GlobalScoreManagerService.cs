@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess.Utils;
@@ -21,6 +22,11 @@ namespace TimbiricheService
                     currentUserCallbackChannel.NotifyGlobalScoreboardUpdated();
                 }
                 catch (CommunicationException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    UnsubscribeToGlobalScoreRealTime(usernameCurrentPlayer);
+                }
+                catch (TimeoutException ex)
                 {
                     HandlerExceptions.HandleErrorException(ex);
                     UnsubscribeToGlobalScoreRealTime(usernameCurrentPlayer);

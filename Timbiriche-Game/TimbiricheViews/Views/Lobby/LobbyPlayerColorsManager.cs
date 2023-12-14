@@ -32,6 +32,16 @@ namespace TimbiricheViews.Views
             try
             {
                 _myColors = playerCustomizationManagerClient.GetMyColors(_playerLoggedIn.IdPlayer);
+
+                if (_myColors != null)
+                {
+                    SetMyColors();
+                }
+                else
+                {
+                    _logger.Warning("The player doesn't have colors related. Error ocurried on LobbyPlayerColorsManager.cs"
+                        + "on Method GetMyColors");
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -62,17 +72,7 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (_myColors != null)
-            {
-                SetMyColors();
-            }
-            else
-            {
-                _logger.Warning("The player doesn't have colors related. Error ocurried on LobbyPlayerColorsManager.cs"
-                    + "on Method GetMyColors");
-            }
+            }            
         }
 
         private void SetMyColors()
@@ -105,40 +105,40 @@ namespace TimbiricheViews.Views
             PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
             string hexadecimalColor = null;
 
-            try
-            {
+            //try
+            //{
                 hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
 
             return hexadecimalColor;
         }
@@ -148,37 +148,37 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
 
-            try
-            {
+            //try
+            //{
                 playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
                 LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
                 playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate)

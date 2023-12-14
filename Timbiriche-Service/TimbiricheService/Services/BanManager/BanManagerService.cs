@@ -55,6 +55,11 @@ namespace TimbiricheService
                 HandlerExceptions.HandleErrorException(ex);
                 LeftMatch(lobbyCode, reporterUsername);
             }
+            catch (TimeoutException ex)
+            {
+                HandlerExceptions.HandleErrorException(ex);
+                LeftMatch(lobbyCode, reporterUsername);
+            }
         }
 
         public void ReportPlayer(string lobbyCode, int idPlayerReported, int idPlayerReporter, string reporterUsername)
