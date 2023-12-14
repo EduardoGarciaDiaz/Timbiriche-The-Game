@@ -67,8 +67,8 @@
                     </StackPanel>
                 </Grid>
                 <Grid Margin="624,578,62,47">
-                    <Rectangle Fill="#3F54C3" RadiusX="15" RadiusY="15" Margin="0,253,182,0"/>
-                    <Label Content="{x:Static p:Resources.btnPlayAgain}" Margin="0,253,182,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="White" FontSize="28" />
+                    <Rectangle x:Name="rectanglePlayAgain" Fill="#3F54C3" RadiusX="15" RadiusY="15" Margin="0,253,182,0"/>
+                    <Label x:Name="lbPlayAgain" Content="{x:Static p:Resources.btnPlayAgain}" Margin="0,253,182,0" VerticalAlignment="Center" HorizontalAlignment="Center" FontFamily="Titan One" Foreground="White" FontSize="28" />
                     <Button x:Name="btnPlayAgain" Background="Transparent" BorderBrush="Transparent" Focusable="False" Margin="0,253,182,0" Click="BtnRematch_Click"/>
 
                     <Rectangle Fill="#F61D1D" RadiusX="15" RadiusY="15" Margin="325,253,0,0"/>

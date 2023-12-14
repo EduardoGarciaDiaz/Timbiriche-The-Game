@@ -103,23 +103,21 @@ namespace TimbiricheViews.Views
         private void ExitToLobby()
         {
             int idGuestIdPlayer = 0;
+
             try
             {
                 SendNotRematch();
 
-                if (_playerLoggedIn.IdPlayer > idGuestIdPlayer)
-                {
-                    bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
+                bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
 
-                    if (isPlayerBanned)
-                    {
-                        NavigationService.Navigate(new XAMLLogin());
-                    }
-                    else
-                    {
-                        PlayerSingleton.UpdatePlayerFromDataBase();
-                        NavigationService.Navigate(new XAMLLobby());
-                    }
+                if (isPlayerBanned || _playerLoggedIn.IdPlayer <= idGuestIdPlayer)
+                {
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                else
+                {
+                    PlayerSingleton.UpdatePlayerFromDataBase();
+                    NavigationService.Navigate(new XAMLLobby());
                 }
             }
             catch (EndpointNotFoundException ex)

@@ -79,7 +79,6 @@ namespace TimbiricheViews.Views
 
             ShowVictoryLabel();
             ShowMatchPosition();
-            ConfigureGuestVictory();
         }
 
         private void ShowMatchPosition()
@@ -111,21 +110,13 @@ namespace TimbiricheViews.Views
             }
         }
 
-        private void ConfigureGuestVictory()
-        {
-            Server.Player currentPlayer = PlayerSingleton.Player;
-
-            if(currentPlayer.AccountFK == null)
-            {
-                btnRematch.Visibility = Visibility.Collapsed;
-            }
-        }
-
         private void DisableButtonPlayAgainForGuest()
         {
             if (_idPlayer <= 0)
             {
-                btnPlayAgain.IsEnabled = false;
+                btnPlayAgain.Visibility = Visibility.Collapsed;
+                lbPlayAgain.Visibility = Visibility.Collapsed;
+                rectanglePlayAgain.Visibility = Visibility.Collapsed;
             }
         }
 
