@@ -30,6 +30,11 @@ namespace TimbiricheViews.Views
         public XAMLMyProfile()
         {
             InitializeComponent();
+            this.Loaded += Lobby_Loaded;
+        }
+
+        private void Lobby_Loaded(object sender, RoutedEventArgs e)
+        {
             LoadDataPlayer();
         }
 
@@ -55,6 +60,15 @@ namespace TimbiricheViews.Views
             try
             {
                 _myStyles = playerCustomizationManagerClient.GetMyStyles(playerLoggedIn.IdPlayer);
+
+                if (_myStyles != null)
+                {
+                    SetMyStyles();
+                }
+                else
+                {
+                    _logger.Warning("The player doesn't have styles related. - Class MyProfile.xaml.cs on method GetMyStyles");
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -85,15 +99,6 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (_myStyles != null)
-            {
-                SetMyStyles();
-            }
-            else
-            {
-                _logger.Warning("The player doesn't have styles related. - Class MyProfile.xaml.cs on method GetMyStyles");
             }
         }
 
@@ -150,10 +155,13 @@ namespace TimbiricheViews.Views
             Rectangle rectangleBackground = CreateBackgroundRectangle(idStyle);
             Label lbPlayerStyle = CreateLabelPlayerStyle(idStyle);
 
-            gridPlayerStyle.Children.Add(rectangleBackground);
-            gridPlayerStyle.Children.Add(lbPlayerStyle);
-
-            if(IsCurrentStyle(idStyle))
+            if (rectangleBackground != null && lbPlayerStyle != null)
+            {
+                gridPlayerStyle.Children.Add(rectangleBackground);
+                gridPlayerStyle.Children.Add(lbPlayerStyle);
+            }
+            
+            if (IsCurrentStyle(idStyle))
             {
                 MarkAsSelectedStyle(gridPlayerStyle);
             }
@@ -165,7 +173,7 @@ namespace TimbiricheViews.Views
         {
             bool isCurrentStyleSelected = false;
 
-            if (idStyle == playerLoggedIn.IdStyleSelected)
+            if (idStyle > 0 && idStyle == playerLoggedIn.IdStyleSelected)
             {
                 isCurrentStyleSelected = true;
             }
@@ -267,50 +275,54 @@ namespace TimbiricheViews.Views
 
         private void SelectStyle(Grid gridSelected)
         {
-            char splitSymbol = '_';
-            int indexIdColorPart = 1;
-            string[] nameParts = gridSelected.Name.ToString().Split(splitSymbol);
-            int idStyle = int.Parse(nameParts[indexIdColorPart]);
+            if (gridSelected == null)
+            {
+                char splitSymbol = '_';
+                int indexIdColorPart = 1;
+                string[] nameParts = gridSelected.Name.ToString().Split(splitSymbol);
+                int idStyle = int.Parse(nameParts[indexIdColorPart]);
 
-            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
+                PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
 
-            try
-            {
-                playerCustomizationManagerClient.SelectMyStyle(playerLoggedIn.IdPlayer, idStyle);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+                try
+                {
+                    playerCustomizationManagerClient.SelectMyStyle(playerLoggedIn.IdPlayer, idStyle);
 
-            playerLoggedIn.IdStyleSelected = idStyle;
-            MarkAsSelectedStyle(gridSelected);
+                    playerLoggedIn.IdStyleSelected = idStyle;
+                    MarkAsSelectedStyle(gridSelected);
+                }
+                catch (EndpointNotFoundException ex)
+                {
+                    EmergentWindows.CreateConnectionFailedMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (TimeoutException ex)
+                {
+                    EmergentWindows.CreateTimeOutMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (FaultException<TimbiricheServerExceptions>)
+                {
+                    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (FaultException)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                catch (CommunicationException ex)
+                {
+                    EmergentWindows.CreateServerErrorMessageWindow();
+                    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                }
+                catch (Exception ex)
+                {
+                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                    HandlerExceptions.HandleFatalException(ex, NavigationService);
+                }
+            }
+            
         }
 
         private void MarkAsSelectedStyle(Grid gridSelected)
@@ -318,13 +330,16 @@ namespace TimbiricheViews.Views
             int indexBackgroundRectangle = 2;
             int sizeStyleSelected = 175;
 
-            Rectangle rectangleSelected = gridSelected.Children[indexBackgroundRectangle] as Rectangle;
-            gridSelected.Width = sizeStyleSelected;
-            gridSelected.Height = sizeStyleSelected;
-            rectangleSelected.Width = sizeStyleSelected;
-            rectangleSelected.Height = sizeStyleSelected;
+            if (gridSelected != null)
+            {
+                Rectangle rectangleSelected = gridSelected.Children[indexBackgroundRectangle] as Rectangle;
+                gridSelected.Width = sizeStyleSelected;
+                gridSelected.Height = sizeStyleSelected;
+                rectangleSelected.Width = sizeStyleSelected;
+                rectangleSelected.Height = sizeStyleSelected;
 
-            ClearOtherStylesSelections(gridSelected);
+                ClearOtherStylesSelections(gridSelected);
+            }
         }
 
         private void ClearOtherStylesSelections(Grid gridSelected)

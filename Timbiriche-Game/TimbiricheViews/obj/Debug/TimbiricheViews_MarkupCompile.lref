@@ -1,25 +1,25 @@
 ﻿
 
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Lobby\XAMLLobbyInvitationComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Match\XAMLMessageItemComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Shop\XAMLColorItemComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Shop\XAMLStyleItemComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLOptionsPlayerComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLFriendRequestItemComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLActiveUserItemComponent.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLEmergentWindow.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Ban\XAMLBan.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GameBoard\XAMLGameBoard.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\JoinGuest\XAMLJoinGuest.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GuestLobby\XAMLGuestLobby.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\MyProfile\XAMLMyProfile.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\PasswordReset\XAMLPasswordReset.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Shop\XAMLShop.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLBeginnerCodeVerification.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Victory\XAMLVictory.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\XAMLMainWindow.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Lobby\XAMLLobby.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Login\XAMLLogin.xaml;;
-FC:\Users\Cesar\source\repos\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\UserForm\XAMLUserForm.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Lobby\XAMLLobbyInvitationComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Match\XAMLMessageItemComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Shop\XAMLColorItemComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\Shop\XAMLStyleItemComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLOptionsPlayerComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLFriendRequestItemComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLActiveUserItemComponent.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLEmergentWindow.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Ban\XAMLBan.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GameBoard\XAMLGameBoard.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\JoinGuest\XAMLJoinGuest.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\GuestLobby\XAMLGuestLobby.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\MyProfile\XAMLMyProfile.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\PasswordReset\XAMLPasswordReset.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Shop\XAMLShop.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Components\XAMLBeginnerCodeVerification.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Victory\XAMLVictory.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\XAMLMainWindow.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Lobby\XAMLLobby.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\Login\XAMLLogin.xaml;;
+FC:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\Views\UserForm\XAMLUserForm.xaml;;
 

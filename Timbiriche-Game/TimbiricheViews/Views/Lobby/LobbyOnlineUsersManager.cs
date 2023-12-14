@@ -15,6 +15,7 @@ namespace TimbiricheViews.Views
     {
         private const string ONLINE_STATUS_PLAYER_HEX_COLOR = "#61FF00";
         private const string OFFLINE_STATUS_PLAYER_HEX_COLOR = "#FF5A5E59";
+
         private void ConfigureRematch(bool isHost)
         {
             if (isHost)
@@ -62,36 +63,36 @@ namespace TimbiricheViews.Views
         {
             FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
 
-            try
-            {
+            //try
+            //{
                 string[] usernamePlayerFriends = friendshipManagerClient.GetListUsernameFriends(_playerLoggedIn.IdPlayer);
                 AddUsersToFriendsList(usernamePlayerFriends);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         private void ShowAsActiveUser()
@@ -99,35 +100,35 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             OnlineUsersManagerClient client = new OnlineUsersManagerClient(context);
 
-            try
-            {
+            //try
+            //{
                 client.RegisterUserToOnlineUsers(_playerLoggedIn.IdPlayer, _playerLoggedIn.Username);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         public void NotifyUserLoggedIn(string username)

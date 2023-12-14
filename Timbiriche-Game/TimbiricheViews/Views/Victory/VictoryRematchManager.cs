@@ -28,35 +28,35 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             RematchManagerClient client = new RematchManagerClient(context);
 
-            try
-            {
+            //try
+            //{
                 client.NotRematch(_lobbyCode);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         private void BtnRematch_Click(object sender, RoutedEventArgs e)
@@ -97,18 +97,56 @@ namespace TimbiricheViews.Views
 
         private void BtnExit_Click(object sender, RoutedEventArgs e)
         {
-            SendNotRematch();
+            ExitToLobby();
+        }
 
-            bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
-
-            if (isPlayerBanned)
+        private void ExitToLobby()
+        {
+            try
             {
+                SendNotRematch();
+
+                bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
+
+                if (isPlayerBanned)
+                {
+                    NavigationService.Navigate(new XAMLLogin());
+                }
+                else
+                {
+                    PlayerSingleton.UpdatePlayerFromDataBase();
+                    NavigationService.Navigate(new XAMLLobby());
+                }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
                 NavigationService.Navigate(new XAMLLogin());
             }
-            else
+            catch (FaultException)
             {
-                PlayerSingleton.UpdatePlayerFromDataBase();
-                NavigationService.Navigate(new XAMLLobby());
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
         }
     }

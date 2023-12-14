@@ -19,67 +19,44 @@ namespace TimbiricheViews.Views
                 InstanceContext context = new InstanceContext(this);
                 PlayerColorsManagerClient client = new PlayerColorsManagerClient(context);
 
-                try
-                {
+                //try
+                //{
                     client.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (TimeoutException ex)
-                {
-                    EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (FaultException)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (CommunicationException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerExceptions.HandleFatalException(ex, NavigationService);
-                }
+                //}
+                //catch (EndpointNotFoundException ex)
+                //{
+                //    EmergentWindows.CreateConnectionFailedMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (TimeoutException ex)
+                //{
+                //    EmergentWindows.CreateTimeOutMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (FaultException)
+                //{
+                //    EmergentWindows.CreateServerErrorMessageWindow();
+                //    NavigationService.Navigate(new XAMLLogin());
+                //}
+                //catch (CommunicationException ex)
+                //{
+                //    EmergentWindows.CreateServerErrorMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (Exception ex)
+                //{
+                //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+                //}
             }
         }
 
         private void Lobby_Loaded(object sender, RoutedEventArgs e)
         {
-            LoadDataPlayer();
-            PrepareNotificationOfStyleUpdated();
-        }
-
-        private void PrepareNotificationOfStyleUpdated()
-        {
-            bool isLoaded = true;
-
-            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-            InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
-        }
-
-        private void InformUpdateStyleForPlayers(LobbyPlayer lobbyPlayer, bool isLoaded)
-        {
-            InstanceContext context = new InstanceContext(this);
-            PlayerStylesManagerClient playerStylesManagerClient = new PlayerStylesManagerClient(context);
-
             try
             {
-                if (!isLoaded)
-                {
-                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
-                }
-                else if (_lobbyCode != null)
-                {
-                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
-                }
+                LoadDataPlayer();
+                PrepareNotificationOfStyleUpdated();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -90,6 +67,11 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
             }
             catch (FaultException)
             {
@@ -106,6 +88,57 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
+        }
+
+        private void PrepareNotificationOfStyleUpdated()
+        {
+            bool isLoaded = true;
+
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            InformUpdateStyleForPlayers(lobbyPlayer, isLoaded);
+        }
+
+        private void InformUpdateStyleForPlayers(LobbyPlayer lobbyPlayer, bool isLoaded)
+        {
+            InstanceContext context = new InstanceContext(this);
+            PlayerStylesManagerClient playerStylesManagerClient = new PlayerStylesManagerClient(context);
+
+            //try
+            //{
+                if (!isLoaded)
+                {
+                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+                }
+                else if (_lobbyCode != null)
+                {
+                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+                }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         public void NotifyStyleSelected(LobbyPlayer lobbyPlayer)
@@ -157,40 +190,40 @@ namespace TimbiricheViews.Views
             PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
             string playerStylePath = null;
 
-            try
-            {
+            //try
+            //{
                 playerStylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
 
             return playerStylePath;
         }

@@ -92,7 +92,7 @@ namespace TimbiricheViews.Views
 
             try
             {
-                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                UserManagerClient userManagerClient = new UserManagerClient();
 
                 if (userManagerClient.ValidateUniqueIdentifierUser(username))
                 {

@@ -13,7 +13,7 @@ namespace TimbiricheViews.Utils
         {
             _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
 
-            if(navigationService != null)
+            if (navigationService != null)
             {
                 navigationService.Navigate(new XAMLLogin());
             }

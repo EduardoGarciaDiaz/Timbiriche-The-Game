@@ -54,12 +54,17 @@ namespace TimbiricheViews.Views
         private void BtnSendToken_Click(object sender, RoutedEventArgs e)
         {
             _email = tbxEmail.Text.Trim();
-            bool isResetTokenSent = false;
-            Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+            PasswordResetClient passwordResetClient = new PasswordResetClient();
 
             try
             {
-                isResetTokenSent = passwordResetClient.SendResetToken(_email);
+                bool isResetTokenSent = passwordResetClient.SendResetToken(_email);
+
+                if (isResetTokenSent)
+                {
+                    gridEmailConfirmation.Visibility = Visibility.Collapsed;
+                    gridCodeConfirmation.Visibility = Visibility.Visible;
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -90,23 +95,22 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (isResetTokenSent)
-            {
-                gridEmailConfirmation.Visibility = Visibility.Collapsed;
-                gridCodeConfirmation.Visibility = Visibility.Visible;
             }
         }
 
         private void BtnVerifyToken_Click(object sender, RoutedEventArgs e)
         {
-            bool isTokenValid = false;
-            Server.PasswordResetClient passwordResetClient = new Server.PasswordResetClient();
+            PasswordResetClient passwordResetClient = new PasswordResetClient();
 
             try
             {
-                isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text.Trim()));
+                bool isTokenValid = passwordResetClient.ValidateResetToken(_email, Int32.Parse(tbxToken.Text.Trim()));
+
+                if (isTokenValid)
+                {
+                    gridCodeConfirmation.Visibility = Visibility.Collapsed;
+                    gridNewPassword.Visibility = Visibility.Visible;
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -137,12 +141,6 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (isTokenValid)
-            {
-                gridCodeConfirmation.Visibility = Visibility.Collapsed;
-                gridNewPassword.Visibility = Visibility.Visible;
             }
         }
 
@@ -151,19 +149,18 @@ namespace TimbiricheViews.Views
             if (ValidatePassword())
             {
                 string password = pwBxNewPassword.Password.Trim();
-                bool isPasswordReseted = ChangePassword(password);
-                HandleResultOfChangePassword(isPasswordReseted);
+                ChangePassword(password);
             }
         }
 
-        private bool ChangePassword(string password)
+        private void ChangePassword(string password)
         {
             PasswordResetClient passwordResetClient = new PasswordResetClient();
-            bool isPasswordReseted = false;
 
             try
             {
-                isPasswordReseted = passwordResetClient.ChangePassword(password, _email);
+                bool isPasswordReseted = passwordResetClient.ChangePassword(password, _email);
+                HandleResultOfChangePassword(isPasswordReseted);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -195,8 +192,6 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
-
-            return isPasswordReseted;
         }
 
         private void HandleResultOfChangePassword(bool isPasswordReseted)

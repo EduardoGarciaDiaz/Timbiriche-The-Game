@@ -50,40 +50,9 @@ namespace TimbiricheViews.Views
 
         private void BtnSendRequest_Click(object sender, RoutedEventArgs e)
         {
-            SendRequest();
-        }
-
-        private void SendRequest()
-        {
-            lbFriendRequestUsernameError.Visibility = Visibility.Collapsed;
-
-            string usernamePlayerRequested = tbxUsernameSendRequest.Text.Trim();
-            int idPlayer = _playerLoggedIn.IdPlayer;
-
-            if (ValidateSendRequest(idPlayer, usernamePlayerRequested))
-            {
-                AddRequestFriendship(idPlayer, usernamePlayerRequested);
-                SendFriendRequest(usernamePlayerRequested);
-
-                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
-                    Properties.Resources.lbFriendRequestSent + " " + usernamePlayerRequested);
-
-                tbxUsernameSendRequest.Text = string.Empty;
-            }
-            else
-            {
-                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
-                    Properties.Resources.tbkFriendRequestErrorDescription);
-            }
-        }
-
-        private void AddRequestFriendship(int idPlayer, string usernamePlayerRequested)
-        {
-            FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
-
             try
             {
-                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
+                SendRequest();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -117,40 +86,104 @@ namespace TimbiricheViews.Views
             }
         }
 
+        private void SendRequest()
+        {
+            lbFriendRequestUsernameError.Visibility = Visibility.Collapsed;
+
+            string usernamePlayerRequested = tbxUsernameSendRequest.Text.Trim();
+            int idPlayer = _playerLoggedIn.IdPlayer;
+
+            if (ValidateSendRequest(idPlayer, usernamePlayerRequested))
+            {
+                AddRequestFriendship(idPlayer, usernamePlayerRequested);
+                SendFriendRequest(usernamePlayerRequested);
+
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
+                    Properties.Resources.lbFriendRequestSent + " " + usernamePlayerRequested);
+
+                tbxUsernameSendRequest.Text = string.Empty;
+            }
+            else
+            {
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbFriendRequest,
+                    Properties.Resources.tbkFriendRequestErrorDescription);
+            }
+        }
+
+        private void AddRequestFriendship(int idPlayer, string usernamePlayerRequested)
+        {
+            FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
+
+            //try
+            //{
+                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
+        }
+
         private void SendFriendRequest(string usernamePlayerRequested)
         {
             InstanceContext context = new InstanceContext(this);
             FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
 
-            try
-            {
+            //try
+            //{
                 friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
         }
 
         private bool ValidateSendRequest(int idPlayer, string usernamePlayerRequested)
@@ -161,40 +194,40 @@ namespace TimbiricheViews.Views
             {
                 FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
 
-                try
-                {
+                //try
+                //{
                     isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
-                }
-                catch (EndpointNotFoundException ex)
-                {
-                    EmergentWindows.CreateConnectionFailedMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (TimeoutException ex)
-                {
-                    EmergentWindows.CreateTimeOutMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (FaultException<TimbiricheServerExceptions>)
-                {
-                    EmergentWindows.CreateDataBaseErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (FaultException)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    NavigationService.Navigate(new XAMLLogin());
-                }
-                catch (CommunicationException ex)
-                {
-                    EmergentWindows.CreateServerErrorMessageWindow();
-                    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                }
-                catch (Exception ex)
-                {
-                    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                    HandlerExceptions.HandleFatalException(ex, NavigationService);
-                }
+                //}
+                //catch (EndpointNotFoundException ex)
+                //{
+                //    EmergentWindows.CreateConnectionFailedMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (TimeoutException ex)
+                //{
+                //    EmergentWindows.CreateTimeOutMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (FaultException<TimbiricheServerExceptions>)
+                //{
+                //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+                //    NavigationService.Navigate(new XAMLLogin());
+                //}
+                //catch (FaultException)
+                //{
+                //    EmergentWindows.CreateServerErrorMessageWindow();
+                //    NavigationService.Navigate(new XAMLLogin());
+                //}
+                //catch (CommunicationException ex)
+                //{
+                //    EmergentWindows.CreateServerErrorMessageWindow();
+                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+                //}
+                //catch (Exception ex)
+                //{
+                //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+                //}
             }
             else
             {
@@ -229,7 +262,10 @@ namespace TimbiricheViews.Views
             stackPanelFriendsRequest.Children.Clear();
             string[] usernamePlayers = GetCurrentFriendRequests();
 
-            AddUsersToFriendsRequestList(usernamePlayers);
+            if (usernamePlayers != null)
+            {
+                AddUsersToFriendsRequestList(usernamePlayers);
+            }
         }
 
         private void ChangeButtonColor(Button btnAppareance, string hexadecimalColor)

@@ -15,13 +15,13 @@ namespace TimbiricheViews.Views
     public partial class XAMLVictory : Page
     {
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
-        private KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
+        private KeyValuePair<LobbyPlayer, int>[] _scoreboard;
         private string _lobbyCode;
         private string _playerUsername;
         private int _coinsEarned;
         private int _idPlayer;
 
-        public XAMLVictory(string lobbyCode, KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
+        public XAMLVictory(string lobbyCode, KeyValuePair<LobbyPlayer, int>[] scoreboard, int coinsEarned)
         {
             InitializeComponent();
             _scoreboard = scoreboard;
@@ -102,7 +102,9 @@ namespace TimbiricheViews.Views
 
         private bool IsPlayerAWinner()
         {
-            string winnerUsername = _scoreboard[0].Key.Username;
+            int indexFirstPlace = 0;
+
+            string winnerUsername = _scoreboard[indexFirstPlace].Key.Username;
             return _playerLoggedIn.Username == winnerUsername;
         }
 
@@ -166,43 +168,42 @@ namespace TimbiricheViews.Views
 
         private bool VerifyPlayerIsNotBanned(int idPlayer)
         {
-            bool isPlayerBanned = false;
             BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
 
-            try
-            {
-                isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //try
+            //{
+                bool isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
 
             return isPlayerBanned;
         }

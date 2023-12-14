@@ -134,7 +134,11 @@ namespace TimbiricheViews.Views
         public void NotifyStartOfMatch()
         {
             (string, string) playerCustomization = GetPlayerCustomization();
-            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+
+            if (playerCustomization != (null, null))
+            {
+                NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+            }
         }
 
         private void BtnInviteToLobby_Click(object sender, RoutedEventArgs e)
@@ -182,10 +186,10 @@ namespace TimbiricheViews.Views
 
         private (string, string) GetPlayerCustomization()
         {
-            string playerHexadecimalColor = "";
-            string playerStylePath = "";
+            string playerHexadecimalColor = null;
+            string playerStylePath = null;
 
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
 
             try
             {

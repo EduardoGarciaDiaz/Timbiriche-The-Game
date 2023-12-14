@@ -19,24 +19,16 @@ namespace TimbiricheViews.Views
         public XAMLShop()
         {
             InitializeComponent();
-            LoadColors();
-            LoadStyles();
-            LoadCoins();
+            LoadShopItems();
         }
 
-        private void LoadCoins()
+        private void LoadShopItems()
         {
-            lbCoins.Content = PlayerSingleton.Player.Coins;
-        }
-
-        private ShopColor[] GetColors()
-        {
-            ShopManagerClient shopManagerClient = new ShopManagerClient();
-            ShopColor[] colors = null;
-
             try
             {
-                colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
+                LoadColors();
+                LoadStyles();
+                LoadCoins();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -68,6 +60,52 @@ namespace TimbiricheViews.Views
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
+        }
+
+        private void LoadCoins()
+        {
+            lbCoins.Content = PlayerSingleton.Player.Coins;
+        }
+
+        private ShopColor[] GetColors()
+        {
+            ShopManagerClient shopManagerClient = new ShopManagerClient();
+            ShopColor[] colors = null;
+
+            //try
+            //{
+                colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
 
             return colors;
         }
@@ -76,20 +114,27 @@ namespace TimbiricheViews.Views
         {
             ShopColor[] colors = GetColors();
 
-            foreach(var color in colors)
+            if (colors != null)
             {
-                AddColorItem(color);
+                foreach (var color in colors)
+                {
+                    AddColorItem(color);
+                }
             }
         }
 
-        private void AddColorItem(Server.ShopColor color)
+        private void AddColorItem(ShopColor color)
         {
+            int maxChildCount = 2;
             var lastGrid = stackPanelColors.Children.OfType<Grid>().LastOrDefault();
 
-            if (lastGrid != null && lastGrid.Children.Count < 2)
+            if (lastGrid != null && lastGrid.Children.Count < maxChildCount)
             {
-                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color);
-                colorItemComponent.Margin = new Thickness(0, 95, 0, 0);
+                XAMLColorItemComponent colorItemComponent = new XAMLColorItemComponent(color)
+                {
+                    Margin = new Thickness(0, 95, 0, 0)
+                };
+
                 lastGrid.Children.Add(colorItemComponent);
             }
             else
@@ -116,40 +161,40 @@ namespace TimbiricheViews.Views
             ShopManagerClient shopManagerClient = new ShopManagerClient();
             ShopStyle[] styles = null;
 
-            try
-            {
+            //try
+            //{
                 styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            //}
+            //catch (EndpointNotFoundException ex)
+            //{
+            //    EmergentWindows.CreateConnectionFailedMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (TimeoutException ex)
+            //{
+            //    EmergentWindows.CreateTimeOutMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (FaultException<TimbiricheServerExceptions>)
+            //{
+            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (FaultException)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    NavigationService.Navigate(new XAMLLogin());
+            //}
+            //catch (CommunicationException ex)
+            //{
+            //    EmergentWindows.CreateServerErrorMessageWindow();
+            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
+            //}
+            //catch (Exception ex)
+            //{
+            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
+            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
+            //}
 
             return styles;
         }
@@ -158,9 +203,12 @@ namespace TimbiricheViews.Views
         {
             ShopStyle[] styles = GetStyles();
 
-            foreach (var style in styles)
+            if (styles != null)
             {
-                AddStyleItem(style);
+                foreach (var style in styles)
+                {
+                    AddStyleItem(style);
+                }
             }
         }
 

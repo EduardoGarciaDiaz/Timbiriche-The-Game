@@ -333,11 +333,20 @@ namespace TimbiricheViews.Views
         {
             bool existLobby = false;
             string lobbyCode = tbxJoinByCode.Text.Trim().ToUpper();
-            Server.LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new Server.LobbyExistenceCheckerClient();
+            LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new LobbyExistenceCheckerClient();
 
             try
             {
                 existLobby = lobbyExistenceCheckerClient.ExistLobbyCode(lobbyCode);
+
+                if (existLobby)
+                {
+                    NavigationService.Navigate(new XAMLJoinGuest(lobbyCode));
+                }
+                else
+                {
+                    EmergentWindows.CreateLobbyNotFoundMessageWindow();
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -366,15 +375,6 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (existLobby)
-            {
-                NavigationService.Navigate(new XAMLJoinGuest(lobbyCode));
-            } 
-            else
-            {
-                EmergentWindows.CreateLobbyNotFoundMessageWindow();
             }
         }
     }
