@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using TimbiricheViews.Player;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
 using Path = System.IO.Path;
 
@@ -13,7 +14,7 @@ namespace TimbiricheViews.Components.Shop
 {
     public partial class XAMLStyleItemComponent : UserControl
     {
-        private Server.ShopStyle _style;
+        private ShopStyle _style;
 
         public XAMLStyleItemComponent(Server.ShopStyle style)
         {
@@ -25,7 +26,7 @@ namespace TimbiricheViews.Components.Shop
         private void LoadStyleData()
         {
             string stylePath = _style.StylePath;
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, stylePath);
+            string absolutePath = Utilities.BuildAbsolutePath(stylePath);
 
             BitmapImage bitmapImage = new BitmapImage(new Uri(absolutePath));
             imgStyle.Source = bitmapImage;
@@ -69,14 +70,15 @@ namespace TimbiricheViews.Components.Shop
             }
             else
             {
-                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins,
+                    Properties.Resources.lbInsufficientCoinsMessage);
             }
         }
 
         private bool BuyStyle()
         {
             bool purchaseCompleted = false;
-            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+            ShopManagerClient shopManagerClient = new ShopManagerClient();
 
             try
             {
@@ -91,6 +93,10 @@ namespace TimbiricheViews.Components.Shop
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerExceptions.HandleComponentErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
             catch (FaultException)
             {

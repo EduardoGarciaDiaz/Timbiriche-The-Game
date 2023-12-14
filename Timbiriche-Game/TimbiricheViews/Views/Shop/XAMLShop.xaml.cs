@@ -19,6 +19,11 @@ namespace TimbiricheViews.Views
         public XAMLShop()
         {
             InitializeComponent();
+            this.Loaded += Lobby_Loaded;
+        }
+
+        private void Lobby_Loaded(object sender, RoutedEventArgs e)
+        {
             LoadShopItems();
         }
 

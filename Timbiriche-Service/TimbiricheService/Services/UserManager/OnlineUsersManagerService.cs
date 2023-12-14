@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess;
@@ -39,6 +40,11 @@ namespace TimbiricheService
                 HandlerExceptions.HandleErrorException(ex);
                 UnregisterUserToOnlineUsers(username);
             }
+            catch (TimeoutException ex)
+            {
+                HandlerExceptions.HandleErrorException(ex);
+                UnregisterUserToOnlineUsers(username);
+            }
 
             NotifyUserLoggedInToFriends(idPlayer, username);
         }
@@ -54,6 +60,11 @@ namespace TimbiricheService
                         user.Value.NotifyUserLoggedIn(username);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        UnregisterUserToOnlineUsers(username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         UnregisterUserToOnlineUsers(username);
@@ -87,6 +98,11 @@ namespace TimbiricheService
                         user.Value.NotifyUserLoggedOut(username);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        UnregisterUserToOnlineUsers(username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         UnregisterUserToOnlineUsers(username);

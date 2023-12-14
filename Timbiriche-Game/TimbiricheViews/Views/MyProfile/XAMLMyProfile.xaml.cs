@@ -275,7 +275,7 @@ namespace TimbiricheViews.Views
 
         private void SelectStyle(Grid gridSelected)
         {
-            if (gridSelected == null)
+            if (gridSelected != null)
             {
                 char splitSymbol = '_';
                 int indexIdColorPart = 1;

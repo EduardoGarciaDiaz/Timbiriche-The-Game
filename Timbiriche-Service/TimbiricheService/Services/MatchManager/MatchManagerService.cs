@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess;
@@ -65,9 +66,12 @@ namespace TimbiricheService
                             HandlerExceptions.HandleErrorException(ex);
                             LeftMatch(lobbyCode, player.Username);
                         }
-
+                        catch (TimeoutException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            LeftMatch(lobbyCode, player.Username);
+                        }
                     }
-
                 }
                 else
                 {
@@ -87,6 +91,11 @@ namespace TimbiricheService
                         player.MatchCallbackChannel.NotifyMovement(movement);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
@@ -125,6 +134,11 @@ namespace TimbiricheService
                         {
                             HandlerExceptions.HandleErrorException(ex);
                             match.DeletePlayerFromMatch(player);
+                        }
+                        catch (TimeoutException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            LeftMatch(lobbyCode, player.Username);
                         }
                     }
                 }
@@ -166,6 +180,11 @@ namespace TimbiricheService
                             player.MatchCallbackChannel.NotifyNewMessage(senderUsername, message, idSenderPlayer);
                         }
                         catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            LeftMatch(lobbyCode, player.Username);
+                        }
+                        catch (TimeoutException ex)
                         {
                             HandlerExceptions.HandleErrorException(ex);
                             LeftMatch(lobbyCode, player.Username);
@@ -214,6 +233,11 @@ namespace TimbiricheService
                         HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
                     }
+                    catch (TimeoutException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
                 }
             }
             else
@@ -238,6 +262,11 @@ namespace TimbiricheService
                         player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         LeftMatch(lobbyCode, player.Username);
@@ -270,7 +299,12 @@ namespace TimbiricheService
                     HandlerExceptions.HandleErrorException(ex);
                     LeftMatch(lobbyCode, player.Username);
                 }
-                
+                catch (TimeoutException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    LeftMatch(lobbyCode, player.Username);
+                }
+
             }
         }
 
@@ -292,6 +326,11 @@ namespace TimbiricheService
                             player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
                         }
                         catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            LeftMatch(lobbyCode, player.Username);
+                        }
+                        catch (TimeoutException ex)
                         {
                             HandlerExceptions.HandleErrorException(ex);
                             LeftMatch(lobbyCode, player.Username);

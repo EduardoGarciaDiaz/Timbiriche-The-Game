@@ -14,6 +14,7 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLVictory : Page
     {
+        private const int ID_GUEST_PLAYER = 0;
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private KeyValuePair<LobbyPlayer, int>[] _scoreboard;
         private string _lobbyCode;
@@ -41,6 +42,8 @@ namespace TimbiricheViews.Views
             int indexThirdPlayer = 2;
             int indexFourthPlayer = 3;
 
+            DisableButtonPlayAgainForGuest();
+
             SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[indexFirstPlayer].Key.HexadecimalColor);
             tbxFirstPlaceUsername.Text = _scoreboard[indexFirstPlayer].Key.Username;
             tbxFirstPlacePoints.Text = _scoreboard[indexFirstPlayer].Value.ToString();
@@ -50,7 +53,6 @@ namespace TimbiricheViews.Views
             tbxSecondPlaceUsername.Text = _scoreboard[indexSecondPlayer].Key.Username;
             tbxSecondPlacePoints.Text = _scoreboard[indexSecondPlayer].Value.ToString();
             borderSecondPlace.Background = brushSecondPlace;
-
 
             if (numPlayers > indexThirdPlayer)
             {
@@ -93,7 +95,7 @@ namespace TimbiricheViews.Views
                 case 2:
                     lbThirdPlace.Visibility = Visibility.Visible;
                     break;
-                case 4:
+                case 3:
                     lbFourthPlace.Visibility = Visibility.Visible;
                     break;
             }
@@ -116,6 +118,14 @@ namespace TimbiricheViews.Views
             if(currentPlayer.AccountFK == null)
             {
                 btnRematch.Visibility = Visibility.Collapsed;
+            }
+        }
+
+        private void DisableButtonPlayAgainForGuest()
+        {
+            if (_idPlayer <= 0)
+            {
+                btnPlayAgain.IsEnabled = false;
             }
         }
 
@@ -188,42 +198,14 @@ namespace TimbiricheViews.Views
         private bool VerifyPlayerIsNotBanned(int idPlayer)
         {
             BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
+            int idGuestIdPlayer = 0;
+            bool isPlayerBanned = false;
 
-            //try
-            //{
-                bool isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
-
+            if (idPlayer > idGuestIdPlayer)
+            {
+                isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
+            }
+            
             return isPlayerBanned;
         }
     }

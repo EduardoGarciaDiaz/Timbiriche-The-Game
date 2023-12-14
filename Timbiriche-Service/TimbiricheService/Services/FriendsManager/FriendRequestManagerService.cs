@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ServiceModel;
 using TimbiricheDataAccess;
 using TimbiricheDataAccess.Exceptions;
@@ -34,6 +35,11 @@ namespace TimbiricheService
                     onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
                 }
                 catch (CommunicationException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
+                }
+                catch (TimeoutException ex)
                 {
                     HandlerExceptions.HandleErrorException(ex);
                     RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);

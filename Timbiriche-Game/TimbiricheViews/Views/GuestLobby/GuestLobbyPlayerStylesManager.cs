@@ -179,11 +179,11 @@ namespace TimbiricheViews.Views
             }
             else if (lbThirdPlayerUsername.Content.Equals(username))
             {
-                LoadFaceBox(lbThirdPlayerUsername, idStyle, username);
+                LoadFaceBox(lbThirdPlayerFaceBox, idStyle, username);
             }
             else if (lbFourthPlayerUsername.Content.Equals(username))
             {
-                LoadFaceBox(lbFourthPlayerUsername, idStyle, username);
+                LoadFaceBox(lbFourthPlayerFaceBox, idStyle, username);
             }
         }
 
