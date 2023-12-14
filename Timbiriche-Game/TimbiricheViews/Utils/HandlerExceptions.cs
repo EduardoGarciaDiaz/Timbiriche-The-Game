@@ -12,13 +12,21 @@ namespace TimbiricheViews.Utils
         public static void HandleErrorException(Exception ex, NavigationService navigationService)
         {
             _logger.Error(ex.Message + "\n" + ex.StackTrace + "\n");
-            navigationService.Navigate(new XAMLLogin());
+
+            if(navigationService != null)
+            {
+                navigationService.Navigate(new XAMLLogin());
+            }
         }
 
         public static void HandleFatalException(Exception ex, NavigationService navigationService)
         {
             _logger.Fatal(ex.Message + "\n" + ex.StackTrace + "\n");
-            navigationService.Navigate(new XAMLLogin());
+
+            if (navigationService != null)
+            {
+                navigationService.Navigate(new XAMLLogin());
+            }
         }
 
         public static void HandleComponentErrorException(Exception ex)
