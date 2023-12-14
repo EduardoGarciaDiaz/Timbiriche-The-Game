@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/System.Collections.Generic" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
-  <xs:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+  <xs:import schemaLocation="http://192.168.94.38:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
+  <xs:import schemaLocation="http://192.168.94.38:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
   <xs:complexType name="ArrayOfKeyValuePairOfLobbyPlayerinttbPaEAnV">
     <xs:sequence>
       <xs:element minOccurs="0" maxOccurs="unbounded" name="KeyValuePairOfLobbyPlayerinttbPaEAnV" type="tns:KeyValuePairOfLobbyPlayerinttbPaEAnV" />

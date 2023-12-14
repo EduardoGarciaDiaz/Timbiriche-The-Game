@@ -83,7 +83,7 @@ namespace TimbiricheViews.Views
             _horizontalLines = new int[BOARD_SIZE, BOARD_SIZE - 1];
             _verticalLines = new int[BOARD_SIZE - 1, BOARD_SIZE];
             CreateButtonLines();
-            _itsMyTurn = true;
+            _itsMyTurn = false;
         }
 
         private void CreateButtonLines()
