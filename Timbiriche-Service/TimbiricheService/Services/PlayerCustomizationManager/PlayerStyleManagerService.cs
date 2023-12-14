@@ -35,7 +35,10 @@ namespace TimbiricheService
                     {
                         try
                         {
-                            styleSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                            if(styleSelector.StyleCallbackChannel != null)
+                            {
+                                styleSelector.StyleCallbackChannel.NotifyStyleSelected(lobbyPlayer);
+                            }
                         }
                         catch (CommunicationException ex)
                         {

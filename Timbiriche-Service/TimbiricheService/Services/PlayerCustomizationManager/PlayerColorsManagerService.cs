@@ -154,16 +154,19 @@ namespace TimbiricheService
 
         private void InformColorUnselectedToDefaultColors(string lobbyCode, int idColor)
         {
-            foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode].ToList())
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
-                try
+                foreach (var callbackPlayer in playersWithDefaultColorByLobby[lobbyCode].ToList())
                 {
-                    callbackPlayer.NotifyColorUnselected(idColor);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
+                    try
+                    {
+                        callbackPlayer.NotifyColorUnselected(idColor);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
+                    }
                 }
             }
         }
