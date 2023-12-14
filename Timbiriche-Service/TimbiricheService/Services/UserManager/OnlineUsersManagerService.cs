@@ -10,6 +10,7 @@ namespace TimbiricheService
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public partial class UserManagerService : IOnlineUsersManager
     {
+        private static readonly object lockObject = new object();
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 
         public void RegisterUserToOnlineUsers(int idPlayer, string username)

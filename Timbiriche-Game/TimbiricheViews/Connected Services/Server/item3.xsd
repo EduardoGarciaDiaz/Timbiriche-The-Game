@@ -1,9 +1,144 @@
 <?xml version="1.0" encoding="utf-8"?>
-<xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/Arrays" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-  <xs:complexType name="ArrayOfstring">
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/TimbiricheService" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/TimbiricheService" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="Player">
     <xs:sequence>
-      <xs:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="AccountFK" nillable="true" type="tns:Account" />
+      <xs:element minOccurs="0" name="Coins" type="xs:int" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdColorSelected" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStyleSelected" type="xs:int" />
+      <xs:element minOccurs="0" name="Password" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Salt" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Status" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
     </xs:sequence>
   </xs:complexType>
-  <xs:element name="ArrayOfstring" nillable="true" type="tns:ArrayOfstring" />
+  <xs:element name="Player" nillable="true" type="tns:Player" />
+  <xs:complexType name="Account">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Birthdate" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="IdAccount" type="xs:int" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Name" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Surname" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Account" nillable="true" type="tns:Account" />
+  <xs:complexType name="LobbyInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MatchDurationInMinutes" type="xs:float" />
+      <xs:element minOccurs="0" name="TurnDurationInMinutes" type="xs:float" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LobbyInformation" nillable="true" type="tns:LobbyInformation" />
+  <xs:complexType name="LobbyPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="HexadecimalColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdHexadecimalColor" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStylePath" type="xs:int" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="LobbyPlayer" nillable="true" type="tns:LobbyPlayer" />
+  <xs:complexType name="ArrayOfLobbyPlayer">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="LobbyPlayer" nillable="true" type="tns:LobbyPlayer" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfLobbyPlayer" nillable="true" type="tns:ArrayOfLobbyPlayer" />
+  <xs:complexType name="Movement">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Column" type="xs:int" />
+      <xs:element minOccurs="0" name="EarnedPoints" type="xs:int" />
+      <xs:element minOccurs="0" name="HexadecimalColor" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Row" type="xs:int" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TypeLine" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Username" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="Movement" nillable="true" type="tns:Movement" />
+  <xs:complexType name="ArrayOfPlayerColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerColor" nillable="true" type="tns:PlayerColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerColor" nillable="true" type="tns:ArrayOfPlayerColor" />
+  <xs:complexType name="PlayerColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdColor" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayerColors" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerColor" nillable="true" type="tns:PlayerColor" />
+  <xs:complexType name="ArrayOfPlayerStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="PlayerStyle" nillable="true" type="tns:PlayerStyle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfPlayerStyle" nillable="true" type="tns:ArrayOfPlayerStyle" />
+  <xs:complexType name="PlayerStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayerStyle" type="xs:int" />
+      <xs:element minOccurs="0" name="IdStyle" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="PlayerStyle" nillable="true" type="tns:PlayerStyle" />
+  <xs:complexType name="BanInformation">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BanStatus" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EndDate" type="xs:dateTime" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="BanInformation" nillable="true" type="tns:BanInformation" />
+  <xs:complexType name="ArrayOfGlobalScore">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="GlobalScore" nillable="true" type="tns:GlobalScore" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfGlobalScore" nillable="true" type="tns:ArrayOfGlobalScore" />
+  <xs:complexType name="GlobalScore">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdGlobalScore" type="xs:int" />
+      <xs:element minOccurs="0" name="IdPlayer" type="xs:int" />
+      <xs:element minOccurs="0" name="WinsNumber" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="GlobalScore" nillable="true" type="tns:GlobalScore" />
+  <xs:complexType name="ArrayOfShopColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShopColor" nillable="true" type="tns:ShopColor" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShopColor" nillable="true" type="tns:ArrayOfShopColor" />
+  <xs:complexType name="ShopColor">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ColorCost" type="xs:int" />
+      <xs:element minOccurs="0" name="ColorName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="HexadecimalCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IdColor" type="xs:int" />
+      <xs:element minOccurs="0" name="OwnedColor" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShopColor" nillable="true" type="tns:ShopColor" />
+  <xs:complexType name="ArrayOfShopStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="ShopStyle" nillable="true" type="tns:ShopStyle" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfShopStyle" nillable="true" type="tns:ArrayOfShopStyle" />
+  <xs:complexType name="ShopStyle">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="IdStyle" type="xs:int" />
+      <xs:element minOccurs="0" name="OwnedStyle" type="xs:boolean" />
+      <xs:element minOccurs="0" name="StyleCost" type="xs:int" />
+      <xs:element minOccurs="0" name="StyleName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="StylePath" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ShopStyle" nillable="true" type="tns:ShopStyle" />
 </xs:schema>

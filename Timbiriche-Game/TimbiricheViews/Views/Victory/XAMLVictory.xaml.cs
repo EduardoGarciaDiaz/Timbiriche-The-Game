@@ -190,25 +190,12 @@ namespace TimbiricheViews.Views
         {
             bool isPlayerBanned = false;
 
-            try
-            {
-                BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
-                int idGuestIdPlayer = 0;
+            BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
+            int idGuestIdPlayer = 0;
 
-                if (idPlayer > idGuestIdPlayer)
-                {
-                    isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
-                }
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
+            if (idPlayer > idGuestIdPlayer)
             {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
+                isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
             }
 
             return isPlayerBanned;

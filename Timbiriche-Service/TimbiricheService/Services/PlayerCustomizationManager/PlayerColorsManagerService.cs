@@ -33,7 +33,7 @@ namespace TimbiricheService
                     HandlerExceptions.HandleErrorException(ex);
                     RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                 }
-            }
+            } 
         }
 
         public void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
@@ -50,7 +50,7 @@ namespace TimbiricheService
                 HandleNonDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
             }
 
-            InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor);
+            InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor); 
         }
 
         private void HandleDefaultColorSubscription(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
@@ -122,7 +122,7 @@ namespace TimbiricheService
                         }
                     }
                 }
-            }
+            } 
         }
 
         private LobbyPlayer GetLobbyPlayerByUsername(string lobbyCode, string username)
@@ -186,7 +186,7 @@ namespace TimbiricheService
 
             InformColorUnselected(lobbyCode, idColor);
 
-            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);   
         }
 
         private void InformColorUnselected(string lobbyCode, int idColor)

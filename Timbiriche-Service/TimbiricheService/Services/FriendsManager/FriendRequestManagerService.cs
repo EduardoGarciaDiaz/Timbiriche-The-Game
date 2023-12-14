@@ -23,27 +23,30 @@ namespace TimbiricheService
             else
             {
                 onlineFriendship[usernameCurrentPlayer] = currentUserCallbackChannel;
-            }
+            } 
         }
 
         public void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested)
         {
-            if (onlineFriendship.ContainsKey(usernamePlayerRequested))
+            lock (lockObject)
             {
-                try
+                if (onlineFriendship.ContainsKey(usernamePlayerRequested))
                 {
-                    onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
-                }
-                catch (TimeoutException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
-                }
+                    try
+                    {
+                        onlineFriendship[usernamePlayerRequested].NotifyNewFriendRequest(usernamePlayerSender);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
+                    }
+                    catch (TimeoutException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemoveFromOnlineFriendshipDictionary(usernamePlayerSender);
+                    }
+                } 
             }
         }
 
@@ -72,7 +75,7 @@ namespace TimbiricheService
                 };
 
                 throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
-            }
+            } 
         }
 
         private void InformFriendRequestAccepted(string usernameTarget, string usernameNewFriend)
@@ -111,34 +114,37 @@ namespace TimbiricheService
                 };
 
                 throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
-            }
+            } 
         }
 
         public void DeleteFriend(int idCurrentPlayer, string usernameCurrentPlayer, string usernameFriendDeleted)
         {
-            UserManagement userDataAccess = new UserManagement();
-            FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
-
-            try
+            lock (lockObject)
             {
-                int idPlayerFriend = userDataAccess.GetIdPlayerByUsername(usernameFriendDeleted);
-                int rowsAffected = friendRequestDataAccess.DeleteFriendship(idCurrentPlayer, idPlayerFriend);
+                UserManagement userDataAccess = new UserManagement();
+                FriendRequestManagement friendRequestDataAccess = new FriendRequestManagement();
 
-                if (rowsAffected > 0)
+                try
                 {
-                    InformFriendDeleted(usernameCurrentPlayer, usernameFriendDeleted);
-                    InformFriendDeleted(usernameFriendDeleted, usernameCurrentPlayer);
+                    int idPlayerFriend = userDataAccess.GetIdPlayerByUsername(usernameFriendDeleted);
+                    int rowsAffected = friendRequestDataAccess.DeleteFriendship(idCurrentPlayer, idPlayerFriend);
+
+                    if (rowsAffected > 0)
+                    {
+                        InformFriendDeleted(usernameCurrentPlayer, usernameFriendDeleted);
+                        InformFriendDeleted(usernameFriendDeleted, usernameCurrentPlayer);
+                    }
                 }
-            }
-            catch (DataAccessException ex)
-            {
-                TimbiricheServerExceptions exceptionResponse = new TimbiricheServerExceptions
+                catch (DataAccessException ex)
                 {
-                    Message = ex.Message,
-                    StackTrace = ex.StackTrace
-                };
+                    TimbiricheServerExceptions exceptionResponse = new TimbiricheServerExceptions
+                    {
+                        Message = ex.Message,
+                        StackTrace = ex.StackTrace
+                    };
 
-                throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                    throw new FaultException<TimbiricheServerExceptions>(exceptionResponse, new FaultReason(exceptionResponse.Message));
+                } 
             }
         }
 
