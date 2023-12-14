@@ -28,35 +28,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             RematchManagerClient client = new RematchManagerClient(context);
 
-            //try
-            //{
-                client.NotRematch(_lobbyCode);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
+            client.NotRematch(_lobbyCode);
         }
 
         private void BtnRematch_Click(object sender, RoutedEventArgs e)

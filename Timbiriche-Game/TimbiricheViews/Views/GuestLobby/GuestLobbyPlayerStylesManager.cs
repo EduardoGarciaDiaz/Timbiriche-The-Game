@@ -77,35 +77,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
 
-            //try
-            //{
-                lobbyManagerClient.JoinLobby(_lobbyCode, lobbyPlayer);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
+            lobbyManagerClient.JoinLobby(_lobbyCode, lobbyPlayer);
         }
 
         private void PrepareNotificationOfStyleUpdated()
@@ -121,46 +93,14 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             PlayerStylesManagerClient playerStylesManagerClient = new PlayerStylesManagerClient(context);
 
-            //try
-            //{
-                if (!isLoaded)
-                {
-                    playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
-                }
-                else if (_lobbyCode != null)
-                {
-                    playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
-                }
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
+            if (!isLoaded)
+            {
+                playerStylesManagerClient.AddStyleCallbackToLobbiesList(_lobbyCode, lobbyPlayer);
+            }
+            else if (_lobbyCode != null)
+            {
+                playerStylesManagerClient.ChooseStyle(_lobbyCode, lobbyPlayer);
+            }
         }
 
         public void NotifyStyleSelected(LobbyPlayer lobbyPlayer)
@@ -202,42 +142,8 @@ namespace TimbiricheViews.Views
         private string GetStylePathByIdStyle(int idStyle)
         {
             PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
-
-            //try
-            //{
             string stylePath = playerCustomizationManagerClient.GetStylePath(idStyle);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
-
+            
             return stylePath;
         }
 

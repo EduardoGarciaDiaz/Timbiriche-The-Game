@@ -28,6 +28,11 @@ namespace TimbiricheViews.Views
             string stylePlayer = ChooseCorrectStyle(movement.StylePath, movement.Username);
 
             SetMovement(btnLine, movement.HexadecimalColor, stylePlayer, movement.Row, movement.Column, movement.TypeLine);
+
+            if (_matchTimer == null)
+            {
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         public void NotifyFirstTurn(float matchDurationInMinutes, float turnDurationInMinutes, string username)
@@ -245,12 +250,20 @@ namespace TimbiricheViews.Views
             _turnTimer.Stop();
             _matchTimer.Stop();
             _dispatchTimer.Stop();
+            int idGuestPlayer = 0;
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
 
             if (parentWindow != null)
             {
-                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
+                if (PlayerSingleton.Player.IdPlayer > idGuestPlayer)
+                {
+                    parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
+                } 
+                else
+                {
+                    parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLogin());
+                }
             }
         }
 

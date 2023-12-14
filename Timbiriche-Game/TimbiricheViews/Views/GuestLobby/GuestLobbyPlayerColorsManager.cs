@@ -387,5 +387,10 @@ namespace TimbiricheViews.Views
             StablishOcuppiedColors(occupiedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
         }
+
+        public void NotifyCanStartMatch(bool hasColor)
+        {
+            NavigationService.Navigate(new XAMLLogin());
+        }
     }
 }

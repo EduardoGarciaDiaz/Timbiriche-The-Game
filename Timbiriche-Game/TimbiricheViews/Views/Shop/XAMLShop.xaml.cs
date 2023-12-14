@@ -77,41 +77,8 @@ namespace TimbiricheViews.Views
             ShopManagerClient shopManagerClient = new ShopManagerClient();
             ShopColor[] colors = null;
 
-            //try
-            //{
-                colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
-
+            colors = shopManagerClient.GetColors(PlayerSingleton.Player.IdPlayer);
+            
             return colors;
         }
 
@@ -166,41 +133,8 @@ namespace TimbiricheViews.Views
             ShopManagerClient shopManagerClient = new ShopManagerClient();
             ShopStyle[] styles = null;
 
-            //try
-            //{
-                styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
-
+            styles = shopManagerClient.GetStyles(PlayerSingleton.Player.IdPlayer);
+            
             return styles;
         }
 

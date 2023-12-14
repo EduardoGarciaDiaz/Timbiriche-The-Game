@@ -531,6 +531,12 @@
   <wsdl:message name="IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage">
     <wsdl:part name="parameters" element="tns:NotifyOccupiedColorsResponse" />
   </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyCanStartMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCanStartMatch" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyCanStartMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCanStartMatchResponse" />
+  </wsdl:message>
   <wsdl:message name="IInvitationManager_SendInvitationToEmail_InputMessage">
     <wsdl:part name="parameters" element="tns:SendInvitationToEmail" />
   </wsdl:message>
@@ -1022,6 +1028,10 @@
     <wsdl:operation name="NotifyOccupiedColors">
       <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" message="tns:IPlayerColorsManager_NotifyOccupiedColors_OutputCallbackMessage" />
       <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse" message="tns:IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCanStartMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatch" message="tns:IPlayerColorsManager_NotifyCanStartMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatchResponse" message="tns:IPlayerColorsManager_NotifyCanStartMatch_InputCallbackMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IInvitationManager">
@@ -1779,6 +1789,15 @@
     </wsdl:operation>
     <wsdl:operation name="NotifyOccupiedColors">
       <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCanStartMatch">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatch" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -703,6 +703,18 @@
       <xs:sequence />
     </xs:complexType>
   </xs:element>
+  <xs:element name="NotifyCanStartMatch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="canStart" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="NotifyCanStartMatchResponse">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
   <xs:element name="SendInvitationToEmail">
     <xs:complexType>
       <xs:sequence>

@@ -63,10 +63,11 @@ namespace TimbiricheService
             }
         }
 
-        public void JoinLobby(String lobbyCode, LobbyPlayer lobbyPlayer)
+        public void JoinLobby(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
             lobbyPlayer.CallbackChannel = currentUserCallbackChannel;
+            int maxSizePlayers = 4;
 
             try
             {
@@ -75,7 +76,7 @@ namespace TimbiricheService
                     List<LobbyPlayer> playersInLobby = lobbies[lobbyCode].Item2;
                     int numOfPlayersInLobby = playersInLobby.Count;
 
-                    if (numOfPlayersInLobby < 4)
+                    if (numOfPlayersInLobby < maxSizePlayers)
                     {
                         lobbyPlayer.CallbackChannel.NotifyPlayersInLobby(lobbyCode, playersInLobby);
                         NotifyPlayerJoinToLobby(playersInLobby, lobbyPlayer, numOfPlayersInLobby, lobbyCode);

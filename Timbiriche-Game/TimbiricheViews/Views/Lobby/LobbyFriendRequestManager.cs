@@ -114,40 +114,7 @@ namespace TimbiricheViews.Views
         {
             FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
 
-            //try
-            //{
-                friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException<TimbiricheServerExceptions>)
-            //{
-            //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
+            friendshipManagerClient.AddRequestFriendship(idPlayer, usernamePlayerRequested);
         }
 
         private void SendFriendRequest(string usernamePlayerRequested)
@@ -155,35 +122,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             FriendRequestManagerClient friendRequestManagerClient = new FriendRequestManagerClient(context);
 
-            //try
-            //{
-                friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
-            //}
-            //catch (EndpointNotFoundException ex)
-            //{
-            //    EmergentWindows.CreateConnectionFailedMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (TimeoutException ex)
-            //{
-            //    EmergentWindows.CreateTimeOutMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (FaultException)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    NavigationService.Navigate(new XAMLLogin());
-            //}
-            //catch (CommunicationException ex)
-            //{
-            //    EmergentWindows.CreateServerErrorMessageWindow();
-            //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-            //}
-            //catch (Exception ex)
-            //{
-            //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-            //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-            //}
+            friendRequestManagerClient.SendFriendRequest(_playerLoggedIn.Username, usernamePlayerRequested);
         }
 
         private bool ValidateSendRequest(int idPlayer, string usernamePlayerRequested)
@@ -194,40 +133,7 @@ namespace TimbiricheViews.Views
             {
                 FriendshipManagerClient friendshipManagerClient = new FriendshipManagerClient();
 
-                //try
-                //{
-                    isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
-                //}
-                //catch (EndpointNotFoundException ex)
-                //{
-                //    EmergentWindows.CreateConnectionFailedMessageWindow();
-                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                //}
-                //catch (TimeoutException ex)
-                //{
-                //    EmergentWindows.CreateTimeOutMessageWindow();
-                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                //}
-                //catch (FaultException<TimbiricheServerExceptions>)
-                //{
-                //    EmergentWindows.CreateDataBaseErrorMessageWindow();
-                //    NavigationService.Navigate(new XAMLLogin());
-                //}
-                //catch (FaultException)
-                //{
-                //    EmergentWindows.CreateServerErrorMessageWindow();
-                //    NavigationService.Navigate(new XAMLLogin());
-                //}
-                //catch (CommunicationException ex)
-                //{
-                //    EmergentWindows.CreateServerErrorMessageWindow();
-                //    HandlerExceptions.HandleErrorException(ex, NavigationService);
-                //}
-                //catch (Exception ex)
-                //{
-                //    EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                //    HandlerExceptions.HandleFatalException(ex, NavigationService);
-                //}
+                isRequestValid = friendshipManagerClient.ValidateFriendRequestSending(idPlayer, usernamePlayerRequested);
             }
             else
             {

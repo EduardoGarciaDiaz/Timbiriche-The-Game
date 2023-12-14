@@ -2041,6 +2041,9 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse")]
         void NotifyOccupiedColors(TimbiricheViews.Server.LobbyPlayer[] occupiedColors);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatch", ReplyAction="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatchResponse")]
+        void NotifyCanStartMatch(bool canStart);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
