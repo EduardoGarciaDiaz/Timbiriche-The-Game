@@ -76,12 +76,12 @@ namespace TimbiricheViews.Views
             catch (FaultException<TimbiricheServerExceptions>)
             {
                 EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
+                NavigationService?.Navigate(new XAMLLogin());
             }
             catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
+                NavigationService?.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -141,7 +141,7 @@ namespace TimbiricheViews.Views
             catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
+                NavigationService?.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {

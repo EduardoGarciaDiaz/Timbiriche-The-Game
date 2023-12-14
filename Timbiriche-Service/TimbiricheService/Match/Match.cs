@@ -29,20 +29,31 @@ namespace TimbiricheService.Match
 
         public LobbyPlayer GetTurnPlayer()
         {
-            return _turns.Peek();
+            LobbyPlayer turnPlayer = null;
+
+            if (_turns.Count > 0)
+            {
+                turnPlayer = _turns.Peek();
+            }
+
+            return turnPlayer;
         }
 
         public List<KeyValuePair<LobbyPlayer, int>> GetScoreboard()
         {
             Dictionary<LobbyPlayer, int> scoreboard = new Dictionary<LobbyPlayer, int>();
+            List<KeyValuePair<LobbyPlayer, int>> sortedScoreboard = null;
 
-            foreach(var entry in _scoreboard)
+            if (_scoreboard != null)
             {
-                scoreboard.Add(entry.Key, entry.Value);
-            }
+                foreach (var entry in _scoreboard)
+                {
+                    scoreboard.Add(entry.Key, entry.Value);
+                }
 
-            List<KeyValuePair<LobbyPlayer, int>> sortedScoreboard = scoreboard.ToList();
-            sortedScoreboard = sortedScoreboard.OrderByDescending(points => points.Value).ToList();
+                sortedScoreboard = scoreboard.ToList();
+                sortedScoreboard = sortedScoreboard.OrderByDescending(points => points.Value).ToList();
+            }
 
             return sortedScoreboard;
         }
@@ -122,11 +133,14 @@ namespace TimbiricheService.Match
 
         public void DeletePlayerFromMatch(LobbyPlayer player)
         {
-            _numberOfPlayers--;
-            Players.Remove(player);
-            _scoreboard.Remove(player);
+            if (player != null)
+            {
+                _numberOfPlayers--;
+                Players.Remove(player);
+                _scoreboard.Remove(player);
 
-            DeletePlayerFromTurns(player);
+                DeletePlayerFromTurns(player);
+            }
         }
 
         private void DeletePlayerFromTurns(LobbyPlayer player)
@@ -156,7 +170,7 @@ namespace TimbiricheService.Match
             _numberOfPlayers--;
         }
 
-        public LobbyPlayer GetLobbyPlayerByUsername(String username)
+        public LobbyPlayer GetLobbyPlayerByUsername(string username)
         {
             LobbyPlayer lobbyPlayer = null;
 

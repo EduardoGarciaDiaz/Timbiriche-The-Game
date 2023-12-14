@@ -155,8 +155,12 @@ namespace TimbiricheService
         {
             Match.Match match = matches[lobbyCode];
             LobbyPlayer player = match.GetLobbyPlayerByUsername(username);
-            match.DeletePlayerFromMatch(player);
-            matches[lobbyCode] = match;
+
+            if (player != null)
+            {
+                match.DeletePlayerFromMatch(player);
+                matches[lobbyCode] = match;
+            }
         }
 
         private void PerformExitLobby(String lobbyCode, String username, bool isExpulsed)

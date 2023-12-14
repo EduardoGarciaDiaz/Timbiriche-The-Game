@@ -247,9 +247,9 @@ namespace TimbiricheViews.Views
 
         private void LeftMatch()
         {
-            _turnTimer.Stop();
-            _matchTimer.Stop();
-            _dispatchTimer.Stop();
+            _turnTimer?.Stop();
+            _matchTimer?.Stop();
+            _dispatchTimer?.Stop();
             int idGuestPlayer = 0;
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
@@ -366,9 +366,9 @@ namespace TimbiricheViews.Views
             }
             finally
             {
-                _turnTimer.Stop();
-                _matchTimer.Stop();
-                _dispatchTimer.Stop();
+                _turnTimer?.Stop();
+                _matchTimer?.Stop();
+                _dispatchTimer?.Stop();
             }
 
         }
