@@ -209,25 +209,28 @@ namespace TimbiricheService
 
         private void NotifyTurns(string lobbyCode)
         {
-            Match.Match match = matches[lobbyCode];
-            match.NextTurn();
-
-            LobbyPlayer temporalPlayer = match.GetTurnPlayer();
-
-            foreach (LobbyPlayer player in match.Players.ToList())
+            if (matches.ContainsKey(lobbyCode))
             {
-                try
-                {
-                    player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
-                }
-                catch (CommunicationException ex)
-                {
-                    HandlerExceptions.HandleErrorException(ex);
-                    LeftMatch(lobbyCode, player.Username);
-                }
-            }
+                Match.Match match = matches[lobbyCode];
+                match.NextTurn();
 
-            matches[lobbyCode] = match;
+                LobbyPlayer temporalPlayer = match.GetTurnPlayer();
+
+                foreach (LobbyPlayer player in match.Players.ToList())
+                {
+                    try
+                    {
+                        player.MatchCallbackChannel.NotifyNewTurn(temporalPlayer.Username);
+                    }
+                    catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        LeftMatch(lobbyCode, player.Username);
+                    }
+                }
+
+                matches[lobbyCode] = match;
+            }
         }
 
         private void NotifyPlayerNumberUpdate(string lobbyCode, Match.Match match, bool isPlayerOnDuty)

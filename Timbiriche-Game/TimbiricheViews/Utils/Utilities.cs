@@ -40,7 +40,12 @@ namespace TimbiricheViews.Utils
 
         public static string BuildAbsolutePath(string relativePath)
         {
-            string absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            string absolutePath = "";
+
+            if(relativePath != null)
+            {
+                absolutePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, relativePath);
+            }
 
             return absolutePath;
         }
