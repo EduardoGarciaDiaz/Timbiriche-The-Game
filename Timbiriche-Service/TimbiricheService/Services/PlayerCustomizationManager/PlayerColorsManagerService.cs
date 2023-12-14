@@ -189,9 +189,12 @@ namespace TimbiricheService
         {
             int emptyDictionaryCount = 0;
 
-            if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
-                playersWithDefaultColorByLobby.Remove(lobbyCode);
+                if (playersWithDefaultColorByLobby[lobbyCode].Count == emptyDictionaryCount)
+                {
+                    playersWithDefaultColorByLobby.Remove(lobbyCode);
+                }
             }
         }
 
