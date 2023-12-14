@@ -43,9 +43,15 @@ namespace TimbiricheService
         {
             try
             {
-                string playerStatus = BanManagement.GetPlayerStatusByIdPlayer(idPlayer);
+                bool isPlayerBanned = false;
 
-                return playerStatus.Equals("Banned");
+                if(idPlayer > 0)
+                {
+                    string playerStatus = BanManagement.GetPlayerStatusByIdPlayer(idPlayer);
+                    isPlayerBanned = playerStatus.Equals("Banned");
+                }
+
+                return isPlayerBanned;
             }
             catch (DataAccessException ex)
             {

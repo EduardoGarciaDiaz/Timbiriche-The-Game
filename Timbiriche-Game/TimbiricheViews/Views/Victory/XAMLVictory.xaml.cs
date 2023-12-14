@@ -73,14 +73,15 @@ namespace TimbiricheViews.Views
             }
 
             lbEarnedCoins.Content = _coinsEarned.ToString();
+            lbUsername.Content = _playerUsername;
 
-            if (IsPlayerAWinner())
-            {
-                lbYouWon.Visibility = Visibility.Visible;
-                lbYouLost.Visibility = Visibility.Collapsed;
-                UpdateWinsNumber();
-            }
+            ShowVictoryLabel();
+            ShowMatchPosition();
+            ConfigureGuestVictory();
+        }
 
+        private void ShowMatchPosition()
+        {
             switch (GetPlayerPositionInScoreboard())
             {
                 case 0:
@@ -96,8 +97,26 @@ namespace TimbiricheViews.Views
                     lbFourthPlace.Visibility = Visibility.Visible;
                     break;
             }
+        }
 
-            lbUsername.Content = _playerUsername;
+        private void ShowVictoryLabel()
+        {
+            if (IsPlayerAWinner())
+            {
+                lbYouWon.Visibility = Visibility.Visible;
+                lbYouLost.Visibility = Visibility.Collapsed;
+                UpdateWinsNumber();
+            }
+        }
+
+        private void ConfigureGuestVictory()
+        {
+            Server.Player currentPlayer = PlayerSingleton.Player;
+
+            if(currentPlayer.AccountFK == null)
+            {
+                btnRematch.Visibility = Visibility.Collapsed;
+            }
         }
 
         private bool IsPlayerAWinner()

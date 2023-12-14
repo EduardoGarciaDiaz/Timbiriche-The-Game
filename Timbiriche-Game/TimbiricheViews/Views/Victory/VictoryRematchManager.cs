@@ -108,7 +108,7 @@ namespace TimbiricheViews.Views
 
                 bool isPlayerBanned = VerifyPlayerIsNotBanned(_playerLoggedIn.IdPlayer);
 
-                if (isPlayerBanned)
+                if (isPlayerBanned || _playerLoggedIn.AccountFK == null)
                 {
                     NavigationService.Navigate(new XAMLLogin());
                 }
