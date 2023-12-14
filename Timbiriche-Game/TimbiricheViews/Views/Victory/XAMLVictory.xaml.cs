@@ -75,14 +75,14 @@ namespace TimbiricheViews.Views
             }
 
             lbEarnedCoins.Content = _coinsEarned.ToString();
+            lbUsername.Content = _playerUsername;
 
-            if (IsPlayerAWinner())
-            {
-                lbYouWon.Visibility = Visibility.Visible;
-                lbYouLost.Visibility = Visibility.Collapsed;
-                UpdateWinsNumber();
-            }
+            ShowVictoryLabel();
+            ShowMatchPosition();
+        }
 
+        private void ShowMatchPosition()
+        {
             switch (GetPlayerPositionInScoreboard())
             {
                 case 0:
@@ -98,15 +98,25 @@ namespace TimbiricheViews.Views
                     lbFourthPlace.Visibility = Visibility.Visible;
                     break;
             }
+        }
 
-            lbUsername.Content = _playerUsername;
+        private void ShowVictoryLabel()
+        {
+            if (IsPlayerAWinner())
+            {
+                lbYouWon.Visibility = Visibility.Visible;
+                lbYouLost.Visibility = Visibility.Collapsed;
+                UpdateWinsNumber();
+            }
         }
 
         private void DisableButtonPlayAgainForGuest()
         {
             if (_idPlayer <= 0)
             {
-                btnPlayAgain.IsEnabled = false;
+                btnPlayAgain.Visibility = Visibility.Collapsed;
+                lbPlayAgain.Visibility = Visibility.Collapsed;
+                rectanglePlayAgain.Visibility = Visibility.Collapsed;
             }
         }
 

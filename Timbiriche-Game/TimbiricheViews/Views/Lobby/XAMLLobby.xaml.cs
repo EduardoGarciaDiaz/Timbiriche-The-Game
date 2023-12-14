@@ -17,7 +17,7 @@ namespace TimbiricheViews.Views
         private const string SELECTED_BUTTON_HEX_COLOR = "#FF063343";
         private const float DEFAULT_MATCH_DURATION_IN_MINUTES = 5;
         private const float MAXIMIUN_MATCH_DURATION_IN_MINUTES = 20;
-        private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 2;
+        private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 1;
         private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private float _matchDurationInMinutes = DEFAULT_MATCH_DURATION_IN_MINUTES;
 

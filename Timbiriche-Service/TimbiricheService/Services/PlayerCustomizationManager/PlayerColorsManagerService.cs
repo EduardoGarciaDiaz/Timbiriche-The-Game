@@ -18,6 +18,7 @@ namespace TimbiricheService
             if (LobbyExists(lobbyCode))
             {
                 List<LobbyPlayer> playersColorSelection = lobbies[lobbyCode].Item2;
+
                 try
                 {
                     currentUserCallbackChannel.NotifyOccupiedColors(playersColorSelection);

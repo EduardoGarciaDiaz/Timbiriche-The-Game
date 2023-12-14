@@ -22,6 +22,10 @@ namespace TimbiricheService
             {
                 onlineUsers.Add(username, currentUserCallbackChannel);
             }
+            else
+            {
+                onlineUsers[username] = currentUserCallbackChannel;
+            }
 
             onlineFriends = onlineUsernames
                 .Where(onlineUsername => IsFriend(idPlayer, onlineUsername))

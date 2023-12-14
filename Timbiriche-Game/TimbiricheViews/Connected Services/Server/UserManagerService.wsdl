@@ -672,6 +672,12 @@
   <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_OutputMessage">
     <wsdl:part name="parameters" element="tns:ExistLobbyCodeResponse" />
   </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistUsernameInLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistUsernameInLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistUsernameInLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistUsernameInLobbyResponse" />
+  </wsdl:message>
   <wsdl:message name="IScoreboardManager_GetGlobalScores_InputMessage">
     <wsdl:part name="parameters" element="tns:GetGlobalScores" />
   </wsdl:message>
@@ -1129,6 +1135,10 @@
     <wsdl:operation name="ExistLobbyCode">
       <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" message="tns:ILobbyExistenceChecker_ExistLobbyCode_InputMessage" />
       <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse" message="tns:ILobbyExistenceChecker_ExistLobbyCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExistUsernameInLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby" message="tns:ILobbyExistenceChecker_ExistUsernameInLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobbyResponse" message="tns:ILobbyExistenceChecker_ExistUsernameInLobby_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:portType name="IScoreboardManager">
@@ -2016,6 +2026,15 @@
     <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
     <wsdl:operation name="ExistLobbyCode">
       <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistUsernameInLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

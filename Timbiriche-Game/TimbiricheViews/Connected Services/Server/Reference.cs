@@ -2603,6 +2603,12 @@ namespace TimbiricheViews.Server {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse")]
         System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobbyResponse")]
+        bool ExistUsernameInLobby(string lobbyCode, string username);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby", ReplyAction="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobbyResponse")]
+        System.Threading.Tasks.Task<bool> ExistUsernameInLobbyAsync(string lobbyCode, string username);
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -2638,6 +2644,14 @@ namespace TimbiricheViews.Server {
         
         public System.Threading.Tasks.Task<bool> ExistLobbyCodeAsync(string lobbyCode) {
             return base.Channel.ExistLobbyCodeAsync(lobbyCode);
+        }
+        
+        public bool ExistUsernameInLobby(string lobbyCode, string username) {
+            return base.Channel.ExistUsernameInLobby(lobbyCode, username);
+        }
+        
+        public System.Threading.Tasks.Task<bool> ExistUsernameInLobbyAsync(string lobbyCode, string username) {
+            return base.Channel.ExistUsernameInLobbyAsync(lobbyCode, username);
         }
     }
     

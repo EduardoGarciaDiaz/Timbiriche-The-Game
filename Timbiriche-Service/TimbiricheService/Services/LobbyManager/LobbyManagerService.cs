@@ -43,20 +43,23 @@ namespace TimbiricheService
 
         public void JoinLobbyAsHost(string lobbyCode)
         {
-            ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
-            List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
-            LobbyPlayer hostPlayer = players[0];
-
-            hostPlayer.CallbackChannel = currentUserCallbackChannel;
-
-            try
+            if (lobbies.ContainsKey(lobbyCode))
             {
-                currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
-            }
-            catch (CommunicationException ex)
-            {
-                HandlerExceptions.HandleErrorException(ex);
-                PerformExitLobby(lobbyCode, hostPlayer.Username, false);
+                ILobbyManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<ILobbyManagerCallback>();
+                List<LobbyPlayer> players = lobbies[lobbyCode].Item2;
+                LobbyPlayer hostPlayer = players[0];
+
+                hostPlayer.CallbackChannel = currentUserCallbackChannel;
+
+                try
+                {
+                    currentUserCallbackChannel.NotifyLobbyCreated(lobbyCode);
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    PerformExitLobby(lobbyCode, hostPlayer.Username, false);
+                }
             }
         }
 
