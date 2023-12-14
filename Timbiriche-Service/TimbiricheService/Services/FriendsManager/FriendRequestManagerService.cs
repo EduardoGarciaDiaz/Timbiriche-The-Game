@@ -19,6 +19,10 @@ namespace TimbiricheService
             {
                 onlineFriendship.Add(usernameCurrentPlayer, currentUserCallbackChannel);
             }
+            else
+            {
+                onlineFriendship[usernameCurrentPlayer] = currentUserCallbackChannel;
+            }
         }
 
         public void SendFriendRequest(string usernamePlayerSender, string usernamePlayerRequested)
