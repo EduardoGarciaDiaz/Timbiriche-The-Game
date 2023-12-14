@@ -17,56 +17,62 @@ namespace TimbiricheService
         {
             IMatchManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IMatchManagerCallback>();
 
-            Match.Match match = matches[lobbyCode];
-
-            foreach (var player in match.Players)
+            if (matches.ContainsKey(lobbyCode))
             {
-                if(player.Username == username)
+                Match.Match match = matches[lobbyCode];
+
+                foreach (var player in match.Players)
                 {
-                    player.MatchCallbackChannel = currentUserCallbackChannel;
-                    player.StylePath = GetStylePath(player.IdStylePath);
-                    player.HexadecimalColor = hexadecimalColor;
-                    match.SetConnectedUser(player.Username);
+                    if (player.Username == username)
+                    {
+                        player.MatchCallbackChannel = currentUserCallbackChannel;
+                        player.StylePath = GetStylePath(player.IdStylePath);
+                        player.HexadecimalColor = hexadecimalColor;
+                        match.SetConnectedUser(player.Username);
+                    }
                 }
+
+                matches[lobbyCode] = match;
+
+                TryStartMatchIfAllConnected(lobbyCode);
             }
-
-            matches[lobbyCode] = match;
-
-            TryStartMatchIfAllConnected(lobbyCode);
         }
 
         public void EndTurn(string lobbyCode, Movement movement)
         {
-            Match.Match match = matches[lobbyCode];
-
-            NotifyMovement(lobbyCode, match, movement);
-
-            int earnedPoints = movement.EarnedPoints;
-
-            if(earnedPoints > 0)
+            if (matches.ContainsKey(lobbyCode))
             {
-                LobbyPlayer playerScoringPoints = match.GetTurnPlayer();
-                match.ScorePointsToPlayer(playerScoringPoints, earnedPoints);
+                Match.Match match = matches[lobbyCode];
 
-                foreach (LobbyPlayer player in match.Players.ToList())
+                NotifyMovement(lobbyCode, match, movement);
+
+                int earnedPoints = movement.EarnedPoints;
+
+                if (earnedPoints > 0)
                 {
-                    try
-                    {
-                        player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
-                        player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
-                    }
-                    catch (CommunicationException ex)
-                    {
-                        HandlerExceptions.HandleErrorException(ex);
-                        LeftMatch(lobbyCode, player.Username);
-                    }
-                    
-                }
+                    LobbyPlayer playerScoringPoints = match.GetTurnPlayer();
+                    match.ScorePointsToPlayer(playerScoringPoints, earnedPoints);
 
-            }
-            else
-            {
-                NotifyTurns(lobbyCode);
+                    foreach (LobbyPlayer player in match.Players.ToList())
+                    {
+                        try
+                        {
+                            player.MatchCallbackChannel.NotifyNewTurn(playerScoringPoints.Username);
+                            player.MatchCallbackChannel.NotifyNewScoreboard(match.GetScoreboard());
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            LeftMatch(lobbyCode, player.Username);
+                        }
+
+                    }
+
+                }
+                else
+                {
+                    NotifyTurns(lobbyCode);
+                }
             }
         }
 
@@ -96,27 +102,30 @@ namespace TimbiricheService
 
         public void EndMatch(string lobbyCode)
         {
-            Match.Match match = matches[lobbyCode];
-            List<KeyValuePair<LobbyPlayer, int>> scoreboard = match.GetScoreboard();
-
-            for(int playerPosition = 0; playerPosition < scoreboard.Count; playerPosition++)
+            if (matches.ContainsKey(lobbyCode))
             {
-                var player = match.Players.Find(p => p == scoreboard[playerPosition].Key);
+                Match.Match match = matches[lobbyCode];
+                List<KeyValuePair<LobbyPlayer, int>> scoreboard = match.GetScoreboard();
 
-                if(player != null)
+                for (int playerPosition = 0; playerPosition < scoreboard.Count; playerPosition++)
                 {
-                    int coinsEarned = CoinsEarn.CalculateExtraCoins(playerPosition, scoreboard[playerPosition].Value);
+                    var player = match.Players.Find(p => p == scoreboard[playerPosition].Key);
 
-                    UpdateCoins(player.Username, coinsEarned);
+                    if (player != null)
+                    {
+                        int coinsEarned = CoinsEarn.CalculateExtraCoins(playerPosition, scoreboard[playerPosition].Value);
 
-                    try
-                    {
-                        player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
-                    }
-                    catch (CommunicationException ex)
-                    {
-                        HandlerExceptions.HandleErrorException(ex);
-                        match.DeletePlayerFromMatch(player);
+                        UpdateCoins(player.Username, coinsEarned);
+
+                        try
+                        {
+                            player.MatchCallbackChannel.NotifyEndOfTheMatch(scoreboard, coinsEarned);
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            match.DeletePlayerFromMatch(player);
+                        }
                     }
                 }
             }
