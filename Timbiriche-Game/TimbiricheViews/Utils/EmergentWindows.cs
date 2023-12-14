@@ -13,7 +13,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateEmergentWindowNoModal(string titleEmergentWindow, string descriptionEmergentWindow)
@@ -38,7 +38,7 @@ namespace TimbiricheViews.Utils
                     descriptionEmergentWindow
                 );
 
-                emergentWindow.ShowDialog();
+                emergentWindow.Show();
             });
         }
 
@@ -52,7 +52,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateDataBaseErrorMessageWindow()
@@ -65,7 +65,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateServerErrorMessageWindow()
@@ -80,7 +80,7 @@ namespace TimbiricheViews.Utils
                     descriptionEmergentWindow
                 );
 
-                emergentWindow.ShowDialog();
+                emergentWindow.Show();
             });
         }
 
@@ -96,7 +96,7 @@ namespace TimbiricheViews.Utils
                     descriptionEmergentWindow
                 );
 
-                emergentWindow.ShowDialog();
+                emergentWindow.Show();
             });
         }
 
@@ -117,7 +117,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateSuccesfulReportMessageWindow()
@@ -130,7 +130,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateReportedPlayerMessageWindow()
@@ -143,7 +143,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateBannedPlayerMessageWindow()
@@ -156,7 +156,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateHostLeftLobbyMessageWindow()
@@ -169,7 +169,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
         public static void CreateLobbyIsFullMessageWindow()
@@ -182,7 +182,7 @@ namespace TimbiricheViews.Utils
                 descriptionEmergentWindow
             );
 
-            emergentWindow.ShowDialog();
+            emergentWindow.Show();
         }
 
     }
