@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="8v5H2I5KO4u5vAyGDthgN6dbOPrJyvAuuEuZgMS2fNw=">
+<SavedWcfConfigurationInformation xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Version="9.1" CheckSum="EI+E5le2TuAjfGgUOvoE0s8NILjSkWpreBzxffl5b9g=">
   <bindingConfigurations>
     <bindingConfiguration bindingType="netTcpBinding" name="NetTcpBinding_IUserManager">
       <properties>
@@ -2245,10 +2245,10 @@
     </bindingConfiguration>
   </bindingConfigurations>
   <endpoints>
-    <endpoint name="NetTcpBinding_IUserManager" contract="Server.IUserManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IUserManager">
+    <endpoint name="NetTcpBinding_IUserManager" contract="Server.IUserManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IUserManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2330,10 +2330,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IOnlineUsersManager" contract="Server.IOnlineUsersManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IOnlineUsersManager">
+    <endpoint name="NetTcpBinding_IOnlineUsersManager" contract="Server.IOnlineUsersManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IOnlineUsersManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2415,10 +2415,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IPasswordReset" contract="Server.IPasswordReset" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPasswordReset">
+    <endpoint name="NetTcpBinding_IPasswordReset" contract="Server.IPasswordReset" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPasswordReset">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2500,10 +2500,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_ILobbyManager" contract="Server.ILobbyManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_ILobbyManager">
+    <endpoint name="NetTcpBinding_ILobbyManager" contract="Server.ILobbyManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_ILobbyManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2585,10 +2585,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IMatchManager" contract="Server.IMatchManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IMatchManager">
+    <endpoint name="NetTcpBinding_IMatchManager" contract="Server.IMatchManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IMatchManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2670,10 +2670,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IEmailVerificationManager" contract="Server.IEmailVerificationManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IEmailVerificationManager">
+    <endpoint name="NetTcpBinding_IEmailVerificationManager" contract="Server.IEmailVerificationManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IEmailVerificationManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2755,10 +2755,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IPlayerCustomizationManager" contract="Server.IPlayerCustomizationManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerCustomizationManager">
+    <endpoint name="NetTcpBinding_IPlayerCustomizationManager" contract="Server.IPlayerCustomizationManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerCustomizationManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2840,10 +2840,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IPlayerColorsManager" contract="Server.IPlayerColorsManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerColorsManager">
+    <endpoint name="NetTcpBinding_IPlayerColorsManager" contract="Server.IPlayerColorsManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerColorsManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -2925,10 +2925,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IInvitationManager" contract="Server.IInvitationManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IInvitationManager">
+    <endpoint name="NetTcpBinding_IInvitationManager" contract="Server.IInvitationManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IInvitationManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3010,10 +3010,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IPlayerStylesManager" contract="Server.IPlayerStylesManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerStylesManager">
+    <endpoint name="NetTcpBinding_IPlayerStylesManager" contract="Server.IPlayerStylesManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IPlayerStylesManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3095,10 +3095,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IFriendshipManager" contract="Server.IFriendshipManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IFriendshipManager">
+    <endpoint name="NetTcpBinding_IFriendshipManager" contract="Server.IFriendshipManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IFriendshipManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3180,10 +3180,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IFriendRequestManager" contract="Server.IFriendRequestManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IFriendRequestManager">
+    <endpoint name="NetTcpBinding_IFriendRequestManager" contract="Server.IFriendRequestManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IFriendRequestManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3265,10 +3265,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IBanManager" contract="Server.IBanManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IBanManager">
+    <endpoint name="NetTcpBinding_IBanManager" contract="Server.IBanManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IBanManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3350,10 +3350,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IBanVerifierManager" contract="Server.IBanVerifierManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IBanVerifierManager">
+    <endpoint name="NetTcpBinding_IBanVerifierManager" contract="Server.IBanVerifierManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IBanVerifierManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3435,10 +3435,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_ILobbyExistenceChecker" contract="Server.ILobbyExistenceChecker" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_ILobbyExistenceChecker">
+    <endpoint name="NetTcpBinding_ILobbyExistenceChecker" contract="Server.ILobbyExistenceChecker" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_ILobbyExistenceChecker">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3520,10 +3520,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IScoreboardManager" contract="Server.IScoreboardManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IScoreboardManager">
+    <endpoint name="NetTcpBinding_IScoreboardManager" contract="Server.IScoreboardManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IScoreboardManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3605,10 +3605,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IGlobalScoreManager" contract="Server.IGlobalScoreManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IGlobalScoreManager">
+    <endpoint name="NetTcpBinding_IGlobalScoreManager" contract="Server.IGlobalScoreManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IGlobalScoreManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3690,10 +3690,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IShopManager" contract="Server.IShopManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IShopManager">
+    <endpoint name="NetTcpBinding_IShopManager" contract="Server.IShopManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IShopManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />
@@ -3775,10 +3775,10 @@
         </property>
       </properties>
     </endpoint>
-    <endpoint name="NetTcpBinding_IRematchManager" contract="Server.IRematchManager" bindingType="netTcpBinding" address="net.tcp://localhost:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IRematchManager">
+    <endpoint name="NetTcpBinding_IRematchManager" contract="Server.IRematchManager" bindingType="netTcpBinding" address="net.tcp://192.168.35.38:8081/UserManagerService" bindingConfiguration="NetTcpBinding_IRematchManager">
       <properties>
         <property path="/address" isComplexType="false" isExplicitlyDefined="true" clrType="System.Uri, System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-          <serializedValue>net.tcp://localhost:8081/UserManagerService</serializedValue>
+          <serializedValue>net.tcp://192.168.35.38:8081/UserManagerService</serializedValue>
         </property>
         <property path="/behaviorConfiguration" isComplexType="false" isExplicitlyDefined="false" clrType="System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
           <serializedValue />

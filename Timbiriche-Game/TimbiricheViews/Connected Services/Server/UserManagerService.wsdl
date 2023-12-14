@@ -154,12 +154,12 @@
   </wsp:Policy>
   <wsdl:types>
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
-      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://192.168.35.38:8082/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
     </xsd:schema>
   </wsdl:types>
   <wsdl:message name="IUserManager_AddUser_InputMessage">
@@ -2209,117 +2209,117 @@
   </wsdl:binding>
   <wsdl:service name="UserManagerService">
     <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IOnlineUsersManager" binding="tns:NetTcpBinding_IOnlineUsersManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPasswordReset" binding="tns:NetTcpBinding_IPasswordReset">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_ILobbyManager" binding="tns:NetTcpBinding_ILobbyManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IMatchManager" binding="tns:NetTcpBinding_IMatchManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IEmailVerificationManager" binding="tns:NetTcpBinding_IEmailVerificationManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPlayerCustomizationManager" binding="tns:NetTcpBinding_IPlayerCustomizationManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPlayerColorsManager" binding="tns:NetTcpBinding_IPlayerColorsManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IInvitationManager" binding="tns:NetTcpBinding_IInvitationManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IPlayerStylesManager" binding="tns:NetTcpBinding_IPlayerStylesManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IFriendshipManager" binding="tns:NetTcpBinding_IFriendshipManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IFriendRequestManager" binding="tns:NetTcpBinding_IFriendRequestManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IBanManager" binding="tns:NetTcpBinding_IBanManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IBanVerifierManager" binding="tns:NetTcpBinding_IBanVerifierManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_ILobbyExistenceChecker" binding="tns:NetTcpBinding_ILobbyExistenceChecker">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IScoreboardManager" binding="tns:NetTcpBinding_IScoreboardManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IGlobalScoreManager" binding="tns:NetTcpBinding_IGlobalScoreManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IShopManager" binding="tns:NetTcpBinding_IShopManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
     <wsdl:port name="NetTcpBinding_IRematchManager" binding="tns:NetTcpBinding_IRematchManager">
-      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <soap12:address location="net.tcp://192.168.35.38:8081/UserManagerService" />
       <wsa10:EndpointReference>
-        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+        <wsa10:Address>net.tcp://192.168.35.38:8081/UserManagerService</wsa10:Address>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>
