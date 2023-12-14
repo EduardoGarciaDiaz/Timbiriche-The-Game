@@ -1,4 +1,5 @@
-﻿using TimbiricheViews.Components;
+﻿using System.Windows;
+using TimbiricheViews.Components;
 using TimbiricheViews.Components.Lobby;
 
 namespace TimbiricheViews.Utils
@@ -30,12 +31,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbConnectionFailed;
             string descriptionEmergentWindow = Properties.Resources.tbkConnectionFailedDetails;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.ShowDialog();
+            });
         }
 
         public static void CreateTimeOutMessageWindow()
@@ -69,12 +73,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbServerExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkServerExceptionDescription;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.ShowDialog();
+            });
         }
 
         public static void CreateUnexpectedErrorMessageWindow()
@@ -82,12 +89,15 @@ namespace TimbiricheViews.Utils
             string titleEmergentWindow = Properties.Resources.lbUnexpectedExceptionTitle;
             string descriptionEmergentWindow = Properties.Resources.tbkUnexpectedExceptionDescription;
 
-            XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
-                titleEmergentWindow,
-                descriptionEmergentWindow
-            );
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                XAMLEmergentWindow emergentWindow = new XAMLEmergentWindow(
+                    titleEmergentWindow,
+                    descriptionEmergentWindow
+                );
 
-            emergentWindow.ShowDialog();
+                emergentWindow.ShowDialog();
+            });
         }
 
         public static void CreateLobbyInvitationWindow(string lobbyCode)
