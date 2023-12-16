@@ -7,5 +7,8 @@ namespace TimbiricheService
     {
         [OperationContract]
         bool ExistLobbyCode(string lobbyCode);
+
+        [OperationContract]
+        bool ExistUsernameInLobby(string lobbyCode, string username);
     }
 }

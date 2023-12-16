@@ -14,14 +14,15 @@ namespace TimbiricheViews.Views
 {
     public partial class XAMLVictory : Page
     {
+        private const int ID_GUEST_PLAYER = 0;
         private Server.Player _playerLoggedIn = PlayerSingleton.Player;
-        private KeyValuePair<Server.LobbyPlayer, int>[] _scoreboard;
+        private KeyValuePair<LobbyPlayer, int>[] _scoreboard;
         private string _lobbyCode;
         private string _playerUsername;
         private int _coinsEarned;
         private int _idPlayer;
 
-        public XAMLVictory(string lobbyCode, KeyValuePair<Server.LobbyPlayer, int>[] scoreboard, int coinsEarned)
+        public XAMLVictory(string lobbyCode, KeyValuePair<LobbyPlayer, int>[] scoreboard, int coinsEarned)
         {
             InitializeComponent();
             _scoreboard = scoreboard;
@@ -41,6 +42,8 @@ namespace TimbiricheViews.Views
             int indexThirdPlayer = 2;
             int indexFourthPlayer = 3;
 
+            DisableButtonPlayAgainForGuest();
+
             SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(_scoreboard[indexFirstPlayer].Key.HexadecimalColor);
             tbxFirstPlaceUsername.Text = _scoreboard[indexFirstPlayer].Key.Username;
             tbxFirstPlacePoints.Text = _scoreboard[indexFirstPlayer].Value.ToString();
@@ -50,7 +53,6 @@ namespace TimbiricheViews.Views
             tbxSecondPlaceUsername.Text = _scoreboard[indexSecondPlayer].Key.Username;
             tbxSecondPlacePoints.Text = _scoreboard[indexSecondPlayer].Value.ToString();
             borderSecondPlace.Background = brushSecondPlace;
-
 
             if (numPlayers > indexThirdPlayer)
             {
@@ -73,14 +75,14 @@ namespace TimbiricheViews.Views
             }
 
             lbEarnedCoins.Content = _coinsEarned.ToString();
+            lbUsername.Content = _playerUsername;
 
-            if (IsPlayerAWinner())
-            {
-                lbYouWon.Visibility = Visibility.Visible;
-                lbYouLost.Visibility = Visibility.Collapsed;
-                UpdateWinsNumber();
-            }
+            ShowVictoryLabel();
+            ShowMatchPosition();
+        }
 
+        private void ShowMatchPosition()
+        {
             switch (GetPlayerPositionInScoreboard())
             {
                 case 0:
@@ -92,17 +94,37 @@ namespace TimbiricheViews.Views
                 case 2:
                     lbThirdPlace.Visibility = Visibility.Visible;
                     break;
-                case 4:
+                case 3:
                     lbFourthPlace.Visibility = Visibility.Visible;
                     break;
             }
+        }
 
-            lbUsername.Content = _playerUsername;
+        private void ShowVictoryLabel()
+        {
+            if (IsPlayerAWinner())
+            {
+                lbYouWon.Visibility = Visibility.Visible;
+                lbYouLost.Visibility = Visibility.Collapsed;
+                UpdateWinsNumber();
+            }
+        }
+
+        private void DisableButtonPlayAgainForGuest()
+        {
+            if (_idPlayer <= 0)
+            {
+                btnPlayAgain.Visibility = Visibility.Collapsed;
+                lbPlayAgain.Visibility = Visibility.Collapsed;
+                rectanglePlayAgain.Visibility = Visibility.Collapsed;
+            }
         }
 
         private bool IsPlayerAWinner()
         {
-            string winnerUsername = _scoreboard[0].Key.Username;
+            int indexFirstPlace = 0;
+
+            string winnerUsername = _scoreboard[indexFirstPlace].Key.Username;
             return _playerLoggedIn.Username == winnerUsername;
         }
 
@@ -167,41 +189,13 @@ namespace TimbiricheViews.Views
         private bool VerifyPlayerIsNotBanned(int idPlayer)
         {
             bool isPlayerBanned = false;
-            BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
 
-            try
+            BanVerifierManagerClient banVerifierManagerClient = new BanVerifierManagerClient();
+            int idGuestIdPlayer = 0;
+
+            if (idPlayer > idGuestIdPlayer)
             {
                 isPlayerBanned = banVerifierManagerClient.VerifyPlayerIsBanned(idPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
 
             return isPlayerBanned;

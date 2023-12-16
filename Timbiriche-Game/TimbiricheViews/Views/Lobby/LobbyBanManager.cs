@@ -16,35 +16,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             BanManagerClient banManagerClient = new BanManagerClient(context);
 
-            try
-            {
-                banManagerClient.RegisterToBansNotifications(lobbyCode, _playerLoggedIn.Username);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            banManagerClient.RegisterToBansNotifications(lobbyCode, _playerLoggedIn.Username);
         }
 
         private void LbSecondPlayer_Click(object sender, RoutedEventArgs e)
@@ -127,6 +99,7 @@ namespace TimbiricheViews.Views
             {
                 ReportPlayer(e.Username);
             }
+
             if (e.ButtonName.Equals(btnExpulse))
             {
                 ExpulsePlayer(e.Username);
@@ -259,9 +232,42 @@ namespace TimbiricheViews.Views
 
         private void ExitBanned(int idPlayerBanned)
         {
-            ExitCurrentLobby(PlayerSingleton.Player.Username);
-            ReestablishSelectedColor();
-            NavigationService.Navigate(new XAMLBan(idPlayerBanned));
+            try
+            {
+                ExitCurrentLobby(PlayerSingleton.Player.Username);
+                ReestablishSelectedColor();
+                NavigationService.Navigate(new XAMLBan(idPlayerBanned));
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
+            }
         }
     }
 }

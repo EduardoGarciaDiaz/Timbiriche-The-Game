@@ -27,7 +27,7 @@ namespace TimbiricheService.Email
             string subject = "Timbiriche The Game";
             string serverAddress = "smtp.gmail.com";
             string applicationPassword = Environment.GetEnvironmentVariable("APPLICATION_PASSWORD");
-            int PORT = 587;
+            int port = 587;
             bool emailSent = true;
 
 
@@ -38,7 +38,7 @@ namespace TimbiricheService.Email
             mailMessage.Body = emailContent;
             mailMessage.IsBodyHtml = true;
 
-            SmtpClient smtpClient = new SmtpClient(serverAddress, PORT);
+            SmtpClient smtpClient = new SmtpClient(serverAddress, port);
             smtpClient.Credentials = new NetworkCredential(emailSender, applicationPassword);
             smtpClient.EnableSsl = true;
 

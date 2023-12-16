@@ -27,5 +27,8 @@ namespace TimbiricheService
         
         [OperationContract]
         void NotifyOccupiedColors(List<LobbyPlayer> occupiedColors);
+
+        [OperationContract]
+        void NotifyCanStartMatch(bool canStart);
     }
 }

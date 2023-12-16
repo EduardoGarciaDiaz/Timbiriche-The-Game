@@ -28,12 +28,17 @@ namespace TimbiricheViews.Views
             string stylePlayer = ChooseCorrectStyle(movement.StylePath, movement.Username);
 
             SetMovement(btnLine, movement.HexadecimalColor, stylePlayer, movement.Row, movement.Column, movement.TypeLine);
+
+            if (_matchTimer == null)
+            {
+                NavigationService.Navigate(new XAMLLogin());
+            }
         }
 
         public void NotifyFirstTurn(float matchDurationInMinutes, float turnDurationInMinutes, string username)
         {
-            _matchTimer = new Match.Timer((int)(matchDurationInMinutes * 60));
-            _turnTimer = new Match.Timer((int)(turnDurationInMinutes * 60));
+            _matchTimer = new Match.Timer((int) (matchDurationInMinutes * 60));
+            _turnTimer = new Match.Timer((int) (turnDurationInMinutes * 60));
 
             _dispatchTimer = new DispatcherTimer();
             TimeSpan.FromSeconds(1);
@@ -58,6 +63,10 @@ namespace TimbiricheViews.Views
         public void NotifyNewScoreboard(KeyValuePair<Server.LobbyPlayer, int>[] scoreboard)
         {
             string animationNewScoreboard = "fadeAnimation";
+            int indexFirstPlayer = 0;
+            int indexSecondPlayer = 1;
+            int indexThirdPlayer = 2;
+            int indexFourthPlayer = 3;
 
             if (stackPanelScoreboard.Visibility == Visibility.Collapsed)
             {
@@ -69,31 +78,31 @@ namespace TimbiricheViews.Views
 
             int numPlayers = scoreboard.Count();
 
-            SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(scoreboard[0].Key.HexadecimalColor);
-            tbxFirstPlaceUsername.Text = scoreboard[0].Key.Username;
-            tbxFirstPlacePoints.Text = scoreboard[0].Value.ToString();
+            SolidColorBrush brushFirstPlace = Utilities.CreateColorFromHexadecimal(scoreboard[indexFirstPlayer].Key.HexadecimalColor);
+            tbxFirstPlaceUsername.Text = scoreboard[indexFirstPlayer].Key.Username;
+            tbxFirstPlacePoints.Text = scoreboard[indexFirstPlayer].Value.ToString();
             borderFirstPlace.Background = brushFirstPlace;
 
-            SolidColorBrush brushSecondPlace = Utilities.CreateColorFromHexadecimal(scoreboard[1].Key.HexadecimalColor);
-            tbxSecondPlaceUsername.Text = scoreboard[1].Key.Username;
-            tbxSecondPlacePoints.Text = scoreboard[1].Value.ToString();
+            SolidColorBrush brushSecondPlace = Utilities.CreateColorFromHexadecimal(scoreboard[indexSecondPlayer].Key.HexadecimalColor);
+            tbxSecondPlaceUsername.Text = scoreboard[indexSecondPlayer].Key.Username;
+            tbxSecondPlacePoints.Text = scoreboard[indexSecondPlayer].Value.ToString();
             borderSecondPlace.Background = brushSecondPlace;
 
-            if (numPlayers > 2)
+            if (numPlayers > indexThirdPlayer)
             {
-                SolidColorBrush brushThirdPlace = Utilities.CreateColorFromHexadecimal(scoreboard[2].Key.HexadecimalColor);
+                SolidColorBrush brushThirdPlace = Utilities.CreateColorFromHexadecimal(scoreboard[indexThirdPlayer].Key.HexadecimalColor);
                 gridThirdPlace.Visibility = Visibility.Visible;
-                tbxThirdPlaceUsername.Text = scoreboard[2].Key.Username;
-                tbxThirdPlacePoints.Text = scoreboard[2].Value.ToString();
+                tbxThirdPlaceUsername.Text = scoreboard[indexThirdPlayer].Key.Username;
+                tbxThirdPlacePoints.Text = scoreboard[indexThirdPlayer].Value.ToString();
                 borderThirdPlace.Background = brushThirdPlace;
             }
 
-            if (numPlayers > 3)
+            if (numPlayers > indexFourthPlayer)
             {
-                SolidColorBrush brushFourthPlace = Utilities.CreateColorFromHexadecimal(scoreboard[3].Key.HexadecimalColor);
+                SolidColorBrush brushFourthPlace = Utilities.CreateColorFromHexadecimal(scoreboard[indexFourthPlayer].Key.HexadecimalColor);
                 gridFourthPlace.Visibility = Visibility.Visible;
-                tbxFourthPlaceUsername.Text = scoreboard[3].Key.Username;
-                tbxFourthPlacePoints.Text = scoreboard[3].Value.ToString();
+                tbxFourthPlaceUsername.Text = scoreboard[indexFourthPlayer].Key.Username;
+                tbxFourthPlacePoints.Text = scoreboard[indexFourthPlayer].Value.ToString();
                 borderFourthPlace.Background = brushFourthPlace;
             }
         }
@@ -105,6 +114,7 @@ namespace TimbiricheViews.Views
             _dispatchTimer.Stop();
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
+
             if (parentWindow != null)
             {
                 parentWindow.frameNavigation.NavigationService.Navigate(new XAMLVictory(_lobbyCode, scoreboard, coinsEarned));
@@ -115,7 +125,8 @@ namespace TimbiricheViews.Views
         {
             bool isMessageReceived = true;
 
-            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message, isMessageReceived, idSenderPlayer, _lobbyCode);
+            XAMLMessageItemComponent messageComponent = new XAMLMessageItemComponent(senderUsername, message,
+                isMessageReceived, idSenderPlayer, _lobbyCode);
             messageComponent.HorizontalAlignment = HorizontalAlignment.Left;
 
             stackPanelMessages.Children.Add(messageComponent);
@@ -129,7 +140,7 @@ namespace TimbiricheViews.Views
 
         public void NotifyOnlyPlayerInMatch()
         {
-            Utils.EmergentWindows.CreateEmergentWindow(Properties.Resources.lbUniquePlayerTitle,
+            EmergentWindows.CreateEmergentWindow(Properties.Resources.lbUniquePlayerTitle,
                 Properties.Resources.tbkUniquePlayerDescription);
 
             LeftMatch();
@@ -236,21 +247,30 @@ namespace TimbiricheViews.Views
 
         private void LeftMatch()
         {
-            _turnTimer.Stop();
-            _matchTimer.Stop();
-            _dispatchTimer.Stop();
+            _turnTimer?.Stop();
+            _matchTimer?.Stop();
+            _dispatchTimer?.Stop();
+            int idGuestPlayer = 0;
 
             XAMLMainWindow parentWindow = Window.GetWindow(this) as XAMLMainWindow;
+
             if (parentWindow != null)
             {
-                parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
+                if (PlayerSingleton.Player.IdPlayer > idGuestPlayer)
+                {
+                    parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLobby());
+                } 
+                else
+                {
+                    parentWindow.frameNavigation.NavigationService.Navigate(new XAMLLogin());
+                }
             }
         }
 
         private void SendMessageToLobby(string senderUsername, string message, int idSenderPlayer)
         {
             InstanceContext context = new InstanceContext(this);
-            Server.MatchManagerClient client = new Server.MatchManagerClient(context);
+            MatchManagerClient client = new MatchManagerClient(context);
 
             try
             {
@@ -317,6 +337,7 @@ namespace TimbiricheViews.Views
             try
             {
                 client.LeftMatch(_lobbyCode, PlayerSingleton.Player.Username);
+                LeftMatch();
             }
             catch (EndpointNotFoundException ex)
             {
@@ -345,12 +366,11 @@ namespace TimbiricheViews.Views
             }
             finally
             {
-                _turnTimer.Stop();
-                _matchTimer.Stop();
-                _dispatchTimer.Stop();
+                _turnTimer?.Stop();
+                _matchTimer?.Stop();
+                _dispatchTimer?.Stop();
             }
 
-            LeftMatch();
         }
 
         private void ImageExitMenu_MouseEnter(object sender, MouseEventArgs e)

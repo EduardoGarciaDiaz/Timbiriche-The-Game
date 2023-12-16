@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
@@ -16,24 +17,23 @@ namespace TimbiricheViews.Views
         private const string SELECTED_BUTTON_HEX_COLOR = "#FF063343";
         private const float DEFAULT_MATCH_DURATION_IN_MINUTES = 5;
         private const float MAXIMIUN_MATCH_DURATION_IN_MINUTES = 20;
-        private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 2;
+        private const float MINIMIUN_MATCH_DURATION_IN_MINUTES = 1;
         private readonly Server.Player _playerLoggedIn = PlayerSingleton.Player;
         private float _matchDurationInMinutes = DEFAULT_MATCH_DURATION_IN_MINUTES;
 
         public XAMLLobby()
         {
             InitializeComponent();
-            LoadDataPlayer();
-            LoadPlayerFriends();
-            ShowAsActiveUser();
 
             btnSignOff.Visibility = Visibility.Visible;
             btnShop.IsEnabled = true;
 
             bool isRematch = false;
-            RestartSelectedColor(isRematch);
 
-            this.Loaded += Lobby_Loaded;
+            if (ConfigureLobby(isRematch))
+            {
+                this.Loaded += Lobby_Loaded;
+            }
         }
 
         public XAMLLobby(string lobbyCode, bool isHost)
@@ -42,13 +42,59 @@ namespace TimbiricheViews.Views
 
             _lobbyCode = lobbyCode;
 
-            LoadDataPlayer();
-            LoadPlayerFriends();
-            ShowAsActiveUser();
-
             bool isRematch = true;
-            RestartSelectedColor(isRematch);
-            ConfigureRematch(isHost);
+
+            if (ConfigureLobby(isRematch))
+            {
+                ConfigureRematch(isHost);
+            }
+        }
+
+        private bool ConfigureLobby(bool isRematch)
+        {
+            bool areSuccessMethods = false;
+
+            try
+            {
+                LoadDataPlayer();
+                LoadPlayerFriends();
+                ShowAsActiveUser();
+                RestartSelectedColor(isRematch);
+
+                areSuccessMethods = true;
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService?.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService?.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
+            }
+
+            return areSuccessMethods;
         }
 
         private void ConfigureMatch()
@@ -77,6 +123,7 @@ namespace TimbiricheViews.Views
 
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient client = new LobbyManagerClient(context);
+
             try
             {
                 client.CreateLobby(lobbyInformation, lobbyPlayer);
@@ -94,7 +141,7 @@ namespace TimbiricheViews.Views
             catch (FaultException)
             {
                 EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
+                NavigationService?.Navigate(new XAMLLogin());
             }
             catch (CommunicationException ex)
             {
@@ -112,9 +159,11 @@ namespace TimbiricheViews.Views
         {
             float turnDurationInMinutes = 0.5F;
 
-            LobbyInformation lobbyInformation = new LobbyInformation();
-            lobbyInformation.TurnDurationInMinutes = turnDurationInMinutes;
-            lobbyInformation.MatchDurationInMinutes = _matchDurationInMinutes;
+            LobbyInformation lobbyInformation = new LobbyInformation
+            {
+                TurnDurationInMinutes = turnDurationInMinutes,
+                MatchDurationInMinutes = _matchDurationInMinutes
+            };
 
             return lobbyInformation;
         }

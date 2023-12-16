@@ -54,12 +54,12 @@ namespace TimbiricheService
             if (_secureTokens.ContainsKey(username))
             {
                 emailToken = _secureTokens[username];
-                _secureTokens.Remove(username);
             }
 
             if (token == emailToken)
             {
                 isTokenValid = true;
+                _secureTokens.Remove(username);
             }
 
             return isTokenValid;

@@ -42,15 +42,51 @@ namespace TimbiricheViews.Views
         {
             if (ValidateFields())
             {
-                string email = tbxEmail.Text.Trim().ToLower();
-                string username = tbxUsername.Text.Trim();
+                ValidateAccountCreation();
+            }
+        }
 
+        private void ValidateAccountCreation()
+        {
+            string email = tbxEmail.Text.Trim().ToLower();
+            string username = tbxUsername.Text.Trim();
+
+            try
+            {
                 if (!ValidateUniqueIdentifier(email, username) && VerifyEmailCode(email))
                 {
-                    int rowsAffected = AddUser();
-
-                    HandleResultOfAddUser(rowsAffected);
+                    AddUser();
                 }
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
             }
         }
 
@@ -63,8 +99,10 @@ namespace TimbiricheViews.Views
                 Account newAccount = CreateNewAccount();
                 Server.Player newPlayer = CreateNewPlayer(newAccount);
 
-                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                UserManagerClient userManagerClient = new UserManagerClient();
                 rowsAffected = userManagerClient.AddUser(newPlayer);
+
+                HandleResultOfAddUser(rowsAffected);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -113,9 +151,27 @@ namespace TimbiricheViews.Views
 
         private bool VerifyEmailCode(string email)
         {
+            bool isEmailVerified = SendEmail(email);
+
+            return isEmailVerified;
+        }
+
+        private bool SendEmail(string email)
+        {
+            bool isEmailVerified = false;
+            EmailVerificationManagerClient emailVerificationManagerClient = new EmailVerificationManagerClient();
+
+            bool isEmailSend = emailVerificationManagerClient.SendEmailToken(email, tbxUsername.Text.Trim());
+            isEmailVerified = ShowCodeVerificationWindow(isEmailSend);
+
+            return isEmailVerified;
+        }
+
+        private bool ShowCodeVerificationWindow(bool isEmailSend)
+        {
             bool isEmailVerified = false;
 
-            if (SendEmail(email))
+            if (isEmailSend)
             {
                 XAMLBeginnerCodeVerification codeWindow = new XAMLBeginnerCodeVerification(tbxUsername.Text.Trim());
 
@@ -126,48 +182,6 @@ namespace TimbiricheViews.Views
             }
 
             return isEmailVerified;
-        }
-
-        private bool SendEmail(string email)
-        {
-            bool isEmailSend = false;
-
-            EmailVerificationManagerClient emailVerificationManagerClient = new EmailVerificationManagerClient();
-
-            try
-            {
-                isEmailSend = emailVerificationManagerClient.SendEmailToken(email, tbxUsername.Text.Trim());
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            return isEmailSend;
         }
 
         private Account CreateNewAccount()
@@ -228,52 +242,20 @@ namespace TimbiricheViews.Views
         public bool ValidateUniqueIdentifier(string email, string username)
         {
             bool existUserIdentifier = false;
-
-            try
+            UserManagerClient userManagerClient = new UserManagerClient();
+            
+            if (userManagerClient.ValidateUniqueIdentifierUser(email))
             {
-                UserManagerClient userManagerClient = new UserManagerClient();
-
-                if (userManagerClient.ValidateUniqueIdentifierUser(email))
-                {
-                    existUserIdentifier = true;
-                    lbExistentEmail.Visibility = Visibility.Visible;
-                }
-
-                if (userManagerClient.ValidateUniqueIdentifierUser(username))
-                {
-                    existUserIdentifier = true;
-                    lbExistentUsername.Visibility = Visibility.Visible;
-                }
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
+                existUserIdentifier = true;
+                lbExistentEmail.Visibility = Visibility.Visible;
             }
 
+            if (userManagerClient.ValidateUniqueIdentifierUser(username))
+            {
+                existUserIdentifier = true;
+                lbExistentUsername.Visibility = Visibility.Visible;
+            }
+            
             return existUserIdentifier;
         }
 

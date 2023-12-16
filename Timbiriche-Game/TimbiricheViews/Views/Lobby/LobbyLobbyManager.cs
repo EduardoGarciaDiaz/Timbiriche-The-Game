@@ -3,6 +3,7 @@ using System.ServiceModel;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using System.Windows.Navigation;
 using TimbiricheViews.Player;
 using TimbiricheViews.Server;
@@ -14,6 +15,7 @@ namespace TimbiricheViews.Views
     {
         private string _lobbyCode;
         private int _numberOfPlayersInLobby = 1;
+        private bool _allHasColor = false;
 
         public void NotifyLobbyCreated(string lobbyCode)
         {
@@ -30,7 +32,8 @@ namespace TimbiricheViews.Views
         private void ValidateStartOfMatch()
         {
             int initialNumberOfPlayers = 1;
-            if (_numberOfPlayersInLobby > initialNumberOfPlayers)
+
+            if (_numberOfPlayersInLobby > initialNumberOfPlayers && _allHasColor)
             {
                 btnStartMatch.IsEnabled = true;
             }
@@ -43,6 +46,7 @@ namespace TimbiricheViews.Views
         public void NotifyPlayerJoinToLobby(LobbyPlayer lobbyPlayer, int numOfPlayersInLobby)
         {
             _numberOfPlayersInLobby = ++numOfPlayersInLobby;
+            _allHasColor = false;
             ValidateStartOfMatch();
 
             if (gridSecondPlayer.Visibility == Visibility.Collapsed)
@@ -74,10 +78,15 @@ namespace TimbiricheViews.Views
             string secondPlayerUsername = (string)lbSecondPlayerUsername.Content;
             string thirdPlayerUsername = (string)lbThirdPlayerUsername.Content;
             string fourthPlayerUsername = (string)lbFourthPlayerUsername.Content;
+            string defaultHexadecimalRectangle = "#FF6C6868";
+
+            SolidColorBrush defaultRectangleColor = Utilities.CreateColorFromHexadecimal(defaultHexadecimalRectangle);
 
             if (username.Equals(secondPlayerUsername))
             {
                 gridSecondPlayer.Visibility = Visibility.Collapsed;
+                rectangleSecondPlayerColor.Fill = defaultRectangleColor;
+                rectangleSecondPlayerUsernameColor.Fill = defaultRectangleColor;
                 gridOptionsSecondPlayer.Children.Clear();
                 gridOptionsSecondPlayer.Visibility = Visibility.Collapsed;
             }
@@ -85,6 +94,8 @@ namespace TimbiricheViews.Views
             if (username.Equals(thirdPlayerUsername))
             {
                 gridThirdPlayer.Visibility = Visibility.Collapsed;
+                rectangleThirdPlayerColor.Fill = defaultRectangleColor;
+                rectangleThirdPlayerUsernameColor.Fill = defaultRectangleColor;
                 gridOptionsThirdPlayer.Children.Clear();
                 gridOptionsThirdPlayer.Visibility = Visibility.Collapsed;
             }
@@ -92,6 +103,8 @@ namespace TimbiricheViews.Views
             if (username.Equals(fourthPlayerUsername))
             {
                 gridFourthPlayer.Visibility = Visibility.Collapsed;
+                rectangleFourthPlayerColor.Fill = defaultRectangleColor;
+                rectangleFourthPlayerUsernameColor.Fill = defaultRectangleColor;
                 gridOptionsFourthPlayer.Children.Clear();
                 gridOptionsFourthPlayer.Visibility = Visibility.Collapsed;
             }
@@ -158,10 +171,14 @@ namespace TimbiricheViews.Views
         public void NotifyStartOfMatch()
         {
             (string, string) playerCustomization = GetPlayerCustomization();
-            NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+
+            if (playerCustomization != (null, null))
+            {
+                NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+            }
         }
 
-        private void JoinLobbyByLobbyCode(String lobbyCode)
+        private void JoinLobbyByLobbyCode(string lobbyCode)
         {
             LobbyPlayer lobbyPlayer = new LobbyPlayer
             {
@@ -238,7 +255,11 @@ namespace TimbiricheViews.Views
             {
                 client.StartMatch(_lobbyCode);
                 (string, string) playerCustomization = GetPlayerCustomization();
-                NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+
+                if (playerCustomization != (null, null))
+                {
+                    NavigationService.Navigate(new XAMLGameBoard(_lobbyCode, playerCustomization.Item1, playerCustomization.Item2));
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -279,10 +300,38 @@ namespace TimbiricheViews.Views
 
         private void ExitToLobby()
         {
-            ExitCurrentLobby(PlayerSingleton.Player.Username);
-            ReestablishSelectedColor();
+            try
+            {
+                ExitCurrentLobby(PlayerSingleton.Player.Username);
+                ReestablishSelectedColor();
 
-            NavigationService.Navigate(new XAMLLobby());
+                NavigationService.Navigate(new XAMLLobby());
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
+            }
         }
 
         private void ExitCurrentLobby(string username)
@@ -290,35 +339,7 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             LobbyManagerClient lobbyManagerClient = new LobbyManagerClient(context);
 
-            try
-            {
-                lobbyManagerClient.ExitLobby(_lobbyCode, username);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            lobbyManagerClient.ExitLobby(_lobbyCode, username);
         }
 
         private void ReestablishSelectedColor()
@@ -326,36 +347,8 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
 
-            try
-            {
-                playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
+            playerColorsManagerClient.UnsubscribeColorToColorsSelected(_lobbyCode, CreateLobbyPlayer());
+           
             PlayerSingleton.Player.IdColorSelected = DEFAULT_SELECTED_COLOR;
         }
 

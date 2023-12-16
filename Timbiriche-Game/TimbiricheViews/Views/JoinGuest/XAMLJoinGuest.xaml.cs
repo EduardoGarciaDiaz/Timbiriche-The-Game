@@ -92,9 +92,13 @@ namespace TimbiricheViews.Views
 
             try
             {
-                Server.UserManagerClient userManagerClient = new Server.UserManagerClient();
+                UserManagerClient userManagerClient = new UserManagerClient();
+                LobbyExistenceCheckerClient lobbyExistenceCheckerClient = new LobbyExistenceCheckerClient();
 
-                if (userManagerClient.ValidateUniqueIdentifierUser(username))
+                bool isUniqueIdentifier = userManagerClient.ValidateUniqueIdentifierUser(username);
+                bool isUniqueIdentifierInLobby = lobbyExistenceCheckerClient.ExistUsernameInLobby(_lobbyCode, username);
+
+                if (isUniqueIdentifier || isUniqueIdentifierInLobby)
                 {
                     isUsernameUnique = false;
                     lbExistentUsername.Visibility = Visibility.Visible;

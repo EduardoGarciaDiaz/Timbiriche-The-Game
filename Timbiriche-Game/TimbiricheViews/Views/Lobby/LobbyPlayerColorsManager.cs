@@ -32,6 +32,16 @@ namespace TimbiricheViews.Views
             try
             {
                 _myColors = playerCustomizationManagerClient.GetMyColors(_playerLoggedIn.IdPlayer);
+
+                if (_myColors != null)
+                {
+                    SetMyColors();
+                }
+                else
+                {
+                    _logger.Warning("The player doesn't have colors related. Error ocurried on LobbyPlayerColorsManager.cs"
+                        + "on Method GetMyColors");
+                }
             }
             catch (EndpointNotFoundException ex)
             {
@@ -62,33 +72,32 @@ namespace TimbiricheViews.Views
             {
                 EmergentWindows.CreateUnexpectedErrorMessageWindow();
                 HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
-            if (_myColors != null)
-            {
-                SetMyColors();
-            }
-            else
-            {
-                _logger.Warning("The player doesn't have colors related. Error ocurried on LobbyPlayerColorsManager.cs"
-                    + "on Method GetMyColors");
-            }
+            }            
         }
 
         private void SetMyColors()
         {
             SolidColorBrush color;
             var idColors = _myColors.Select(playerColor => playerColor.IdColor);
+            string hexadecimalColor = null;
 
             foreach (var idColor in idColors)
             {
-                string hexadecimalColor = GetHexadecimalColor(idColor);
-                color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
-                Rectangle colorRectangle = CreateColorBoxes(idColor, color, PlayerColorTemplate);
-                stackPanelColors.Children.Add(colorRectangle);
+                hexadecimalColor = GetHexadecimalColor(idColor);
+
+                if (hexadecimalColor != null)
+                {
+                    color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
+                    Rectangle colorRectangle = CreateColorBoxes(idColor, color, PlayerColorTemplate);
+                    stackPanelColors.Children.Add(colorRectangle);
+                }
+
             }
 
-            SubscribeColorToColorsSelected();
+            if (hexadecimalColor != null)
+            {
+                SubscribeColorToColorsSelected();
+            }
         }
 
         private string GetHexadecimalColor(int idColor)
@@ -96,41 +105,8 @@ namespace TimbiricheViews.Views
             PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
             string hexadecimalColor = null;
 
-            try
-            {
-                hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException<TimbiricheServerExceptions>)
-            {
-                EmergentWindows.CreateDataBaseErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
-
+            hexadecimalColor = playerCustomizationManagerClient.GetHexadecimalColors(idColor);
+            
             return hexadecimalColor;
         }
 
@@ -139,37 +115,9 @@ namespace TimbiricheViews.Views
             InstanceContext context = new InstanceContext(this);
             PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
 
-            try
-            {
-                playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
-                LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
-                playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
-            }
-            catch (EndpointNotFoundException ex)
-            {
-                EmergentWindows.CreateConnectionFailedMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (TimeoutException ex)
-            {
-                EmergentWindows.CreateTimeOutMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (FaultException)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                NavigationService.Navigate(new XAMLLogin());
-            }
-            catch (CommunicationException ex)
-            {
-                EmergentWindows.CreateServerErrorMessageWindow();
-                HandlerExceptions.HandleErrorException(ex, NavigationService);
-            }
-            catch (Exception ex)
-            {
-                EmergentWindows.CreateUnexpectedErrorMessageWindow();
-                HandlerExceptions.HandleFatalException(ex, NavigationService);
-            }
+            playerColorsManagerClient.SubscribeColorToColorsSelected(_lobbyCode);
+            LobbyPlayer lobbyPlayer = CreateLobbyPlayer();
+            playerColorsManagerClient.RenewSubscriptionToColorsSelected(_lobbyCode, lobbyPlayer);
         }
 
         private Rectangle CreateColorBoxes(int idColor, SolidColorBrush color, Rectangle rectangleTemplate)
@@ -473,9 +421,48 @@ namespace TimbiricheViews.Views
 
         public void NotifyOccupiedColors(LobbyPlayer[] occupiedColors)
         {
-            StablishOcuppiedColors(occupiedColors);
-            InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
-            RegisterToBansNotifications(_lobbyCode);
+            try
+            {
+                StablishOcuppiedColors(occupiedColors);
+                InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
+                RegisterToBansNotifications(_lobbyCode);
+            }
+            catch (EndpointNotFoundException ex)
+            {
+                EmergentWindows.CreateConnectionFailedMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (TimeoutException ex)
+            {
+                EmergentWindows.CreateTimeOutMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (FaultException)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                NavigationService.Navigate(new XAMLLogin());
+            }
+            catch (CommunicationException ex)
+            {
+                EmergentWindows.CreateServerErrorMessageWindow();
+                HandlerExceptions.HandleErrorException(ex, NavigationService);
+            }
+            catch (Exception ex)
+            {
+                EmergentWindows.CreateUnexpectedErrorMessageWindow();
+                HandlerExceptions.HandleFatalException(ex, NavigationService);
+            }
+        }
+
+        public void NotifyCanStartMatch(bool hasColor)
+        {
+            _allHasColor = hasColor;
+            ValidateStartOfMatch();
         }
     }
 }

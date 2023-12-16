@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess.Utils;
@@ -17,6 +18,7 @@ namespace TimbiricheService
             if (LobbyExists(lobbyCode))
             {
                 List<LobbyPlayer> playersColorSelection = lobbies[lobbyCode].Item2;
+
                 try
                 {
                     currentUserCallbackChannel.NotifyOccupiedColors(playersColorSelection);
@@ -26,7 +28,12 @@ namespace TimbiricheService
                     HandlerExceptions.HandleErrorException(ex);
                     RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                 }
-            }
+                catch (TimeoutException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+                }
+            } 
         }
 
         public void RenewSubscriptionToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
@@ -43,7 +50,7 @@ namespace TimbiricheService
                 HandleNonDefaultColorSubscription(lobbyCode, lobbyPlayer, currentUserCallbackChannel);
             }
 
-            InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor);
+            InformDefaultColorSubscriptors(lobbyCode, lobbyPlayer, idColor); 
         }
 
         private void HandleDefaultColorSubscription(string lobbyCode, IPlayerColorsManagerCallback currentUserCallbackChannel)
@@ -56,7 +63,8 @@ namespace TimbiricheService
             playersWithDefaultColorByLobby[lobbyCode].Add(currentUserCallbackChannel);
         }
 
-        private void HandleNonDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer, IPlayerColorsManagerCallback currentUserCallbackChannel)
+        private void HandleNonDefaultColorSubscription(string lobbyCode, LobbyPlayer lobbyPlayer,
+            IPlayerColorsManagerCallback currentUserCallbackChannel)
         {
             if (lobbies.ContainsKey(lobbyCode))
             {
@@ -67,6 +75,7 @@ namespace TimbiricheService
                 {
                     auxiliarPlayer.IdHexadecimalColor = lobbyPlayer.IdHexadecimalColor;
                     auxiliarPlayer.ColorCallbackChannel = currentUserCallbackChannel;
+                    ValidateAllPlayersHaveColor(lobbyCode);
                 }
 
                 foreach (var colorSelector in players.ToList())
@@ -80,27 +89,40 @@ namespace TimbiricheService
                         HandlerExceptions.HandleErrorException(ex);
                         RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
                     }
+                    catch (TimeoutException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+                    }
                 }
             }
         }
 
         private void InformDefaultColorSubscriptors(string lobbyCode, LobbyPlayer lobbyPlayer, int idColor)
         {
-            foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode].ToList())
+            if (playersWithDefaultColorByLobby.ContainsKey(lobbyCode))
             {
-                if (idColor != DEFAULT_COLOR)
+                foreach (var callbackChannel in playersWithDefaultColorByLobby[lobbyCode].ToList())
                 {
-                    try
+                    if (idColor != DEFAULT_COLOR)
                     {
-                        callbackChannel?.NotifyColorSelected(lobbyPlayer);
-                    }
-                    catch (CommunicationException ex)
-                    {
-                        HandlerExceptions.HandleErrorException(ex);
-                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
+                        try
+                        {
+                            callbackChannel?.NotifyColorSelected(lobbyPlayer);
+                        }
+                        catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
+                        }
+                        catch (TimeoutException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackChannel);
+                        }
                     }
                 }
-            }
+            } 
         }
 
         private LobbyPlayer GetLobbyPlayerByUsername(string lobbyCode, string username)
@@ -115,6 +137,48 @@ namespace TimbiricheService
             return lobbies[lobbyCode].Item2;
         }
 
+        private void ValidateAllPlayersHaveColor(string lobbyCode)
+        {
+            bool allHasColor = false;
+            int indexHost = 0;
+            int idDefaultColor = 0;
+
+            if (lobbies.ContainsKey(lobbyCode))
+            {
+                List<LobbyPlayer> lobbyPlayers = GetLobbyPlayersList(lobbyCode);
+                try
+                {
+                    foreach (LobbyPlayer lobbyplayer in lobbyPlayers)
+                    {
+                        if (lobbyplayer.IdHexadecimalColor > idDefaultColor)
+                        {
+                            allHasColor = true;
+                        }
+                        else
+                        {
+                            allHasColor = false;
+                            break;
+                        }
+                    }
+
+                    if (lobbyPlayers.Count > indexHost)
+                    {
+                        lobbyPlayers[indexHost].ColorCallbackChannel.NotifyCanStartMatch(allHasColor);
+                    }
+                }
+                catch (CommunicationException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, lobbyPlayers[indexHost].ColorCallbackChannel);
+                }
+                catch (TimeoutException ex)
+                {
+                    HandlerExceptions.HandleErrorException(ex);
+                    RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, lobbyPlayers[indexHost].ColorCallbackChannel);
+                }
+            }
+        }
+
         public void UnsubscribeColorToColorsSelected(string lobbyCode, LobbyPlayer lobbyPlayer)
         {
             IPlayerColorsManagerCallback currentUserCallbackChannel = OperationContext.Current.GetCallbackChannel<IPlayerColorsManagerCallback>();
@@ -122,7 +186,7 @@ namespace TimbiricheService
 
             InformColorUnselected(lobbyCode, idColor);
 
-            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);
+            RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, currentUserCallbackChannel);   
         }
 
         private void InformColorUnselected(string lobbyCode, int idColor)
@@ -148,6 +212,11 @@ namespace TimbiricheService
                         HandlerExceptions.HandleErrorException(ex);
                         RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, colorCallbackChannel);
                     }
+                    catch (TimeoutException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, colorCallbackChannel);
+                    }
                 }
             }
         }
@@ -163,6 +232,11 @@ namespace TimbiricheService
                         callbackPlayer.NotifyColorUnselected(idColor);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         RemovePlayerAndDictionaryFromDefaultColors(lobbyCode, callbackPlayer);

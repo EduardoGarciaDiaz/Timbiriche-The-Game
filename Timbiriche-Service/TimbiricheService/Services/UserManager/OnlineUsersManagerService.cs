@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess;
@@ -9,6 +10,7 @@ namespace TimbiricheService
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Reentrant)]
     public partial class UserManagerService : IOnlineUsersManager
     {
+        private static readonly object lockObject = new object();
         private static Dictionary<string, IUserManagerCallback> onlineUsers = new Dictionary<string, IUserManagerCallback>();
 
         public void RegisterUserToOnlineUsers(int idPlayer, string username)
@@ -21,6 +23,10 @@ namespace TimbiricheService
             {
                 onlineUsers.Add(username, currentUserCallbackChannel);
             }
+            else
+            {
+                onlineUsers[username] = currentUserCallbackChannel;
+            }
 
             onlineFriends = onlineUsernames
                 .Where(onlineUsername => IsFriend(idPlayer, onlineUsername))
@@ -31,6 +37,11 @@ namespace TimbiricheService
                 currentUserCallbackChannel.NotifyOnlineFriends(onlineFriends);
             }
             catch (CommunicationException ex)
+            {
+                HandlerExceptions.HandleErrorException(ex);
+                UnregisterUserToOnlineUsers(username);
+            }
+            catch (TimeoutException ex)
             {
                 HandlerExceptions.HandleErrorException(ex);
                 UnregisterUserToOnlineUsers(username);
@@ -50,6 +61,11 @@ namespace TimbiricheService
                         user.Value.NotifyUserLoggedIn(username);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        UnregisterUserToOnlineUsers(username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         UnregisterUserToOnlineUsers(username);
@@ -83,6 +99,11 @@ namespace TimbiricheService
                         user.Value.NotifyUserLoggedOut(username);
                     }
                     catch (CommunicationException ex)
+                    {
+                        HandlerExceptions.HandleErrorException(ex);
+                        UnregisterUserToOnlineUsers(username);
+                    }
+                    catch (TimeoutException ex)
                     {
                         HandlerExceptions.HandleErrorException(ex);
                         UnregisterUserToOnlineUsers(username);

@@ -30,9 +30,12 @@ namespace TimbiricheViews.Views
             {
                 string hexadecimalColor = GetHexadecimalColorByIdColor(idColor);
 
-                color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
-                Rectangle colorRectangle = CreateColorBoxes(idColor, color, PlayerColorTemplate);
-                stackPanelColors.Children.Add(colorRectangle);
+                if (hexadecimalColor != null)
+                {
+                    color = Utilities.CreateColorFromHexadecimal(hexadecimalColor);
+                    Rectangle colorRectangle = CreateColorBoxes(idColor, color, PlayerColorTemplate);
+                    stackPanelColors.Children.Add(colorRectangle);
+                }
             }
 
             ManageColorsSelected();
@@ -41,7 +44,7 @@ namespace TimbiricheViews.Views
         private void ManageColorsSelected()
         {
             InstanceContext context = new InstanceContext(this);
-            Server.PlayerColorsManagerClient playerColorsManagerClient = new Server.PlayerColorsManagerClient(context);
+            PlayerColorsManagerClient playerColorsManagerClient = new PlayerColorsManagerClient(context);
 
             try
             {
@@ -206,6 +209,7 @@ namespace TimbiricheViews.Views
             if (idColor != defaultSelectedColor && VerifyPlayerHasColor(idColor))
             {
                 string idRectangle = "colorRectangle" + "_" + idColor;
+
                 if (isOccupied)
                 {
                     MarkAsOccupiedColor(idRectangle);
@@ -244,8 +248,8 @@ namespace TimbiricheViews.Views
 
         private string GetHexadecimalColorByIdColor(int idColor)
         {
-            Server.PlayerCustomizationManagerClient playerCustomizationManagerClient = new Server.PlayerCustomizationManagerClient();
-            string hexadecimalColor = null;
+            PlayerCustomizationManagerClient playerCustomizationManagerClient = new PlayerCustomizationManagerClient();
+            string hexadecimalColor = string.Empty;
 
             try
             {
@@ -382,6 +386,11 @@ namespace TimbiricheViews.Views
         {
             StablishOcuppiedColors(occupiedColors);
             InformUpdateStyleForPlayers(CreateLobbyPlayer(), false);
+        }
+
+        public void NotifyCanStartMatch(bool hasColor)
+        {
+            NavigationService.Navigate(new XAMLLogin());
         }
     }
 }

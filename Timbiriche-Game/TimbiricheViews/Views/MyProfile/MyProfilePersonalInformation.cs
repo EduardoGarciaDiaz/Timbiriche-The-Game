@@ -39,22 +39,7 @@ namespace TimbiricheViews.Views
 
             if (ValidateFields() && HasDifferenteData(editedAccount))
             {
-                int rowsAffected = UpdateAccount(editedAccount);
-
-                HandleResultOfUpdate(rowsAffected, editedAccount);
-            }
-        }
-
-        private void HandleResultOfUpdate(int rowsAffected, Account editedAccount)
-        {
-            if (rowsAffected > 0)
-            {
-                ShowAccountModifiedMessage();
-                playerLoggedIn.AccountFK = editedAccount;
-            }
-            else
-            {
-                ShowModifyAccountFailMessage();
+                UpdateAccount(editedAccount);
             }
         }
 
@@ -83,6 +68,7 @@ namespace TimbiricheViews.Views
             try
             {
                 rowsAffected = userManagerClient.UpdateAccount(editedAccount);
+                HandleResultOfUpdate(rowsAffected, editedAccount);
             }
             catch (EndpointNotFoundException ex)
             {
@@ -116,6 +102,19 @@ namespace TimbiricheViews.Views
             }
 
             return rowsAffected;
+        }
+
+        private void HandleResultOfUpdate(int rowsAffected, Account editedAccount)
+        {
+            if (rowsAffected > 0)
+            {
+                ShowAccountModifiedMessage();
+                playerLoggedIn.AccountFK = editedAccount;
+            }
+            else
+            {
+                ShowModifyAccountFailMessage();
+            }
         }
 
         private void ShowAccountModifiedMessage()

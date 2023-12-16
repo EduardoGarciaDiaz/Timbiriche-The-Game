@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.ServiceModel;
 using TimbiricheDataAccess.Utils;
 
@@ -41,6 +42,11 @@ namespace TimbiricheService
                             }
                         }
                         catch (CommunicationException ex)
+                        {
+                            HandlerExceptions.HandleErrorException(ex);
+                            styleSelector.StyleCallbackChannel = null;
+                        }
+                        catch (TimeoutException ex)
                         {
                             HandlerExceptions.HandleErrorException(ex);
                             styleSelector.StyleCallbackChannel = null;

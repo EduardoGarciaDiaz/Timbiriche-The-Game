@@ -3,8 +3,11 @@ using System.ServiceModel;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using TimbiricheViews.Player;
+using TimbiricheViews.Server;
 using TimbiricheViews.Utils;
+using TimbiricheViews.Views;
 
 namespace TimbiricheViews.Components.Shop
 {
@@ -61,14 +64,15 @@ namespace TimbiricheViews.Components.Shop
             }
             else
             {
-                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins, Properties.Resources.lbInsufficientCoinsMessage);
+                EmergentWindows.CreateEmergentWindow(Properties.Resources.lbInsufficientCoins,
+                    Properties.Resources.lbInsufficientCoinsMessage);
             }
         }
 
         private bool BuyColor()
         {
             bool purchaseCompleted = false;
-            Server.ShopManagerClient shopManagerClient = new Server.ShopManagerClient();
+            ShopManagerClient shopManagerClient = new ShopManagerClient();
         
             try
             {
@@ -83,6 +87,10 @@ namespace TimbiricheViews.Components.Shop
             {
                 EmergentWindows.CreateTimeOutMessageWindow();
                 HandlerExceptions.HandleComponentErrorException(ex);
+            }
+            catch (FaultException<TimbiricheServerExceptions>)
+            {
+                EmergentWindows.CreateDataBaseErrorMessageWindow();
             }
             catch (FaultException)
             {
