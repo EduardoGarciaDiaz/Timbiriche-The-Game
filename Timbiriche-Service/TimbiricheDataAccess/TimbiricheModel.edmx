@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TimbiricheDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="TimbiricheDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accounts">
           <Key>
             <PropertyRef Name="idAccount" />
@@ -15,6 +15,59 @@
           <Property Name="surname" Type="nvarchar" MaxLength="50" />
           <Property Name="birthdate" Type="date" Nullable="false" />
         </EntityType>
+        <EntityType Name="Bans">
+          <Key>
+            <PropertyRef Name="idBan" />
+          </Key>
+          <Property Name="idBan" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idBannedPlayer" Type="int" />
+          <Property Name="startDate" Type="datetime" />
+          <Property Name="endDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="idColor" />
+          </Key>
+          <Property Name="idColor" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="colorName" Type="varchar" MaxLength="30" />
+          <Property Name="hexadecimalCode" Type="varchar" MaxLength="8" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <EntityType Name="FriendShips">
+          <Key>
+            <PropertyRef Name="idFriendship" />
+          </Key>
+          <Property Name="idFriendship" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="statusFriendship" Type="varchar" MaxLength="15" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idPlayerFriend" Type="int" />
+        </EntityType>
+        <EntityType Name="GlobalScores">
+          <Key>
+            <PropertyRef Name="idGlobalScore" />
+          </Key>
+          <Property Name="idGlobalScore" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="winsNumber" Type="int" />
+        </EntityType>
+        <EntityType Name="PasswordResetTokens">
+          <Key>
+            <PropertyRef Name="idPasswordResetToken" />
+          </Key>
+          <Property Name="idPasswordResetToken" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="token" Type="int" />
+          <Property Name="creationDate" Type="datetime" />
+          <Property Name="expirationDate" Type="datetime" />
+          <Property Name="idPlayer" Type="int" />
+        </EntityType>
+        <EntityType Name="PlayerColors">
+          <Key>
+            <PropertyRef Name="idPlayerColors" />
+          </Key>
+          <Property Name="idPlayerColors" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idColor" Type="int" />
+        </EntityType>
         <EntityType Name="Players">
           <Key>
             <PropertyRef Name="idPlayer" />
@@ -22,10 +75,182 @@
           <Property Name="idPlayer" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="username" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="email" Type="nvarchar" MaxLength="100" Nullable="false" />
-          <Property Name="password" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="coins" Type="int" />
           <Property Name="idAccount" Type="int" Nullable="false" />
+          <Property Name="salt" Type="nvarchar" MaxLength="255" />
+          <Property Name="status" Type="varchar" MaxLength="15" />
+          <Property Name="idColorSelected" Type="int" />
+          <Property Name="idStyleSelected" Type="int" />
         </EntityType>
+        <EntityType Name="PlayerStyles">
+          <Key>
+            <PropertyRef Name="idPlayerStyles" />
+          </Key>
+          <Property Name="idPlayerStyles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayer" Type="int" />
+          <Property Name="idStyle" Type="int" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="idReport" />
+          </Key>
+          <Property Name="idReport" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPlayerReported" Type="int" />
+          <Property Name="idPlayerReporter" Type="int" />
+          <Property Name="reportDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Styles">
+          <Key>
+            <PropertyRef Name="idStyle" />
+          </Key>
+          <Property Name="idStyle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="styleName" Type="varchar" MaxLength="50" />
+          <Property Name="path" Type="nvarchar" MaxLength="255" />
+          <Property Name="cost" Type="int" />
+        </EntityType>
+        <Association Name="FK__PasswordR__idPla__4F47C5E3">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PasswordResetTokens" Type="Self.PasswordResetTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PasswordResetTokens">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idCol__55009F39">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerColors" Type="Self.PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idPla__540C7B00">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerColors" Type="Self.PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerSty__idPla__7755B73D">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerStyles" Type="Self.PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerSty__idSty__7849DB76">
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="PlayerStyles" Type="Self.PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Bans_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="Bans" Type="Self.Bans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Bans">
+              <PropertyRef Name="idBannedPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendShips_PlayerFriend">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="FriendShips" Type="Self.FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayerFriend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendShips_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="FriendShips" Type="Self.FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_GlobalScores_Players">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="GlobalScores" Type="Self.GlobalScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="GlobalScores">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerColors">
+          <End Role="Colors" Type="Self.Colors" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idColorSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerStyles">
+          <End Role="Styles" Type="Self.Styles" Multiplicity="0..1" />
+          <End Role="Players" Type="Self.Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idStyleSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Players" Type="Self.Players" Multiplicity="*" />
@@ -38,16 +263,100 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Reports_PlayersReported">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="idPlayerReported" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_PlayersReporter">
+          <End Role="Players" Type="Self.Players" Multiplicity="0..1" />
+          <End Role="Reports" Type="Self.Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="idPlayerReporter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="TimbiricheDBModelStoreContainer">
           <EntitySet Name="Accounts" EntityType="Self.Accounts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Bans" EntityType="Self.Bans" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Colors" EntityType="Self.Colors" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FriendShips" EntityType="Self.FriendShips" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="GlobalScores" EntityType="Self.GlobalScores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PasswordResetTokens" EntityType="Self.PasswordResetTokens" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerColors" EntityType="Self.PlayerColors" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Players" EntityType="Self.Players" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PlayerStyles" EntityType="Self.PlayerStyles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Styles" EntityType="Self.Styles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__PasswordR__idPla__4F47C5E3" Association="Self.FK__PasswordR__idPla__4F47C5E3">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PasswordResetTokens" EntitySet="PasswordResetTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idCol__55009F39" Association="Self.FK__PlayerCol__idCol__55009F39">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idPla__540C7B00" Association="Self.FK__PlayerCol__idPla__540C7B00">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idPla__7755B73D" Association="Self.FK__PlayerSty__idPla__7755B73D">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="Self.FK__PlayerSty__idSty__7849DB76">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Bans_Players" Association="Self.FK_Bans_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Bans" EntitySet="Bans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_PlayerFriend" Association="Self.FK_FriendShips_PlayerFriend">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_Players" Association="Self.FK_FriendShips_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_GlobalScores_Players" Association="Self.FK_GlobalScores_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="GlobalScores" EntitySet="GlobalScores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerColors" Association="Self.FK_Player_PlayerColors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerStyles" Association="Self.FK_Player_PlayerStyles">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
           <AssociationSet Name="FK_PlayersAccounts" Association="Self.FK_PlayersAccounts">
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Players" EntitySet="Players" />
           </AssociationSet>
+          <AssociationSet Name="FK_Reports_PlayersReported" Association="Self.FK_Reports_PlayersReported">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_PlayersReporter" Association="Self.FK_Reports_PlayersReporter">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TimbiricheDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -58,9 +367,9 @@
           <Property Name="idAccount" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="lastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="birthdate" Type="DateTime" Nullable="false" Precision="0" />
           <NavigationProperty Name="Players" Relationship="Self.FK_PlayersAccounts" FromRole="Accounts" ToRole="Players" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Players">
           <Key>
@@ -69,10 +378,25 @@
           <Property Name="idPlayer" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="password" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="coins" Type="Int32" />
           <Property Name="idAccount" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="Self.FK_PlayersAccounts" FromRole="Players" ToRole="Accounts" />
+          <Property Name="status" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="salt" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="PasswordResetTokens" Relationship="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362" FromRole="Players" ToRole="PasswordResetTokens" />
+          <NavigationProperty Name="PlayerColors" Relationship="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" FromRole="Players" ToRole="PlayerColors" />
+          <Property Name="idColorSelected" Type="Int32" />
+          <NavigationProperty Name="Colors" Relationship="TimbiricheDBModel.FK_Player_PlayerColors" FromRole="Players" ToRole="Colors" />
+          <Property Name="idStyleSelected" Type="Int32" />
+          <NavigationProperty Name="PlayerStyles" Relationship="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" FromRole="Players" ToRole="PlayerStyles" />
+          <NavigationProperty Name="Styles" Relationship="TimbiricheDBModel.FK_Player_PlayerStyles" FromRole="Players" ToRole="Styles" />
+          <NavigationProperty Name="FriendShips" Relationship="TimbiricheDBModel.FK_FriendShips_PlayerFriend" FromRole="Players" ToRole="FriendShips" />
+          <NavigationProperty Name="FriendShips1" Relationship="TimbiricheDBModel.FK_FriendShips_Players" FromRole="Players" ToRole="FriendShips" />
+          <NavigationProperty Name="Bans" Relationship="TimbiricheDBModel.FK_Bans_Players" FromRole="Players" ToRole="Bans" />
+          <NavigationProperty Name="Reports" Relationship="TimbiricheDBModel.FK_Reports_PlayersReported" FromRole="Players" ToRole="Reports" />
+          <NavigationProperty Name="Reports1" Relationship="TimbiricheDBModel.FK_Reports_PlayersReporter" FromRole="Players" ToRole="Reports" />
+          <NavigationProperty Name="GlobalScores" Relationship="TimbiricheDBModel.FK_GlobalScores_Players" FromRole="Players" ToRole="GlobalScores" />
         </EntityType>
         <Association Name="FK_PlayersAccounts">
           <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
@@ -93,7 +417,328 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Players" EntitySet="Players" />
           </AssociationSet>
+          <EntitySet Name="Colors" EntityType="TimbiricheDBModel.Colors" />
+          <EntitySet Name="PasswordResetTokens" EntityType="TimbiricheDBModel.PasswordResetTokens" />
+          <EntitySet Name="PlayerColors" EntityType="TimbiricheDBModel.PlayerColors" />
+          <AssociationSet Name="FK__PlayerCol__idCol__5441852A" Association="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PasswordR__idPla__4CA06362" Association="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PasswordResetTokens" EntitySet="PasswordResetTokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerCol__idPla__534D60F1" Association="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerColors" EntitySet="PlayerColors" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerColors" Association="TimbiricheDBModel.FK_Player_PlayerColors">
+            <End Role="Colors" EntitySet="Colors" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <EntitySet Name="PlayerStyles" EntityType="TimbiricheDBModel.PlayerStyles" />
+          <EntitySet Name="Styles" EntityType="TimbiricheDBModel.Styles" />
+          <AssociationSet Name="FK__PlayerSty__idPla__7755B73D" Association="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Player_PlayerStyles" Association="TimbiricheDBModel.FK_Player_PlayerStyles">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="Players" EntitySet="Players" />
+          </AssociationSet>
+          <AssociationSet Name="FK__PlayerSty__idSty__7849DB76" Association="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76">
+            <End Role="Styles" EntitySet="Styles" />
+            <End Role="PlayerStyles" EntitySet="PlayerStyles" />
+          </AssociationSet>
+          <EntitySet Name="FriendShips" EntityType="TimbiricheDBModel.FriendShips" />
+          <AssociationSet Name="FK_FriendShips_PlayerFriend" Association="TimbiricheDBModel.FK_FriendShips_PlayerFriend">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <AssociationSet Name="FK_FriendShips_Players" Association="TimbiricheDBModel.FK_FriendShips_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="FriendShips" EntitySet="FriendShips" />
+          </AssociationSet>
+          <EntitySet Name="Bans" EntityType="TimbiricheDBModel.Bans" />
+          <EntitySet Name="Reports" EntityType="TimbiricheDBModel.Reports" />
+          <AssociationSet Name="FK_Bans_Players" Association="TimbiricheDBModel.FK_Bans_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Bans" EntitySet="Bans" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_PlayersReported" Association="TimbiricheDBModel.FK_Reports_PlayersReported">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Reports_PlayersReporter" Association="TimbiricheDBModel.FK_Reports_PlayersReporter">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="Reports" EntitySet="Reports" />
+          </AssociationSet>
+          <EntitySet Name="GlobalScores" EntityType="TimbiricheDBModel.GlobalScores" />
+          <AssociationSet Name="FK_GlobalScores_Players" Association="TimbiricheDBModel.FK_GlobalScores_Players">
+            <End Role="Players" EntitySet="Players" />
+            <End Role="GlobalScores" EntitySet="GlobalScores" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Colors">
+          <Key>
+            <PropertyRef Name="idColor" />
+          </Key>
+          <Property Name="idColor" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="colorName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="hexadecimalCode" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="PlayerColors" Relationship="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A" FromRole="Colors" ToRole="PlayerColors" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_Player_PlayerColors" FromRole="Colors" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="PasswordResetTokens">
+          <Key>
+            <PropertyRef Name="idPasswordResetToken" />
+          </Key>
+          <Property Name="idPasswordResetToken" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="token" Type="Int32" />
+          <Property Name="creationDate" Type="DateTime" Precision="3" />
+          <Property Name="expirationDate" Type="DateTime" Precision="3" />
+          <Property Name="idPlayer" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362" FromRole="PasswordResetTokens" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="PlayerColors">
+          <Key>
+            <PropertyRef Name="idPlayerColors" />
+          </Key>
+          <Property Name="idPlayerColors" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idColor" Type="Int32" />
+          <NavigationProperty Name="Colors" Relationship="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A" FromRole="PlayerColors" ToRole="Colors" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" FromRole="PlayerColors" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK__PlayerCol__idCol__5441852A">
+          <End Type="TimbiricheDBModel.Colors" Role="Colors" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerColors" Role="PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idColor" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PasswordR__idPla__4CA06362">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PasswordResetTokens" Role="PasswordResetTokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PasswordResetTokens">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerCol__idPla__534D60F1">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerColors" Role="PlayerColors" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerColors">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerColors">
+          <End Type="TimbiricheDBModel.Colors" Role="Colors" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Colors">
+              <PropertyRef Name="idColor" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idColorSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="PlayerStyles">
+          <Key>
+            <PropertyRef Name="idPlayerStyles" />
+          </Key>
+          <Property Name="idPlayerStyles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idStyle" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" FromRole="PlayerStyles" ToRole="Players" />
+          <NavigationProperty Name="Styles" Relationship="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" FromRole="PlayerStyles" ToRole="Styles" />
+        </EntityType>
+        <EntityType Name="Styles">
+          <Key>
+            <PropertyRef Name="idStyle" />
+          </Key>
+          <Property Name="idStyle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="styleName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="path" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="cost" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_Player_PlayerStyles" FromRole="Styles" ToRole="Players" />
+          <NavigationProperty Name="PlayerStyles" Relationship="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" FromRole="Styles" ToRole="PlayerStyles" />
+        </EntityType>
+        <Association Name="FK__PlayerSty__idPla__7755B73D">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerStyles" Role="PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Player_PlayerStyles">
+          <End Type="TimbiricheDBModel.Styles" Role="Styles" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="Players">
+              <PropertyRef Name="idStyleSelected" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__PlayerSty__idSty__7849DB76">
+          <End Type="TimbiricheDBModel.Styles" Role="Styles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="TimbiricheDBModel.PlayerStyles" Role="PlayerStyles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Styles">
+              <PropertyRef Name="idStyle" />
+            </Principal>
+            <Dependent Role="PlayerStyles">
+              <PropertyRef Name="idStyle" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="FriendShips">
+          <Key>
+            <PropertyRef Name="idFriendship" />
+          </Key>
+          <Property Name="idFriendship" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="statusFriendship" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="idPlayerFriend" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_FriendShips_PlayerFriend" FromRole="FriendShips" ToRole="Players" />
+          <NavigationProperty Name="Players1" Relationship="TimbiricheDBModel.FK_FriendShips_Players" FromRole="FriendShips" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_FriendShips_PlayerFriend">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.FriendShips" Role="FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayerFriend" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_FriendShips_Players">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.FriendShips" Role="FriendShips" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="FriendShips">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Bans">
+          <Key>
+            <PropertyRef Name="idBan" />
+          </Key>
+          <Property Name="idBan" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idBannedPlayer" Type="Int32" />
+          <Property Name="startDate" Type="DateTime" Precision="3" />
+          <Property Name="endDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_Bans_Players" FromRole="Bans" ToRole="Players" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="idReport" />
+          </Key>
+          <Property Name="idReport" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayerReported" Type="Int32" />
+          <Property Name="idPlayerReporter" Type="Int32" />
+          <Property Name="reportDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_Reports_PlayersReported" FromRole="Reports" ToRole="Players" />
+          <NavigationProperty Name="Players1" Relationship="TimbiricheDBModel.FK_Reports_PlayersReporter" FromRole="Reports" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_Bans_Players">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Bans" Role="Bans" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Bans">
+              <PropertyRef Name="idBannedPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_PlayersReported">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Reports" Role="Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="idPlayerReported" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Reports_PlayersReporter">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.Reports" Role="Reports" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="Reports">
+              <PropertyRef Name="idPlayerReporter" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="GlobalScores">
+          <Key>
+            <PropertyRef Name="idGlobalScore" />
+          </Key>
+          <Property Name="idGlobalScore" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPlayer" Type="Int32" />
+          <Property Name="winsNumber" Type="Int32" />
+          <NavigationProperty Name="Players" Relationship="TimbiricheDBModel.FK_GlobalScores_Players" FromRole="GlobalScores" ToRole="Players" />
+        </EntityType>
+        <Association Name="FK_GlobalScores_Players">
+          <End Type="TimbiricheDBModel.Players" Role="Players" Multiplicity="0..1" />
+          <End Type="TimbiricheDBModel.GlobalScores" Role="GlobalScores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Players">
+              <PropertyRef Name="idPlayer" />
+            </Principal>
+            <Dependent Role="GlobalScores">
+              <PropertyRef Name="idPlayer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -103,10 +748,10 @@
           <EntitySetMapping Name="Accounts">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Accounts">
               <MappingFragment StoreEntitySet="Accounts">
+                <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="lastName" ColumnName="lastName" />
-                <ScalarProperty Name="surname" ColumnName="surname" />
                 <ScalarProperty Name="birthdate" ColumnName="birthdate" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -114,12 +759,104 @@
           <EntitySetMapping Name="Players">
             <EntityTypeMapping TypeName="TimbiricheDBModel.Players">
               <MappingFragment StoreEntitySet="Players">
+                <ScalarProperty Name="idStyleSelected" ColumnName="idStyleSelected" />
+                <ScalarProperty Name="idColorSelected" ColumnName="idColorSelected" />
+                <ScalarProperty Name="salt" ColumnName="salt" />
+                <ScalarProperty Name="status" ColumnName="status" />
                 <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="coins" ColumnName="coins" />
                 <ScalarProperty Name="idAccount" ColumnName="idAccount" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Colors">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Colors">
+              <MappingFragment StoreEntitySet="Colors">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="hexadecimalCode" ColumnName="hexadecimalCode" />
+                <ScalarProperty Name="colorName" ColumnName="colorName" />
+                <ScalarProperty Name="idColor" ColumnName="idColor" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PasswordResetTokens">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PasswordResetTokens">
+              <MappingFragment StoreEntitySet="PasswordResetTokens">
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="expirationDate" ColumnName="expirationDate" />
+                <ScalarProperty Name="creationDate" ColumnName="creationDate" />
+                <ScalarProperty Name="token" ColumnName="token" />
+                <ScalarProperty Name="idPasswordResetToken" ColumnName="idPasswordResetToken" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerColors">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PlayerColors">
+              <MappingFragment StoreEntitySet="PlayerColors">
+                <ScalarProperty Name="idColor" ColumnName="idColor" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idPlayerColors" ColumnName="idPlayerColors" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PlayerStyles">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.PlayerStyles">
+              <MappingFragment StoreEntitySet="PlayerStyles">
+                <ScalarProperty Name="idStyle" ColumnName="idStyle" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idPlayerStyles" ColumnName="idPlayerStyles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Styles">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Styles">
+              <MappingFragment StoreEntitySet="Styles">
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="path" ColumnName="path" />
+                <ScalarProperty Name="styleName" ColumnName="styleName" />
+                <ScalarProperty Name="idStyle" ColumnName="idStyle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FriendShips">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.FriendShips">
+              <MappingFragment StoreEntitySet="FriendShips">
+                <ScalarProperty Name="idPlayerFriend" ColumnName="idPlayerFriend" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="statusFriendship" ColumnName="statusFriendship" />
+                <ScalarProperty Name="idFriendship" ColumnName="idFriendship" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Bans">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Bans">
+              <MappingFragment StoreEntitySet="Bans">
+                <ScalarProperty Name="endDate" ColumnName="endDate" />
+                <ScalarProperty Name="startDate" ColumnName="startDate" />
+                <ScalarProperty Name="idBannedPlayer" ColumnName="idBannedPlayer" />
+                <ScalarProperty Name="idBan" ColumnName="idBan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.Reports">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="reportDate" ColumnName="reportDate" />
+                <ScalarProperty Name="idPlayerReporter" ColumnName="idPlayerReporter" />
+                <ScalarProperty Name="idPlayerReported" ColumnName="idPlayerReported" />
+                <ScalarProperty Name="idReport" ColumnName="idReport" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GlobalScores">
+            <EntityTypeMapping TypeName="TimbiricheDBModel.GlobalScores">
+              <MappingFragment StoreEntitySet="GlobalScores">
+                <ScalarProperty Name="winsNumber" ColumnName="winsNumber" />
+                <ScalarProperty Name="idPlayer" ColumnName="idPlayer" />
+                <ScalarProperty Name="idGlobalScore" ColumnName="idGlobalScore" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

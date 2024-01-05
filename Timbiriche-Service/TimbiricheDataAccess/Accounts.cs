@@ -23,8 +23,8 @@ namespace TimbiricheDataAccess
         public int idAccount { get; set; }
         public string name { get; set; }
         public string lastName { get; set; }
-        public string surname { get; set; }
         public System.DateTime birthdate { get; set; }
+        public string surname { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Players> Players { get; set; }

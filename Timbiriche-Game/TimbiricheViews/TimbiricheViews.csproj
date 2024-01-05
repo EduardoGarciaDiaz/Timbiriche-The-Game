@@ -26,7 +26,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
+    <PlatformTarget>x86</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,8 +35,33 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Serilog, Version=2.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.3.1.1\lib\net471\Serilog.dll</HintPath>
+    </Reference>
+    <Reference Include="Serilog.Sinks.File, Version=5.0.0.0, Culture=neutral, PublicKeyToken=24c2f752a8e58a10, processorArchitecture=MSIL">
+      <HintPath>..\packages\Serilog.Sinks.File.5.0.0\lib\net45\Serilog.Sinks.File.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
+    </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Diagnostics.DiagnosticSource, Version=7.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Diagnostics.DiagnosticSource.7.0.2\lib\net462\System.Diagnostics.DiagnosticSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Numerics.Vectors, Version=4.1.4.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Numerics.Vectors.4.5.0\lib\net46\System.Numerics.Vectors.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.6.0.0\lib\net461\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -55,10 +80,174 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Views\XAMLUserForm.xaml.cs">
-      <DependentUpon>XAMLUserForm.xaml</DependentUpon>
+    <Compile Include="Components\Event\ButtonClickEventArgs.cs" />
+    <Compile Include="Components\Lobby\XAMLLobbyInvitationComponent.xaml.cs">
+      <DependentUpon>XAMLLobbyInvitationComponent.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\XAMLMainWindow.xaml">
+    <Compile Include="Components\Match\XAMLMessageItemComponent.xaml.cs">
+      <DependentUpon>XAMLMessageItemComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Shop\XAMLColorItemComponent.xaml.cs">
+      <DependentUpon>XAMLColorItemComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\Shop\XAMLStyleItemComponent.xaml.cs">
+      <DependentUpon>XAMLStyleItemComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\XAMLOptionsPlayerComponent.xaml.cs">
+      <DependentUpon>XAMLOptionsPlayerComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\XAMLFriendRequestItemComponent.xaml.cs">
+      <DependentUpon>XAMLFriendRequestItemComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\XAMLActiveUserItemComponent.xaml.cs">
+      <DependentUpon>XAMLActiveUserItemComponent.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\XAMLEmergentWindow.xaml.cs">
+      <DependentUpon>XAMLEmergentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Components\XAMLBeginnerCodeVerification.xaml.cs">
+      <DependentUpon>XAMLBeginnerCodeVerification.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Connected Services\Server\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Match\Timer.cs" />
+    <Compile Include="Utils\EmergentWindows.cs" />
+    <Compile Include="Utils\HandlerExceptions.cs" />
+    <Compile Include="Utils\LoggerManager.cs" />
+    <Compile Include="Utils\SoundsUtilities.cs" />
+    <Compile Include="Utils\ValidationUtilities.cs" />
+    <Compile Include="Views\GameBoard\GameBoardMatchManager.cs" />
+    <Compile Include="Views\GuestLobby\GuestLobbyPlayerColorsManager.cs" />
+    <Compile Include="Views\GuestLobby\GuestLobbyPlayerStylesManager.cs" />
+    <Compile Include="Views\Lobby\LobbyBanManager.cs" />
+    <Compile Include="Views\Lobby\LobbyFriendRequestManager.cs" />
+    <Compile Include="Views\Lobby\LobbyLobbyManager.cs" />
+    <Compile Include="Views\Lobby\LobbyOnlineUsersManager.cs" />
+    <Compile Include="Views\Lobby\LobbyPlayerColorsManager.cs" />
+    <Compile Include="Views\Lobby\LobbyPlayerStylesManager.cs" />
+    <Compile Include="Views\MyProfile\MyProfilePersonalInformation.cs" />
+    <Compile Include="Views\Victory\VictoryRematchManager.cs" />
+    <Compile Include="Views\Ban\XAMLBan.xaml.cs">
+      <DependentUpon>XAMLBan.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GameBoard\XAMLGameBoard.xaml.cs">
+      <DependentUpon>XAMLGameBoard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml.cs">
+      <DependentUpon>XAMLGlobalScoreboard.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\JoinGuest\XAMLJoinGuest.xaml.cs">
+      <DependentUpon>XAMLJoinGuest.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GuestLobby\XAMLGuestLobby.xaml.cs">
+      <DependentUpon>XAMLGuestLobby.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MyProfile\XAMLMyProfile.xaml.cs">
+      <DependentUpon>XAMLMyProfile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PasswordReset\XAMLPasswordReset.xaml.cs">
+      <DependentUpon>XAMLPasswordReset.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Shop\XAMLShop.xaml.cs">
+      <DependentUpon>XAMLShop.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Victory\XAMLVictory.xaml.cs">
+      <DependentUpon>XAMLVictory.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XAMLMainWindow.xaml.cs">
+      <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Player\PlayerSingleton.cs" />
+    <Compile Include="Properties\Resources.es-MX.Designer.cs">
+      <DependentUpon>Resources.es-MX.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Views\Lobby\XAMLLobby.xaml.cs">
+      <DependentUpon>XAMLLobby.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Login\XAMLLogin.xaml.cs">
+      <DependentUpon>XAMLLogin.xaml</DependentUpon>
+    </Compile>
+    <Page Include="Components\Lobby\XAMLLobbyInvitationComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Match\XAMLMessageItemComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\Shop\XAMLColorItemComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\Shop\XAMLStyleItemComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\XAMLOptionsPlayerComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\XAMLFriendRequestItemComponent.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Components\XAMLActiveUserItemComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Components\XAMLEmergentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Ban\XAMLBan.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GameBoard\XAMLGameBoard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\JoinGuest\XAMLJoinGuest.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\GuestLobby\XAMLGuestLobby.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\MyProfile\XAMLMyProfile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\PasswordReset\XAMLPasswordReset.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Shop\XAMLShop.xaml">
+    </Page>
+    <Page Include="Components\XAMLBeginnerCodeVerification.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Victory\XAMLVictory.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XAMLMainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Lobby\XAMLLobby.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -71,19 +260,17 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Properties\Resources.es-MX.Designer.cs">
-      <DependentUpon>Resources.es-MX.resx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
-    <Compile Include="Views\XAMLMainWindow.xaml.cs">
-      <DependentUpon>XAMLMainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Page Include="Views\XAMLUserForm.xaml">
+    <Page Include="Views\Login\XAMLLogin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserForm\XAMLUserForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Compile Include="Views\UserForm\XAMLUserForm.xaml.cs">
+      <DependentUpon>XAMLUserForm.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -99,20 +286,64 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <EmbeddedResource Include="Properties\Resources.en.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.es-MX.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.es-MX.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.en.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.en.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <Resource Include="Fonts\Inter-Regular.ttf" />
     <Resource Include="Fonts\TitanOne.ttf" />
+    <None Include="Connected Services\Server\item.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\item5.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.BanInformation.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.GlobalScore.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.Player.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerColor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.PlayerStyle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopColor.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\TimbiricheViews.Server.ShopStyle.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\Server\UserManagerService.wsdl" />
+    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -121,14 +352,137 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\mexicoFlag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\loginCodeBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coins.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\friends.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobyFloor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\profile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shadow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shopBackground.png" />
+    <Resource Include="Resources\videogameControls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\backgroundGame.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\backgroundFormUser.png" />
-    <Resource Include="Resources\backgroundGame.png" />
-    <Resource Include="Resources\loginBox.png" />
-    <Resource Include="Resources\loginCodeBox.png" />
-    <Resource Include="Resources\mexicoFlag.png" />
-    <Resource Include="Resources\videogameControls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\back.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\usaFlag.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\askIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\friendItemButton.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\coinsBox.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\shopBox.png" />
+    <Resource Include="Resources\repeat.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\close.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\gameBoardBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\backgroundCustomizeCharacter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Skins\basicBox.png" />
+    <Resource Include="Resources\Skins\basicBoxSeparated.png" />
+    <Resource Include="Resources\Skins\skully.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\lobbySettingsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\invitationByEmailBackground.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\emailIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\copyToClipboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\optionsIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\sendMessageIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\timerIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\banOptionIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\victoryBox.png" />
+    <Resource Include="Resources\acceptFriendRequestIcon.png" />
+    <Resource Include="Resources\rejectFriendRequestIcon.png.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\messageReport.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\scoreboardIcon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\Server\item.disco" />
+    <None Include="Connected Services\Server\configuration91.svcinfo" />
+    <None Include="Connected Services\Server\configuration.svcinfo" />
+    <None Include="Connected Services\Server\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <Content Include="Resources\Sounds\clic.wav" />
+    <Content Include="Resources\Sounds\clicLine.wav" />
+    <Content Include="Resources\Sounds\squareComplete.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\Server\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

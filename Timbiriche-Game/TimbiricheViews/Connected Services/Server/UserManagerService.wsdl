@@ -1,0 +1,2326 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://tempuri.org/" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" name="UserManagerService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="NetTcpBinding_IUserManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IOnlineUsersManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPasswordReset_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ILobbyManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IMatchManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IEmailVerificationManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerCustomizationManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerColorsManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IInvitationManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IPlayerStylesManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IFriendshipManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IFriendRequestManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IBanManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IBanVerifierManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_ILobbyExistenceChecker_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IScoreboardManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IGlobalScoreManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IShopManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsp:Policy wsu:Id="NetTcpBinding_IRematchManager_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
+        <wsaw:UsingAddressing />
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/TimbiricheService" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd4" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost:8082/?xsd=xsd5" namespace="http://schemas.datacontract.org/2004/07/System.Collections.Generic" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IUserManager_AddUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddUser" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_AddUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_AddUser_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q1="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q1:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateLoginCredentials" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateLoginCredentialsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q2="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q2:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPlayerByIdPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q3:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUser" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateUniqueIdentifierUserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q4="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q4:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_UpdateAccount_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccount" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_UpdateAccount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateAccountResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_UpdateAccount_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q5="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q5:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetUsernameByIdPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernameByIdPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetUsernameByIdPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernameByIdPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q6:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnline" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateIsUserAlreadyOnlineResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q7="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q7:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetIdPlayerByUsername" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetIdPlayerByUsernameResponse" />
+  </wsdl:message>
+  <wsdl:message name="IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q8="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q8:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_RegisterUserToOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterUserToOnlineUsers" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_UnregisterUserToOnlineUsers_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnregisterUserToOnlineUsers" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyUserLoggedIn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserLoggedIn" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyUserLoggedIn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserLoggedInResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyUserLoggedOut_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserLoggedOut" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyUserLoggedOut_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyUserLoggedOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyOnlineFriends_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlineFriends" />
+  </wsdl:message>
+  <wsdl:message name="IOnlineUsersManager_NotifyOnlineFriends_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlineFriendsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_SendResetToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendResetToken" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_SendResetToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendResetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_SendResetToken_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q9:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ValidateResetToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResetToken" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ValidateResetToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateResetTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ValidateResetToken_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q10="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q10:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ChangePassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePassword" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ChangePassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ChangePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPasswordReset_ChangePassword_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q11="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q11:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_CreateLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:CreateLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_StartMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:StartMatch" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_JoinLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_JoinLobbyAsHost_InputMessage">
+    <wsdl:part name="parameters" element="tns:JoinLobbyAsHost" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExitLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExitLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_ExpulsePlayerFromLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExpulsePlayerFromLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyCreated" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyCreated_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyCreatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayersInLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayersInLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayersInLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayersInLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerJoinToLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerJoinToLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerJoinToLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerJoinToLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostPlayerLeftLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStartOfMatch" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyStartOfMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStartOfMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyIsFull_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyIsFull" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyIsFull_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyIsFullResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExist" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyLobbyDoesNotExistResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyExpulsedFromLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_RegisterToTheMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterToTheMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_EndTurn_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_EndTurnWithoutMovement_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndTurnWithoutMovement" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_EndMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:EndMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_SendMessageToLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendMessageToLobby" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_LeftMatch_InputMessage">
+    <wsdl:part name="parameters" element="tns:LeftMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewTurn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovement" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyMovement_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyMovementResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyFirstTurn_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFirstTurn" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyFirstTurn_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFirstTurnResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewScoreboard_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewScoreboard" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewScoreboard_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewScoreboardResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyEndOfTheMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewMessage_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewMessage" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyNewMessage_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewMessageResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerLeftMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatch" />
+  </wsdl:message>
+  <wsdl:message name="IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOnlyPlayerInMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmailVerificationManager_SendEmailToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailToken" />
+  </wsdl:message>
+  <wsdl:message name="IEmailVerificationManager_SendEmailToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendEmailTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmailVerificationManager_VerifyEmailToken_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyEmailToken" />
+  </wsdl:message>
+  <wsdl:message name="IEmailVerificationManager_VerifyEmailToken_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyEmailTokenResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q12:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetHexadecimalColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetHexadecimalColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q13="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q13:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyColor" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyColorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q14="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q14:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:CheckColorForPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_OutputMessage">
+    <wsdl:part name="parameters" element="tns:CheckColorForPlayerResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q15:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyStyles" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMyStylesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q16="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q16:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylePath" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylePathResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q17="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q17:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyStyle" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SelectMyStyleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q18="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q18:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeColorToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_RenewSubscriptionToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:RenewSubscriptionToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_UnsubscribeColorToColorsSelected_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeColorToColorsSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorSelected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorSelected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorSelectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorUnselected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorUnselected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyColorUnselected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyColorUnselectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyOccupiedColors_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOccupiedColors" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyOccupiedColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyCanStartMatch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCanStartMatch" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerColorsManager_NotifyCanStartMatch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyCanStartMatchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IInvitationManager_SendInvitationToEmail_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendInvitationToEmail" />
+  </wsdl:message>
+  <wsdl:message name="IInvitationManager_SendInvitationToEmail_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SendInvitationToEmailResponse" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddStyleCallbackToLobbiesList" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_ChooseStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:ChooseStyle" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelected" />
+  </wsdl:message>
+  <wsdl:message name="IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyStyleSelectedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsernameFriends" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetListUsernameFriendsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q19="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q19:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateFriendRequestSending" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateFriendRequestSendingResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q20="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q20:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestFriendship" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_OutputMessage">
+    <wsdl:part name="parameters" element="tns:AddRequestFriendshipResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q21="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q21:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequesters" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUsernamePlayersRequestersResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q22="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q22:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_AddToOnlineFriendshipDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:AddToOnlineFriendshipDictionary" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_SendFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:SendFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_AcceptFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:AcceptFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_RejectFriendRequest_InputMessage">
+    <wsdl:part name="parameters" element="tns:RejectFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_DeleteFriend_InputMessage">
+    <wsdl:part name="parameters" element="tns:DeleteFriend" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_RemoveFromOnlineFriendshipDictionary_InputMessage">
+    <wsdl:part name="parameters" element="tns:RemoveFromOnlineFriendshipDictionary" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyNewFriendRequest_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewFriendRequest" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyNewFriendRequest_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyNewFriendRequestResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyFriendRequestAccepted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAccepted" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyFriendRequestAccepted_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyFriendRequestAcceptedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyDeletedFriend_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDeletedFriend" />
+  </wsdl:message>
+  <wsdl:message name="IFriendRequestManager_NotifyDeletedFriend_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyDeletedFriendResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_RegisterToBansNotifications_InputMessage">
+    <wsdl:part name="parameters" element="tns:RegisterToBansNotifications" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_ReportMessage_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportMessage" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_ReportPlayer_InputMessage">
+    <wsdl:part name="parameters" element="tns:ReportPlayer" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyReportCompleted_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyReportCompleted" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyReportCompleted_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyReportCompletedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerAlreadyReported_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerAlreadyReported" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerAlreadyReportedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerBanned_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerBanned" />
+  </wsdl:message>
+  <wsdl:message name="IBanManager_NotifyPlayerBanned_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyPlayerBannedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyBanEndDate" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyBanEndDateResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q23="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q23:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_InputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyPlayerIsBanned" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage">
+    <wsdl:part name="parameters" element="tns:VerifyPlayerIsBannedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q24="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q24:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCode" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistLobbyCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistLobbyCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistUsernameInLobby_InputMessage">
+    <wsdl:part name="parameters" element="tns:ExistUsernameInLobby" />
+  </wsdl:message>
+  <wsdl:message name="ILobbyExistenceChecker_ExistUsernameInLobby_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ExistUsernameInLobbyResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetGlobalScores" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetGlobalScoresResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q25="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q25:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_UpdateWins_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWins" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_UpdateWins_OutputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateWinsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IScoreboardManager_UpdateWins_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q26="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q26:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_SubscribeToGlobalScoreRealTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:SubscribeToGlobalScoreRealTime" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_UnsubscribeToGlobalScoreRealTime_InputMessage">
+    <wsdl:part name="parameters" element="tns:UnsubscribeToGlobalScoreRealTime" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_UpdateGlobalScore_InputMessage">
+    <wsdl:part name="parameters" element="tns:UpdateGlobalScore" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_NotifyGlobalScoreboardUpdated_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyGlobalScoreboardUpdated" />
+  </wsdl:message>
+  <wsdl:message name="IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyGlobalScoreboardUpdatedResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetColors_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetColors" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetColors_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetColorsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetColors_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q27="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q27:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetStyles_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetStyles" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetStyles_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetStylesResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_GetStyles_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q28="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q28:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColor" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyColorResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyColor_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q29="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q29:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_InputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyle" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_OutputMessage">
+    <wsdl:part name="parameters" element="tns:BuyStyleResponse" />
+  </wsdl:message>
+  <wsdl:message name="IShopManager_BuyStyle_TimbiricheServerExceptionsFault_FaultMessage">
+    <wsdl:part xmlns:q30="http://schemas.datacontract.org/2004/07/TimbiricheService.Exceptions" name="detail" element="q30:TimbiricheServerExceptions" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotRematch_InputMessage">
+    <wsdl:part name="parameters" element="tns:NotRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_Rematch_InputMessage">
+    <wsdl:part name="parameters" element="tns:Rematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyRematch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyRematch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyRematchResponse" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyHostOfRematch_OutputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostOfRematch" />
+  </wsdl:message>
+  <wsdl:message name="IRematchManager_NotifyHostOfRematch_InputCallbackMessage">
+    <wsdl:part name="parameters" element="tns:NotifyHostOfRematchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IUserManager">
+    <wsdl:operation name="AddUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/AddUser" message="tns:IUserManager_AddUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/AddUserResponse" message="tns:IUserManager_AddUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/AddUserTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_AddUser_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateLoginCredentials">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentials" message="tns:IUserManager_ValidateLoginCredentials_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsResponse" message="tns:IUserManager_ValidateLoginCredentials_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateLoginCredentialsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateLoginCredentials_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByIdPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" message="tns:IUserManager_GetPlayerByIdPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerResponse" message="tns:IUserManager_GetPlayerByIdPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetPlayerByIdPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetPlayerByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateUniqueIdentifierUser">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" message="tns:IUserManager_ValidateUniqueIdentifierUser_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserResponse" message="tns:IUserManager_ValidateUniqueIdentifierUser_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUserTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateUniqueIdentifierUser_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/UpdateAccount" message="tns:IUserManager_UpdateAccount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountResponse" message="tns:IUserManager_UpdateAccount_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/UpdateAccountTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_UpdateAccount_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernameByIdPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayer" message="tns:IUserManager_GetUsernameByIdPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerResponse" message="tns:IUserManager_GetUsernameByIdPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetUsernameByIdPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetUsernameByIdPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateIsUserAlreadyOnline">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline" message="tns:IUserManager_ValidateIsUserAlreadyOnline_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineResponse" message="tns:IUserManager_ValidateIsUserAlreadyOnline_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnlineTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_ValidateIsUserAlreadyOnline_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetIdPlayerByUsername">
+      <wsdl:input wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsername" message="tns:IUserManager_GetIdPlayerByUsername_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameResponse" message="tns:IUserManager_GetIdPlayerByUsername_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IUserManager/GetIdPlayerByUsernameTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IUserManager_GetIdPlayerByUsername_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IOnlineUsersManager">
+    <wsdl:operation name="RegisterUserToOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers" message="tns:IOnlineUsersManager_RegisterUserToOnlineUsers_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterUserToOnlineUsers">
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/UnregisterUserToOnlineUsers" message="tns:IOnlineUsersManager_UnregisterUserToOnlineUsers_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyUserLoggedIn">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedIn" message="tns:IOnlineUsersManager_NotifyUserLoggedIn_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedInResponse" message="tns:IOnlineUsersManager_NotifyUserLoggedIn_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyUserLoggedOut">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOut" message="tns:IOnlineUsersManager_NotifyUserLoggedOut_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOutResponse" message="tns:IOnlineUsersManager_NotifyUserLoggedOut_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlineFriends">
+      <wsdl:output wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriends" message="tns:IOnlineUsersManager_NotifyOnlineFriends_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriendsResponse" message="tns:IOnlineUsersManager_NotifyOnlineFriends_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPasswordReset">
+    <wsdl:operation name="SendResetToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/SendResetToken" message="tns:IPasswordReset_SendResetToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenResponse" message="tns:IPasswordReset_SendResetToken_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/SendResetTokenTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_SendResetToken_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateResetToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetToken" message="tns:IPasswordReset_ValidateResetToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenResponse" message="tns:IPasswordReset_ValidateResetToken_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ValidateResetTokenTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_ValidateResetToken_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPasswordReset/ChangePassword" message="tns:IPasswordReset_ChangePassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPasswordReset/ChangePasswordResponse" message="tns:IPasswordReset_ChangePassword_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPasswordReset/ChangePasswordTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPasswordReset_ChangePassword_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ILobbyManager">
+    <wsdl:operation name="CreateLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/CreateLobby" message="tns:ILobbyManager_CreateLobby_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="StartMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/StartMatch" message="tns:ILobbyManager_StartMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobby" message="tns:ILobbyManager_JoinLobby_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyAsHost">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/JoinLobbyAsHost" message="tns:ILobbyManager_JoinLobbyAsHost_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobby" message="tns:ILobbyManager_ExitLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExitLobbyResponse" message="tns:ILobbyManager_ExitLobby_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" message="tns:ILobbyManager_ExpulsePlayerFromLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobbyResponse" message="tns:ILobbyManager_ExpulsePlayerFromLobby_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyCreated">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" message="tns:ILobbyManager_NotifyLobbyCreated_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyCreatedResponse" message="tns:ILobbyManager_NotifyLobbyCreated_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayersInLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby" message="tns:ILobbyManager_NotifyPlayersInLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayersInLobbyResponse" message="tns:ILobbyManager_NotifyPlayersInLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerJoinToLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby" message="tns:ILobbyManager_NotifyPlayerJoinToLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobbyResponse" message="tns:ILobbyManager_NotifyPlayerJoinToLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" message="tns:ILobbyManager_NotifyPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyPlayerLeftLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobbyResponse" message="tns:ILobbyManager_NotifyHostPlayerLeftLobby_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStartOfMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" message="tns:ILobbyManager_NotifyStartOfMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyStartOfMatchResponse" message="tns:ILobbyManager_NotifyStartOfMatch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyIsFull">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull" message="tns:ILobbyManager_NotifyLobbyIsFull_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyIsFullResponse" message="tns:ILobbyManager_NotifyLobbyIsFull_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyDoesNotExist">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExistResponse" message="tns:ILobbyManager_NotifyLobbyDoesNotExist_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" message="tns:ILobbyManager_NotifyExpulsedFromLobby_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobbyResponse" message="tns:ILobbyManager_NotifyExpulsedFromLobby_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IMatchManager">
+    <wsdl:operation name="RegisterToTheMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/RegisterToTheMatch" message="tns:IMatchManager_RegisterToTheMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndTurn">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurn" message="tns:IMatchManager_EndTurn_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndTurnWithoutMovement">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" message="tns:IMatchManager_EndTurnWithoutMovement_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/EndMatch" message="tns:IMatchManager_EndMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendMessageToLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/SendMessageToLobby" message="tns:IMatchManager_SendMessageToLobby_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/LeftMatch" message="tns:IMatchManager_LeftMatch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewTurn">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurn" message="tns:IMatchManager_NotifyNewTurn_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewTurnResponse" message="tns:IMatchManager_NotifyNewTurn_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyMovement">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovement" message="tns:IMatchManager_NotifyMovement_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyMovementResponse" message="tns:IMatchManager_NotifyMovement_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFirstTurn">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyFirstTurn" message="tns:IMatchManager_NotifyFirstTurn_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyFirstTurnResponse" message="tns:IMatchManager_NotifyFirstTurn_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewScoreboard">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboard" message="tns:IMatchManager_NotifyNewScoreboard_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewScoreboardResponse" message="tns:IMatchManager_NotifyNewScoreboard_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" message="tns:IMatchManager_NotifyEndOfTheMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyEndOfTheMatchResponse" message="tns:IMatchManager_NotifyEndOfTheMatch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewMessage">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessage" message="tns:IMatchManager_NotifyNewMessage_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyNewMessageResponse" message="tns:IMatchManager_NotifyNewMessage_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" message="tns:IMatchManager_NotifyPlayerLeftMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatchResponse" message="tns:IMatchManager_NotifyPlayerLeftMatch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatchResponse" message="tns:IMatchManager_NotifyOnlyPlayerInMatch_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IEmailVerificationManager">
+    <wsdl:operation name="SendEmailToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmailVerificationManager/SendEmailToken" message="tns:IEmailVerificationManager_SendEmailToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmailVerificationManager/SendEmailTokenResponse" message="tns:IEmailVerificationManager_SendEmailToken_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyEmailToken">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken" message="tns:IEmailVerificationManager_VerifyEmailToken_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmailVerificationManager/VerifyEmailTokenResponse" message="tns:IEmailVerificationManager_VerifyEmailToken_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerCustomizationManager">
+    <wsdl:operation name="GetMyColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColors" message="tns:IPlayerCustomizationManager_GetMyColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsResponse" message="tns:IPlayerCustomizationManager_GetMyColors_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetMyColors_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHexadecimalColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsResponse" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetHexadecimalColors_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor" message="tns:IPlayerCustomizationManager_SelectMyColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorResponse" message="tns:IPlayerCustomizationManager_SelectMyColor_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyColorTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_SelectMyColor_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CheckColorForPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerResponse" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayerTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_CheckColorForPlayer_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMyStyles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" message="tns:IPlayerCustomizationManager_GetMyStyles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesResponse" message="tns:IPlayerCustomizationManager_GetMyStyles_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetMyStylesTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetMyStyles_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStylePath">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePath" message="tns:IPlayerCustomizationManager_GetStylePath_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathResponse" message="tns:IPlayerCustomizationManager_GetStylePath_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/GetStylePathTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_GetStylePath_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle" message="tns:IPlayerCustomizationManager_SelectMyStyle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleResponse" message="tns:IPlayerCustomizationManager_SelectMyStyle_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyleTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IPlayerCustomizationManager_SelectMyStyle_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerColorsManager">
+    <wsdl:operation name="SubscribeColorToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected" message="tns:IPlayerColorsManager_SubscribeColorToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected" message="tns:IPlayerColorsManager_RenewSubscriptionToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeColorToColorsSelected">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected" message="tns:IPlayerColorsManager_UnsubscribeColorToColorsSelected_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorSelected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected" message="tns:IPlayerColorsManager_NotifyColorSelected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorSelectedResponse" message="tns:IPlayerColorsManager_NotifyColorSelected_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorUnselected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected" message="tns:IPlayerColorsManager_NotifyColorUnselected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselectedResponse" message="tns:IPlayerColorsManager_NotifyColorUnselected_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOccupiedColors">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" message="tns:IPlayerColorsManager_NotifyOccupiedColors_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColorsResponse" message="tns:IPlayerColorsManager_NotifyOccupiedColors_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCanStartMatch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatch" message="tns:IPlayerColorsManager_NotifyCanStartMatch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatchResponse" message="tns:IPlayerColorsManager_NotifyCanStartMatch_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IInvitationManager">
+    <wsdl:operation name="SendInvitationToEmail">
+      <wsdl:input wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmail" message="tns:IInvitationManager_SendInvitationToEmail_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IInvitationManager/SendInvitationToEmailResponse" message="tns:IInvitationManager_SendInvitationToEmail_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IPlayerStylesManager">
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" message="tns:IPlayerStylesManager_AddStyleCallbackToLobbiesList_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/ChooseStyle" message="tns:IPlayerStylesManager_ChooseStyle_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <wsdl:output wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" message="tns:IPlayerStylesManager_NotifyStyleSelected_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelectedResponse" message="tns:IPlayerStylesManager_NotifyStyleSelected_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IFriendshipManager">
+    <wsdl:operation name="GetListUsernameFriends">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriends" message="tns:IFriendshipManager_GetListUsernameFriends_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsResponse" message="tns:IFriendshipManager_GetListUsernameFriends_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetListUsernameFriendsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_GetListUsernameFriends_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateFriendRequestSending">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" message="tns:IFriendshipManager_ValidateFriendRequestSending_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingResponse" message="tns:IFriendshipManager_ValidateFriendRequestSending_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSendingTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_ValidateFriendRequestSending_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestFriendship">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendship" message="tns:IFriendshipManager_AddRequestFriendship_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipResponse" message="tns:IFriendshipManager_AddRequestFriendship_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/AddRequestFriendshipTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_AddRequestFriendship_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernamePlayersRequesters">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersResponse" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequestersTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IFriendshipManager_GetUsernamePlayersRequesters_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IFriendRequestManager">
+    <wsdl:operation name="AddToOnlineFriendshipDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary" message="tns:IFriendRequestManager_AddToOnlineFriendshipDictionary_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SendFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/SendFriendRequest" message="tns:IFriendRequestManager_SendFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest" message="tns:IFriendRequestManager_AcceptFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RejectFriendRequest">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/RejectFriendRequest" message="tns:IFriendRequestManager_RejectFriendRequest_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFriend">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/DeleteFriend" message="tns:IFriendRequestManager_DeleteFriend_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFromOnlineFriendshipDictionary">
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary" message="tns:IFriendRequestManager_RemoveFromOnlineFriendshipDictionary_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewFriendRequest">
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequest" message="tns:IFriendRequestManager_NotifyNewFriendRequest_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequestResponse" message="tns:IFriendRequestManager_NotifyNewFriendRequest_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccepted">
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAccepted" message="tns:IFriendRequestManager_NotifyFriendRequestAccepted_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAcceptedResponse" message="tns:IFriendRequestManager_NotifyFriendRequestAccepted_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDeletedFriend">
+      <wsdl:output wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyDeletedFriend" message="tns:IFriendRequestManager_NotifyDeletedFriend_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IFriendRequestManager/NotifyDeletedFriendResponse" message="tns:IFriendRequestManager_NotifyDeletedFriend_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IBanManager">
+    <wsdl:operation name="RegisterToBansNotifications">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/RegisterToBansNotifications" message="tns:IBanManager_RegisterToBansNotifications_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportMessage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/ReportMessage" message="tns:IBanManager_ReportMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ReportPlayer">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/ReportPlayer" message="tns:IBanManager_ReportPlayer_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyReportCompleted">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyReportCompleted" message="tns:IBanManager_NotifyReportCompleted_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyReportCompletedResponse" message="tns:IBanManager_NotifyReportCompleted_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerAlreadyReported">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" message="tns:IBanManager_NotifyPlayerAlreadyReported_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReportedResponse" message="tns:IBanManager_NotifyPlayerAlreadyReported_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerBanned">
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerBanned" message="tns:IBanManager_NotifyPlayerBanned_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanManager/NotifyPlayerBannedResponse" message="tns:IBanManager_NotifyPlayerBanned_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IBanVerifierManager">
+    <wsdl:operation name="VerifyBanEndDate">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate" message="tns:IBanVerifierManager_VerifyBanEndDate_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateResponse" message="tns:IBanVerifierManager_VerifyBanEndDate_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyBanEndDateTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IBanVerifierManager_VerifyBanEndDate_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="VerifyPlayerIsBanned">
+      <wsdl:input wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedResponse" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBannedTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IBanVerifierManager_VerifyPlayerIsBanned_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="ILobbyExistenceChecker">
+    <wsdl:operation name="ExistLobbyCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" message="tns:ILobbyExistenceChecker_ExistLobbyCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCodeResponse" message="tns:ILobbyExistenceChecker_ExistLobbyCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ExistUsernameInLobby">
+      <wsdl:input wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby" message="tns:ILobbyExistenceChecker_ExistUsernameInLobby_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobbyResponse" message="tns:ILobbyExistenceChecker_ExistUsernameInLobby_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IScoreboardManager">
+    <wsdl:operation name="GetGlobalScores">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScores" message="tns:IScoreboardManager_GetGlobalScores_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresResponse" message="tns:IScoreboardManager_GetGlobalScores_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/GetGlobalScoresTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IScoreboardManager_GetGlobalScores_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWins">
+      <wsdl:input wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWins" message="tns:IScoreboardManager_UpdateWins_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsResponse" message="tns:IScoreboardManager_UpdateWins_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IScoreboardManager/UpdateWinsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IScoreboardManager_UpdateWins_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IGlobalScoreManager">
+    <wsdl:operation name="SubscribeToGlobalScoreRealTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime" message="tns:IGlobalScoreManager_SubscribeToGlobalScoreRealTime_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeToGlobalScoreRealTime">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime" message="tns:IGlobalScoreManager_UnsubscribeToGlobalScoreRealTime_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGlobalScore">
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore" message="tns:IGlobalScoreManager_UpdateGlobalScore_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyGlobalScoreboardUpdated">
+      <wsdl:output wsaw:Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdated" message="tns:IGlobalScoreManager_NotifyGlobalScoreboardUpdated_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdatedResponse" message="tns:IGlobalScoreManager_NotifyGlobalScoreboardUpdated_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IShopManager">
+    <wsdl:operation name="GetColors">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetColors" message="tns:IShopManager_GetColors_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetColorsResponse" message="tns:IShopManager_GetColors_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetColorsTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_GetColors_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStyles">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/GetStyles" message="tns:IShopManager_GetStyles_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/GetStylesResponse" message="tns:IShopManager_GetStyles_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/GetStylesTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_GetStyles_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyColor" message="tns:IShopManager_BuyColor_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyColorResponse" message="tns:IShopManager_BuyColor_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyColorTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_BuyColor_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <wsdl:input wsaw:Action="http://tempuri.org/IShopManager/BuyStyle" message="tns:IShopManager_BuyStyle_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IShopManager/BuyStyleResponse" message="tns:IShopManager_BuyStyle_OutputMessage" />
+      <wsdl:fault wsaw:Action="http://tempuri.org/IShopManager/BuyStyleTimbiricheServerExceptionsFault" name="TimbiricheServerExceptionsFault" message="tns:IShopManager_BuyStyle_TimbiricheServerExceptionsFault_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="IRematchManager">
+    <wsdl:operation name="NotRematch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotRematch" message="tns:IRematchManager_NotRematch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="Rematch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/Rematch" message="tns:IRematchManager_Rematch_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyRematch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRematchManager/NotifyRematch" message="tns:IRematchManager_NotifyRematch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotifyRematchResponse" message="tns:IRematchManager_NotifyRematch_InputCallbackMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostOfRematch">
+      <wsdl:output wsaw:Action="http://tempuri.org/IRematchManager/NotifyHostOfRematch" message="tns:IRematchManager_NotifyHostOfRematch_OutputCallbackMessage" />
+      <wsdl:input wsaw:Action="http://tempuri.org/IRematchManager/NotifyHostOfRematchResponse" message="tns:IRematchManager_NotifyHostOfRematch_InputCallbackMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="NetTcpBinding_IUserManager" type="tns:IUserManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IUserManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddUser">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/AddUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateLoginCredentials">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateLoginCredentials" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetPlayerByIdPlayer">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/GetPlayerByIdPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateUniqueIdentifierUser">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateUniqueIdentifierUser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateAccount">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/UpdateAccount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernameByIdPlayer">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/GetUsernameByIdPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateIsUserAlreadyOnline">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/ValidateIsUserAlreadyOnline" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetIdPlayerByUsername">
+      <soap12:operation soapAction="http://tempuri.org/IUserManager/GetIdPlayerByUsername" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IOnlineUsersManager" type="tns:IOnlineUsersManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IOnlineUsersManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="RegisterUserToOnlineUsers">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/RegisterUserToOnlineUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnregisterUserToOnlineUsers">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/UnregisterUserToOnlineUsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyUserLoggedIn">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedIn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyUserLoggedOut">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyUserLoggedOut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlineFriends">
+      <soap12:operation soapAction="http://tempuri.org/IOnlineUsersManager/NotifyOnlineFriends" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPasswordReset" type="tns:IPasswordReset">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPasswordReset_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendResetToken">
+      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/SendResetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateResetToken">
+      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/ValidateResetToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ChangePassword">
+      <soap12:operation soapAction="http://tempuri.org/IPasswordReset/ChangePassword" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILobbyManager" type="tns:ILobbyManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILobbyManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="CreateLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/CreateLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="StartMatch">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/StartMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/JoinLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="JoinLobbyAsHost">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/JoinLobbyAsHost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ExitLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExitLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExpulsePlayerFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/ExpulsePlayerFromLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyCreated">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyCreated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayersInLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayersInLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerJoinToLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerJoinToLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyPlayerLeftLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostPlayerLeftLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyHostPlayerLeftLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStartOfMatch">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyStartOfMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyIsFull">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyIsFull" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyLobbyDoesNotExist">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyLobbyDoesNotExist" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyExpulsedFromLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyManager/NotifyExpulsedFromLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IMatchManager" type="tns:IMatchManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IMatchManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="RegisterToTheMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/RegisterToTheMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="EndTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="EndTurnWithoutMovement">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndTurnWithoutMovement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="EndMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/EndMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SendMessageToLobby">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/SendMessageToLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="LeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/LeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyMovement">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyMovement" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFirstTurn">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyFirstTurn" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewScoreboard">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewScoreboard" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEndOfTheMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyEndOfTheMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewMessage">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyNewMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerLeftMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyPlayerLeftMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOnlyPlayerInMatch">
+      <soap12:operation soapAction="http://tempuri.org/IMatchManager/NotifyOnlyPlayerInMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IEmailVerificationManager" type="tns:IEmailVerificationManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IEmailVerificationManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendEmailToken">
+      <soap12:operation soapAction="http://tempuri.org/IEmailVerificationManager/SendEmailToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyEmailToken">
+      <soap12:operation soapAction="http://tempuri.org/IEmailVerificationManager/VerifyEmailToken" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerCustomizationManager" type="tns:IPlayerCustomizationManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerCustomizationManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetMyColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetHexadecimalColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetHexadecimalColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyColor">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CheckColorForPlayer">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/CheckColorForPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetMyStyles">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetMyStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetStylePath">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/GetStylePath" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="SelectMyStyle">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerCustomizationManager/SelectMyStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerColorsManager" type="tns:IPlayerColorsManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerColorsManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SubscribeColorToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/SubscribeColorToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RenewSubscriptionToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/RenewSubscriptionToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeColorToColorsSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/UnsubscribeColorToColorsSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyColorSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyColorUnselected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyColorUnselected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyOccupiedColors">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyOccupiedColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyCanStartMatch">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerColorsManager/NotifyCanStartMatch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IInvitationManager" type="tns:IInvitationManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IInvitationManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SendInvitationToEmail">
+      <soap12:operation soapAction="http://tempuri.org/IInvitationManager/SendInvitationToEmail" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IPlayerStylesManager" type="tns:IPlayerStylesManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IPlayerStylesManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddStyleCallbackToLobbiesList">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/AddStyleCallbackToLobbiesList" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ChooseStyle">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/ChooseStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyStyleSelected">
+      <soap12:operation soapAction="http://tempuri.org/IPlayerStylesManager/NotifyStyleSelected" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IFriendshipManager" type="tns:IFriendshipManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IFriendshipManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetListUsernameFriends">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/GetListUsernameFriends" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateFriendRequestSending">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/ValidateFriendRequestSending" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="AddRequestFriendship">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/AddRequestFriendship" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetUsernamePlayersRequesters">
+      <soap12:operation soapAction="http://tempuri.org/IFriendshipManager/GetUsernamePlayersRequesters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IFriendRequestManager" type="tns:IFriendRequestManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IFriendRequestManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="AddToOnlineFriendshipDictionary">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/AddToOnlineFriendshipDictionary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="SendFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/SendFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="AcceptFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/AcceptFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RejectFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/RejectFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFriend">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/DeleteFriend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="RemoveFromOnlineFriendshipDictionary">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/RemoveFromOnlineFriendshipDictionary" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyNewFriendRequest">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/NotifyNewFriendRequest" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyFriendRequestAccepted">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/NotifyFriendRequestAccepted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyDeletedFriend">
+      <soap12:operation soapAction="http://tempuri.org/IFriendRequestManager/NotifyDeletedFriend" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IBanManager" type="tns:IBanManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IBanManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="RegisterToBansNotifications">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/RegisterToBansNotifications" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ReportMessage">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/ReportMessage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="ReportPlayer">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/ReportPlayer" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyReportCompleted">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyReportCompleted" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerAlreadyReported">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyPlayerAlreadyReported" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyPlayerBanned">
+      <soap12:operation soapAction="http://tempuri.org/IBanManager/NotifyPlayerBanned" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IBanVerifierManager" type="tns:IBanVerifierManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IBanVerifierManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="VerifyBanEndDate">
+      <soap12:operation soapAction="http://tempuri.org/IBanVerifierManager/VerifyBanEndDate" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="VerifyPlayerIsBanned">
+      <soap12:operation soapAction="http://tempuri.org/IBanVerifierManager/VerifyPlayerIsBanned" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_ILobbyExistenceChecker" type="tns:ILobbyExistenceChecker">
+    <wsp:PolicyReference URI="#NetTcpBinding_ILobbyExistenceChecker_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="ExistLobbyCode">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistLobbyCode" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ExistUsernameInLobby">
+      <soap12:operation soapAction="http://tempuri.org/ILobbyExistenceChecker/ExistUsernameInLobby" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IScoreboardManager" type="tns:IScoreboardManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IScoreboardManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetGlobalScores">
+      <soap12:operation soapAction="http://tempuri.org/IScoreboardManager/GetGlobalScores" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateWins">
+      <soap12:operation soapAction="http://tempuri.org/IScoreboardManager/UpdateWins" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IGlobalScoreManager" type="tns:IGlobalScoreManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IGlobalScoreManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="SubscribeToGlobalScoreRealTime">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/SubscribeToGlobalScoreRealTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UnsubscribeToGlobalScoreRealTime">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/UnsubscribeToGlobalScoreRealTime" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateGlobalScore">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/UpdateGlobalScore" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyGlobalScoreboardUpdated">
+      <soap12:operation soapAction="http://tempuri.org/IGlobalScoreManager/NotifyGlobalScoreboardUpdated" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IShopManager" type="tns:IShopManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IShopManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="GetColors">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/GetColors" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="GetStyles">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/GetStyles" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="BuyColor">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyColor" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="BuyStyle">
+      <soap12:operation soapAction="http://tempuri.org/IShopManager/BuyStyle" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="TimbiricheServerExceptionsFault">
+        <soap12:fault use="literal" name="TimbiricheServerExceptionsFault" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="NetTcpBinding_IRematchManager" type="tns:IRematchManager">
+    <wsp:PolicyReference URI="#NetTcpBinding_IRematchManager_policy" />
+    <soap12:binding transport="http://schemas.microsoft.com/soap/tcp" />
+    <wsdl:operation name="NotRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="Rematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/Rematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotifyRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyHostOfRematch">
+      <soap12:operation soapAction="http://tempuri.org/IRematchManager/NotifyHostOfRematch" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="UserManagerService">
+    <wsdl:port name="NetTcpBinding_IUserManager" binding="tns:NetTcpBinding_IUserManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IOnlineUsersManager" binding="tns:NetTcpBinding_IOnlineUsersManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPasswordReset" binding="tns:NetTcpBinding_IPasswordReset">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_ILobbyManager" binding="tns:NetTcpBinding_ILobbyManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IMatchManager" binding="tns:NetTcpBinding_IMatchManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IEmailVerificationManager" binding="tns:NetTcpBinding_IEmailVerificationManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerCustomizationManager" binding="tns:NetTcpBinding_IPlayerCustomizationManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerColorsManager" binding="tns:NetTcpBinding_IPlayerColorsManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IInvitationManager" binding="tns:NetTcpBinding_IInvitationManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IPlayerStylesManager" binding="tns:NetTcpBinding_IPlayerStylesManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IFriendshipManager" binding="tns:NetTcpBinding_IFriendshipManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IFriendRequestManager" binding="tns:NetTcpBinding_IFriendRequestManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IBanManager" binding="tns:NetTcpBinding_IBanManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IBanVerifierManager" binding="tns:NetTcpBinding_IBanVerifierManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_ILobbyExistenceChecker" binding="tns:NetTcpBinding_ILobbyExistenceChecker">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IScoreboardManager" binding="tns:NetTcpBinding_IScoreboardManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IGlobalScoreManager" binding="tns:NetTcpBinding_IGlobalScoreManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IShopManager" binding="tns:NetTcpBinding_IShopManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+    <wsdl:port name="NetTcpBinding_IRematchManager" binding="tns:NetTcpBinding_IRematchManager">
+      <soap12:address location="net.tcp://localhost:8081/UserManagerService" />
+      <wsa10:EndpointReference>
+        <wsa10:Address>net.tcp://localhost:8081/UserManagerService</wsa10:Address>
+      </wsa10:EndpointReference>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

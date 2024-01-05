@@ -16,7 +16,7 @@ namespace TimbiricheDataAccess
     public partial class TimbiricheDBEntities : DbContext
     {
         public TimbiricheDBEntities()
-            : base("name=TimbiricheDBEntities")
+            :base(Environment.GetEnvironmentVariable("CONNECTION_STRING"))
         {
         }
     
@@ -27,5 +27,14 @@ namespace TimbiricheDataAccess
     
         public virtual DbSet<Accounts> Accounts { get; set; }
         public virtual DbSet<Players> Players { get; set; }
+        public virtual DbSet<Colors> Colors { get; set; }
+        public virtual DbSet<PasswordResetTokens> PasswordResetTokens { get; set; }
+        public virtual DbSet<PlayerColors> PlayerColors { get; set; }
+        public virtual DbSet<PlayerStyles> PlayerStyles { get; set; }
+        public virtual DbSet<Styles> Styles { get; set; }
+        public virtual DbSet<FriendShips> FriendShips { get; set; }
+        public virtual DbSet<Bans> Bans { get; set; }
+        public virtual DbSet<Reports> Reports { get; set; }
+        public virtual DbSet<GlobalScores> GlobalScores { get; set; }
     }
 }

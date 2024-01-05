@@ -1,0 +1,161 @@
+﻿<Page x:Class="TimbiricheViews.Views.XAMLMyProfile"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TimbiricheViews.Views"
+      xmlns:p="clr-namespace:TimbiricheViews.Properties"
+      mc:Ignorable="d" 
+      d:DesignHeight="770" d:DesignWidth="1200" Background="#005EE8"
+      Title="XAMLMyProfile">
+
+    <Page.Resources>
+        <Style TargetType="{x:Type TextBox}">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+        <Style TargetType="{x:Type Button}" >
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="25" />
+                </Style>
+            </Style.Resources>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="ErrorTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="{x:Type TextBox}" x:Key="NormalTextBoxStyle">
+            <Style.Resources>
+                <Style TargetType="{x:Type Border}">
+                    <Setter Property="CornerRadius" Value="5" />
+                </Style>
+            </Style.Resources>
+            <Setter Property="Background" Value="#FFFFFF"/>
+            <Setter Property="FontFamily" Value="Inter"/>
+            <Setter Property="Width" Value="298"/>
+            <Setter Property="Height" Value="32"/>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="ErrorPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+        </Style>
+
+        <Style TargetType="{x:Type PasswordBox}" x:Key="NormalPasswordBoxStyle">
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
+        <Style TargetType="{x:Type DatePicker}" x:Key="ErrorDatePickerStyle">
+            <Setter Property="BorderBrush" Value="Red"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFE57E7E"/>
+
+        </Style>
+
+        <Style TargetType="{x:Type DatePicker}" x:Key="NormalDatePickerStyle">
+            <Setter Property="BorderBrush" Value="#FFFFFF"/>
+            <Setter Property="BorderThickness" Value="2"/>
+            <Setter Property="Background" Value="#FFFFFF"/>
+        </Style>
+
+    </Page.Resources>
+
+    <Viewbox Stretch="Fill">
+        <Grid Height="770" Width="1200">
+
+            <Grid x:Name="gridCustomizeCharacter" Visibility="Visible">
+
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Resources/backgroundCustomizeCharacter.png"/>
+                </Grid.Background>
+
+                <TextBlock x:Name = "tbkCustomizeCharacter" Text="{x:Static p:Resources.lbCustomizeCharacter}" TextWrapping="Wrap" Foreground="White" FontSize="62"  FontWeight="Bold"  FontFamily="Titan One" HorizontalAlignment="Left" Margin="729,96,0,494" Width="501" />
+
+                <Grid x:Name="gridSylesInstructions">
+                    <Label x:Name="lbCustomYourCharacter" Content="{x:Static p:Resources.lbCustomYourCharacter}" HorizontalAlignment="Left" Margin="71,167,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+                    <Label x:Name="lbStyles" Content="{x:Static p:Resources.lbStyles}" HorizontalAlignment="Left" Margin="77,196,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26"/>
+                    <Label x:Name="lbStylesInstruction" Content="{x:Static p:Resources.lbStylesInstrucion}" HorizontalAlignment="Left" Margin="77,230,0,0" VerticalAlignment="Top" Foreground="White" FontFamily="Inter" FontSize="14"/>
+
+                    <ScrollViewer Margin="79,258,54,100" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <WrapPanel x:Name="wrapPanelPlayerStyles">
+                            <Grid x:Name="gridPlayerStyleTemplate" Width="160" Margin="15,10,0,0" Visibility="Collapsed" Cursor="Hand">
+                                <Rectangle x:Name="rectanglePlayerStyleBackgroundTemplate"  Fill="#FF6C6868" Margin="0,0,0,0"  RadiusX="20" RadiusY="20" Width="150" Height="150" Visibility="Collapsed" Cursor="Hand" IsEnabled="False"/>
+                                <Label x:Name="lbPlayerStyleTemplate" Foreground="White" FontSize="105" HorizontalContentAlignment="Center" Visibility="Collapsed">
+                                </Label>
+                            </Grid>
+
+                        </WrapPanel>
+                    </ScrollViewer>
+                </Grid>
+
+            </Grid>
+
+            <Grid x:Name="gridCustomizeProfile" Visibility="Collapsed">
+
+                <Grid.Background>
+                    <ImageBrush ImageSource="/Resources/backgroundFormUser.png"/>
+                </Grid.Background>
+
+                <TextBlock x:Name = "tbkCustomizeProfile" Text="{x:Static p:Resources.lbCustomizeProfile}" TextWrapping="Wrap" Foreground="White" FontSize="62"  FontWeight="Bold"  FontFamily="Titan One" HorizontalAlignment="Left" Margin="18,96,0,494" Width="501" />
+
+                <Grid x:Name="gridForm">
+                    <Image   Source="/Resources/videogameControls.png" Margin="40,210,732,174"/>
+                    <Label   x:Name = "lbPersonalInformation" Content="{x:Static p:Resources.lbPersonalInformation}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontWeight="Bold" RenderTransformOrigin="0.757,0.98" FontFamily="Inter" FontSize="16" Margin="491,131,0,0"/>
+                    <Label   x:Name = "lbName" Content="{x:Static p:Resources.lbName}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="503,160,0,0" />
+                    <TextBox   x:Name = "tbxName" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="508,200,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
+                    <Label   x:Name = "lbLastName" Content="{x:Static p:Resources.lbLastName}" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="508,259,0,0"  />
+                    <TextBox   x:Name = "tbxLastName" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32" Margin="508,299,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
+                    <Label   x:Name ="lbSurname" Content="{x:Static p:Resources.lbSurname}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="856,259,0,0"/>
+                    <TextBox   x:Name="tbxSurname" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top"  BorderBrush="{x:Null}" FontFamily="Inter" Width="298" Height="32"  Margin="856,299,0,0" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22"/>
+                    <Label   x:Name = "lbBirthdate" Content="{x:Static p:Resources.lbBirthdate}" HorizontalAlignment="Left"  VerticalAlignment="Top" Foreground="White" FontFamily="Titan One" FontSize="26" Margin="508,351,0,0" />
+                    <DatePicker   x:Name ="dpBirthdate" BorderBrush="{x:Null}" FontFamily="Inter" HorizontalAlignment="Left" Width="298" Height="32"  Margin="508,393,0,345" FontWeight="Bold" VerticalContentAlignment="Center" FontSize="22" Loaded="DpBirthdate_Loaded"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="620,156,0,0" VerticalAlignment="Top" Foreground="White" Height="24" RenderTransformOrigin="0.426,0.32" Width="22" FontSize="20" FontFamily="Inter"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="739,255,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
+                    <Label Content="*" HorizontalAlignment="Left" Margin="803,346,0,0" VerticalAlignment="Top" Foreground="White" Height="25" RenderTransformOrigin="0.426,0.32" Width="19" FontSize="20" FontFamily="Inter"/>
+                    <Label x:Name="lbInstructionsRequiredFields"  Content="{x:Static p:Resources.lbInstructionsRequiredFields}" HorizontalAlignment="Right" Margin="0,728,28,0" VerticalAlignment="Top" Foreground="White" Height="32" RenderTransformOrigin="0.426,0.32" Width="458" FontSize="15" HorizontalContentAlignment="Right"/>
+                    <Image x:Name="ImgNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="642,162,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
+                        <Image.ToolTip>
+                            <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
+                        </Image.ToolTip>
+                    </Image>
+                    <Image x:Name="ImgLastNameErrorDetails" HorizontalAlignment="Left" Height="14" Margin="760,261,0,0" VerticalAlignment="Top" Width="15" Source="/Resources/askIcon.png" Visibility="Hidden" Cursor="Help">
+                        <Image.ToolTip>
+                            <ToolTip Content="{x:Static p:Resources.lbHelpPersonalInformationError}" ToolTipService.ShowDuration="2000"/>
+                        </Image.ToolTip>
+                    </Image>
+
+                    <Button  x:Name="btnSaveChanges" Content="{x:Static p:Resources.btnSaveChanges}" VerticalAlignment="Top" Background="#FF7F92F6" FontFamily="Titan One" Foreground="White" BorderBrush="{x:Null}" FontSize="29.5" BorderThickness="0,1,1,1" Height="59" Margin="904,664,28,0" Click="BtnSaveChanges_Click" Cursor="Hand"/>
+                </Grid>
+
+            </Grid>
+
+
+
+            <Label x:Name="lbUsername" Content="" HorizontalAlignment="Right" Margin="0,46,10,0" VerticalAlignment="Top" Foreground="White" Width="223" HorizontalContentAlignment="Right" FontFamily="Inter"/>
+            <Button x:Name="btnCharacter" Content="{x:Static p:Resources.btnCharacter}" FontFamily="Titan One" Foreground="White" Background="#0F78C4" 
+                BorderBrush="Transparent" FontSize="20" Margin="248,38,612,689" Cursor="Hand" Click="BtnCharacter_Click"/>
+            <Button x:Name="btnProfile" Content="{x:Static p:Resources.btnProfile}" FontFamily="Titan One" Foreground="White" Background="#1C95D1" 
+                BorderBrush="Transparent" FontSize="20" Margin="630,38,233,689" Cursor="Hand" Click="BtnProfile_Click" />
+            <Image x:Name="ImgBack" HorizontalAlignment="Left" Height="35" Margin="30,14,0,0" VerticalAlignment="Top" Width="44" Source="/Resources/back.png" Cursor="Hand" MouseLeftButtonDown="ImgBack_Click"/>
+
+        </Grid>
+    </Viewbox>
+
+</Page>

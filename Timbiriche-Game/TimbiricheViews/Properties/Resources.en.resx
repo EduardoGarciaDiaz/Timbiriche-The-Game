@@ -117,32 +117,278 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="btnChangeLanguage" xml:space="preserve">
-    <value>Change language</value>
+  <data name="btnAccept" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="btnCancelPurchase" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="btnCharacter" xml:space="preserve">
+    <value>Character</value>
+  </data>
+  <data name="btnConfirm" xml:space="preserve">
+    <value>Confirm</value>
   </data>
   <data name="btnCreateAccount" xml:space="preserve">
     <value>Create account</value>
   </data>
+  <data name="btnCreateAccountComplete" xml:space="preserve">
+    <value>Create account</value>
+  </data>
+  <data name="btnCreateMatch" xml:space="preserve">
+    <value>Create match</value>
+  </data>
+  <data name="btnDeleteFriend" xml:space="preserve">
+    <value>Delete friend</value>
+  </data>
+  <data name="btnExit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="btnFriendRequests" xml:space="preserve">
+    <value>Requests</value>
+  </data>
+  <data name="btnInvite" xml:space="preserve">
+    <value>Invite</value>
+  </data>
+  <data name="btnInviteByEmail" xml:space="preserve">
+    <value>Invite by email</value>
+  </data>
+  <data name="btnJoin" xml:space="preserve">
+    <value>Join</value>
+  </data>
+  <data name="btnJoinCode" xml:space="preserve">
+    <value>Join with code</value>
+  </data>
+  <data name="btnKickPlayer" xml:space="preserve">
+    <value>Kick player</value>
+  </data>
+  <data name="btnLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
+  <data name="btnLobby" xml:space="preserve">
+    <value>Lobby</value>
+  </data>
   <data name="btnLogin" xml:space="preserve">
-    <value>Log in</value>
+    <value>Log In</value>
+  </data>
+  <data name="btnPlayAgain" xml:space="preserve">
+    <value>Play again</value>
+  </data>
+  <data name="btnProfile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="btnReadyToJoin" xml:space="preserve">
+    <value>Ready</value>
+  </data>
+  <data name="btnReportMessage" xml:space="preserve">
+    <value>Report message</value>
+  </data>
+  <data name="btnReportPlayer" xml:space="preserve">
+    <value>Report player</value>
+  </data>
+  <data name="btnResetPasswordVerifyCode" xml:space="preserve">
+    <value>Verificar</value>
+  </data>
+  <data name="btnSaveChanges" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="btnSendFriendRequest" xml:space="preserve">
+    <value>Add friend</value>
+  </data>
+  <data name="btnSendFriendRequestByUsername" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="btnSendInvitation" xml:space="preserve">
+    <value>Send invitation</value>
+  </data>
+  <data name="btnSendResetPassword" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="btnShop" xml:space="preserve">
+    <value>Shop</value>
+  </data>
+  <data name="btnSignOff" xml:space="preserve">
+    <value>Sign Off</value>
+  </data>
+  <data name="btnStartMatch" xml:space="preserve">
+    <value>Start</value>
   </data>
   <data name="lbAccessData" xml:space="preserve">
-    <value>Access data</value>
+    <value>Acesss Data</value>
+  </data>
+  <data name="lbAccountModifiedTitle" xml:space="preserve">
+    <value>modified account</value>
+  </data>
+  <data name="lbAceptFriendRequest" xml:space="preserve">
+    <value>Accept</value>
+  </data>
+  <data name="lbAnyCode" xml:space="preserve">
+    <value>Do you have any code?</value>
+  </data>
+  <data name="lbBannedAdvise" xml:space="preserve">
+    <value>You have been banned. Remember to respect other players.</value>
+  </data>
+  <data name="lbBannedPlayerTitle" xml:space="preserve">
+    <value>You have been banned</value>
   </data>
   <data name="lbBirthdate" xml:space="preserve">
     <value>Birthdate</value>
   </data>
+  <data name="lbBuyItemConfirmationQuestion" xml:space="preserve">
+    <value>Are you sure you want to buy the item?</value>
+  </data>
+  <data name="lbBuytItem" xml:space="preserve">
+    <value>Buy Item</value>
+  </data>
+  <data name="lbCantExpulsePlayerTitle" xml:space="preserve">
+    <value>We sorry</value>
+  </data>
+  <data name="lbCantSentFriendRequestYourself" xml:space="preserve">
+    <value>You cannot send a friend request to yourself</value>
+  </data>
+  <data name="lbChat" xml:space="preserve">
+    <value>Chat</value>
+  </data>
+  <data name="lbCodeMatch" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="lbCodeNotFound" xml:space="preserve">
+    <value>Invalid code</value>
+  </data>
+  <data name="lbCoins" xml:space="preserve">
+    <value>Coins</value>
+  </data>
+  <data name="lbColors" xml:space="preserve">
+    <value>Colors</value>
+  </data>
+  <data name="lbColorsInstruction" xml:space="preserve">
+    <value>This color will only be for the initial lobby, during the match you must select another</value>
+  </data>
+  <data name="lbConnectionFailed" xml:space="preserve">
+    <value>Connection Failed</value>
+  </data>
   <data name="lbCreateAccount" xml:space="preserve">
-    <value>CreateAccount</value>
+    <value>Create account</value>
+  </data>
+  <data name="lbCustomizeCharacter" xml:space="preserve">
+    <value>Customize character</value>
+  </data>
+  <data name="lbCustomizeProfile" xml:space="preserve">
+    <value>Customiza profile</value>
+  </data>
+  <data name="lbCustomYourCharacter" xml:space="preserve">
+    <value>¡Customize your character!</value>
+  </data>
+  <data name="lbDataBaseErrorTitle" xml:space="preserve">
+    <value>Database error</value>
+  </data>
+  <data name="lbDataBaseExceptionTitle" xml:space="preserve">
+    <value>Database error</value>
   </data>
   <data name="lbEmail" xml:space="preserve">
     <value>Email</value>
   </data>
+  <data name="lbEmailError" xml:space="preserve">
+    <value>Enter a valid email</value>
+  </data>
+  <data name="lbEmptyCode" xml:space="preserve">
+    <value>You need to enter a code to join a match</value>
+  </data>
+  <data name="lbEndBan" xml:space="preserve">
+    <value>The ban is over. Remember to behave well.</value>
+  </data>
+  <data name="lbEnterEmail" xml:space="preserve">
+    <value>Enter your friend's email</value>
+  </data>
+  <data name="lbErrorPasswordResetTitle" xml:space="preserve">
+    <value>Error changing password</value>
+  </data>
+  <data name="lbErrorPurchaseTitle" xml:space="preserve">
+    <value>Error when making purchase</value>
+  </data>
+  <data name="lbExistentEmail" xml:space="preserve">
+    <value>This email is already in use. Try another one</value>
+  </data>
+  <data name="lbExistentSessionTitle" xml:space="preserve">
+    <value>There is a session started</value>
+  </data>
+  <data name="lbExistentUsername" xml:space="preserve">
+    <value>This username is already in use. Try another one</value>
+  </data>
+  <data name="lbExpulsedTilte" xml:space="preserve">
+    <value>You've been kicked</value>
+  </data>
   <data name="lbForgottenPassword" xml:space="preserve">
     <value>I forgot my password</value>
   </data>
+  <data name="lbFriendRequest" xml:space="preserve">
+    <value>Friend request</value>
+  </data>
+  <data name="lbFriendRequestSent" xml:space="preserve">
+    <value>The friend request was sent to</value>
+  </data>
+  <data name="lbFriends" xml:space="preserve">
+    <value>Friends</value>
+  </data>
+  <data name="lbHelpEmailError" xml:space="preserve">
+    <value>Maximum 100 characters, uppercase, lowercase, numbers, symbols. e.g. example@email.com</value>
+  </data>
+  <data name="lbHelpPasswordError" xml:space="preserve">
+    <value>Maximum 64 characters and characteristics defined on the left side</value>
+  </data>
+  <data name="lbHelpPersonalInformationError" xml:space="preserve">
+    <value>Maximum 50 characters, upper and lower case</value>
+  </data>
+  <data name="lbHelpUsernameError" xml:space="preserve">
+    <value>Maximum 50 characters, uppercase, lowercase, numbers and underscore</value>
+  </data>
+  <data name="lbHostLeftLobbyTitle" xml:space="preserve">
+    <value>Lobby removed</value>
+  </data>
+  <data name="lbIncorrectCredentials" xml:space="preserve">
+    <value>Incorrect username or password</value>
+  </data>
+  <data name="lbInstructionsRequiredFields" xml:space="preserve">
+    <value>*You must fill out all required fields to create an account</value>
+  </data>
+  <data name="lbInsufficientCoins" xml:space="preserve">
+    <value>Insufficient Coins</value>
+  </data>
+  <data name="lbInsufficientCoinsMessage" xml:space="preserve">
+    <value>You don't have the necessary coins</value>
+  </data>
+  <data name="lbInvitationInstruction" xml:space="preserve">
+    <value>Send this code to your friends</value>
+  </data>
+  <data name="lbInviteFriends" xml:space="preserve">
+    <value>Invite Frienda</value>
+  </data>
+  <data name="lbKeepPlayingMessage" xml:space="preserve">
+    <value>Keep playing to get more!</value>
+  </data>
+  <data name="lbLanguage" xml:space="preserve">
+    <value>English</value>
+  </data>
   <data name="lbLastName" xml:space="preserve">
-    <value>Last name</value>
+    <value>Last Name</value>
+  </data>
+  <data name="lbLobbyIsFullTitle" xml:space="preserve">
+    <value>Full lobby</value>
+  </data>
+  <data name="lbLobbyNotFound" xml:space="preserve">
+    <value>Lobby not found</value>
+  </data>
+  <data name="lbMatchSettings" xml:space="preserve">
+    <value>Match settings</value>
+  </data>
+  <data name="lbMatchSettingTimeInstruction" xml:space="preserve">
+    <value>Select the duration of the match</value>
+  </data>
+  <data name="lbModifyAccountFailTitle" xml:space="preserve">
+    <value>Error modifying</value>
+  </data>
+  <data name="lbMyProfile" xml:space="preserve">
+    <value>My Profile</value>
   </data>
   <data name="lbName" xml:space="preserve">
     <value>Name</value>
@@ -150,16 +396,255 @@
   <data name="lbPassword" xml:space="preserve">
     <value>Password</value>
   </data>
+  <data name="lbPasswordCapitalLetterInstruction" xml:space="preserve">
+    <value>At least 1 uppercase letter</value>
+  </data>
+  <data name="lbPasswordInstructions" xml:space="preserve">
+    <value>The password must have:</value>
+  </data>
+  <data name="lbPasswordLengthInstruction" xml:space="preserve">
+    <value>At least 12 characters</value>
+  </data>
+  <data name="lbPasswordLowerLetterInstruction" xml:space="preserve">
+    <value>At least 1 lowercase letter</value>
+  </data>
+  <data name="lbPasswordNumberInstruction" xml:space="preserve">
+    <value>At least 1 number</value>
+  </data>
+  <data name="lbPasswordResetedTitle" xml:space="preserve">
+    <value>Password Changed</value>
+  </data>
+  <data name="lbPasswordSymbolInstruction" xml:space="preserve">
+    <value>At least 1 symbol</value>
+  </data>
   <data name="lbPersonalInformation" xml:space="preserve">
-    <value>Personal Information</value>
+    <value>Personal information</value>
+  </data>
+  <data name="lbPlayer" xml:space="preserve">
+    <value>Player</value>
+  </data>
+  <data name="lbPosition" xml:space="preserve">
+    <value>Position</value>
+  </data>
+  <data name="lbPurchaseCompleteTitle" xml:space="preserve">
+    <value>Purchase Completed</value>
+  </data>
+  <data name="lbRejectFriendRequest" xml:space="preserve">
+    <value>Decline</value>
+  </data>
+  <data name="lbReportedPlayerTitle" xml:space="preserve">
+    <value>Player already reported</value>
+  </data>
+  <data name="lbResetPasswordCodeInstruction" xml:space="preserve">
+    <value>Enter the code you received in the email you registered</value>
+  </data>
+  <data name="lbResetPasswordConfirmNewPassword" xml:space="preserve">
+    <value>Confirm your password</value>
+  </data>
+  <data name="lbResetPasswordInstruction" xml:space="preserve">
+    <value>Enter your email to reset your password</value>
+  </data>
+  <data name="lbResetPasswordNewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="lbScoreboard" xml:space="preserve">
+    <value>Scoreboard</value>
+  </data>
+  <data name="lbSelectColor" xml:space="preserve">
+    <value>Color of your Character</value>
+  </data>
+  <data name="lbSelectColorInstrucion" xml:space="preserve">
+    <value>Select your color:</value>
+  </data>
+  <data name="lbSendRequest" xml:space="preserve">
+    <value>Send request</value>
+  </data>
+  <data name="lbServerExceptionTitle" xml:space="preserve">
+    <value>Server error</value>
+  </data>
+  <data name="lbStyles" xml:space="preserve">
+    <value>Styles</value>
+  </data>
+  <data name="lbStylesInstrucion" xml:space="preserve">
+    <value>Choose the character with which you will play the matches</value>
+  </data>
+  <data name="lbSuccesfulReportTitle" xml:space="preserve">
+    <value>Successful report</value>
   </data>
   <data name="lbSurname" xml:space="preserve">
     <value>Surname</value>
   </data>
+  <data name="lbTemporaryUserNameInstruction" xml:space="preserve">
+    <value>Enter a username that you will appear with during the game</value>
+  </data>
+  <data name="lbTimeOutExceptionTitle" xml:space="preserve">
+    <value>Waiting time exceeded</value>
+  </data>
+  <data name="lbTitleAccountCreatedSuccess" xml:space="preserve">
+    <value>Account created successfully</value>
+  </data>
+  <data name="lbTitleCreateAccountFail" xml:space="preserve">
+    <value>Error creating account</value>
+  </data>
+  <data name="lbTurnOf" xml:space="preserve">
+    <value>Turn of</value>
+  </data>
+  <data name="lbUnexpectedExceptionTitle" xml:space="preserve">
+    <value>Unexpected error</value>
+  </data>
+  <data name="lbUniquePlayerTitle" xml:space="preserve">
+    <value>Single Player</value>
+  </data>
+  <data name="lbUnlimitedTime" xml:space="preserve">
+    <value>Unlimited</value>
+  </data>
+  <data name="lbUser" xml:space="preserve">
+    <value>User</value>
+  </data>
   <data name="lbUsername" xml:space="preserve">
     <value>Username</value>
   </data>
+  <data name="lbUserNotFound" xml:space="preserve">
+    <value>User not found</value>
+  </data>
   <data name="lbWelcome" xml:space="preserve">
     <value>¡Welcome to Timbiriche!</value>
+  </data>
+  <data name="lbWins" xml:space="preserve">
+    <value>Wins</value>
+  </data>
+  <data name="lbYouEarn" xml:space="preserve">
+    <value>You got</value>
+  </data>
+  <data name="lbYouEarnCoins" xml:space="preserve">
+    <value>coins!</value>
+  </data>
+  <data name="lbYouLost" xml:space="preserve">
+    <value>You lost</value>
+  </data>
+  <data name="lbYouWon" xml:space="preserve">
+    <value>You've won!</value>
+  </data>
+  <data name="String" xml:space="preserve">
+    <value>to be able to play with them</value>
+  </data>
+  <data name="tbkAccountModifiedDescription" xml:space="preserve">
+    <value>It has been modified successfully</value>
+  </data>
+  <data name="tbkBannedPlayerDescription" xml:space="preserve">
+    <value>You have accumulated the maximum number of reports allowed. Your account will be restricted for a set time.</value>
+  </data>
+  <data name="tbkCantExpulsePlayerDescription" xml:space="preserve">
+    <value>You cannot kick a guest player.</value>
+  </data>
+  <data name="tbkConnectionFailedDetails" xml:space="preserve">
+    <value>Could not connect to the server. Please try again later.</value>
+  </data>
+  <data name="tbkDataBaseErrorDescription" xml:space="preserve">
+    <value>An error related to the database has occurred. Please try again later.</value>
+  </data>
+  <data name="tbkDataBaseExceptionDescription" xml:space="preserve">
+    <value>Oops... An error occurred in the database. Please try again later</value>
+  </data>
+  <data name="tbkDescriptionAccountCreatedSuccess" xml:space="preserve">
+    <value>Your account has been created successfully. Now you can log in with your registered username and password</value>
+  </data>
+  <data name="tbkDescriptionCreateAccountFail" xml:space="preserve">
+    <value>The account could not be created. Please try again later.</value>
+  </data>
+  <data name="tbkErrorPasswordResetDescription" xml:space="preserve">
+    <value>There was an error changing the password. Please try again later.</value>
+  </data>
+  <data name="tbkErrorPurchaseColorDescription" xml:space="preserve">
+    <value>It was not possible to buy the color. Please try again later.</value>
+  </data>
+  <data name="tbkErrorPurchaseStyleDescription" xml:space="preserve">
+    <value>It was not possible to purchase the style. Please try again later.</value>
+  </data>
+  <data name="tbkExistentSessionDescription" xml:space="preserve">
+    <value>There is already a session logged in with that account, log out of the other device to be able to log in to this one</value>
+  </data>
+  <data name="tbkExpulsedDescription" xml:space="preserve">
+    <value>You have been kicked from the lobby</value>
+  </data>
+  <data name="tbkFriendRequestErrorDescription" xml:space="preserve">
+    <value>Failed to send friend request, please try again</value>
+  </data>
+  <data name="tbkHostLeftLobbyDescription" xml:space="preserve">
+    <value>The host left the lobby. You will return to the main menu.</value>
+  </data>
+  <data name="tbkLobbyIsFullDescription" xml:space="preserve">
+    <value>The lobby you are trying to enter is full.</value>
+  </data>
+  <data name="tbkLobbyNotFound" xml:space="preserve">
+    <value>The lobby you are trying to enter does not exist.</value>
+  </data>
+  <data name="tbkModifyAccountFailDescription" xml:space="preserve">
+    <value>It was not possible to make the changes. Please try again later.</value>
+  </data>
+  <data name="tbkPasswordResetedDescription" xml:space="preserve">
+    <value>Password was changed successfully</value>
+  </data>
+  <data name="tbkPurchaseColorDescription" xml:space="preserve">
+    <value>You bought the color correctly.</value>
+  </data>
+  <data name="tbkPurchaseStyleDescription" xml:space="preserve">
+    <value>Buy the style correctly.</value>
+  </data>
+  <data name="tbkReportedPlayerDescription" xml:space="preserve">
+    <value>You have already reported this player.</value>
+  </data>
+  <data name="tbkServerExceptionDescription" xml:space="preserve">
+    <value>Oops... A server error occurred. Please try again later</value>
+  </data>
+  <data name="tbkSuccesfulReportDescription" xml:space="preserve">
+    <value>The player has been reported. We appreciate your support.</value>
+  </data>
+  <data name="tbkTimeOutExceptionDescription" xml:space="preserve">
+    <value>The operation has timed out. Please try again later.</value>
+  </data>
+  <data name="tbkUnexpectedExceptionDescription" xml:space="preserve">
+    <value>Oops... An unexpected error occurred. Please try again later</value>
+  </data>
+  <data name="tbkUniquePlayerDescription" xml:space="preserve">
+    <value>You are the only player in the game. You will return to the lobby.</value>
+  </data>
+  <data name="tbxBirthdate" xml:space="preserve">
+    <value>02/11/2003</value>
+  </data>
+  <data name="tbxEmailExample" xml:space="preserve">
+    <value>example@email.com</value>
+  </data>
+  <data name="tbxExampleCode" xml:space="preserve">
+    <value>e.g. YF789A</value>
+  </data>
+  <data name="tbxLastName" xml:space="preserve">
+    <value>Taylor</value>
+  </data>
+  <data name="tbxName" xml:space="preserve">
+    <value>Jhon</value>
+  </data>
+  <data name="tbxResetPasswordCodeExample" xml:space="preserve">
+    <value>e.g. 321456</value>
+  </data>
+  <data name="tbxSurname" xml:space="preserve">
+    <value>Clark</value>
+  </data>
+  <data name="tbxUserName" xml:space="preserve">
+    <value>Player1</value>
+  </data>
+  <data name="tbxUserNameExample" xml:space="preserve">
+    <value>e.g. Gamer17</value>
+  </data>
+  <data name="tbxUserNameRegistration" xml:space="preserve">
+    <value>MasterPro3337</value>
+  </data>
+  <data name="txtBodyBeginnerEmailVerification" xml:space="preserve">
+    <value>Hello, welcome to Timbiriche!
+This is a verification email to create your account, please enter the following code in the game:
+</value>
+  </data>
+  <data name="txtSubjectBeginnerEmailVerification" xml:space="preserve">
+    <value>Email Verification</value>
   </data>
 </root>

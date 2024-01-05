@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimbiricheHost", "Timbirich
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimbiricheDataAccess", "TimbiricheDataAccess\TimbiricheDataAccess.csproj", "{2A0A8355-54DB-41A1-A017-B8C3F78F3633}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimbiricheTests", "TimbiricheTests\TimbiricheTests.csproj", "{B4CAB903-B7B9-477E-8251-2217680BDDB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2A0A8355-54DB-41A1-A017-B8C3F78F3633}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A0A8355-54DB-41A1-A017-B8C3F78F3633}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A0A8355-54DB-41A1-A017-B8C3F78F3633}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CAB903-B7B9-477E-8251-2217680BDDB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CAB903-B7B9-477E-8251-2217680BDDB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CAB903-B7B9-477E-8251-2217680BDDB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CAB903-B7B9-477E-8251-2217680BDDB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

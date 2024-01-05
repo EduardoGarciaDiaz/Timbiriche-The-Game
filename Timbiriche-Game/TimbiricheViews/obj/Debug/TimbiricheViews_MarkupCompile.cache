@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\egd17\Documents\TECNOLOGÍAS PARA LA CONSTRUCCION DE SOFTWARE\ProyectoFinal\Timbiriche-The-Game\Timbiriche-Game\TimbiricheViews\App.xaml
-2-419637418
-
-8964918299
-13-38814620
-Views\XAMLMainWindow.xaml;Views\XAMLUserForm.xaml;
+22-1103725642
+3-1638773155
+491968269964
+241915206066
+Components\Lobby\XAMLLobbyInvitationComponent.xaml;Components\Match\XAMLMessageItemComponent.xaml;Components\Shop\XAMLColorItemComponent.xaml;Components\Shop\XAMLStyleItemComponent.xaml;Components\XAMLOptionsPlayerComponent.xaml;Components\XAMLFriendRequestItemComponent.xaml;Components\XAMLActiveUserItemComponent.xaml;Components\XAMLEmergentWindow.xaml;Views\Ban\XAMLBan.xaml;Views\GameBoard\XAMLGameBoard.xaml;Views\GlobalScoreboard\XAMLGlobalScoreboard.xaml;Views\JoinGuest\XAMLJoinGuest.xaml;Views\GuestLobby\XAMLGuestLobby.xaml;Views\MyProfile\XAMLMyProfile.xaml;Views\PasswordReset\XAMLPasswordReset.xaml;Views\Shop\XAMLShop.xaml;Components\XAMLBeginnerCodeVerification.xaml;Views\Victory\XAMLVictory.xaml;XAMLMainWindow.xaml;Views\Lobby\XAMLLobby.xaml;Views\Login\XAMLLogin.xaml;Views\UserForm\XAMLUserForm.xaml;
 
 False
 

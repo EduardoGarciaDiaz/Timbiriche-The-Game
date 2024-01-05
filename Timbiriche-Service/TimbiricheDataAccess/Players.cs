@@ -14,13 +14,51 @@ namespace TimbiricheDataAccess
     
     public partial class Players
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Players()
+        {
+            this.PasswordResetTokens = new HashSet<PasswordResetTokens>();
+            this.PlayerColors = new HashSet<PlayerColors>();
+            this.PlayerStyles = new HashSet<PlayerStyles>();
+            this.FriendShips = new HashSet<FriendShips>();
+            this.FriendShips1 = new HashSet<FriendShips>();
+            this.Bans = new HashSet<Bans>();
+            this.Reports = new HashSet<Reports>();
+            this.Reports1 = new HashSet<Reports>();
+            this.GlobalScores = new HashSet<GlobalScores>();
+        }
+    
         public int idPlayer { get; set; }
         public string username { get; set; }
         public string email { get; set; }
         public string password { get; set; }
         public Nullable<int> coins { get; set; }
         public int idAccount { get; set; }
+        public string status { get; set; }
+        public string salt { get; set; }
+        public Nullable<int> idColorSelected { get; set; }
+        public Nullable<int> idStyleSelected { get; set; }
     
         public virtual Accounts Accounts { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PasswordResetTokens> PasswordResetTokens { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlayerColors> PlayerColors { get; set; }
+        public virtual Colors Colors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PlayerStyles> PlayerStyles { get; set; }
+        public virtual Styles Styles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FriendShips> FriendShips { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<FriendShips> FriendShips1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Bans> Bans { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reports> Reports1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<GlobalScores> GlobalScores { get; set; }
     }
 }

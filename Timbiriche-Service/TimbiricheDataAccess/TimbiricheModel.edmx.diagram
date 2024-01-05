@@ -4,10 +4,33 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="92aa6b28cca647c28d7d6017148bcb48" Name="Diagram1">
-        <EntityTypeShape EntityType="TimbiricheDBModel.Accounts" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="TimbiricheDBModel.Players" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+      <Diagram DiagramId="92aa6b28cca647c28d7d6017148bcb48" Name="Diagram1" ZoomLevel="67">
+        <EntityTypeShape EntityType="TimbiricheDBModel.Accounts" Width="1.5" PointX="1" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.Players" Width="1.5" PointX="4" PointY="0.625" IsExpanded="true" />
         <AssociationConnector Association="TimbiricheDBModel.FK_PlayersAccounts" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.Colors" Width="1.5" PointX="9.625" PointY="5.375" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.PasswordResetTokens" Width="1.5" PointX="1" PointY="2.75" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.PlayerColors" Width="1.5" PointX="9.625" PointY="0.875" />
+        <AssociationConnector Association="TimbiricheDBModel.FK__PlayerCol__idCol__5441852A" />
+        <AssociationConnector Association="TimbiricheDBModel.FK__PasswordR__idPla__4CA06362" />
+        <AssociationConnector Association="TimbiricheDBModel.FK__PlayerCol__idPla__534D60F1" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_Player_PlayerColors" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.PlayerStyles" Width="1.5" PointX="7.5" PointY="1" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.Styles" Width="1.5" PointX="7.75" PointY="3.375" />
+        <AssociationConnector Association="TimbiricheDBModel.FK__PlayerSty__idPla__7755B73D" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_Player_PlayerStyles" />
+        <AssociationConnector Association="TimbiricheDBModel.FK__PlayerSty__idSty__7849DB76" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.FriendShips" Width="1.5" PointX="3.875" PointY="7.375" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_FriendShips_PlayerFriend" ManuallyRouted="false" >
+        </AssociationConnector>
+        <AssociationConnector Association="TimbiricheDBModel.FK_FriendShips_Players" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.Bans" Width="1.5" PointX="5.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.Reports" Width="1.5" PointX="0.5" PointY="5.75" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_Bans_Players" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_Reports_PlayersReported" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_Reports_PlayersReporter" />
+        <EntityTypeShape EntityType="TimbiricheDBModel.GlobalScores" Width="1.5" PointX="2.125" PointY="5.75" />
+        <AssociationConnector Association="TimbiricheDBModel.FK_GlobalScores_Players" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
